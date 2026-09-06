@@ -80,6 +80,7 @@ describe('SourceStep — initialError (prefill) handling', () => {
       'Spliit',
       'Spliit Cloud',
       'Splitwise',
+      'Cospend',
       'Tricount (coming soon)',
       'Settle Up (coming soon)',
     ])
@@ -90,6 +91,7 @@ describe('SourceStep — initialError (prefill) handling', () => {
       'spliit',
       'spliit-cloud',
       'splitwise',
+      'cospend',
       'tricount',
       'settleup',
     ] as const

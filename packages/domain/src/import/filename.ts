@@ -39,6 +39,16 @@ export function guessGroupNameFromFilename(filename: string): string | null {
     return humanizeGroupPrefix(prefix)
   }
 
+  // Cospend project exports are named `<slug>_<date>.csv` (or `<slug>.csv`).
+  // The slug is a lossy lowercased version of the project name (umlauts
+  // stripped, spaces → hyphens/underscores); humanize it as a default. The
+  // date-suffixed form is matched first so a bare slug is a last resort.
+  const cospendDated = base.match(/^(.+)_(\d{4}-\d{2}-\d{2})$/)
+  if (cospendDated) {
+    const prefix = cospendDated[1].trim()
+    if (prefix && !/^\d+$/.test(prefix)) return humanizeGroupPrefix(prefix)
+  }
+
   return null
 }
 

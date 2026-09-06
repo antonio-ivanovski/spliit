@@ -56,7 +56,7 @@ export type NormalizedSourceExpense = {
 }
 
 export type NormalizedSource = {
-  provider: 'SPLIIT' | 'SPLITWISE'
+  provider: 'SPLIIT' | 'SPLITWISE' | 'COSPEND'
   /** Null identifies the original unversioned spliit.app export. */
   exportVersion?: 3 | null
   sourceGroupId: string

@@ -110,7 +110,15 @@ describe('planLegacyRecurringImport', () => {
       { expenseIndex: 2, sequence: 3, isSeriesAnchor: true },
     ])
     expect(summarizeLegacyRecurringImport(expenses)).toEqual([
-      { title: 'Spotify Monthly', recurrenceRule: 'MONTHLY' },
+      {
+        title: 'Spotify Monthly',
+        recurrenceRule: 'MONTHLY',
+        config: {
+          frequency: 'MONTHLY',
+          interval: 1,
+          end: { type: 'INDEFINITE' },
+        },
+      },
     ])
   })
 
@@ -150,8 +158,24 @@ describe('planLegacyRecurringImport', () => {
     const plan = planLegacyRecurringImport(expenses, today)
     expect(plan.series).toHaveLength(2)
     expect(summarizeLegacyRecurringImport(expenses)).toEqual([
-      { title: 'Rent', recurrenceRule: 'MONTHLY' },
-      { title: 'Rent', recurrenceRule: 'MONTHLY' },
+      {
+        title: 'Rent',
+        recurrenceRule: 'MONTHLY',
+        config: {
+          frequency: 'MONTHLY',
+          interval: 1,
+          end: { type: 'INDEFINITE' },
+        },
+      },
+      {
+        title: 'Rent',
+        recurrenceRule: 'MONTHLY',
+        config: {
+          frequency: 'MONTHLY',
+          interval: 1,
+          end: { type: 'INDEFINITE' },
+        },
+      },
     ])
   })
 
@@ -174,7 +198,7 @@ describe('planLegacyRecurringImport', () => {
 describe('firstRecurrenceDateAfterToday', () => {
   it('advances past overdue dates', () => {
     const next = firstRecurrenceDateAfterToday(
-      'MONTHLY',
+      { frequency: 'MONTHLY', interval: 1, end: { type: 'INDEFINITE' } },
       '2026-06-01',
       new Date('2026-07-23T00:00:00.000Z'),
     )
@@ -185,7 +209,7 @@ describe('firstRecurrenceDateAfterToday', () => {
 describe('firstRecurrenceAfterToday', () => {
   it('returns matching ordinal for the advanced date', () => {
     const next = firstRecurrenceAfterToday(
-      'MONTHLY',
+      { frequency: 'MONTHLY', interval: 1, end: { type: 'INDEFINITE' } },
       '2026-06-01',
       new Date('2026-07-23T00:00:00.000Z'),
     )
@@ -196,7 +220,7 @@ describe('firstRecurrenceAfterToday', () => {
   it('keeps month-end anchors on the 31st after overdue skip (not iterative clamp drift)', () => {
     // Iterative Jan31→Feb28→Mar28… would land on Jul 28; anchored math stays Jul 31.
     const next = firstRecurrenceAfterToday(
-      'MONTHLY',
+      { frequency: 'MONTHLY', interval: 1, end: { type: 'INDEFINITE' } },
       '2025-01-31',
       new Date('2026-07-23T00:00:00.000Z'),
     )
@@ -208,12 +232,21 @@ describe('firstRecurrenceAfterToday', () => {
     // After 2024-02-29, non-leap years clamp to Feb 28; ordinal 5 returns to Feb 29.
     // Iterative stepping from Feb 28 would stay on the 28th forever.
     const next = firstRecurrenceAfterToday(
-      'YEARLY',
+      { frequency: 'YEARLY', interval: 1, end: { type: 'INDEFINITE' } },
       '2024-02-29',
       new Date('2027-03-01T00:00:00.000Z'),
     )
     expect(next.date.toISOString().slice(0, 10)).toBe('2028-02-29')
     expect(next.ordinal).toBe(5)
+  })
+
+  it('honours a multi-interval config (every 3 months)', () => {
+    const next = firstRecurrenceAfterToday(
+      { frequency: 'MONTHLY', interval: 3, end: { type: 'INDEFINITE' } },
+      '2026-01-15',
+      new Date('2026-07-23T00:00:00.000Z'),
+    )
+    expect(next.date.toISOString().slice(0, 10)).toBe('2026-10-15')
   })
 })
 

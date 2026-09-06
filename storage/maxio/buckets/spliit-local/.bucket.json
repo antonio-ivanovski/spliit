@@ -1,17 +1,5 @@
 {
   "name": "spliit-local",
-  "created_at": "2026-07-03T13:12:20.559Z",
-  "region": "us-east-1",
-  "public_read": true,
-  "cors_rules": [
-    {
-      "allowed_origins": ["http://localhost:3000"],
-      "allowed_methods": ["GET", "PUT", "POST", "DELETE", "HEAD"],
-      "allowed_headers": ["*"],
-      "expose_headers": ["ETag", "x-amz-version-id", "x-amz-request-id"],
-      "max_age_seconds": 3600
-    }
-  ],
-  "encryption_config": null,
-  "public_list": false
+  "created_at": "2026-09-06T21:51:37.080Z",
+  "region": "us-east-1"
 }

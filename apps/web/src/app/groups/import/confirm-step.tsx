@@ -5,7 +5,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { AppRouterOutput } from '@spliit/api/router'
-import type { NormalizedSource } from '@spliit/domain/import'
+import type { NormalizedSource, RecurrenceConfig } from '@spliit/domain/import'
 import {
   collapseExpenseFromNormalized,
   summarizeLegacyRecurringImport,
@@ -121,15 +121,46 @@ export function ConfirmStep({
         ),
       )
 
-  const recurrenceRuleLabel = (rule: 'DAILY' | 'WEEKLY' | 'MONTHLY') => {
-    switch (rule) {
-      case 'DAILY':
-        return t('Groups.Import.Confirm.recurrenceRule.daily')
-      case 'WEEKLY':
-        return t('Groups.Import.Confirm.recurrenceRule.weekly')
-      case 'MONTHLY':
-        return t('Groups.Import.Confirm.recurrenceRule.monthly')
+  const recurrenceConfigLabel = (config: RecurrenceConfig) => {
+    if (config.interval === 1) {
+      switch (config.frequency) {
+        case 'DAILY':
+          return t('Groups.Import.Confirm.recurrenceRule.daily')
+        case 'WEEKLY':
+          return t('Groups.Import.Confirm.recurrenceRule.weekly')
+        case 'MONTHLY':
+          return t('Groups.Import.Confirm.recurrenceRule.monthly')
+        case 'YEARLY':
+          return t('Groups.Import.Confirm.recurrenceRule.yearly')
+      }
     }
+    let frequency: string
+    switch (config.frequency) {
+      case 'DAILY':
+        frequency = t(
+          'Groups.Import.Confirm.recurrenceSchedule.frequency.daily',
+        )
+        break
+      case 'WEEKLY':
+        frequency = t(
+          'Groups.Import.Confirm.recurrenceSchedule.frequency.weekly',
+        )
+        break
+      case 'MONTHLY':
+        frequency = t(
+          'Groups.Import.Confirm.recurrenceSchedule.frequency.monthly',
+        )
+        break
+      case 'YEARLY':
+        frequency = t(
+          'Groups.Import.Confirm.recurrenceSchedule.frequency.yearly',
+        )
+        break
+    }
+    return t('Groups.Import.Confirm.recurrenceSchedule.every', {
+      interval: config.interval,
+      frequency,
+    })
   }
 
   return (
@@ -195,11 +226,11 @@ export function ConfirmStep({
                 <ul className="ms-4 list-disc space-y-1 text-muted-foreground">
                   {recurringSchedules.map((schedule, index) => (
                     <li
-                      key={`${index}:${schedule.title}:${schedule.recurrenceRule}`}
+                      key={`${index}:${schedule.title}:${schedule.config.frequency}:${schedule.config.interval}`}
                     >
                       {t('Groups.Import.Confirm.recurringScheduleItem', {
                         title: schedule.title,
-                        rule: recurrenceRuleLabel(schedule.recurrenceRule),
+                        rule: recurrenceConfigLabel(schedule.config),
                       })}
                     </li>
                   ))}

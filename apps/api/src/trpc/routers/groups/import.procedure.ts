@@ -79,28 +79,29 @@ const historicalActivitySchema = z.object({
 })
 
 /**
- * Spliit imports intentionally remain the immutable legacy spliit.app
- * transport. Internal Cloud series metadata is never accepted here; legacy
- * recurrenceRule values are mapped to collapsed destination series.
+ * Imports carry the legacy `recurrenceRule` plus, when the source supports it,
+ * an authoritative `recurrence` config (frequency + interval + end). The config
+ * is validated by `expenseApiSchema` and preferred over the legacy rule when
+ * planning destination series (e.g. Cospend's yearly / multi-interval /
+ * dated-end schedules). `expenseTimeZone` is always normalized to UTC.
  */
 export const importExpenseSchema = z.preprocess((value) => {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return value
-  const {
-    recurrence: _recurrence,
-    expenseTimeZone: _expenseTimeZone,
-    ...legacyExpense
-  } = value as Record<string, unknown>
-  const rawExpenseDate = legacyExpense.expenseDate
+  const { expenseTimeZone: _expenseTimeZone, ...expense } = value as Record<
+    string,
+    unknown
+  >
+  const rawExpenseDate = expense.expenseDate
   const expenseDate =
     rawExpenseDate instanceof Date
       ? rawExpenseDate
       : typeof rawExpenseDate === 'string' || typeof rawExpenseDate === 'number'
         ? new Date(rawExpenseDate)
         : null
-  if (!expenseDate || Number.isNaN(expenseDate.getTime())) return legacyExpense
+  if (!expenseDate || Number.isNaN(expenseDate.getTime())) return expense
 
   return {
-    ...legacyExpense,
+    ...expense,
     expenseDate: new Date(
       Date.UTC(
         expenseDate.getUTCFullYear(),

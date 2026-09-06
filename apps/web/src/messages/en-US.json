@@ -433,6 +433,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (coming soon)",
         "settleUp": "Settle Up (coming soon)",
         "spliitDescription": "Bring an existing spliit.app group into Spliit Cloud. We read the group name, participants, and every expense.",
@@ -461,6 +462,11 @@
         "splitwiseDescription": "Drop a Splitwise CSV export to import its expenses into Spliit Cloud. The file must come from Splitwise's group export — the per-group CSV available from the group's settings.",
         "receiptWarningTitleSplitwise": "Receipt images are not imported.",
         "receiptWarningDescriptionSplitwise": "The Splitwise export does not include receipt images. Re-upload them in the destination group if you need them.",
+        "cospendDescription": "Drop a Cospend project CSV export to import its members, bills, and recurring schedules into Spliit Cloud. Export the project from Cospend's settings (one CSV per project). Recurring bills keep their schedule — yearly, multi-interval, and dated-end repeats are all supported.",
+        "receiptWarningTitleCospend": "Receipt images are not imported.",
+        "receiptWarningDescriptionCospend": "The Cospend export does not include receipt images. Re-upload them in the destination group if you need them.",
+        "dropFileCospend": "Drop a Cospend CSV export, or click to select",
+        "dropFileDescriptionCospend": "Cospend exports one CSV per project. We import the members, every bill, and recurring schedules. The project's base currency defaults to EUR when the export doesn't state it — check it in the next step.",
         "unsupportedFileType": "Unsupported file type. Please drop a JSON or CSV file.",
         "dropFileSplitwise": "Drop a Splitwise CSV file, or click to select",
         "dropFileDescriptionSplitwise": "CSV is the only format Splitwise exports. We parse the per-participant values to reconstruct the split.",
@@ -583,7 +589,17 @@
         "recurrenceRule": {
           "daily": "Daily",
           "weekly": "Weekly",
-          "monthly": "Monthly"
+          "monthly": "Monthly",
+          "yearly": "Yearly"
+        },
+        "recurrenceSchedule": {
+          "every": "Every {interval} {frequency}",
+          "frequency": {
+            "daily": "day(s)",
+            "weekly": "week(s)",
+            "monthly": "month(s)",
+            "yearly": "year(s)"
+          }
         },
         "documentCount": "Documents: {imported} recovered, {skipped} skipped"
       },

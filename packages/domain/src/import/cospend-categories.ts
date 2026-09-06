@@ -1,0 +1,238 @@
+import type { CategoryId } from '../categories'
+
+/**
+ * Best-effort mapping of Cospend category names to Spliit category ids.
+ *
+ * Cospend categories are user-defined and may be in any language, so this is a
+ * keyword-based heuristic that falls back to `general` when nothing matches.
+ * Matching is case-insensitive and runs on the trimmed, lower-cased name.
+ */
+const KEYWORDS: Array<[readonly string[], CategoryId]> = [
+  // Food & drink
+  [
+    [
+      'lebensmittel',
+      'supermarkt',
+      'rewe',
+      'lidl',
+      'aldi',
+      'markt',
+      'grocer',
+      'groceries',
+      'supermarket',
+      'lebensmittel',
+    ],
+    'groceries',
+  ],
+  [
+    [
+      'restaurant',
+      'essen',
+      'kantine',
+      'cafe',
+      'café',
+      'pizzeria',
+      'pizza',
+      'bistro',
+      'dining',
+      'fastfood',
+      'fast food',
+      'imbiss',
+    ],
+    'dining-out',
+  ],
+  [
+    [
+      'getraenk',
+      'getränke',
+      'drink',
+      'drinks',
+      'bar',
+      'kneipe',
+      'bier',
+      'liquor',
+      'alcohol',
+      'alkohol',
+    ],
+    'liquor',
+  ],
+  [
+    [
+      'lebensmittel',
+      'food',
+      'essen',
+      'snack',
+      'imbiß',
+      'imbiss',
+      'verpflegung',
+    ],
+    'food-and-drink',
+  ],
+  // Home
+  [['miete', 'rent', 'miete'], 'rent'],
+  [['strom', 'electricity', 'strom', 'energie', 'energy'], 'electricity'],
+  [['gas', 'heizung', 'heat', 'warme', 'wärme', 'gas'], 'heat-gas'],
+  [['wasser', 'water'], 'water'],
+  [
+    ['internet', 'tv', 'telefon', 'phone', 'kabel', 'broadband'],
+    'tv-phone-internet',
+  ],
+  [
+    ['handwerk', 'reparatur', 'maintenance', 'repair', 'handwerker'],
+    'maintenance',
+  ],
+  [['mobel', 'möbel', 'furniture', 'furniture'], 'furniture'],
+  [['garten', 'gardening', 'garden', 'pflanzen', 'plants'], 'gardening'],
+  [
+    ['haushalt', 'household', 'reinigung', 'cleaning', 'cleaning'],
+    'household-supplies',
+  ],
+  // Life
+  [
+    [
+      'versicherung',
+      'insurance',
+      'versicherung',
+      'haftpflicht',
+      'kasko',
+      'kfz',
+    ],
+    'insurance',
+  ],
+  [
+    [
+      'arzt',
+      'apotheke',
+      'medical',
+      'health',
+      'gesundheit',
+      'zahnarzt',
+      'dental',
+      'medication',
+      'arznei',
+    ],
+    'medical-expenses',
+  ],
+  [['steuer', 'tax', 'taxes', 'steuer'], 'taxes'],
+  [
+    [
+      'kind',
+      'child',
+      'kita',
+      'kinder',
+      'school',
+      'schule',
+      'education',
+      'unterkunft',
+    ],
+    'childcare',
+  ],
+  [['kleidung', 'clothing', 'shoppen', 'shopping', 'kauf', 'shop'], 'clothing'],
+  [['geschenk', 'gift', 'gifts', 'spende', 'donation'], 'gifts'],
+  // Transportation
+  [
+    ['tanken', 'benzin', 'diesel', 'fuel', 'gas', 'kraftstoff', 'benzin'],
+    'gas-fuel',
+  ],
+  [['parken', 'parking', 'parkplatz'], 'parking'],
+  [['vignette', 'maut', 'toll', 'tolls', 'autobahn'], 'tolls'],
+  [['taxi', 'uber', 'taxi'], 'taxi'],
+  [
+    ['bahn', 'bus', 'train', 'ubahn', 's-bahn', 'suv', 'bus/train', 'public'],
+    'bus-train',
+  ],
+  [
+    [
+      'flug',
+      'flughafen',
+      'plane',
+      'flight',
+      'airline',
+      'hotel',
+      'reise',
+      'trip',
+    ],
+    'hotel',
+  ],
+  [
+    ['auto', 'car', 'kfz', 'fahrzeug', 'vehicle', 'fahrrad', 'bicycle', 'bike'],
+    'car',
+  ],
+  [
+    ['verkehr', 'transport', 'transportation', 'anfahrt', 'reise'],
+    'transportation',
+  ],
+  // Entertainment
+  [['kino', 'movies', 'movie', 'cinema', 'film'], 'movies'],
+  [['musik', 'music', 'konzert', 'concert', 'cd'], 'music'],
+  [['sport', 'sports', 'fitness', 'gym', 'turnhalle', 'verein'], 'sports'],
+  [['spiel', 'games', 'game', 'spielen', 'console'], 'games'],
+  [
+    [
+      'ausflug',
+      'kultur',
+      'event',
+      'events',
+      'aktivitaet',
+      'aktivität',
+      'activity',
+      'freizeit',
+      'hobby',
+      'spaß',
+      'spass',
+    ],
+    'events-and-activities',
+  ],
+  [
+    ['vergnuegen', 'vergnügen', 'entertainment', 'entertainment'],
+    'entertainment',
+  ],
+  // Subscriptions
+  [
+    [
+      'abo',
+      'subscription',
+      'subscriptions',
+      'streaming',
+      'netflix',
+      'spotify',
+      'mitgliedschaft',
+      'membership',
+    ],
+    'subscriptions-and-memberships',
+  ],
+  // Utilities / services
+  [
+    ['strom', 'wasser', 'gas', 'utility', 'utilities', 'nebenkosten'],
+    'utilities',
+  ],
+  [['service', 'services', 'dienstleistung', 'handwerk'], 'services'],
+  // Income
+  [
+    [
+      'gehalt',
+      'salary',
+      'einkommen',
+      'income',
+      'lohn',
+      'gage',
+      'gehalt',
+      'bonus',
+    ],
+    'income',
+  ],
+]
+
+export function cospendCategoryToId(
+  name: string | null | undefined,
+): CategoryId {
+  if (!name) return 'general'
+  const normalized = name.trim().toLowerCase()
+  if (!normalized) return 'general'
+  for (const [keywords, categoryId] of KEYWORDS) {
+    if (keywords.some((keyword) => normalized.includes(keyword))) {
+      return categoryId
+    }
+  }
+  return 'general'
+}

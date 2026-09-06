@@ -1,4 +1,6 @@
 export * from './anonymize-splitwise-csv'
+export * from './cospend-categories'
+export * from './cospend-csv'
 export * from './filename'
 export * from './mapping'
 export * from './recurrence'
