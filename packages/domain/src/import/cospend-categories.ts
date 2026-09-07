@@ -72,34 +72,11 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
   [['mobel', 'möbel', 'furniture'], 'furniture'],
   [['garten', 'gardening', 'garden', 'pflanzen', 'plants'], 'gardening'],
   [['haushalt', 'household', 'reinigung', 'cleaning'], 'household-supplies'],
-  // Life
-  [['versicherung', 'insurance', 'haftpflicht', 'kasko'], 'insurance'],
-  [
-    [
-      'arzt',
-      'apotheke',
-      'medical',
-      'health',
-      'gesundheit',
-      'zahnarzt',
-      'dental',
-      'medication',
-      'arznei',
-    ],
-    'medical-expenses',
-  ],
-  [['steuer', 'tax', 'taxes'], 'taxes'],
-  [
-    ['kind', 'child', 'kita', 'kinder', 'school', 'schule', 'education'],
-    'childcare',
-  ],
-  [['kleidung', 'clothing', 'shoppen', 'shopping', 'kauf', 'shop'], 'clothing'],
-  [['geschenk', 'gift', 'gifts', 'spende', 'donation'], 'gifts'],
   // Transportation
+  [['taxi', 'uber'], 'taxi'],
   [['tanken', 'diesel', 'fuel', 'kraftstoff', 'benzin'], 'gas-fuel'],
   [['parken', 'parking', 'parkplatz'], 'parking'],
   [['vignette', 'maut', 'toll', 'tolls', 'autobahn'], 'tolls'],
-  [['taxi', 'uber'], 'taxi'],
   [
     ['bahn', 'bus', 'train', 'ubahn', 's-bahn', 'bus/train', 'public'],
     'bus-train',
@@ -135,6 +112,29 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
     ['verkehr', 'transport', 'transportation', 'anfahrt', 'reise', 'trip'],
     'transportation',
   ],
+  // Life
+  [['versicherung', 'insurance', 'haftpflicht', 'kasko'], 'insurance'],
+  [
+    [
+      'arzt',
+      'apotheke',
+      'medical',
+      'health',
+      'gesundheit',
+      'zahnarzt',
+      'dental',
+      'medication',
+      'arznei',
+    ],
+    'medical-expenses',
+  ],
+  [['steuer', 'tax', 'taxes'], 'taxes'],
+  [
+    ['kind', 'child', 'kita', 'kinder', 'school', 'schule', 'education'],
+    'childcare',
+  ],
+  [['kleidung', 'clothing', 'shoppen', 'shopping', 'kauf', 'shop'], 'clothing'],
+  [['geschenk', 'gift', 'gifts', 'spende', 'donation'], 'gifts'],
   // Entertainment
   [['kino', 'movies', 'movie', 'cinema', 'film'], 'movies'],
   [['musik', 'music', 'konzert', 'concert', 'cd'], 'music'],
@@ -193,7 +193,17 @@ export function cospendCategoryToId(
   const normalized = name.trim().toLowerCase()
   if (!normalized) return 'general'
   for (const [keywords, categoryId] of KEYWORDS) {
-    if (keywords.some((keyword) => normalized.includes(keyword))) {
+    if (
+      keywords.some((keyword) => {
+        if (normalized === keyword) return true
+        const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+        const pattern = new RegExp(
+          `(^|[^\\p{L}\\p{N}])${escaped}([^\\p{L}\\p{N}]|$)`,
+          'u',
+        )
+        return pattern.test(normalized)
+      })
+    ) {
       return categoryId
     }
   }

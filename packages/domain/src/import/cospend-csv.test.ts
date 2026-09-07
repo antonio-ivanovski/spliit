@@ -454,6 +454,13 @@ describe('cospendCategoryToId', () => {
     expect(cospendCategoryToId('Rückzahlung')).toBe('settlement')
   })
 
+  it('resolves taxi to taxi rather than taxes (word boundary regression)', () => {
+    expect(cospendCategoryToId('taxi')).toBe('taxi')
+    expect(cospendCategoryToId('Taxi')).toBe('taxi')
+    expect(cospendCategoryToId('tax')).toBe('taxes')
+    expect(cospendCategoryToId('Taxes')).toBe('taxes')
+  })
+
   it('falls back to general for unknown or empty names', () => {
     expect(cospendCategoryToId('Blablabla')).toBe('general')
     expect(cospendCategoryToId('')).toBe('general')
