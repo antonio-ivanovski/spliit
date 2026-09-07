@@ -219,7 +219,10 @@ export function SourceStep({
           onError(parsed.error)
           return
         }
-        const guessed = guessGroupNameFromFilename(file.name)
+        const guessed = guessGroupNameFromFilename(
+          file.name,
+          parsed.source.provider,
+        )
         if (guessed) parsed.source.name = guessed
         onLoaded(parsed.source)
       } catch (err) {

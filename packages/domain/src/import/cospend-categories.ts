@@ -20,7 +20,6 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
       'grocer',
       'groceries',
       'supermarket',
-      'lebensmittel',
     ],
     'groceries',
   ],
@@ -56,22 +55,11 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
     ],
     'liquor',
   ],
-  [
-    [
-      'lebensmittel',
-      'food',
-      'essen',
-      'snack',
-      'imbiß',
-      'imbiss',
-      'verpflegung',
-    ],
-    'food-and-drink',
-  ],
+  [['food', 'snack', 'imbiß', 'verpflegung'], 'food-and-drink'],
   // Home
-  [['miete', 'rent', 'miete'], 'rent'],
-  [['strom', 'electricity', 'strom', 'energie', 'energy'], 'electricity'],
-  [['gas', 'heizung', 'heat', 'warme', 'wärme', 'gas'], 'heat-gas'],
+  [['miete', 'rent'], 'rent'],
+  [['strom', 'electricity', 'energie', 'energy'], 'electricity'],
+  [['gas', 'heizung', 'heat', 'warme', 'wärme'], 'heat-gas'],
   [['wasser', 'water'], 'water'],
   [
     ['internet', 'tv', 'telefon', 'phone', 'kabel', 'broadband'],
@@ -81,24 +69,11 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
     ['handwerk', 'reparatur', 'maintenance', 'repair', 'handwerker'],
     'maintenance',
   ],
-  [['mobel', 'möbel', 'furniture', 'furniture'], 'furniture'],
+  [['mobel', 'möbel', 'furniture'], 'furniture'],
   [['garten', 'gardening', 'garden', 'pflanzen', 'plants'], 'gardening'],
-  [
-    ['haushalt', 'household', 'reinigung', 'cleaning', 'cleaning'],
-    'household-supplies',
-  ],
+  [['haushalt', 'household', 'reinigung', 'cleaning'], 'household-supplies'],
   // Life
-  [
-    [
-      'versicherung',
-      'insurance',
-      'versicherung',
-      'haftpflicht',
-      'kasko',
-      'kfz',
-    ],
-    'insurance',
-  ],
+  [['versicherung', 'insurance', 'haftpflicht', 'kasko'], 'insurance'],
   [
     [
       'arzt',
@@ -113,53 +88,51 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
     ],
     'medical-expenses',
   ],
-  [['steuer', 'tax', 'taxes', 'steuer'], 'taxes'],
+  [['steuer', 'tax', 'taxes'], 'taxes'],
   [
-    [
-      'kind',
-      'child',
-      'kita',
-      'kinder',
-      'school',
-      'schule',
-      'education',
-      'unterkunft',
-    ],
+    ['kind', 'child', 'kita', 'kinder', 'school', 'schule', 'education'],
     'childcare',
   ],
   [['kleidung', 'clothing', 'shoppen', 'shopping', 'kauf', 'shop'], 'clothing'],
   [['geschenk', 'gift', 'gifts', 'spende', 'donation'], 'gifts'],
   // Transportation
-  [
-    ['tanken', 'benzin', 'diesel', 'fuel', 'gas', 'kraftstoff', 'benzin'],
-    'gas-fuel',
-  ],
+  [['tanken', 'diesel', 'fuel', 'kraftstoff', 'benzin'], 'gas-fuel'],
   [['parken', 'parking', 'parkplatz'], 'parking'],
   [['vignette', 'maut', 'toll', 'tolls', 'autobahn'], 'tolls'],
-  [['taxi', 'uber', 'taxi'], 'taxi'],
+  [['taxi', 'uber'], 'taxi'],
   [
-    ['bahn', 'bus', 'train', 'ubahn', 's-bahn', 'suv', 'bus/train', 'public'],
+    ['bahn', 'bus', 'train', 'ubahn', 's-bahn', 'bus/train', 'public'],
     'bus-train',
   ],
+  [['flug', 'flughafen', 'plane', 'flight', 'airline'], 'plane'],
   [
     [
-      'flug',
-      'flughafen',
-      'plane',
-      'flight',
-      'airline',
       'hotel',
-      'reise',
-      'trip',
+      'unterkunft',
+      'hostel',
+      'motel',
+      'airbnb',
+      'lodging',
+      'accommodation',
     ],
     'hotel',
   ],
   [
-    ['auto', 'car', 'kfz', 'fahrzeug', 'vehicle', 'fahrrad', 'bicycle', 'bike'],
+    [
+      'auto',
+      'car',
+      'kfz',
+      'fahrzeug',
+      'vehicle',
+      'fahrrad',
+      'bicycle',
+      'bike',
+      'suv',
+    ],
     'car',
   ],
   [
-    ['verkehr', 'transport', 'transportation', 'anfahrt', 'reise'],
+    ['verkehr', 'transport', 'transportation', 'anfahrt', 'reise', 'trip'],
     'transportation',
   ],
   // Entertainment
@@ -183,10 +156,7 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
     ],
     'events-and-activities',
   ],
-  [
-    ['vergnuegen', 'vergnügen', 'entertainment', 'entertainment'],
-    'entertainment',
-  ],
+  [['vergnuegen', 'vergnügen', 'entertainment'], 'entertainment'],
   // Subscriptions
   [
     [
@@ -202,24 +172,17 @@ const KEYWORDS: Array<[readonly string[], CategoryId]> = [
     'subscriptions-and-memberships',
   ],
   // Utilities / services
-  [
-    ['strom', 'wasser', 'gas', 'utility', 'utilities', 'nebenkosten'],
-    'utilities',
-  ],
-  [['service', 'services', 'dienstleistung', 'handwerk'], 'services'],
+  [['utility', 'utilities', 'nebenkosten'], 'utilities'],
+  [['service', 'services', 'dienstleistung'], 'services'],
   // Income
   [
-    [
-      'gehalt',
-      'salary',
-      'einkommen',
-      'income',
-      'lohn',
-      'gage',
-      'gehalt',
-      'bonus',
-    ],
+    ['salary', 'einkommen', 'income', 'lohn', 'gage', 'gehalt', 'bonus'],
     'income',
+  ],
+  // Settlement / Reimbursement
+  [
+    ['reimbursement', 'rückzahlung', 'ausgleich', 'settlement', 'repayment'],
+    'settlement',
   ],
 ]
 

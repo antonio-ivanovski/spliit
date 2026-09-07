@@ -326,9 +326,19 @@
         "recurrenceRule": {
           "daily": "每天",
           "weekly": "每周",
-          "monthly": "每月"
+          "monthly": "每月",
+          "yearly": "每年"
         },
-        "documentCount": "文档：恢复 {imported} 份，跳过 {skipped} 份"
+        "documentCount": "文档：恢复 {imported} 份，跳过 {skipped} 份",
+        "recurrenceSchedule": {
+          "every": "每 {interval} {frequency}",
+          "frequency": {
+            "daily": "天",
+            "weekly": "周",
+            "monthly": "个月",
+            "yearly": "年"
+          }
+        }
       },
       "Destination": {
         "heading": "您想将 <strong>{name}</strong> 导入到哪里？（{participantCount} 名参与者 · {expenseCount} 笔支出）",
@@ -402,6 +412,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount（即将推出）",
         "settleUp": "Settle Up（即将推出）",
         "spliitDescription": "将现有的 spliit.app 群组导入 Spliit Cloud。我们会读取群组名称、参与者和每笔支出。",
@@ -430,6 +441,11 @@
         "splitwiseDescription": "拖入 Splitwise 的 CSV 导出文件，将其支出导入 Spliit Cloud。文件必须来自 Splitwise 的群组导出（可在群组设置中获取的按群组的 CSV）。",
         "receiptWarningTitleSplitwise": "收据图片不会被导入。",
         "receiptWarningDescriptionSplitwise": "Splitwise 的导出不包含收据图片。如果需要，请在目标群组中重新上传。",
+        "cospendDescription": "拖入 Cospend 的 CSV 导出文件，将其成员、账单和周期性计划导入 Spliit Cloud。请从 Cospend 的设置中导出项目（每个项目一个 CSV）。周期性账单将保留其计划——支持年度、多间隔以及带有结束日期的重复。",
+        "receiptWarningTitleCospend": "不会导入收据图片。",
+        "receiptWarningDescriptionCospend": "Cospend 导出不包含收据图片。如有需要，请在目标群组中重新上传。",
+        "dropFileCospend": "拖放 Cospend CSV 文件，或点击选择",
+        "dropFileDescriptionCospend": "Cospend 为每个项目导出一个 CSV 文件。我们会导入成员、每笔账单和周期性计划。若导出中未注明项目基准货币，则默认为 EUR——请在下一步中核对。",
         "unsupportedFileType": "不支持的文件类型，请拖放 JSON 或 CSV 文件。",
         "dropFileSplitwise": "拖放 Splitwise CSV 文件，或点击选择",
         "dropFileDescriptionSplitwise": "CSV 是 Splitwise 唯一支持导出的格式。我们会解析每位参与者的金额来重建分摊。",

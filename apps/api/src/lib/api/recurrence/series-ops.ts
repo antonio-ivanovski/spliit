@@ -117,8 +117,8 @@ export async function createSeriesForExpense(args: {
   /** Import / backfill: how many historical occurrences already exist. */
   occurrencesCreated?: number
   /** Import / backfill: explicit next cursor (e.g. first date after today). */
-  nextOccurrenceDate?: Date
-  nextOccurrenceOrdinal?: number
+  nextOccurrenceDate?: Date | null
+  nextOccurrenceOrdinal?: number | null
 }) {
   const timeZone = args.timeZone
   const nextOrdinal = args.nextOccurrenceOrdinal ?? 2
@@ -132,7 +132,9 @@ export async function createSeriesForExpense(args: {
     )
   const occurrencesCreated = args.occurrencesCreated ?? 1
   const fields = toSeriesFields(args.config)
-  const completed = initialSeriesCompleted(fields, args.anchorDate, nextDate)
+  const completed =
+    args.nextOccurrenceDate === null ||
+    initialSeriesCompleted(fields, args.anchorDate, nextDate)
   const anchorTimeMinutes = args.anchorTimeMinutes
   const series = await args.tx.recurringExpenseSeries.create({
     data: {

@@ -1,5 +1,6 @@
 import Papa from 'papaparse'
 
+import { SETTLEMENT_CATEGORY_ID } from '../categories'
 import { getCurrency } from '../currency'
 import { distributeRemainder } from '../remainder-distribution'
 import { calculateExactShares } from '../totals'
@@ -191,13 +192,30 @@ export function tryParseCospendCsv(input: string): ImportParseResult {
     }
   }
 
-  // ── Currencies (base currency = first row) ────────────────────────────
+  // ── Currencies (main currency = row with exchange_rate 1, or first row) ──
   let baseCurrency = DEFAULT_CURRENCY
   if (currenciesStart !== -1) {
     for (let r = currenciesStart + 1; r < rows.length; r++) {
       const row = rows[r]
       if (isBlank(row)) continue
+      if (
+        isHeader(row, MEMBER_HEADER) ||
+        isHeader(row, BILL_HEADER) ||
+        isHeader(row, CATEGORY_HEADER) ||
+        isHeader(row, PAYMENTMODE_HEADER)
+      ) {
+        break
+      }
       const code = (row[0] ?? '').trim().toUpperCase()
+      const rate = toNumberOrNull(row[1])
+      // Upstream always writes the main currency first with exchange_rate = 1.
+      // If the project had no custom currency name set, this row is ("", 1).
+      // In that case, keep DEFAULT_CURRENCY rather than scanning forward to an
+      // additional currency with exchange_rate != 1.
+      if (rate === 1) {
+        if (code) baseCurrency = code
+        break
+      }
       if (code) {
         baseCurrency = code
         break
@@ -299,7 +317,7 @@ export function tryParseCospendCsv(input: string): ImportParseResult {
     let notes: string | null = null
     if (comment) {
       try {
-        notes = decodeURIComponent(comment)
+        notes = decodeURIComponent(comment.replace(/\+/g, ' '))
       } catch {
         notes = comment
       }
@@ -308,7 +326,10 @@ export function tryParseCospendCsv(input: string): ImportParseResult {
     const categoryName = categoryId
       ? (categoryIdToName.get(categoryId) ?? null)
       : null
-    const category = cospendCategoryToId(categoryName)
+    const category =
+      categoryId === '-11'
+        ? SETTLEMENT_CATEGORY_ID
+        : cospendCategoryToId(categoryName)
 
     expenses.push({
       title: what,

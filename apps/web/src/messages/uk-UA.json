@@ -338,9 +338,19 @@
         "recurrenceRule": {
           "daily": "Щодня",
           "weekly": "Щотижня",
-          "monthly": "Щомісяця"
+          "monthly": "Щомісяця",
+          "yearly": "Щорічно"
         },
-        "documentCount": "Документи: відновлено — {imported}, пропущено — {skipped}"
+        "documentCount": "Документи: відновлено — {imported}, пропущено — {skipped}",
+        "recurrenceSchedule": {
+          "every": "Кожні {interval} {frequency}",
+          "frequency": {
+            "daily": "днів",
+            "weekly": "тижнів",
+            "monthly": "місяців",
+            "yearly": "років"
+          }
+        }
       },
       "Destination": {
         "heading": "Куди ви хочете імпортувати <strong>{name}</strong>? ({participantCount} учасників · {expenseCount} витрат)",
@@ -417,6 +427,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (незабаром)",
         "settleUp": "Settle Up (незабаром)",
         "spliitDescription": "Перенесіть існуючу групу з spliit.app до Spliit Cloud. Ми зчитуємо назву групи, учасників і кожну витрату.",
@@ -445,6 +456,11 @@
         "splitwiseDescription": "Перетягніть CSV-експорт із Splitwise, щоб імпортувати його витрати до Spliit Cloud. Файл має бути отриманий із групового експорту Splitwise — CSV для конкретної групи, доступний у налаштуваннях групи.",
         "receiptWarningTitleSplitwise": "Зображення чеків не імпортуються.",
         "receiptWarningDescriptionSplitwise": "Експорт Splitwise не включає зображення чеків. Повторно завантажте їх у групу призначення, якщо вони вам потрібні.",
+        "cospendDescription": "Перетягніть CSV-експорт Cospend, щоб імпортувати учасників, рахунки та повторювані розклади до Spliit Cloud. Експортуйте проект із налаштувань Cospend (один CSV на проект). Повторювані рахунки зберігають свій розклад — підтримуються щорічні повторення, повторення з кількома інтервалами та з кінцевою датою.",
+        "receiptWarningTitleCospend": "Зображення чеків не імпортуються.",
+        "receiptWarningDescriptionCospend": "Експорт Cospend не містить зображень чеків. Завантажте їх знову в цільовій групі, якщо вони вам потрібні.",
+        "dropFileCospend": "Перетягніть CSV-файл Cospend або натисніть, щоб вибрати",
+        "dropFileDescriptionCospend": "Cospend експортує один CSV на проект. Ми імпортуємо учасників, кожен рахунок і повторювані розклади. Базова валюта проекту за замовчуванням EUR, якщо вона не вказана в експорті — перевірте її на наступному кроці.",
         "unsupportedFileType": "Непідтримуваний тип файлу. Перетягніть файл JSON або CSV.",
         "dropFileSplitwise": "Перетягніть CSV-файл Splitwise або натисніть, щоб вибрати",
         "dropFileDescriptionSplitwise": "CSV — це єдиний формат, який експортує Splitwise. Ми аналізуємо значення для кожного учасника, щоб відновити розподіл.",

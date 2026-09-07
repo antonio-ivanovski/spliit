@@ -13,6 +13,7 @@ const BRAND_TOKENS = new Set([
   'GitHub',
   'Spliit',
   'Splitwise',
+  'Cospend',
   'Maxio',
   'Apple',
   'Google',

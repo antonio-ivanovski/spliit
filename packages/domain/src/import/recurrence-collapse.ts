@@ -57,12 +57,12 @@ export type LegacyRecurringSeriesPlan = {
   /** Index of the latest (anchor) expense in the input array. */
   anchorIndex: number
   occurrenceCount: number
-  nextOccurrenceDate: Date
+  nextOccurrenceDate: Date | null
   /**
    * 1-based anchored ordinal for `nextOccurrenceDate` (may be > 2 after
-   * skipping overdue).
+   * skipping overdue). `null` when the schedule end condition is exhausted.
    */
-  nextOccurrenceOrdinal: number
+  nextOccurrenceOrdinal: number | null
 }
 
 export type LegacyRecurringImportPlan = {
@@ -137,15 +137,31 @@ export function fingerprintLegacyRecurringExpense(
  * Advance from the day after the latest occurrence until the first date
  * strictly after `today` (UTC calendar day). Uses anchored occurrence math
  * (same as materialization), not iterative next-from-previous stepping. Returns
- * both the date and the 1-based anchored ordinal for that date.
+ * both the date and the 1-based anchored ordinal for that date, or `null` if
+ * the series end condition (DATE or COUNT) is exhausted.
  */
 export function firstRecurrenceAfterToday(
   config: RecurrenceConfig,
   latestExpenseDate: string | Date,
   today: Date = new Date(),
-): { date: Date; ordinal: number } {
+  latestOccurrenceNumber = 1,
+): { date: Date; ordinal: number } | null {
   const todayDay = toUtcDay(today)
   const anchor = toUtcDay(latestExpenseDate)
+
+  if (
+    config.end.type === 'DATE' &&
+    anchor.getTime() >= toUtcDay(config.end.endDate).getTime()
+  ) {
+    return null
+  }
+  if (
+    config.end.type === 'COUNT' &&
+    latestOccurrenceNumber >= config.end.count
+  ) {
+    return null
+  }
+
   let ordinal = 2
   let next = calculateRecurrenceDate(
     anchor,
@@ -154,6 +170,18 @@ export function firstRecurrenceAfterToday(
     ordinal,
   )
   while (next.getTime() <= todayDay.getTime()) {
+    if (
+      config.end.type === 'DATE' &&
+      next.getTime() > toUtcDay(config.end.endDate).getTime()
+    ) {
+      return null
+    }
+    if (
+      config.end.type === 'COUNT' &&
+      latestOccurrenceNumber + ordinal - 1 > config.end.count
+    ) {
+      return null
+    }
     ordinal += 1
     next = calculateRecurrenceDate(
       anchor,
@@ -162,19 +190,36 @@ export function firstRecurrenceAfterToday(
       ordinal,
     )
   }
+
+  if (
+    config.end.type === 'DATE' &&
+    next.getTime() > toUtcDay(config.end.endDate).getTime()
+  ) {
+    return null
+  }
+  if (
+    config.end.type === 'COUNT' &&
+    latestOccurrenceNumber + ordinal - 1 > config.end.count
+  ) {
+    return null
+  }
+
   return { date: next, ordinal }
 }
 
 /**
  * Advance from the day after the latest occurrence until the first date
  * strictly after `today` (UTC calendar day). Skips import catch-up backlogs.
+ * Returns `null` if the series end condition is exhausted.
  */
 export function firstRecurrenceDateAfterToday(
   config: RecurrenceConfig,
   latestExpenseDate: string | Date,
   today: Date = new Date(),
-): Date {
-  return firstRecurrenceAfterToday(config, latestExpenseDate, today).date
+): Date | null {
+  return (
+    firstRecurrenceAfterToday(config, latestExpenseDate, today)?.date ?? null
+  )
 }
 
 /**
@@ -218,7 +263,12 @@ export function planLegacyRecurringImport(
       })
     })
 
-    const next = firstRecurrenceAfterToday(config, anchor.expenseDate, today)
+    const next = firstRecurrenceAfterToday(
+      config,
+      anchor.expenseDate,
+      today,
+      ordered.length,
+    )
     series.push({
       seriesKey,
       title: anchor.title,
@@ -226,8 +276,8 @@ export function planLegacyRecurringImport(
       config,
       anchorIndex,
       occurrenceCount: ordered.length,
-      nextOccurrenceDate: next.date,
-      nextOccurrenceOrdinal: next.ordinal,
+      nextOccurrenceDate: next ? next.date : null,
+      nextOccurrenceOrdinal: next ? next.ordinal : null,
     })
   }
 
@@ -244,11 +294,13 @@ export function planLegacyRecurringImport(
 export function summarizeLegacyRecurringImport(
   expenses: LegacyRecurringCollapseExpense[],
 ): LegacyRecurringSummaryItem[] {
-  return planLegacyRecurringImport(expenses).series.map((plan) => ({
-    title: plan.title,
-    recurrenceRule: plan.recurrenceRule,
-    config: plan.config,
-  }))
+  return planLegacyRecurringImport(expenses)
+    .series.filter((plan) => plan.nextOccurrenceDate !== null)
+    .map((plan) => ({
+      title: plan.title,
+      recurrenceRule: plan.recurrenceRule,
+      config: plan.config,
+    }))
 }
 
 export function collapseExpenseFromNormalized(expense: {

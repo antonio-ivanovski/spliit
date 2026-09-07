@@ -346,9 +346,19 @@
         "recurrenceRule": {
           "daily": "Dagelijks",
           "weekly": "Wekelijks",
-          "monthly": "Maandelijks"
+          "monthly": "Maandelijks",
+          "yearly": "Jaarlijks"
         },
-        "documentCount": "Documenten: {imported} hersteld, {skipped} overgeslagen"
+        "documentCount": "Documenten: {imported} hersteld, {skipped} overgeslagen",
+        "recurrenceSchedule": {
+          "every": "Elke {interval} {frequency}",
+          "frequency": {
+            "daily": "dagen",
+            "weekly": "weken",
+            "monthly": "maanden",
+            "yearly": "jaren"
+          }
+        }
       },
       "Destination": {
         "heading": "Waar wil je <strong>{name}</strong> importeren? ({participantCount} deelnemers · {expenseCount} uitgaven)",
@@ -427,6 +437,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (binnenkort)",
         "settleUp": "Settle Up (binnenkort)",
         "spliitDescription": "Breng een bestaande spliit.app-groep naar Spliit Cloud. We lezen de groepsnaam, deelnemers en elke uitgave.",
@@ -455,6 +466,11 @@
         "splitwiseDescription": "Sleep een Splitwise CSV-export hierheen om de uitgaven ervan te importeren in Spliit Cloud. Het bestand moet afkomstig zijn van de groepsexport van Splitwise — de CSV per groep die beschikbaar is in de groepsinstellingen.",
         "receiptWarningTitleSplitwise": "Bonafbeeldingen worden niet geïmporteerd.",
         "receiptWarningDescriptionSplitwise": "De Splitwise-export bevat geen bonafbeeldingen. Upload ze opnieuw in de doelgroep als je ze nodig hebt.",
+        "cospendDescription": "Sleep een Cospend-project CSV-export hierheen om leden, rekeningen en terugkerende schema's te importeren in Spliit Cloud. Exporteer het project vanuit de Cospend-instellingen (één CSV per project). Terugkerende rekeningen behouden hun schema — jaarlijkse, meerdelige intervallen en herhalingen met einddatum worden ondersteund.",
+        "receiptWarningTitleCospend": "Bonafbeeldingen worden niet geïmporteerd.",
+        "receiptWarningDescriptionCospend": "De Cospend-export bevat geen bonafbeeldingen. Upload ze opnieuw in de doelgroep als je ze nodig hebt.",
+        "dropFileCospend": "Sleep een Cospend CSV-export hierheen, of klik om te selecteren",
+        "dropFileDescriptionCospend": "Cospend exporteert één CSV per project. We importeren de leden, elke rekening en terugkerende schema's. De basisvaluta van het project staat standaard op EUR als deze niet in de export staat — controleer dit in de volgende stap.",
         "unsupportedFileType": "Niet-ondersteund bestandstype. Sleep een JSON- of CSV-bestand.",
         "dropFileSplitwise": "Sleep een Splitwise CSV-bestand, of klik om te selecteren",
         "dropFileDescriptionSplitwise": "CSV is het enige formaat dat Splitwise exporteert. We ontleden de waarden per deelnemer om de verdeling te reconstrueren.",

@@ -326,9 +326,19 @@
         "recurrenceRule": {
           "daily": "每天",
           "weekly": "每週",
-          "monthly": "每月"
+          "monthly": "每月",
+          "yearly": "每年"
         },
-        "documentCount": "文件：已還原 {imported} 份，已略過 {skipped} 份"
+        "documentCount": "文件：已還原 {imported} 份，已略過 {skipped} 份",
+        "recurrenceSchedule": {
+          "every": "每 {interval} {frequency}",
+          "frequency": {
+            "daily": "天",
+            "weekly": "週",
+            "monthly": "個月",
+            "yearly": "年"
+          }
+        }
       },
       "Destination": {
         "heading": "您想要將 <strong>{name}</strong> 匯入到哪裡？（{participantCount} 位參與者 · {expenseCount} 筆支出）",
@@ -402,6 +412,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise（即將推出）",
+        "cospend": "Cospend",
         "tricount": "Tricount（即將推出）",
         "settleUp": "Settle Up（即將推出）",
         "spliitDescription": "將現有的 spliit.app 群組帶入 Spliit Cloud。我們會讀取群組名稱、參與者和每筆支出。",
@@ -430,6 +441,11 @@
         "splitwiseDescription": "拖入 Splitwise 的 CSV 匯出檔案，將其支出匯入 Spliit Cloud。檔案必須來自 Splitwise 的群組匯出（可在群組設定中取得的按群組 CSV）。",
         "receiptWarningTitleSplitwise": "收據圖片不會被匯入。",
         "receiptWarningDescriptionSplitwise": "Splitwise 的匯出不包含收據圖片。如有需要，請在目的地群組中重新上傳。",
+        "cospendDescription": "拖入 Cospend 的 CSV 匯出檔案，將其成員、帳單和週期性排程匯入 Spliit Cloud。請從 Cospend 的設定中匯出專案（每個專案一個 CSV）。週期性帳單將保留其排程——支援年度、多間隔以及帶有結束日期的重複。",
+        "receiptWarningTitleCospend": "不會匯入收據圖片。",
+        "receiptWarningDescriptionCospend": "Cospend 匯出不包含收據圖片。如有需要，請在目標群組中重新上傳。",
+        "dropFileCospend": "拖放 Cospend CSV 檔案，或按一下以選取",
+        "dropFileDescriptionCospend": "Cospend 為每個專案匯出一個 CSV 檔案。我們會匯入成員、每筆帳單和週期性排程。若匯出中未註明專案基準貨幣，則預設為 EUR——請在下一步中核對。",
         "unsupportedFileType": "不支援的檔案類型，請拖放 JSON 或 CSV 檔案。",
         "dropFileSplitwise": "拖放 Splitwise CSV 檔案，或按一下以選取",
         "dropFileDescriptionSplitwise": "CSV 是 Splitwise 唯一匯出的格式。我們會解析每位參與者的金額來重建分攤。",

@@ -334,9 +334,19 @@
         "recurrenceRule": {
           "daily": "Zilnic",
           "weekly": "Săptămânal",
-          "monthly": "Lunar"
+          "monthly": "Lunar",
+          "yearly": "Anual"
         },
-        "documentCount": "Documente: {imported} recuperate, {skipped} omise"
+        "documentCount": "Documente: {imported} recuperate, {skipped} omise",
+        "recurrenceSchedule": {
+          "every": "La fiecare {interval} {frequency}",
+          "frequency": {
+            "daily": "zile",
+            "weekly": "săptămâni",
+            "monthly": "luni",
+            "yearly": "ani"
+          }
+        }
       },
       "Destination": {
         "heading": "Unde doriți să importați <strong>{name}</strong>? ({participantCount} participanți · {expenseCount} cheltuieli)",
@@ -412,6 +422,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (în curând)",
         "settleUp": "Settle Up (în curând)",
         "spliitDescription": "Aduceți un grup existent de pe spliit.app în Spliit Cloud. Citim numele grupului, participanții și fiecare cheltuială.",
@@ -440,6 +451,11 @@
         "splitwiseDescription": "Plasați un export CSV din Splitwise pentru a-i importa cheltuielile în Spliit Cloud. Fișierul trebuie să provină din exportul de grup al Splitwise — CSV-ul per grup disponibil din setările grupului.",
         "receiptWarningTitleSplitwise": "Imaginile chitanțelor nu sunt importate.",
         "receiptWarningDescriptionSplitwise": "Exportul Splitwise nu include imaginile chitanțelor. Reîncărcați-le în grupul de destinație dacă aveți nevoie de ele.",
+        "cospendDescription": "Plasați un export CSV din Cospend pentru a importa membrii, facturile și programele recurente în Spliit Cloud. Exportați proiectul din setările Cospend (un CSV per proiect). Facturile recurente își păstrează programul — repetările anuale, la intervale multiple și cu dată de sfârșit sunt acceptate.",
+        "receiptWarningTitleCospend": "Imaginile chitanțelor nu sunt importate.",
+        "receiptWarningDescriptionCospend": "Exportul Cospend nu include imagini ale chitanțelor. Reîncărcați-le în grupul de destinație dacă aveți nevoie de ele.",
+        "dropFileCospend": "Lăsați un fișier CSV Cospend, sau faceți clic pentru a selecta",
+        "dropFileDescriptionCospend": "Cospend exportă un fișier CSV per proiect. Importăm membrii, fiecare factură și programele recurente. Moneda de bază a proiectului este implicit EUR atunci când exportul nu o specifică — verificați-o în pasul următor.",
         "unsupportedFileType": "Tip de fișier neacceptat. Lăsați un fișier JSON sau CSV.",
         "dropFileSplitwise": "Lăsați un fișier CSV Splitwise, sau faceți clic pentru a selecta",
         "dropFileDescriptionSplitwise": "CSV este singurul format pe care îl exportă Splitwise. Analizăm valorile per participant pentru a reconstrui împărțirea.",

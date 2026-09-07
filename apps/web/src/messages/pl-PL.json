@@ -338,9 +338,19 @@
         "recurrenceRule": {
           "daily": "Codziennie",
           "weekly": "Co tydzień",
-          "monthly": "Co miesiąc"
+          "monthly": "Co miesiąc",
+          "yearly": "Co rok"
         },
-        "documentCount": "Dokumenty: odzyskano {imported}, pominięto {skipped}"
+        "documentCount": "Dokumenty: odzyskano {imported}, pominięto {skipped}",
+        "recurrenceSchedule": {
+          "every": "Co {interval} {frequency}",
+          "frequency": {
+            "daily": "dni",
+            "weekly": "tygodnie",
+            "monthly": "miesiące",
+            "yearly": "lata"
+          }
+        }
       },
       "Destination": {
         "heading": "Gdzie chcesz zaimportować <strong>{name}</strong>? ({participantCount} uczestników · {expenseCount} wydatków)",
@@ -417,6 +427,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (wkrótce)",
         "settleUp": "Settle Up (wkrótce)",
         "spliitDescription": "Przenieś istniejącą grupę z spliit.app do Spliit Cloud. Odczytujemy nazwę grupy, uczestników i każdy wydatek.",
@@ -445,6 +456,11 @@
         "splitwiseDescription": "Upuść eksport CSV z Splitwise, aby zaimportować jego wydatki do Spliit Cloud. Plik musi pochodzić z eksportu grupy Splitwise — CSV dla konkretnej grupy dostępnego w ustawieniach grupy.",
         "receiptWarningTitleSplitwise": "Obrazy paragonów nie są importowane.",
         "receiptWarningDescriptionSplitwise": "Eksport Splitwise nie zawiera obrazów paragonów. Prześlij je ponownie w grupie docelowej, jeśli ich potrzebujesz.",
+        "cospendDescription": "Upuść eksport CSV z Cospend, aby zaimportować jego członków, rachunki i harmonogramy cykliczne do Spliit Cloud. Wyeksportuj projekt z ustawień Cospend (jeden plik CSV na projekt). Rachunki cykliczne zachowują swój harmonogram — obsługiwane są powtórzenia roczne, o wielu interwałach oraz z datą końcową.",
+        "receiptWarningTitleCospend": "Zdjęcia paragonów nie są importowane.",
+        "receiptWarningDescriptionCospend": "Eksport Cospend nie zawiera zdjęć paragonów. Prześlij je ponownie w grupie docelowej, jeśli ich potrzebujesz.",
+        "dropFileCospend": "Upuść plik CSV z Cospend lub kliknij, aby wybrać",
+        "dropFileDescriptionCospend": "Cospend eksportuje jeden plik CSV na projekt. Importujemy członków, każdy rachunek i harmonogramy cykliczne. Waluta bazowa projektu to domyślnie EUR, jeśli nie podano jej w eksporcie — sprawdź ją w następnym kroku.",
         "unsupportedFileType": "Nieobsługiwany typ pliku. Upuść plik JSON lub CSV.",
         "dropFileSplitwise": "Upuść plik CSV z Splitwise lub kliknij, aby wybrać",
         "dropFileDescriptionSplitwise": "CSV to jedyny format, jaki eksportuje Splitwise. Analizujemy wartości na uczestnika, aby odtworzyć podział.",

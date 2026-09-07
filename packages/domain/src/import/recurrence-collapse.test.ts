@@ -11,18 +11,14 @@ import {
 } from './recurrence-collapse'
 
 function expense(
-  overrides: Partial<LegacyRecurringCollapseExpense> & {
-    title?: string
-    expenseDate?: string
-    recurrenceRule?: LegacyRecurringCollapseExpense['recurrenceRule']
-    amount?: number
-  } = {},
+  overrides: Partial<LegacyRecurringCollapseExpense> = {},
 ): LegacyRecurringCollapseExpense {
   return {
     title: overrides.title ?? 'Spotify Monthly',
     expenseDate: overrides.expenseDate ?? '2025-06-19',
     amount: overrides.amount ?? 1000,
     recurrenceRule: overrides.recurrenceRule ?? 'MONTHLY',
+    recurrence: overrides.recurrence ?? null,
     splitMode: overrides.splitMode ?? 'EVENLY',
     category: overrides.category ?? 'general',
     paidBy: overrides.paidBy ?? [{ id: 'p1', shares: 1000 }],
@@ -79,7 +75,7 @@ describe('planLegacyRecurringImport', () => {
       },
     ])
     expect(plan.series[0]!.occurrenceCount).toBe(1)
-    expect(plan.series[0]!.nextOccurrenceDate.toISOString().slice(0, 10)).toBe(
+    expect(plan.series[0]!.nextOccurrenceDate!.toISOString().slice(0, 10)).toBe(
       '2026-08-01',
     )
   })
@@ -94,7 +90,7 @@ describe('planLegacyRecurringImport', () => {
     expect(plan.series).toHaveLength(1)
     expect(plan.series[0]!.occurrenceCount).toBe(3)
     expect(plan.series[0]!.anchorIndex).toBe(2)
-    expect(plan.series[0]!.nextOccurrenceDate.toISOString().slice(0, 10)).toBe(
+    expect(plan.series[0]!.nextOccurrenceDate!.toISOString().slice(0, 10)).toBe(
       '2026-08-19',
     )
     expect(plan.series[0]!.nextOccurrenceOrdinal).toBe(14)
@@ -144,7 +140,7 @@ describe('planLegacyRecurringImport', () => {
     expect(expenses[plan.series[0]!.anchorIndex]!.expenseDate).toBe(
       '2026-06-19',
     )
-    expect(plan.series[0]!.nextOccurrenceDate.toISOString().slice(0, 10)).toBe(
+    expect(plan.series[0]!.nextOccurrenceDate!.toISOString().slice(0, 10)).toBe(
       '2026-08-19',
     )
     expect(plan.series[0]!.nextOccurrenceOrdinal).toBe(3)
@@ -202,7 +198,7 @@ describe('firstRecurrenceDateAfterToday', () => {
       '2026-06-01',
       new Date('2026-07-23T00:00:00.000Z'),
     )
-    expect(next.toISOString().slice(0, 10)).toBe('2026-08-01')
+    expect(next!.toISOString().slice(0, 10)).toBe('2026-08-01')
   })
 })
 
@@ -213,8 +209,8 @@ describe('firstRecurrenceAfterToday', () => {
       '2026-06-01',
       new Date('2026-07-23T00:00:00.000Z'),
     )
-    expect(next.date.toISOString().slice(0, 10)).toBe('2026-08-01')
-    expect(next.ordinal).toBe(3)
+    expect(next!.date.toISOString().slice(0, 10)).toBe('2026-08-01')
+    expect(next!.ordinal).toBe(3)
   })
 
   it('keeps month-end anchors on the 31st after overdue skip (not iterative clamp drift)', () => {
@@ -224,8 +220,8 @@ describe('firstRecurrenceAfterToday', () => {
       '2025-01-31',
       new Date('2026-07-23T00:00:00.000Z'),
     )
-    expect(next.date.toISOString().slice(0, 10)).toBe('2026-07-31')
-    expect(next.ordinal).toBe(19)
+    expect(next!.date.toISOString().slice(0, 10)).toBe('2026-07-31')
+    expect(next!.ordinal).toBe(19)
   })
 
   it('recovers leap-day yearly anchors to Feb 29 (not stuck on iterative Feb 28)', () => {
@@ -236,8 +232,8 @@ describe('firstRecurrenceAfterToday', () => {
       '2024-02-29',
       new Date('2027-03-01T00:00:00.000Z'),
     )
-    expect(next.date.toISOString().slice(0, 10)).toBe('2028-02-29')
-    expect(next.ordinal).toBe(5)
+    expect(next!.date.toISOString().slice(0, 10)).toBe('2028-02-29')
+    expect(next!.ordinal).toBe(5)
   })
 
   it('honours a multi-interval config (every 3 months)', () => {
@@ -246,7 +242,33 @@ describe('firstRecurrenceAfterToday', () => {
       '2026-01-15',
       new Date('2026-07-23T00:00:00.000Z'),
     )
-    expect(next.date.toISOString().slice(0, 10)).toBe('2026-10-15')
+    expect(next!.date.toISOString().slice(0, 10)).toBe('2026-10-15')
+  })
+
+  it('returns null when a DATE end precedes the next candidate after today', () => {
+    const next = firstRecurrenceAfterToday(
+      {
+        frequency: 'MONTHLY',
+        interval: 1,
+        end: {
+          type: 'DATE',
+          endDate: new Date('2026-07-01T00:00:00.000Z'),
+        },
+      },
+      '2026-01-01',
+      new Date('2026-07-15T00:00:00.000Z'),
+    )
+    expect(next).toBeNull()
+  })
+
+  it('returns null when a COUNT end is exhausted', () => {
+    const next = firstRecurrenceAfterToday(
+      { frequency: 'MONTHLY', interval: 1, end: { type: 'COUNT', count: 3 } },
+      '2026-01-01',
+      new Date('2026-02-15T00:00:00.000Z'),
+      3,
+    )
+    expect(next).toBeNull()
   })
 })
 
@@ -260,10 +282,33 @@ describe('planLegacyRecurringImport month-end', () => {
     ]
     const plan = planLegacyRecurringImport(expenses, today)
     expect(plan.series).toHaveLength(1)
-    expect(plan.series[0]!.nextOccurrenceDate.toISOString().slice(0, 10)).toBe(
+    expect(plan.series[0]!.nextOccurrenceDate!.toISOString().slice(0, 10)).toBe(
       '2026-07-31',
     )
     expect(plan.series[0]!.nextOccurrenceOrdinal).toBe(3)
+  })
+
+  it('preserves null nextOccurrenceDate when recurrence end is exhausted', () => {
+    const today = new Date('2026-07-23T12:00:00.000Z')
+    const expenses = [
+      expense({
+        title: 'Limited Gym',
+        expenseDate: '2026-01-01',
+        recurrence: {
+          frequency: 'MONTHLY',
+          interval: 1,
+          end: {
+            type: 'DATE',
+            endDate: new Date('2026-05-01T00:00:00.000Z'),
+          },
+        },
+      }),
+    ]
+    const plan = planLegacyRecurringImport(expenses, today)
+    expect(plan.series).toHaveLength(1)
+    expect(plan.series[0]!.nextOccurrenceDate).toBeNull()
+    expect(plan.series[0]!.nextOccurrenceOrdinal).toBeNull()
+    expect(summarizeLegacyRecurringImport(expenses)).toHaveLength(0)
   })
 })
 

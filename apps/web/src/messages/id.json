@@ -326,9 +326,19 @@
         "recurrenceRule": {
           "daily": "Harian",
           "weekly": "Mingguan",
-          "monthly": "Bulanan"
+          "monthly": "Bulanan",
+          "yearly": "Tahunan"
         },
-        "documentCount": "Dokumen: {imported} dipulihkan, {skipped} dilewati"
+        "documentCount": "Dokumen: {imported} dipulihkan, {skipped} dilewati",
+        "recurrenceSchedule": {
+          "every": "Setiap {interval} {frequency}",
+          "frequency": {
+            "daily": "hari",
+            "weekly": "minggu",
+            "monthly": "bulan",
+            "yearly": "tahun"
+          }
+        }
       },
       "Destination": {
         "heading": "Di mana Anda ingin mengimpor <strong>{name}</strong>? ({participantCount} peserta · {expenseCount} pengeluaran)",
@@ -402,6 +412,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (segera hadir)",
         "settleUp": "Settle Up (segera hadir)",
         "spliitDescription": "Bawa grup spliit.app yang ada ke Spliit Cloud. Kami membaca nama grup, peserta, dan setiap pengeluaran.",
@@ -430,6 +441,11 @@
         "splitwiseDescription": "Jatuhkan ekspor CSV Splitwise untuk mengimpor pengeluarannya ke Spliit Cloud. File harus berasal dari ekspor grup Splitwise — CSV per grup yang tersedia dari pengaturan grup.",
         "receiptWarningTitleSplitwise": "Gambar tanda terima tidak diimpor.",
         "receiptWarningDescriptionSplitwise": "Ekspor Splitwise tidak menyertakan gambar tanda terima. Unggah ulang di grup tujuan jika Anda membutuhkannya.",
+        "cospendDescription": "Jatuhkan ekspor CSV proyek Cospend untuk mengimpor anggota, tagihan, dan jadwal berulang ke Spliit Cloud. Ekspor proyek dari pengaturan Cospend (satu CSV per proyek). Tagihan berulang mempertahankan jadwalnya — pengulangan tahunan, multi-interval, dan dengan tanggal akhir semuanya didukung.",
+        "receiptWarningTitleCospend": "Gambar tanda terima tidak diimpor.",
+        "receiptWarningDescriptionCospend": "Ekspor Cospend tidak menyertakan gambar tanda terima. Unggah ulang di grup tujuan jika Anda membutuhkannya.",
+        "dropFileCospend": "Jatuhkan file CSV Cospend, atau klik untuk memilih",
+        "dropFileDescriptionCospend": "Cospend mengekspor satu CSV per proyek. Kami mengimpor anggota, setiap tagihan, dan jadwal berulang. Mata uang dasar proyek secara default adalah EUR jika tidak dinyatakan dalam ekspor — periksa pada langkah berikutnya.",
         "unsupportedFileType": "Jenis file tidak didukung. Jatuhkan file JSON atau CSV.",
         "dropFileSplitwise": "Jatuhkan file CSV Splitwise, atau klik untuk memilih",
         "dropFileDescriptionSplitwise": "CSV adalah satu-satunya format yang diekspor Splitwise. Kami mengurai nilai per peserta untuk menyusun ulang pembagian.",

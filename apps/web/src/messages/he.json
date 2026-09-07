@@ -334,9 +334,19 @@
         "recurrenceRule": {
           "daily": "יומי",
           "weekly": "שבועי",
-          "monthly": "חודשי"
+          "monthly": "חודשי",
+          "yearly": "שנתי"
         },
-        "documentCount": "מסמכים: {imported} שוחזרו, {skipped} דולגו"
+        "documentCount": "מסמכים: {imported} שוחזרו, {skipped} דולגו",
+        "recurrenceSchedule": {
+          "every": "כל {interval} {frequency}",
+          "frequency": {
+            "daily": "ימים",
+            "weekly": "שבועות",
+            "monthly": "חודשים",
+            "yearly": "שנים"
+          }
+        }
       },
       "Destination": {
         "heading": "לאן תרצה לייבא את <strong>{name}</strong>? ({participantCount} משתתפים · {expenseCount} הוצאות)",
@@ -412,6 +422,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (בקרוב)",
         "settleUp": "Settle Up (בקרוב)",
         "spliitDescription": "הבא קבוצה קיימת מ-spliit.app ל-Spliit Cloud. אנו קוראים את שם הקבוצה, המשתתפים וכל הוצאה.",
@@ -440,6 +451,11 @@
         "splitwiseDescription": "גרור קובץ CSV של ייצוא מ-Splitwise כדי לייבא את ההוצאות שלו ל-Spliit Cloud. הקובץ חייב להגיע מייצוא הקבוצה של Splitwise — ה-CSV לכל קבוצה הזמין בהגדרות הקבוצה.",
         "receiptWarningTitleSplitwise": "תמונות קבלות לא מיובאות.",
         "receiptWarningDescriptionSplitwise": "הייצוא של Splitwise אינו כולל תמונות קבלות. העלה אותן מחדש בקבוצת היעד אם אתה צריך אותן.",
+        "cospendDescription": "גרור קובץ CSV של ייצוא פרויקט מ-Cospend כדי לייבא את החברים, החשבונות ולוחות הזמנים החוזרים שלו ל-Spliit Cloud. ייצא את הפרויקט מהגדרות Cospend (קובץ CSV אחד לכל פרויקט). חשבונות חוזרים שומרים על לוח הזמנים שלהם — חזרות שנתיות, רב-מרווחיות ועם תאריך סיום נתמכות כולן.",
+        "receiptWarningTitleCospend": "תמונות קבלות אינן מיובאות.",
+        "receiptWarningDescriptionCospend": "ייצוא Cospend אינו כולל תמונות קבלות. העלה אותן מחדש בקבוצת היעד במידת הצורך.",
+        "dropFileCospend": "גרור קובץ CSV של Cospend, או לחץ לבחירה",
+        "dropFileDescriptionCospend": "Cospend מייצאת קובץ CSV אחד לכל פרויקט. אנו מייבאים את החברים, כל חשבון ולוחות זמנים חוזרים. מטבע הבסיס של הפרויקט מוגדר כברירת מחדל ל-EUR כאשר הייצוא אינו מציין זאת — בדוק זאת בשלב הבא.",
         "unsupportedFileType": "סוג קובץ לא נתמך. אנא גרור קובץ JSON או CSV.",
         "dropFileSplitwise": "גרור קובץ CSV של Splitwise, או לחץ לבחירה",
         "dropFileDescriptionSplitwise": "CSV הוא הפורמט היחיד ש-Splitwise מייצאת. אנו מנתחים את הערכים לכל משתתף כדי לשחזר את החלוקה.",

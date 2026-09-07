@@ -339,14 +339,52 @@ describe('tryParseCospendCsv', () => {
             date: '2026-08-06',
             payer: 'Alex',
             owers: 'Alex,Sam',
-            comment: 'H%20guten%20Appetit',
+            comment: 'pizza+%26+drinks',
           },
         ],
       }),
     )
     expect(result.ok).toBe(true)
     if (!result.ok) return
-    expect(result.source.expenses[0]!.notes).toBe('H guten Appetit')
+    expect(result.source.expenses[0]!.notes).toBe('pizza & drinks')
+  })
+
+  it('maps categoryid -11 to settlement', () => {
+    const result = tryParseCospendCsv(
+      cospendCsv({
+        bills: [
+          {
+            what: 'Alex paid Sam',
+            amount: 15,
+            date: '2026-08-05',
+            payer: 'Alex',
+            owers: 'Sam',
+            categoryid: -11,
+          },
+        ],
+      }),
+    )
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.source.expenses[0]!.category).toBe('settlement')
+  })
+
+  it('preserves DEFAULT_CURRENCY when main currency row has an empty name', () => {
+    const csv = [
+      'name,weight,active,color',
+      '"Alex",1,1,"#d6b461"',
+      '',
+      'what,amount,date,timestamp,payer_name,payer_weight,payer_active,owers,repeat,repeatfreq,repeatallactive,repeatuntil,categoryid,paymentmode,paymentmodeid,comment,deleted',
+      '"Bill",10,2026-08-02,1785690155,"Alex",1,1,"Alex",n,1,0,,0,n,0,"",0',
+      '',
+      'currencyname,exchange_rate',
+      '"",1',
+      '"CHF",0.92',
+    ].join('\n')
+    const result = tryParseCospendCsv(csv)
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.source.currencyCode).toBe('EUR')
   })
 
   it('uses the first currency row as the base currency', () => {
@@ -410,6 +448,10 @@ describe('cospendCategoryToId', () => {
     expect(cospendCategoryToId('Restaurant')).toBe('dining-out')
     expect(cospendCategoryToId('Miete')).toBe('rent')
     expect(cospendCategoryToId('insurance')).toBe('insurance')
+    expect(cospendCategoryToId('Unterkunft')).toBe('hotel')
+    expect(cospendCategoryToId('Flug')).toBe('plane')
+    expect(cospendCategoryToId('SUV')).toBe('car')
+    expect(cospendCategoryToId('Rückzahlung')).toBe('settlement')
   })
 
   it('falls back to general for unknown or empty names', () => {

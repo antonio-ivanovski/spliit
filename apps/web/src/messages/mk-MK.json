@@ -322,6 +322,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (наскоро)",
         "settleUp": "Settle Up (наскоро)",
         "spliitDescription": "Донесете постоечка spliit.app група во Spliit Cloud. Ги читаме името на групата, учесниците и сите трошоци.",
@@ -350,6 +351,11 @@
         "splitwiseDescription": "Пуштете CSV извоз од Splitwise за да ги увезете неговите трошоци во Spliit Cloud. Датотеката мора да доаѓа од групниот извоз на Splitwise — групниот CSV достапен од поставките на групата.",
         "receiptWarningTitleSplitwise": "Сликите од сметки не се увезуваат.",
         "receiptWarningDescriptionSplitwise": "Извозот од Splitwise не вклучува слики од сметки. Повторно поставете ги во групата-дестинација ако ви требаат.",
+        "cospendDescription": "Пуштете CSV извоз од Cospend за да ги увезете неговите членови, сметки и повторливи распореди во Spliit Cloud. Извезете го проектот од поставките на Cospend (еден CSV по проект). Повторливите сметки го задржуваат својот распоред — поддржани се годишни повторувања, повторувања со повеќе интервали и со краен датум.",
+        "receiptWarningTitleCospend": "Сликите од сметките не се увезуваат.",
+        "receiptWarningDescriptionCospend": "Извозот на Cospend не вклучува слики од сметки. Повторно прикачете ги во целната група доколку ви се потребни.",
+        "dropFileCospend": "Пуштете CSV датотека од Cospend, или кликнете за да изберете",
+        "dropFileDescriptionCospend": "Cospend извезува една CSV датотека по проект. Ги увезуваме членовите, секоја сметка и повторливите распореди. Основната валута на проектот стандардно е EUR кога не е наведена во извозот — проверете ја во следниот чекор.",
         "unsupportedFileType": "Неподдржан тип на датотека. Пуштете JSON или CSV датотека.",
         "dropFileSplitwise": "Пуштете CSV датотека од Splitwise, или кликнете за да изберете",
         "dropFileDescriptionSplitwise": "CSV е единствениот формат што Splitwise го извезува. Ги анализираме вредностите по учесник за да ја обновиме распределбата.",
@@ -460,9 +466,19 @@
         "recurrenceRule": {
           "daily": "Дневно",
           "weekly": "Неделно",
-          "monthly": "Месечно"
+          "monthly": "Месечно",
+          "yearly": "Годишно"
         },
-        "documentCount": "Документи: {imported} обновени, {skipped} прескокнати"
+        "documentCount": "Документи: {imported} обновени, {skipped} прескокнати",
+        "recurrenceSchedule": {
+          "every": "Секои {interval} {frequency}",
+          "frequency": {
+            "daily": "дена",
+            "weekly": "недели",
+            "monthly": "месеци",
+            "yearly": "години"
+          }
+        }
       },
       "Done": {
         "importComplete": "Увозот е завршен",

@@ -2078,9 +2078,19 @@
         "recurrenceRule": {
           "daily": "daily vibes",
           "weekly": "weekly vibes",
-          "monthly": "monthly vibes"
+          "monthly": "monthly vibes",
+          "yearly": "yearly vibes"
         },
-        "documentCount": "Docs: {imported} recovered, {skipped} skipped"
+        "documentCount": "Docs: {imported} recovered, {skipped} skipped",
+        "recurrenceSchedule": {
+          "every": "every {interval} {frequency}",
+          "frequency": {
+            "daily": "days, fr",
+            "weekly": "weeks, fr",
+            "monthly": "months, fr",
+            "yearly": "years, fr"
+          }
+        }
       },
       "CurrencyConversion": {
         "pairSection": "{source} → {target}, obviously",
@@ -2170,6 +2180,7 @@
       "Source": {
         "fromSpliit": "Spliit source",
         "splitwise": "Splitwise source",
+        "cospend": "Cospend",
         "tricount": "Tricount, coming soon",
         "settleUp": "Settle Up, coming soon",
         "spliitDescription": "bring an existing spliit.app group into Spliit Cloud. we read the group name, participants, and every expense.",
@@ -2198,6 +2209,11 @@
         "splitwiseDescription": "drop a Splitwise CSV export to import expenses into Spliit Cloud. it must come from the group's settings export.",
         "receiptWarningTitleSplitwise": "receipt images did not import.",
         "receiptWarningDescriptionSplitwise": "the Splitwise export has no receipt images. re-upload them in the destination group if needed.",
+        "cospendDescription": "drop a Cospend project CSV export to bring members, bills, and recurring schedules into Spliit Cloud. export it from Cospend settings (one CSV per project). recurring bills keep their schedule — yearly, multi-interval, and dated-end repeats are all supported.",
+        "receiptWarningTitleCospend": "receipt pics are not imported.",
+        "receiptWarningDescriptionCospend": "Cospend exports do not have receipt images. re-upload them in the group if you need them.",
+        "dropFileCospend": "drop a Cospend CSV export, or click to choose",
+        "dropFileDescriptionCospend": "Cospend exports one CSV per project. we pull in members, bills, and recurring schedules. base currency defaults to EUR if not in the export — check it in the next step.",
         "unsupportedFileType": "unsupported file type. drop a JSON or CSV file, please.",
         "dropFileSplitwise": "drop a Splitwise CSV file, or click to choose",
         "dropFileDescriptionSplitwise": "CSV is the only format Splitwise exports. we parse per-participant values to rebuild the split.",

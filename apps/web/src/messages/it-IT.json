@@ -334,9 +334,19 @@
         "recurrenceRule": {
           "daily": "Giornaliera",
           "weekly": "Settimanale",
-          "monthly": "Mensile"
+          "monthly": "Mensile",
+          "yearly": "Annuale"
         },
-        "documentCount": "Documenti: {imported} recuperati, {skipped} ignorati"
+        "documentCount": "Documenti: {imported} recuperati, {skipped} ignorati",
+        "recurrenceSchedule": {
+          "every": "Ogni {interval} {frequency}",
+          "frequency": {
+            "daily": "giorni",
+            "weekly": "settimane",
+            "monthly": "mesi",
+            "yearly": "anni"
+          }
+        }
       },
       "Destination": {
         "heading": "Dove desideri importare <strong>{name}</strong>? ({participantCount} partecipanti · {expenseCount} spese)",
@@ -412,6 +422,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (in arrivo)",
         "settleUp": "Settle Up (in arrivo)",
         "spliitDescription": "Porta un gruppo spliit.app esistente in Spliit Cloud. Leggiamo il nome del gruppo, i partecipanti e ogni spesa.",
@@ -440,6 +451,11 @@
         "splitwiseDescription": "Trascina un'esportazione CSV di Splitwise per importarne le spese in Spliit Cloud. Il file deve provenire dall'esportazione di gruppo di Splitwise — il CSV per gruppo disponibile nelle impostazioni del gruppo.",
         "receiptWarningTitleSplitwise": "Le immagini delle ricevute non vengono importate.",
         "receiptWarningDescriptionSplitwise": "L'esportazione di Splitwise non include le immagini delle ricevute. Ricaricale nel gruppo di destinazione se ti servono.",
+        "cospendDescription": "Trascina un'esportazione CSV di Cospend per importarne membri, fatture e scadenze ricorrenti in Spliit Cloud. Esporta il progetto dalle impostazioni di Cospend (un CSV per progetto). Le spese ricorrenti mantengono la loro pianificazione — sono supportate ripetizioni annuali, a intervalli multipli e con data di fine.",
+        "receiptWarningTitleCospend": "Le immagini delle ricevute non vengono importate.",
+        "receiptWarningDescriptionCospend": "L'esportazione di Cospend non include le immagini delle ricevute. Ricaricale nel gruppo di destinazione se ti servono.",
+        "dropFileCospend": "Trascina un file CSV di Cospend, o clicca per selezionare",
+        "dropFileDescriptionCospend": "Cospend esporta un file CSV per progetto. Importiamo i membri, ogni spesa e le scadenze ricorrenti. La valuta di base del progetto è impostata su EUR per impostazione predefinita se non indicata nell'esportazione — verificala nel passaggio successivo.",
         "unsupportedFileType": "Tipo di file non supportato. Trascina un file JSON o CSV.",
         "dropFileSplitwise": "Trascina un file CSV di Splitwise, o clicca per selezionare",
         "dropFileDescriptionSplitwise": "CSV è l'unico formato esportato da Splitwise. Analizziamo i valori per partecipante per ricostruire la divisione.",

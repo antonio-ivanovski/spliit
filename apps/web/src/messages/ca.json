@@ -334,9 +334,19 @@
         "recurrenceRule": {
           "daily": "DiDiària",
           "weekly": "Setmanal",
-          "monthly": "Mensual"
+          "monthly": "Mensual",
+          "yearly": "Anual"
         },
-        "documentCount": "Documents: {imported} recuperats, {skipped} omesos"
+        "documentCount": "Documents: {imported} recuperats, {skipped} omesos",
+        "recurrenceSchedule": {
+          "every": "Cada {interval} {frequency}",
+          "frequency": {
+            "daily": "dies",
+            "weekly": "setmanes",
+            "monthly": "mesos",
+            "yearly": "anys"
+          }
+        }
       },
       "Destination": {
         "heading": "On voleu importar <strong>{name}</strong>? ({participantCount} participants · {expenseCount} despeses)",
@@ -412,6 +422,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (pròximament)",
         "settleUp": "Settle Up (pròximament)",
         "spliitDescription": "Porta un grup existent de spliit.app a Spliit Cloud. Llegim el nom del grup, els participants i cada despesa.",
@@ -440,6 +451,11 @@
         "splitwiseDescription": "Deixa caure un export CSV de Splitwise per importar les seves despeses a Spliit Cloud. El fitxer ha de provenir de l'exportació de grup de Splitwise — el CSV per grup disponible des dels paràmetres del grup.",
         "receiptWarningTitleSplitwise": "Les imatges dels rebuts no s'importen.",
         "receiptWarningDescriptionSplitwise": "L'exportació de Splitwise no inclou imatges dels rebuts. Torneu a pujar-les al grup de destí si les necessiteu.",
+        "cospendDescription": "Deixa caure un export CSV de Cospend per importar els seus membres, factures i calendaris recurrents a Spliit Cloud. Exporta el projecte des dels paràmetres de Cospend (un CSV per projecte). Les factures recurrents mantenen el seu calendari — s'admeten repeticions anuals, de múltiples intervals i amb data de finalització.",
+        "receiptWarningTitleCospend": "Les imatges de rebuts no s'importen.",
+        "receiptWarningDescriptionCospend": "L'exportació de Cospend no inclou imatges de rebuts. Torna a carregar-les al grup de destinació si les necessites.",
+        "dropFileCospend": "Deixa anar un fitxer CSV de Cospend, o fes clic per seleccionar",
+        "dropFileDescriptionCospend": "Cospend exporta un fitxer CSV per projecte. Importem els membres, cada factura i els calendaris recurrents. La moneda base del projecte és per defecte EUR quan l'exportació no l'especifica — revisa-la al pas següent.",
         "unsupportedFileType": "Tipus de fitxer no admès. Deixa anar un fitxer JSON o CSV.",
         "dropFileSplitwise": "Deixa anar un fitxer CSV de Splitwise, o fes clic per seleccionar",
         "dropFileDescriptionSplitwise": "CSV és l'únic format que exporta Splitwise. Analitzem els valors per participant per reconstruir el repartiment.",

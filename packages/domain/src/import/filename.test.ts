@@ -63,4 +63,14 @@ describe('guessGroupNameFromFilename', () => {
       'Osterreich 2026',
     )
   })
+
+  it('humanizes bare slugs when provider is COSPEND', () => {
+    expect(guessGroupNameFromFilename('family.csv', 'COSPEND')).toBe('Family')
+    expect(guessGroupNameFromFilename('family-zu-besuch.csv', 'COSPEND')).toBe(
+      'Family Zu Besuch',
+    )
+    expect(guessGroupNameFromFilename('family.csv')).toBeNull()
+    expect(guessGroupNameFromFilename('family.csv', 'SPLITWISE')).toBeNull()
+    expect(guessGroupNameFromFilename('12345.csv', 'COSPEND')).toBeNull()
+  })
 })

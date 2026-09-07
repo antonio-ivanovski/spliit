@@ -338,9 +338,19 @@
         "recurrenceRule": {
           "daily": "Ежедневно",
           "weekly": "Еженедельно",
-          "monthly": "Ежемесячно"
+          "monthly": "Ежемесячно",
+          "yearly": "Ежегодно"
         },
-        "documentCount": "Документы: восстановлено — {imported}, пропущено — {skipped}"
+        "documentCount": "Документы: восстановлено — {imported}, пропущено — {skipped}",
+        "recurrenceSchedule": {
+          "every": "Каждые {interval} {frequency}",
+          "frequency": {
+            "daily": "дней",
+            "weekly": "недель",
+            "monthly": "месяцев",
+            "yearly": "лет"
+          }
+        }
       },
       "Destination": {
         "heading": "Куда вы хотите импортировать <strong>{name}</strong>? ({participantCount} участников · {expenseCount} трат)",
@@ -417,6 +427,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (скоро)",
         "settleUp": "Settle Up (скоро)",
         "spliitDescription": "Перенесите существующую группу из spliit.app в Spliit Cloud. Мы считываем название группы, участников и каждую трату.",
@@ -445,6 +456,11 @@
         "splitwiseDescription": "Перетащите CSV-экспорт из Splitwise, чтобы импортировать его расходы в Spliit Cloud. Файл должен быть получен из группового экспорта Splitwise — CSV для конкретной группы, доступный в настройках группы.",
         "receiptWarningTitleSplitwise": "Изображения чеков не импортируются.",
         "receiptWarningDescriptionSplitwise": "Экспорт Splitwise не включает изображения чеков. Повторно загрузите их в группу назначения, если они вам нужны.",
+        "cospendDescription": "Перетащите CSV-экспорт Cospend, чтобы импортировать участников, счета и повторяющиеся расписания в Spliit Cloud. Экспортируйте проект из настроек Cospend (один CSV на проект). Повторяющиеся счета сохраняют свое расписание — поддерживаются ежегодные повторения, повторения с несколькими интервалами и с датой окончания.",
+        "receiptWarningTitleCospend": "Изображения чеков не импортируются.",
+        "receiptWarningDescriptionCospend": "Экспорт Cospend не содержит изображений чеков. Загрузите их заново в целевой группе при необходимости.",
+        "dropFileCospend": "Перетащите CSV-файл Cospend или нажмите для выбора",
+        "dropFileDescriptionCospend": "Cospend экспортирует один CSV на проект. Мы импортируем участников, каждый счет и повторяющиеся расписания. Базовая валюта проекта по умолчанию EUR, если она не указана в экспорте — проверьте ее на следующем шаге.",
         "unsupportedFileType": "Неподдерживаемый тип файла. Перетащите файл JSON или CSV.",
         "dropFileSplitwise": "Перетащите CSV-файл Splitwise или нажмите для выбора",
         "dropFileDescriptionSplitwise": "CSV — единственный формат, который экспортирует Splitwise. Мы разбираем значения по участникам, чтобы восстановить разбивку.",

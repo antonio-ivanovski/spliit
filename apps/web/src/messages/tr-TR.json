@@ -330,9 +330,19 @@
         "recurrenceRule": {
           "daily": "Günlük",
           "weekly": "Haftalık",
-          "monthly": "Aylık"
+          "monthly": "Aylık",
+          "yearly": "Yıllık"
         },
-        "documentCount": "Belgeler: {imported} geri yüklendi, {skipped} atlandı"
+        "documentCount": "Belgeler: {imported} geri yüklendi, {skipped} atlandı",
+        "recurrenceSchedule": {
+          "every": "Her {interval} {frequency}",
+          "frequency": {
+            "daily": "gün",
+            "weekly": "hafta",
+            "monthly": "ay",
+            "yearly": "yıl"
+          }
+        }
       },
       "Destination": {
         "heading": "<strong>{name}</strong> grubunu nereye içe aktarmak istersiniz? ({participantCount} katılımcı · {expenseCount} harcama)",
@@ -407,6 +417,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (çok yakında)",
         "settleUp": "Settle Up (çok yakında)",
         "spliitDescription": "Mevcut bir spliit.app grubunu Spliit Cloud'a taşıyın. Grup adını, katılımcıları ve her harcamayı okuyoruz.",
@@ -435,6 +446,11 @@
         "splitwiseDescription": "Splitwise'den bir CSV dışa aktarımı bırakarak harcamalarını Spliit Cloud'a aktarın. Dosya, Splitwise'in grup dışa aktarımından gelmelidir — grup ayarlarından erişilebilen gruba özel CSV.",
         "receiptWarningTitleSplitwise": "Makbuz görüntüleri içe aktarılmaz.",
         "receiptWarningDescriptionSplitwise": "Splitwise dışa aktarımı makbuz görüntülerini içermez. İhtiyacınız varsa bunları hedef grupta yeniden yükleyin.",
+        "cospendDescription": "Üyelerini, faturalarını ve yinelenen planlarını Spliit Cloud'a aktarmak için bir Cospend proje CSV dışa aktarımı bırakın. Projeyi Cospend ayarlarından dışa aktarın (proje başına bir CSV). Yinelenen faturalar planlarını korur — yıllık, çoklu aralıklı ve bitiş tarihli tekrarların tümü desteklenir.",
+        "receiptWarningTitleCospend": "Makbuz resimleri içe aktarılmaz.",
+        "receiptWarningDescriptionCospend": "Cospend dışa aktarımı makbuz resimlerini içermez. İhtiyacınız varsa hedef grupta bunları tekrar yükleyin.",
+        "dropFileCospend": "Bir Cospend CSV dosyası bırakın veya seçmek için tıklayın",
+        "dropFileDescriptionCospend": "Cospend proje başına bir CSV dışa aktarır. Üyeleri, her faturayı ve yinelenen planları içe aktarırız. Dışa aktarımda belirtilmediğinde projenin temel para birimi varsayılan olarak EUR'dur — sonraki adımda kontrol edin.",
         "unsupportedFileType": "Desteklenmeyen dosya türü. Lütfen bir JSON veya CSV dosyası bırakın.",
         "dropFileSplitwise": "Bir Splitwise CSV dosyası bırakın veya seçmek için tıklayın",
         "dropFileDescriptionSplitwise": "CSV, Splitwise'in dışa aktardığı tek formattır. Bölüşümü yeniden oluşturmak için katılımcı başına değerleri ayrıştırırız.",

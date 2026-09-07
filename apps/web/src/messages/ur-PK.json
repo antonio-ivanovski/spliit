@@ -1857,9 +1857,19 @@
         "recurrenceRule": {
           "daily": "روزانہ",
           "weekly": "ہفتہ وار",
-          "monthly": "ماہانہ"
+          "monthly": "ماہانہ",
+          "yearly": "سالانہ"
         },
-        "documentCount": "دستاویزات: {imported} بازیاب، {skipped} چھوڑ دی گئیں"
+        "documentCount": "دستاویزات: {imported} بازیاب، {skipped} چھوڑ دی گئیں",
+        "recurrenceSchedule": {
+          "every": "ہر {interval} {frequency}",
+          "frequency": {
+            "daily": "دن",
+            "weekly": "ہفتے",
+            "monthly": "مہینے",
+            "yearly": "سال"
+          }
+        }
       },
       "CurrencyConversion": {
         "pairSection": "{source} → {target}",
@@ -1949,6 +1959,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (جلد آرہا ہے)",
         "settleUp": "Settle Up (جلد آرہا ہے)",
         "spliitDescription": "ایک موجودہ spliit.app گروپ کو Spliit Cloud میں لائیں۔ ہم گروپ کا نام، شرکاء، اور ہر خرچہ پڑھتے ہیں۔",
@@ -1977,6 +1988,11 @@
         "splitwiseDescription": "Splitwise CSV برآمد کو ڈراپ کریں تاکہ اس کے اخراجات Spliit Cloud میں درآمد کیے جا سکیں۔ فائل Splitwise کے گروپ برآمد سے آنا چاہیے — فی گروپ CSV جو گروپ کی ترتیبات سے دستیاب ہے۔",
         "receiptWarningTitleSplitwise": "رسید کی تصاویر درآمد نہیں کی جاتیں۔",
         "receiptWarningDescriptionSplitwise": "Splitwise برآمد میں رسید کی تصاویر شامل نہیں ہیں۔ اگر آپ کو ان کی ضرورت ہو تو منزل گروپ میں دوبارہ اپ لوڈ کریں۔",
+        "cospendDescription": "Cospend پروجیکٹ CSV برآمد کو Spliit Cloud میں اراکین، بلوں اور بار بار آنے والے نظام الاوقات کو درآمد کرنے کے لیے ڈراپ کریں۔ Cospend کی ترتیبات سے پروجیکٹ برآمد کریں (فی پروجیکٹ ایک CSV)۔ بار بار آنے والے بل اپنے شیڈول کو برقرار رکھتے ہیں — سالانہ، کثیر وقفہ، اور آخری تاریخ کے اعادے معاونت یافتہ ہیں۔",
+        "receiptWarningTitleCospend": "رسید کی تصاویر درآمد نہیں کی جاتی ہیں۔",
+        "receiptWarningDescriptionCospend": "Cospend برآمد میں رسید کی تصاویر شامل نہیں ہیں۔ اگر ضرورت ہو تو انہیں منزل کے گروپ میں دوبارہ اپ لوڈ کریں۔",
+        "dropFileCospend": "Cospend CSV فائل ڈراپ کریں، یا منتخب کرنے کے لیے کلک کریں",
+        "dropFileDescriptionCospend": "Cospend فی پروجیکٹ ایک CSV برآمد کرتا ہے۔ ہم اراکین، ہر بل، اور بار بار آنے والے نظام الاوقات کو درآمد کرتے ہیں۔ پروجیکٹ کی بنیادی کرنسی طے شدہ طور پر EUR ہے اگر برآمد میں نہیں بتایا گیا — اگلے مرحلے میں اس کی تصدیق کریں۔",
         "unsupportedFileType": "غیر معاون فائل کی قسم۔ براہ کرم JSON یا CSV فائل ڈراپ کریں۔",
         "dropFileSplitwise": "Splitwise CSV فائل ڈراپ کریں، یا منتخب کرنے کے لیے کلک کریں",
         "dropFileDescriptionSplitwise": "CSV واحد فارمیٹ ہے جو Splitwise برآمد کرتا ہے۔ ہم تقسیم کو دوبارہ تشکیل دینے کے لیے فی شریک اقدار کو پارس کرتے ہیں۔",

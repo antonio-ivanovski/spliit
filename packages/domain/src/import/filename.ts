@@ -15,7 +15,10 @@
  * Returns `null` when the filename doesn't match a known pattern. The caller
  * should keep the parser's default in that case.
  */
-export function guessGroupNameFromFilename(filename: string): string | null {
+export function guessGroupNameFromFilename(
+  filename: string,
+  provider?: string | null,
+): string | null {
   const base = filename.replace(/\.(csv|json)$/i, '')
 
   const personalMatch = base.match(/^(.+)_(\d{4}-\d{2}-\d{2})_export$/)
@@ -47,6 +50,11 @@ export function guessGroupNameFromFilename(filename: string): string | null {
   if (cospendDated) {
     const prefix = cospendDated[1].trim()
     if (prefix && !/^\d+$/.test(prefix)) return humanizeGroupPrefix(prefix)
+  }
+
+  if (provider === 'COSPEND') {
+    const slug = base.trim()
+    if (slug && !/^\d+$/.test(slug)) return humanizeGroupPrefix(slug)
   }
 
   return null

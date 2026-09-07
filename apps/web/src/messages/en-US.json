@@ -595,10 +595,10 @@
         "recurrenceSchedule": {
           "every": "Every {interval} {frequency}",
           "frequency": {
-            "daily": "day(s)",
-            "weekly": "week(s)",
-            "monthly": "month(s)",
-            "yearly": "year(s)"
+            "daily": "days",
+            "weekly": "weeks",
+            "monthly": "months",
+            "yearly": "years"
           }
         },
         "documentCount": "Documents: {imported} recovered, {skipped} skipped"
