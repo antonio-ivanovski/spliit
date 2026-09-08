@@ -10,6 +10,7 @@ export const localeFlags = {
   ca: '🇦🇩',
   'cs-CZ': '🇨🇿',
   'de-DE': '🇩🇪',
+  'en-GB': '🇬🇧',
   'en-US': '🇺🇸',
   es: '🇪🇸',
   eu: '🇪🇸',
