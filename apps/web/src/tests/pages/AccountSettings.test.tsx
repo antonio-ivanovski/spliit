@@ -55,11 +55,26 @@ vi.mock('@/app/account/notifications-preferences', () => ({
 vi.mock('@/trpc/client', () => ({
   trpc: {
     useUtils: () => ({
-      account: { invalidate: mocks.invalidateAccount },
+      account: {
+        invalidate: mocks.invalidateAccount,
+        authorizedClients: { invalidate: vi.fn() },
+      },
       groups: { invalidate: mocks.invalidateGroups },
       invitations: { invalidate: mocks.invalidateInvitations },
     }),
     account: {
+      // The settings page renders the connected-apps section, which reads
+      // these two.
+      authorizedClients: {
+        useQuery: () => ({
+          data: { clients: [] },
+          isPending: false,
+          isError: false,
+        }),
+      },
+      revokeAuthorizedClient: {
+        useMutation: () => ({ mutate: vi.fn(), isPending: false }),
+      },
       groups: {
         useQuery: () => ({
           data: { groups: mocks.accountGroups() },
@@ -141,7 +156,7 @@ beforeEach(() => {
 })
 
 describe('AccountSettingsPage', () => {
-  it('renders a single h1 and five h2 sections in the documented order', () => {
+  it('renders a single h1 and six h2 sections in the documented order', () => {
     render(<AccountSettingsPage />)
 
     const headings = screen.getAllByRole('heading')
@@ -156,6 +171,7 @@ describe('AccountSettingsPage', () => {
     expect(h2Names).toEqual([
       'Profile',
       'App preferences',
+      'Connected apps',
       'Backups & export',
       'Notifications',
       'AI features',

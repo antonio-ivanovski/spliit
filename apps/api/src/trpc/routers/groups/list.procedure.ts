@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { prisma } from '@spliit/db'
 
 import { getGroups } from '../../../lib/api'
-import { protectedProcedure } from '../../init'
+import { apiProcedure } from '../../init'
 import { listGroupsOutputSchema } from '../../outputs/groups'
 
 /**
@@ -12,7 +12,7 @@ import { listGroupsOutputSchema } from '../../outputs/groups'
  * localStorage for now, but when empty we fall back to the server-backed list
  * derived from `GroupMember`.
  */
-export const listGroupsProcedure = protectedProcedure
+export const listGroupsProcedure = apiProcedure('spliit:groups:read')
   .input(
     z.object({
       groupIds: z.array(z.string().min(1)).default([]),

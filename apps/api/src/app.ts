@@ -13,6 +13,11 @@ import { Hono, type MiddlewareHandler } from 'hono'
 import { cors } from 'hono/cors'
 
 import { auth } from './lib/auth'
+import {
+  getOAuthProtectedResourceChallenge,
+  getOAuthProtectedResourceMetadata,
+  OAUTH_PROTECTED_RESOURCE_PATH,
+} from './lib/auth/oauth-discovery'
 import { SIGNUP_INVITE_HEADER } from './lib/auth/signup-gate'
 import { env, webOrigins } from './lib/env'
 import { checkLiveness, checkReadiness } from './lib/health'
@@ -32,7 +37,7 @@ import { exportGroupBundle } from './routes/export-bundle'
 import { exportGroupCsv } from './routes/export-csv'
 import { proxyImportDocument } from './routes/import-document'
 import { reportGroupData } from './routes/report-data'
-import { createTRPCContext } from './trpc/init'
+import { createTRPCContext, MissingScopeError } from './trpc/init'
 import { appRouter } from './trpc/routers/_app'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -110,26 +115,32 @@ export function clientRateLimitMiddleware(options: {
   limit: number
   windowMs: number
   trustProxy?: boolean
+  /** Shared conservative bucket for routes that must stay limited directly. */
+  untrustedFallbackIdentity?: string
 }): MiddlewareHandler {
   const limiter = new FixedWindowLimiter({
     limit: options.limit,
     windowMs: options.windowMs,
   })
   return async (c, next) => {
+    if (c.req.method === 'OPTIONS') {
+      await next()
+      return
+    }
     const trustProxy = options.trustProxy ?? env.TRUST_PROXY
-    if (!trustProxy) {
+    if (!trustProxy && !options.untrustedFallbackIdentity) {
       await next()
       return
     }
 
-    const ip = resolveClientIp(c.req.raw.headers, {
-      trustProxy,
-    })
-    const decision = limiter.hit(ip)
+    const identity = trustProxy
+      ? resolveClientIp(c.req.raw.headers, { trustProxy })
+      : options.untrustedFallbackIdentity!
+    const decision = limiter.hit(identity)
     if (!decision.allowed) {
       logRateLimitExceeded({
         policy: options.policy,
-        identity: ip,
+        identity,
         retryAfterSeconds: decision.retryAfterSeconds,
         path: c.req.path,
       })
@@ -159,6 +170,10 @@ const oauthRegistrationRateLimit = clientRateLimitMiddleware({
   policy: 'oauth-registration',
   limit: 20,
   windowMs: 60 * 60 * 1000,
+  // Direct deployments cannot derive a trustworthy remote address from the
+  // Fetch Request. A shared bucket is preferable to leaving anonymous dynamic
+  // registration completely unbounded.
+  untrustedFallbackIdentity: 'oauth-registration:direct',
 })
 app.use('/auth/oauth2/register', oauthRegistrationRateLimit)
 
@@ -172,32 +187,29 @@ app.on(['GET', 'POST'], '/auth/*', (c) =>
   auth.handler(requestWithTrustedProxyHeaders(c.req.raw)),
 )
 app.get('/.well-known/oauth-authorization-server', (c) =>
-  env.ENABLE_MCP
-    ? oauthProviderAuthServerMetadata(auth, {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      })(c.req.raw)
-    : c.notFound(),
+  oauthProviderAuthServerMetadata(auth, {
+    headers: { 'Access-Control-Allow-Origin': '*' },
+  })(c.req.raw),
 )
 app.get('/.well-known/oauth-authorization-server/auth', (c) =>
-  env.ENABLE_MCP
-    ? oauthProviderAuthServerMetadata(auth, {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      })(c.req.raw)
-    : c.notFound(),
+  oauthProviderAuthServerMetadata(auth, {
+    headers: { 'Access-Control-Allow-Origin': '*' },
+  })(c.req.raw),
 )
 app.get('/.well-known/openid-configuration', (c) =>
-  env.ENABLE_MCP
-    ? oauthProviderOpenIdConfigMetadata(auth, {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      })(c.req.raw)
-    : c.notFound(),
+  oauthProviderOpenIdConfigMetadata(auth, {
+    headers: { 'Access-Control-Allow-Origin': '*' },
+  })(c.req.raw),
 )
 app.get('/.well-known/openid-configuration/auth', (c) =>
-  env.ENABLE_MCP
-    ? oauthProviderOpenIdConfigMetadata(auth, {
-        headers: { 'Access-Control-Allow-Origin': '*' },
-      })(c.req.raw)
-    : c.notFound(),
+  oauthProviderOpenIdConfigMetadata(auth, {
+    headers: { 'Access-Control-Allow-Origin': '*' },
+  })(c.req.raw),
+)
+app.get(OAUTH_PROTECTED_RESOURCE_PATH, (c) =>
+  c.json(getOAuthProtectedResourceMetadata(), 200, {
+    'Access-Control-Allow-Origin': '*',
+  }),
 )
 
 app.get('/groups/:groupId/export/bundle', exportRateLimit, (c) =>
@@ -245,14 +257,64 @@ app.get(
   }),
 )
 
-app.all('/trpc/*', (c) =>
-  fetchRequestHandler({
+/**
+ * The OAuth scopes required by the procedures a `/trpc` request names.
+ *
+ * Empty means no requested procedure is OAuth-capable, so the response gets no
+ * Bearer challenge. For batched requests this is the union of each OAuth
+ * procedure's minimum scope, which is exactly what the challenge's `scope`
+ * attribute should advertise (RFC 6750 section 3).
+ */
+function requiredOAuthScopes(requestPath: string): string[] {
+  const encodedProcedurePaths = requestPath.slice('/trpc/'.length)
+  if (!encodedProcedurePaths) return []
+  const procedures = appRouter._def.procedures as Record<
+    string,
+    { _def?: { meta?: { scope?: unknown } } } | undefined
+  >
+  const scopes = new Set<string>()
+  for (const encodedPath of encodedProcedurePaths.split(',')) {
+    let path: string
+    try {
+      path = decodeURIComponent(encodedPath)
+    } catch {
+      // Hono forwards malformed paths like `/trpc/%` untouched; that names
+      // no procedure, so it contributes no scope. tRPC's own error response
+      // must pass through instead of dying on a URIError here.
+      continue
+    }
+    const scope = procedures[path]?._def?.meta?.scope
+    if (typeof scope === 'string') scopes.add(scope)
+  }
+  return [...scopes]
+}
+
+function appendExposedHeader(headers: Headers, name: string): void {
+  const exposed = headers.get('Access-Control-Expose-Headers')
+  const values = new Set(
+    exposed
+      ?.split(',')
+      .map((value) => value.trim())
+      .filter(Boolean) ?? [],
+  )
+  values.add(name)
+  headers.set('Access-Control-Expose-Headers', [...values].join(', '))
+}
+
+app.all('/trpc/*', async (c) => {
+  // Scopes the procedures rejected as missing, collected across a batch so
+  // the challenge below can name the exact step-up permissions to request.
+  const missingScopes = new Set<string>()
+  const response = await fetchRequestHandler({
     endpoint: '/trpc',
     req: c.req.raw,
     router: appRouter,
     createContext: ({ resHeaders }) =>
       createTRPCContext({ req: c.req.raw, resHeaders }),
     onError({ error, path, type, ctx }) {
+      if (error instanceof MissingScopeError) {
+        missingScopes.add(error.requiredScope)
+      }
       // Expected client errors are normal product behavior — logging them
       // would flood the console. Only log infrastructure failures (uncaught
       // exceptions turned into INTERNAL_SERVER_ERROR) and upstream-provider
@@ -277,5 +339,39 @@ app.all('/trpc/*', (c) =>
         accountId ? { path, type, code, accountId } : { path, type, code },
       )
     },
-  }),
-)
+  })
+
+  const oauthScopes = requiredOAuthScopes(c.req.path)
+  if (oauthScopes.length === 0) return response
+
+  // RFC 6750: tell the agent which recovery applies. A 401 without
+  // credentials advertises the scopes the requested operations need; a 401
+  // that carried a bearer means that token failed verification (expired,
+  // malformed, revoked key, wrong audience); a 403 that rejected scopes asks
+  // for step-up authorization with the exact missing scopes.
+  let challenge: string | undefined
+  if (response.status === 401) {
+    const hadBearer = (c.req.header('authorization') ?? '').startsWith(
+      'Bearer ',
+    )
+    challenge = getOAuthProtectedResourceChallenge({
+      error: hadBearer ? 'invalid_token' : undefined,
+      scope: oauthScopes,
+    })
+  } else if (response.status === 403 && missingScopes.size > 0) {
+    challenge = getOAuthProtectedResourceChallenge({
+      error: 'insufficient_scope',
+      scope: [...missingScopes],
+    })
+  }
+  if (!challenge) return response
+
+  const headers = new Headers(response.headers)
+  headers.set('WWW-Authenticate', challenge)
+  appendExposedHeader(headers, 'WWW-Authenticate')
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  })
+})

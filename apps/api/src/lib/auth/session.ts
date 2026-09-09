@@ -1,15 +1,12 @@
 import { oauthProviderResourceClient } from '@better-auth/oauth-provider/resource-client'
 
-import { prisma } from '@spliit/db'
-
-import { env } from '../env'
 import {
   getCachedAccount,
   isAnonymousSetupIncomplete,
   type CachedAccount,
 } from './account-cache'
 import { auth } from './index'
-import { getApiBaseUrl } from './urls'
+import { getApiBaseUrl, oauthAudiences } from './urls'
 
 export type ResolvedAuth = Omit<
   NonNullable<Awaited<ReturnType<typeof auth.api.getSession>>>,
@@ -23,6 +20,14 @@ export type OAuthResolvedAuth = {
   user: ResolvedAuth['user']
   session: ResolvedAuth['session']
   scopes: string[]
+  /**
+   * The token's verified `aud` claim. Each surface checks its own resource
+   * against this list: `apiProcedure` and `scopedGroupReadProcedure` require
+   * the API base URL, so a token minted for the MCP resource can never reach
+   * the direct API (RFC 8707 audience separation). The assistant surface is the
+   * MCP resource's backend and keeps accepting MCP-audience tokens.
+   */
+  audiences: string[]
   accessToken: string
 }
 
@@ -66,7 +71,6 @@ const oauthResource = oauthProviderResourceClient().getActions()
 export async function getOAuthAuthFromRequest(
   request: Request,
 ): Promise<OAuthResolvedAuth | null> {
-  if (!env.ENABLE_MCP || !env.MCP_PUBLIC_URL) return null
   const authorization = request.headers.get('authorization')
   if (!authorization?.startsWith('Bearer ')) return null
   const accessToken = authorization.slice('Bearer '.length)
@@ -75,7 +79,11 @@ export async function getOAuthAuthFromRequest(
   const issuer = `${getApiBaseUrl()}/auth`
   const claims = await oauthResource.verifyBearerToken(accessToken, {
     verifyOptions: {
-      audience: `${env.MCP_PUBLIC_URL}/mcp`,
+      // Verification accepts any audience this deployment issues tokens for,
+      // because the assistant surface must keep authenticating MCP-audience
+      // tokens. Which resources a token may actually reach is decided per
+      // surface from the verified `aud` claim exposed below.
+      audience: oauthAudiences(),
       issuer,
     },
     jwksUrl: `${issuer}/jwks`,
@@ -88,9 +96,7 @@ export async function getOAuthAuthFromRequest(
     !Number.isFinite(claims.iat)
   )
     return null
-  const account = await prisma.account.findUnique({
-    where: { id: claims.sub },
-  })
+  const account = await getCachedAccount(claims.sub)
   if (!account) return null
   const scopes = Array.isArray(claims.scopes)
     ? claims.scopes.filter(
@@ -99,15 +105,20 @@ export async function getOAuthAuthFromRequest(
     : typeof claims.scope === 'string'
       ? claims.scope.split(' ').filter(Boolean)
       : []
+  const audiences = Array.isArray(claims.aud)
+    ? claims.aud.filter(
+        (audience): audience is string => typeof audience === 'string',
+      )
+    : typeof claims.aud === 'string'
+      ? [claims.aud]
+      : []
 
   return {
     credentialKind: 'oauth',
     accessToken,
     scopes,
-    user: {
-      ...account,
-      anonymousOnboardingCompleted: true,
-    },
+    audiences,
+    user: account,
     session: {
       id: typeof claims.sid === 'string' ? claims.sid : `oauth:${claims.sub}`,
       userId: account.id,

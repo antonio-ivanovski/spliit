@@ -7,10 +7,10 @@ import {
   assertCanManageOwnedResource,
   expenseOwnerAccountId,
 } from '../../../../lib/api/resource-permissions'
-import { loadGroupMutationContext, protectedProcedure } from '../../../init'
+import { loadGroupMutationContext, apiProcedure } from '../../../init'
 import { deleteExpenseOutputSchema } from '../../../outputs/expenses'
 
-export const stopRecurrenceProcedure = protectedProcedure
+export const stopRecurrenceProcedure = apiProcedure('spliit:expenses:manage')
   .input(
     z.object({
       expenseId: z.string().min(1),

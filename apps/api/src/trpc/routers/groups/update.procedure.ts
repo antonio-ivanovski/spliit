@@ -5,9 +5,9 @@ import { GroupType } from '@spliit/db'
 import { groupUpdateFormSchema } from '@spliit/domain'
 
 import { updateGroup } from '../../../lib/api'
-import { loadGroupMutationContext, protectedProcedure } from '../../init'
+import { loadGroupMutationContext, apiProcedure } from '../../init'
 
-export const updateGroupProcedure = protectedProcedure
+export const updateGroupProcedure = apiProcedure('spliit:groups:manage')
   .input(
     z.object({
       groupId: z.string().min(1),

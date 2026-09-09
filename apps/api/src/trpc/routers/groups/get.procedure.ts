@@ -18,7 +18,7 @@ import {
 } from '../../../lib/invitations/link-invitations'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupMutationContext,
   loadGroupViewer,
@@ -32,7 +32,7 @@ export type LinkInviteState =
   | 'DECLINED'
   | 'EXPIRED'
 
-export const getGroupProcedure = groupReadProcedure
+export const getGroupProcedure = scopedGroupReadProcedure('spliit:groups:read')
   .input(
     z.object({
       groupId: z.string().min(1),
@@ -42,10 +42,15 @@ export const getGroupProcedure = groupReadProcedure
   .output(getGroupOutputSchema)
   .query(async ({ input, ctx }) => {
     const account = ctx.auth?.user
+    const isOAuth =
+      ctx.auth != null &&
+      'credentialKind' in ctx.auth &&
+      ctx.auth.credentialKind === 'oauth'
     let access = await loadGroupViewer(groupViewerArgs(input, ctx))
 
     if (
       account &&
+      !isOAuth &&
       input.linkInviteToken &&
       access.group.groupType === GroupType.FRIEND &&
       access.viewer.kind === 'PENDING_INVITEE'
@@ -119,7 +124,7 @@ export const getGroupProcedure = groupReadProcedure
             : ('PENDING_INVITATION' as const),
         access: 'READ_ONLY' as const,
         canMutate: false,
-        canAcceptInvitation: invitation != null,
+        canAcceptInvitation: invitation != null && !isOAuth,
       },
       hasSavedView,
     }

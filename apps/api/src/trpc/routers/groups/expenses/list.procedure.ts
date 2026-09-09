@@ -5,7 +5,7 @@ import { expensePermissions } from '../../../../lib/api/resource-permissions'
 import { redactExpenseListShares } from '../../../../lib/group-view-redaction'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupViewer,
 } from '../../../init'
@@ -18,8 +18,8 @@ const matchModeSchema = z
 
 const listExpensesInputSchema = z.object({
   groupId: z.string().min(1),
-  cursor: z.number().optional(),
-  limit: z.number().optional(),
+  cursor: z.number().int().min(0).optional(),
+  limit: z.number().int().min(1).max(100).optional(),
   filter: z.string().optional(),
   locale: z.string().optional(),
   hideSettlements: z.boolean().optional(),
@@ -41,7 +41,9 @@ const listExpensesInputSchema = z.object({
   ...groupAccessFields,
 })
 
-export const listGroupExpensesProcedure = groupReadProcedure
+export const listGroupExpensesProcedure = scopedGroupReadProcedure(
+  'spliit:expenses:read',
+)
   .input(listExpensesInputSchema)
   .output(listExpensesOutputSchema)
   .query(async ({ input, ctx }) => {

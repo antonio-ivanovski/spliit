@@ -10,9 +10,14 @@ import {
   getSoftRemoveParticipantPreview,
   softRemoveParticipant,
 } from '../../../../lib/api/soft-remove-participant'
+import { SPLIIT_SCOPES } from '../../../../lib/auth/scopes'
 import { RevokeInvitationPreconditionError } from '../../../../lib/invitations'
 import { isInvitationParticipantUnused } from '../../../../lib/invitations/email-invitations'
-import { loadGroupMutationContext, protectedProcedure } from '../../../init'
+import {
+  apiProcedure,
+  assertOAuthScope,
+  loadGroupMutationContext,
+} from '../../../init'
 import {
   participantRemovalOutputSchema,
   participantRemovalPreviewOutputSchema,
@@ -103,7 +108,9 @@ function mapRemoveError(error: unknown): never {
   throw error
 }
 
-export const removeParticipantPreviewProcedure = protectedProcedure
+export const removeParticipantPreviewProcedure = apiProcedure(
+  'spliit:groups:read',
+)
   .input(
     z.object({
       groupId: z.string().min(1),
@@ -133,7 +140,11 @@ export const removeParticipantPreviewProcedure = protectedProcedure
     }
   })
 
-export const removeParticipantProcedure = protectedProcedure
+/**
+ * Remove a participant. OAuth callers that ask to settle balances also need
+ * `spliit:expenses:manage`, because settlement materializes expenses.
+ */
+export const removeParticipantProcedure = apiProcedure('spliit:groups:delete')
   .input(
     z.object({
       groupId: z.string().min(1),
@@ -157,6 +168,11 @@ export const removeParticipantProcedure = protectedProcedure
         code: 'FORBIDDEN',
         message: 'This group is archived; participant management is disabled',
       })
+    }
+    if (input.settleBalances) {
+      // Settlement creates expenses; keep that authority separate from the
+      // permission to remove a participant.
+      assertOAuthScope(ctx.auth, SPLIIT_SCOPES.expensesManage)
     }
 
     try {

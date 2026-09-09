@@ -14,10 +14,12 @@ import {
 } from '../../../../lib/api/idempotency'
 import { enqueueBudgetEvaluation } from '../../../../lib/budgets/enqueue'
 import { ConversionError } from '../../../../lib/expense-conversion'
-import { loadGroupMutationContext, protectedProcedure } from '../../../init'
+import { loadGroupMutationContext, apiProcedure } from '../../../init'
 import { createExpenseOutputSchema } from '../../../outputs/expenses'
 
-export const createGroupExpenseProcedure = protectedProcedure
+export const createGroupExpenseProcedure = apiProcedure(
+  'spliit:expenses:manage',
+)
   .input(
     z.object({
       groupId: z.string().min(1),

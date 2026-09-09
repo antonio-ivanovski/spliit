@@ -7,13 +7,15 @@ import { getGroup, getGroupExpensesParticipants } from '../../../lib/api'
 import { redactGroupForViewer } from '../../../lib/group-view-redaction'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupViewer,
 } from '../../init'
 import { getGroupDetailsOutputSchema } from '../../outputs/groups'
 
-export const getGroupDetailsProcedure = groupReadProcedure
+export const getGroupDetailsProcedure = scopedGroupReadProcedure(
+  'spliit:groups:read',
+)
   .input(
     z.object({
       groupId: z.string().min(1),

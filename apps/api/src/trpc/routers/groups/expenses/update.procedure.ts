@@ -14,10 +14,16 @@ import {
 } from '../../../../lib/api/resource-permissions'
 import { enqueueBudgetEvaluation } from '../../../../lib/budgets/enqueue'
 import { ConversionError } from '../../../../lib/expense-conversion'
-import { loadGroupMutationContext, protectedProcedure } from '../../../init'
+import {
+  apiProcedure,
+  assertScopeForDestructiveEdit,
+  loadGroupMutationContext,
+} from '../../../init'
 import { updateExpenseOutputSchema } from '../../../outputs/expenses'
 
-export const updateGroupExpenseProcedure = protectedProcedure
+export const updateGroupExpenseProcedure = apiProcedure(
+  'spliit:expenses:manage',
+)
   .input(
     z.object({
       expenseId: z.string().min(1),
@@ -33,6 +39,13 @@ export const updateGroupExpenseProcedure = protectedProcedure
       input: { expenseId, groupId, expectedVersion, expense, scope },
       ctx,
     }) => {
+      // A `THIS_AND_FUTURE` edit reshapes the series: occurrences that no
+      // longer fit the new schedule are dropped, along with their documents in
+      // object storage. That is a deletion whatever the verb on the procedure
+      // says, so a token has to hold the delete scope to ask for it.
+      if (scope === 'THIS_AND_FUTURE') {
+        assertScopeForDestructiveEdit(ctx.auth)
+      }
       const { group, member } = await loadGroupMutationContext({
         groupId,
         accountId: ctx.auth.user.id,

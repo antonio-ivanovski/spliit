@@ -3,13 +3,15 @@ import { z } from 'zod'
 import { getRecurringSeriesProgress } from '../../../../lib/api/series-progress'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupViewer,
 } from '../../../init'
 import { recurringSeriesProgressOutputSchema } from '../../../outputs/expenses'
 
-export const seriesProgressProcedure = groupReadProcedure
+export const seriesProgressProcedure = scopedGroupReadProcedure(
+  'spliit:expenses:read',
+)
   .input(
     z.object({
       groupId: z.string().min(1),

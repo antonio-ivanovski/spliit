@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import '../../test/mocks'
 import { prismaMock, sendEmailMock } from '../../test/state'
 import { clearAccountCache, getCachedAccount } from './account-cache'
+import { DEFAULT_CLIENT_SCOPES, SPLIIT_SCOPES } from './scopes'
 
 // `vi.importActual` returns the real (un-mocked) module so we can inspect the
 // better-auth options we configured in `lib/auth/index.ts`. The existing
@@ -57,7 +58,10 @@ const realAuthModule = (await vi.importActual('./index')) as {
         expiresIn?: number
         updateAge?: number
       }
-      hooks?: { before?: unknown; after?: (ctx: unknown) => Promise<void> }
+      hooks?: {
+        before?: unknown
+        after?: (ctx: unknown) => Promise<void>
+      }
       databaseHooks?: {
         user?: {
           create?: {
@@ -178,6 +182,12 @@ describe('better-auth session config', () => {
     expect(realAuthModule.auth.options.disabledPaths).toContain('/token')
   })
 
+  it('disables the provider consent deletion that would leave refresh tokens alive', () => {
+    expect(realAuthModule.auth.options.disabledPaths).toContain(
+      '/oauth2/delete-consent',
+    )
+  })
+
   it('does not attach a JWT header to ordinary cookie-session responses', () => {
     const jwtPlugin = realAuthModule.auth.options.plugins?.find(
       (plugin) => plugin.id === 'jwt',
@@ -206,6 +216,48 @@ describe('better-auth session config', () => {
 
     expect(jwtPlugin?.options?.adapter).toBeDefined()
   })
+
+  it('narrows a dynamic registration without scopes to safe defaults', async () => {
+    prismaMock.oauthClient.update.mockResolvedValue({} as never)
+    const returned = {
+      client_id: 'default-scope-client',
+      scope: 'broader-provider-capabilities',
+    }
+
+    await realAuthModule.auth.options.hooks?.after?.({
+      path: '/oauth2/register',
+      body: {},
+      context: { returned },
+    } as never)
+
+    expect(prismaMock.oauthClient.update).toHaveBeenCalledWith({
+      where: { clientId: 'default-scope-client' },
+      data: { scopes: DEFAULT_CLIENT_SCOPES },
+    })
+    expect(returned.scope).toBe(DEFAULT_CLIENT_SCOPES.join(' '))
+  })
+
+  it('retains an explicitly registered destructive scope without widening it', async () => {
+    prismaMock.oauthClient.update.mockResolvedValue({} as never)
+    const scopes = [...DEFAULT_CLIENT_SCOPES, SPLIIT_SCOPES.expensesDelete]
+    const returned = {
+      client_id: 'delete-scope-client',
+      scope: 'broader-provider-capabilities',
+    }
+
+    await realAuthModule.auth.options.hooks?.after?.({
+      path: '/oauth2/register',
+      body: { scope: scopes.join(' ') },
+      context: { returned },
+    } as never)
+
+    expect(prismaMock.oauthClient.update).toHaveBeenCalledWith({
+      where: { clientId: 'delete-scope-client' },
+      data: { scopes },
+    })
+    expect(returned.scope).toBe(scopes.join(' '))
+  })
+
   it('invalidates cached accounts after Better Auth user updates and deletes', async () => {
     clearAccountCache()
     const account = {

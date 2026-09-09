@@ -1,4 +1,4 @@
-import { Bot, ShieldCheck } from 'lucide-react'
+import { Plug, ShieldCheck } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 import { PageShell } from '@/components/layout/page-shell'
@@ -31,7 +31,7 @@ export function OAuthShell({
         <section className="flex min-w-0 items-center justify-between gap-4 rounded-2xl border border-primary/15 bg-primary/[0.045] px-3.5 py-3 sm:px-4">
           <div className="flex min-w-0 items-center gap-3">
             <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm shadow-primary/20">
-              <Bot className="size-5" aria-hidden="true" />
+              <Plug className="size-5" aria-hidden="true" />
             </div>
             <div className="min-w-0">
               <p className="text-xs font-semibold tracking-wide text-primary uppercase">

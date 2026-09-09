@@ -9,14 +9,14 @@ import {
   runIdempotentCreate,
 } from '../../../../lib/api/idempotency'
 import { randomId } from '../../../../lib/api/shared'
-import { loadGroupMutationContext, protectedProcedure } from '../../../init'
+import { loadGroupMutationContext, apiProcedure } from '../../../init'
 import { createParticipantOutputSchema } from '../../../outputs/members'
 
 /**
  * Create a name-only participant. This is intentionally available to every
  * active member: it creates a ledger row, not a membership or invitation.
  */
-export const createParticipantProcedure = protectedProcedure
+export const createParticipantProcedure = apiProcedure('spliit:groups:manage')
   .input(
     z.object({
       groupId: z.string().min(1),

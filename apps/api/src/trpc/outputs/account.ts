@@ -82,3 +82,23 @@ export const accountFriendsOutputSchema = z.object({
     }),
   ),
 })
+
+export const authorizedClientSchema = z.object({
+  consentId: z.string(),
+  clientId: z.string(),
+  name: z.string().nullable(),
+  icon: z.string().nullable(),
+  scopes: z.array(z.string()),
+  authorizedAt: z.date().nullable(),
+  activeUntil: z.date().nullable(),
+})
+
+export const authorizedClientsOutputSchema = z.object({
+  clients: z.array(authorizedClientSchema),
+})
+
+export const revokeAuthorizedClientOutputSchema = z.object({
+  refreshTokensRevoked: z.number().int(),
+  accessTokensDeleted: z.number().int(),
+  authorizationCodesDeleted: z.number().int(),
+})

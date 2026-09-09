@@ -15,7 +15,12 @@ import {
 } from '../../../lib/api/balances'
 import { getApiBoss } from '../../../lib/api/boss'
 import { resumeRecurringExpenseSeries } from '../../../lib/api/recurrence-series'
-import { loadGroupMutationContext, protectedProcedure } from '../../init'
+import { SPLIIT_SCOPES } from '../../../lib/auth/scopes'
+import {
+  apiProcedure,
+  assertOAuthScope,
+  loadGroupMutationContext,
+} from '../../init'
 import { archiveGroupOutputSchema } from '../../outputs/groups'
 
 /**
@@ -27,9 +32,10 @@ import { archiveGroupOutputSchema } from '../../outputs/groups'
  * mutation throws `FAILED_PRECONDITION` unless the caller passes `force: true`,
  * in which case it auto-creates one settlement expense per non-zero leg (inside
  * the same transaction as the archive flip) so the new `Group.archived = true`
- * state matches a zeroed-out ledger.
+ * state matches a zeroed-out ledger. OAuth callers using `force` therefore also
+ * need `spliit:expenses:manage` when settlement expenses are required.
  */
-export const archiveGroupProcedure = protectedProcedure
+export const archiveGroupProcedure = apiProcedure('spliit:groups:delete')
   .input(
     z.object({
       groupId: z.string().min(1),
@@ -95,6 +101,9 @@ export const archiveGroupProcedure = protectedProcedure
       if (willArchive && force) {
         const balances = await getGroupBalances(groupId)
         if (hasUnsettledBalances(balances)) {
+          // Force-archive materializes settlement expenses. A group-delete
+          // grant alone must not silently gain expense-write authority.
+          assertOAuthScope(ctx.auth, SPLIIT_SCOPES.expensesManage)
           const settled = await createSettlementExpensesForArchive(
             groupId,
             { accountId: ctx.auth.user.id },

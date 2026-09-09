@@ -64,4 +64,34 @@ describe('proxy header trust', () => {
     expect((await testApp.request('/limited', { headers })).status).toBe(200)
     expect((await testApp.request('/limited', { headers })).status).toBe(429)
   })
+
+  it('can apply a shared limit when no proxy is trusted', async () => {
+    const testApp = new Hono()
+    testApp.use(
+      '/limited',
+      clientRateLimitMiddleware({
+        policy: 'test-untrusted-fallback',
+        limit: 1,
+        windowMs: 60_000,
+        trustProxy: false,
+        untrustedFallbackIdentity: 'all-direct-clients',
+      }),
+    )
+    testApp.get('/limited', (c) => c.text('ok'))
+
+    expect(
+      (
+        await testApp.request('/limited', {
+          headers: { 'cf-connecting-ip': '203.0.113.1' },
+        })
+      ).status,
+    ).toBe(200)
+    expect(
+      (
+        await testApp.request('/limited', {
+          headers: { 'cf-connecting-ip': '203.0.113.2' },
+        })
+      ).status,
+    ).toBe(429)
+  })
 })

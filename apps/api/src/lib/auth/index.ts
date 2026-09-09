@@ -44,14 +44,22 @@ import { invalidateAccountCache } from './account-cache'
 import { anonymousRecovery } from './anonymous-recovery'
 import { emailChange } from './email-change'
 import { enforceAuthEmailRecipientLimit } from './email-rate-limit'
+import { bindLegacyRefreshTokenResource } from './oauth-refresh-compat'
 import { applyNativeApplicationTypeForLoopbackRegistration } from './oauth-registration'
+import {
+  finalizeOAuthTokenExchange,
+  prepareOAuthConsent,
+  prepareOAuthTokenExchange,
+  rearmOAuthClientAfterConsent,
+} from './oauth-revocation-barrier'
 import { passwordSet } from './password-set'
+import { ALL_SCOPES, DEFAULT_CLIENT_SCOPES } from './scopes'
 import {
   assertCanCreateAccount,
   enforceSignupGate,
   persistSignupInviteCookie,
 } from './signup-gate'
-import { getApiBaseUrl } from './urls'
+import { getApiBaseUrl, oauthAudiences } from './urls'
 
 const oidcProvider = getConfiguredOidcProvider()
 
@@ -103,6 +111,22 @@ function buildPasswordRecoveryEmail(opts: {
 }
 
 const beforeAuthMiddleware = createAuthMiddleware(async (ctx) => {
+  if (ctx.path === '/oauth2/token') {
+    await prepareOAuthTokenExchange(ctx.request, ctx.body)
+    await bindLegacyRefreshTokenResource(ctx.body)
+  }
+  if (ctx.path === '/oauth2/consent') {
+    prepareOAuthConsent(ctx.request)
+  }
+
+  if (ctx.path === '/oauth2/authorize') {
+    const authorizationParams =
+      ctx.method === 'POST' && isRecord(ctx.body) ? ctx.body : ctx.query
+    if (isRecord(authorizationParams) && authorizationParams.resource == null) {
+      authorizationParams.resource = getApiBaseUrl()
+    }
+  }
+
   if (ctx.path === '/oauth2/register' && isRecord(ctx.body)) {
     applyNativeApplicationTypeForLoopbackRegistration(ctx.body)
   }
@@ -198,6 +222,38 @@ const beforeAuthMiddleware = createAuthMiddleware(async (ctx) => {
   await persistSignupInviteCookie(ctx)
   await enforceSignupGate(ctx)
 })
+
+async function narrowDynamicClientRegistrationScopes(ctx: {
+  path: string
+  body: unknown
+  context: { returned?: unknown }
+}) {
+  if (ctx.path !== '/oauth2/register' || !isRecord(ctx.context.returned)) return
+  const clientId = ctx.context.returned.client_id
+  if (typeof clientId !== 'string') return
+
+  // Better Auth 1.7 persists the union of default and allowed registration
+  // scopes as every dynamic client's capability set. Spliit's delete scopes
+  // are deliberately opt-in per client, so retain the narrower registration
+  // request (or our non-destructive defaults) in both storage and response.
+  const requestedScope =
+    isRecord(ctx.body) && typeof ctx.body.scope === 'string'
+      ? ctx.body.scope.split(' ').filter(Boolean)
+      : DEFAULT_CLIENT_SCOPES
+  const scopes = [...new Set(requestedScope)]
+
+  try {
+    await prisma.oauthClient.update({
+      where: { clientId },
+      data: { scopes },
+    })
+  } catch (error) {
+    // Never leave behind a broader registration if narrowing failed.
+    await prisma.oauthClient.deleteMany({ where: { clientId } }).catch(() => {})
+    throw error
+  }
+  ctx.context.returned.scope = scopes.join(' ')
+}
 
 // Integration and unit tests share the local PostgreSQL database with the
 // already-running development API. Persisting test signing keys there would
@@ -427,7 +483,10 @@ export const auth = betterAuth({
   basePath: '/auth',
   // OAuth Provider mode exposes `/oauth2/token`; Better Auth's standalone JWT
   // token endpoint is redundant and must not be advertised or callable.
-  disabledPaths: ['/token'],
+  // The provider's native delete-consent route only removes the consent row
+  // and leaves refresh tokens alive. Account settings uses the transactional
+  // Spliit revocation path instead, so keep the unsafe shortcut unreachable.
+  disabledPaths: ['/token', '/oauth2/delete-consent'],
   secret: env.BETTER_AUTH_SECRET ?? 'spliit-dev-secret-change-me',
   // CORS already allows every configured WEB_ORIGINS entry; pass the full
   // list to better-auth so its trusted-origin check agrees. With only the
@@ -486,6 +545,14 @@ export const auth = betterAuth({
   hooks: {
     before: beforeAuthMiddleware,
     after: createAuthMiddleware(async (ctx) => {
+      if (ctx.path === '/oauth2/token') {
+        const revoked = await finalizeOAuthTokenExchange(ctx.request)
+        if (revoked) return revoked
+      }
+      if (ctx.path === '/oauth2/consent') {
+        await rearmOAuthClientAfterConsent(ctx.request, ctx.context.returned)
+      }
+      await narrowDynamicClientRegistrationScopes(ctx)
       if (ctx.path !== '/change-password') return
       let data: unknown = ctx.context.returned
       if (data instanceof Response) {
@@ -689,55 +756,45 @@ export const auth = betterAuth({
           }),
         ]
       : []),
-    ...(env.ENABLE_MCP
-      ? [
-          oauthProvider({
-            loginPage: `${webOrigins[0]}/oauth/login`,
-            consentPage: `${webOrigins[0]}/oauth/consent`,
-            scopes: [
-              'openid',
-              'profile',
-              'email',
-              'offline_access',
-              'spliit:groups:read',
-              'spliit:expenses:write',
-            ],
-            resources: [`${env.MCP_PUBLIC_URL!}/mcp`],
-            clientRegistrationDefaultResources: [`${env.MCP_PUBLIC_URL!}/mcp`],
-            clientRegistrationAllowedResources: [`${env.MCP_PUBLIC_URL!}/mcp`],
-            allowDynamicClientRegistration: true,
-            allowUnauthenticatedClientRegistration: true,
-            allowPublicClientPrelogin: true,
-            grantTypes: ['authorization_code', 'refresh_token'],
-            clientRegistrationDefaultScopes: [
-              'openid',
-              'profile',
-              'email',
-              'offline_access',
-              'spliit:groups:read',
-              'spliit:expenses:write',
-            ],
-            clientRegistrationAllowedScopes: [
-              'openid',
-              'profile',
-              'email',
-              'offline_access',
-              'spliit:groups:read',
-              'spliit:expenses:write',
-            ],
-            customAccessTokenClaims: ({ user }) => ({
-              account_id: user?.id,
-            }),
-          }),
-          jwt({
-            // OAuth access tokens are minted by the OAuth Provider flow. Adding a
-            // JWT header to every cookie-session response is unnecessary and makes
-            // ordinary `/get-session` reads depend on the OAuth signing key.
-            disableSettingJwtHeader: true,
-            adapter: testJwtAdapter,
-          }),
-        ]
-      : []),
+    // The OAuth provider is no longer gated behind ENABLE_MCP. The MCP app is
+    // one client among others: any programmatic client (scripts, agents) needs
+    // the same authorization server, and gating it made the API unreachable
+    // whenever the assistant was disabled.
+    oauthProvider({
+      loginPage: `${webOrigins[0]}/oauth/login`,
+      consentPage: `${webOrigins[0]}/oauth/consent`,
+      scopes: [...ALL_SCOPES],
+      // The API is the default protected resource. Keep the MCP resource
+      // registered while configured so existing assistant clients can still
+      // request tokens for it explicitly.
+      resources: oauthAudiences(),
+      clientRegistrationDefaultResources: [getApiBaseUrl()],
+      clientRegistrationAllowedResources: oauthAudiences(),
+      // Existing clients predate the 1.7 client-resource join table. Keep the
+      // global resource allowlist authoritative until those registrations can
+      // be backfilled without breaking their refresh flow.
+      enforcePerClientResources: false,
+      allowDynamicClientRegistration: true,
+      allowUnauthenticatedClientRegistration: true,
+      allowPublicClientPrelogin: true,
+      silenceWarnings: { oauthAuthServerConfig: true },
+      grantTypes: ['authorization_code', 'refresh_token'],
+      // Registering without asking for anything specific grants read-only
+      // access. Manage and delete must be requested explicitly, so an
+      // underspecified client fails safely into the step-up flow.
+      clientRegistrationDefaultScopes: [...DEFAULT_CLIENT_SCOPES],
+      clientRegistrationAllowedScopes: [...ALL_SCOPES],
+      customAccessTokenClaims: ({ user }) => ({
+        account_id: user?.id,
+      }),
+    }),
+    jwt({
+      // OAuth access tokens are minted by the OAuth Provider flow. Adding a
+      // JWT header to every cookie-session response is unnecessary and makes
+      // ordinary `/get-session` reads depend on the OAuth signing key.
+      disableSettingJwtHeader: true,
+      adapter: testJwtAdapter,
+    }),
     magicLink({
       disableSignUp: false,
       sendMagicLink: async ({ email, url }) => {

@@ -23,13 +23,15 @@ import { redactViewerDisplayName } from '../../../../lib/group-view'
 import { resolveParticipantDisplayName } from '../../../../lib/invitations/display'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupViewer,
 } from '../../../init'
 import { listBalancesOutputSchema } from '../../../outputs/balances'
 
-export const listGroupBalancesProcedure = groupReadProcedure
+export const listGroupBalancesProcedure = scopedGroupReadProcedure(
+  'spliit:groups:read',
+)
   .input(
     z.object({
       groupId: z.string().min(1),

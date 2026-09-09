@@ -8,10 +8,10 @@ import {
   createRequestIdSchema,
   runIdempotentCreate,
 } from '../../../lib/api/idempotency'
-import { protectedProcedure } from '../../init'
+import { apiProcedure } from '../../init'
 import { createGroupOutputSchema } from '../../outputs/groups'
 
-export const createGroupProcedure = protectedProcedure
+export const createGroupProcedure = apiProcedure('spliit:groups:manage')
   .input(
     z.object({
       requestId: createRequestIdSchema,

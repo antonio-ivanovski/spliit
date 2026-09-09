@@ -10,6 +10,7 @@ import {
 } from '@spliit/db'
 
 import { autoAcceptPendingFriendInvitationsForAccount } from '../lib/api/friends'
+import { getApiBaseUrl } from '../lib/auth/urls'
 import { accountRouter } from '../trpc/routers/account'
 import { friendsRouter } from '../trpc/routers/friends'
 import { groupsRouter } from '../trpc/routers/groups'
@@ -539,6 +540,40 @@ describe('Friend ledger — real DB', () => {
         where: { groupId_accountId: { groupId, accountId: linkRecipientId } },
       })
       expect(before).toBeNull()
+
+      // A read-scoped OAuth token may inspect the pending invitation, but a
+      // query must never consume it or create membership as a side effect.
+      const oauthView = await groupsRouter
+        .createCaller({
+          auth: {
+            credentialKind: 'oauth',
+            accessToken: 'oauth-link-read-test',
+            scopes: ['spliit:groups:read'],
+            audiences: [getApiBaseUrl()],
+            session: { id: 'oauth-link-read-session' },
+            user: {
+              id: linkRecipientId,
+              email: linkRecipientEmail,
+              emailVerified: true,
+              name: 'Link Recipient',
+              anonymousOnboardingCompleted: true,
+            },
+          },
+        } as never)
+        .get({ groupId, linkInviteToken: token })
+
+      expect(oauthView.viewer.canAcceptInvitation).toBe(false)
+
+      expect(
+        await prisma.groupMember.findUnique({
+          where: { groupId_accountId: { groupId, accountId: linkRecipientId } },
+        }),
+      ).toBeNull()
+      expect(
+        await prisma.groupInvitation.findFirst({
+          where: { groupId, type: GroupInvitationType.LINK },
+        }),
+      ).toMatchObject({ status: GroupInvitationStatus.PENDING })
 
       await makeGroupsCaller({
         accountId: linkRecipientId,

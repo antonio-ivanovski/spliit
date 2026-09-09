@@ -5,13 +5,15 @@ import { getExpense } from '../../../../lib/api'
 import { expensePermissions } from '../../../../lib/api/resource-permissions'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupViewer,
 } from '../../../init'
 import { getExpenseOutputSchema } from '../../../outputs/expenses'
 
-export const getGroupExpenseProcedure = groupReadProcedure
+export const getGroupExpenseProcedure = scopedGroupReadProcedure(
+  'spliit:expenses:read',
+)
   .input(
     z.object({
       groupId: z.string().min(1),

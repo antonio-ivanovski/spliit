@@ -19,7 +19,7 @@ import { redactViewerDisplayName } from '../../../../lib/group-view'
 import { resolveParticipantDisplayName } from '../../../../lib/invitations'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupViewer,
 } from '../../../init'
@@ -38,7 +38,9 @@ import {
  * `activeParticipantId` and the per-user totals are 0 — the FE surfaces the
  * Accept/Decline banner in that case.
  */
-export const getGroupStatsProcedure = groupReadProcedure
+export const getGroupStatsProcedure = scopedGroupReadProcedure(
+  'spliit:groups:read',
+)
   .input(
     z.object({
       groupId: z.string().min(1),

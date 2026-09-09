@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { GroupType } from '@spliit/db'
 
 import { deleteGroup } from '../../../lib/api'
-import { loadGroupMutationContext, protectedProcedure } from '../../init'
+import { loadGroupMutationContext, apiProcedure } from '../../init'
 import { deleteGroupOutputSchema } from '../../outputs/groups'
 
 /**
@@ -21,7 +21,7 @@ import { deleteGroupOutputSchema } from '../../outputs/groups'
  * Archived groups are rejected: there is nothing left to delete and the setting
  * already shows the group as read-only.
  */
-export const deleteGroupProcedure = protectedProcedure
+export const deleteGroupProcedure = apiProcedure('spliit:groups:delete')
   .input(
     z.object({
       groupId: z.string().min(1),

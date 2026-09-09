@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import '../../test/mocks'
 import { prismaMock } from '../../test/state'
+import { clearAccountCache } from './account-cache'
 
 const verifyBearerTokenMock = vi.hoisted(() => vi.fn())
 
@@ -60,6 +61,7 @@ function accountRow(overrides: Record<string, unknown> = {}) {
 
 describe('getOAuthAuthFromRequest', () => {
   beforeEach(() => {
+    clearAccountCache()
     verifyBearerTokenMock.mockReset()
     envState.overrides = {}
   })
@@ -78,7 +80,10 @@ describe('getOAuthAuthFromRequest', () => {
 
     expect(resolved).not.toBeNull()
     expect(verifyBearerTokenMock).toHaveBeenCalledWith('tok-123', {
-      verifyOptions: { audience: AUDIENCE, issuer: `${API_BASE}/auth` },
+      verifyOptions: {
+        audience: [API_BASE, AUDIENCE],
+        issuer: `${API_BASE}/auth`,
+      },
       jwksUrl: `${API_BASE}/auth/jwks`,
     })
     expect(prismaMock.account.findUnique).toHaveBeenCalledWith({
@@ -121,6 +126,33 @@ describe('getOAuthAuthFromRequest', () => {
     })
   })
 
+  it('exposes the verified aud claim for per-surface audience checks', async () => {
+    prismaMock.account.findUnique.mockResolvedValue(accountRow() as never)
+
+    // String, array (with non-string entries dropped), and absent forms all
+    // normalise to a plain list; surfaces fail closed on an empty one.
+    const audForms: Array<{ aud?: unknown; expected: string[] }> = [
+      { aud: AUDIENCE, expected: [AUDIENCE] },
+      { aud: [API_BASE, AUDIENCE, 42], expected: [API_BASE, AUDIENCE] },
+      { expected: [] },
+    ]
+    for (const { aud, expected } of audForms) {
+      verifyBearerTokenMock.mockResolvedValue({
+        sub: 'account-1',
+        scopes: ['spliit:groups:read'],
+        exp: 1000,
+        iat: 900,
+        ...(aud === undefined ? {} : { aud }),
+      })
+
+      const resolved = (await getOAuthAuthFromRequest(
+        bearerRequest('tok-aud'),
+      )) as OAuthResolvedAuth
+
+      expect(resolved.audiences).toEqual(expected)
+    }
+  })
+
   it('falls back to a space-separated scope claim and derived session id', async () => {
     prismaMock.account.findUnique.mockResolvedValue(accountRow() as never)
     verifyBearerTokenMock.mockResolvedValue({
@@ -141,6 +173,31 @@ describe('getOAuthAuthFromRequest', () => {
     expect(scoped.session.id).toBe('oauth:account-1')
     expect(scoped.session.expiresAt).toEqual(new Date(1_000_000))
     expect(scoped.session.createdAt).toEqual(new Date(900_000))
+  })
+
+  it('preserves incomplete anonymous onboarding on OAuth auth', async () => {
+    prismaMock.account.findUnique.mockResolvedValue(
+      accountRow({ isAnonymous: true }) as never,
+    )
+    prismaMock.anonymousRecoveryCredential.findUnique.mockResolvedValue(null)
+    verifyBearerTokenMock.mockResolvedValue({
+      sub: 'account-1',
+      scopes: ['spliit:groups:read'],
+      exp: 1000,
+      iat: 900,
+    })
+
+    const resolved = (await getOAuthAuthFromRequest(
+      bearerRequest('tok-anonymous'),
+    )) as OAuthResolvedAuth
+
+    expect(resolved.user.anonymousOnboardingCompleted).toBe(false)
+    expect(
+      prismaMock.anonymousRecoveryCredential.findUnique,
+    ).toHaveBeenCalledWith({
+      where: { accountId: 'account-1' },
+      select: { acknowledgedAt: true, onboardingCompletedAt: true },
+    })
   })
 
   it('rejects claims without finite numeric exp and iat', async () => {
@@ -201,14 +258,25 @@ describe('getOAuthAuthFromRequest', () => {
     })
   })
 
-  it('returns null when MCP is disabled or unconfigured', async () => {
-    envState.overrides.ENABLE_MCP = false
-    expect(await getOAuthAuthFromRequest(bearerRequest('tok-123'))).toBeNull()
+  it('keeps accepting API tokens when MCP is disabled and unconfigured', async () => {
+    envState.overrides = { ENABLE_MCP: false, MCP_PUBLIC_URL: '' }
+    prismaMock.account.findUnique.mockResolvedValue(accountRow() as never)
+    verifyBearerTokenMock.mockResolvedValue({
+      sub: 'account-1',
+      scopes: ['spliit:groups:read'],
+      exp: 1000,
+      iat: 900,
+    })
 
-    envState.overrides = { MCP_PUBLIC_URL: '' }
-    expect(await getOAuthAuthFromRequest(bearerRequest('tok-123'))).toBeNull()
-
-    expect(verifyBearerTokenMock).not.toHaveBeenCalled()
-    expect(prismaMock.account.findUnique).not.toHaveBeenCalled()
+    await expect(
+      getOAuthAuthFromRequest(bearerRequest('api-token')),
+    ).resolves.toMatchObject({ credentialKind: 'oauth' })
+    expect(verifyBearerTokenMock).toHaveBeenCalledWith('api-token', {
+      verifyOptions: {
+        audience: [API_BASE],
+        issuer: `${API_BASE}/auth`,
+      },
+      jwksUrl: `${API_BASE}/auth/jwks`,
+    })
   })
 })

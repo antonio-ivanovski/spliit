@@ -52,6 +52,7 @@ vi.mock('@/components/auth/auth-panel', () => ({
 describe('OAuthLoginPage', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    searchState.oauth_query = 'client_id=assistant-client&scope=openid'
     authState.data = null
     authState.isPending = false
   })
@@ -71,6 +72,11 @@ describe('OAuthLoginPage', () => {
   it('embeds the regular Spliit auth flow when signed out', () => {
     render(<OAuthLoginPage />)
 
+    expect(
+      screen.getByText(
+        'Use your usual Spliit Cloud sign-in method. The application never receives your password or sign-in credentials.',
+      ),
+    ).toBeVisible()
     const panel = screen.getByTestId('regular-auth-panel')
     expect(panel).toHaveAttribute('data-embedded', 'true')
     expect(panel).toHaveAttribute(
@@ -88,5 +94,19 @@ describe('OAuthLoginPage', () => {
       screen.getByText('Checking your Spliit session…'),
     ).toBeInTheDocument()
     expect(screen.queryByTestId('regular-auth-panel')).not.toBeInTheDocument()
+  })
+
+  it('sends a missing authorization request back to the application', () => {
+    searchState.oauth_query = ''
+
+    render(<OAuthLoginPage />)
+
+    expect(screen.getByText('Authorization request missing')).toBeVisible()
+    expect(
+      screen.getByText(
+        'Return to the application and start the connection again.',
+      ),
+    ).toBeVisible()
+    expect(screen.queryByText(/assistant/i)).not.toBeInTheDocument()
   })
 })

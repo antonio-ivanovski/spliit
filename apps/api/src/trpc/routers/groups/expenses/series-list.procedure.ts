@@ -3,13 +3,15 @@ import { z } from 'zod'
 import { getRecurringExpenseSeries } from '../../../../lib/api'
 import {
   groupAccessFields,
-  groupReadProcedure,
+  scopedGroupReadProcedure,
   groupViewerArgs,
   loadGroupViewer,
 } from '../../../init'
 import { listRecurringExpenseSeriesOutputSchema } from '../../../outputs/expenses'
 
-export const listRecurringExpenseSeriesProcedure = groupReadProcedure
+export const listRecurringExpenseSeriesProcedure = scopedGroupReadProcedure(
+  'spliit:expenses:read',
+)
   .input(
     z.object({
       groupId: z.string().min(1),

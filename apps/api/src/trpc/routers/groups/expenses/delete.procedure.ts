@@ -8,10 +8,12 @@ import {
   expenseOwnerAccountId,
 } from '../../../../lib/api/resource-permissions'
 import { enqueueBudgetEvaluation } from '../../../../lib/budgets/enqueue'
-import { loadGroupMutationContext, protectedProcedure } from '../../../init'
+import { loadGroupMutationContext, apiProcedure } from '../../../init'
 import { deleteExpenseOutputSchema } from '../../../outputs/expenses'
 
-export const deleteGroupExpenseProcedure = protectedProcedure
+export const deleteGroupExpenseProcedure = apiProcedure(
+  'spliit:expenses:delete',
+)
   .input(
     z
       .object({

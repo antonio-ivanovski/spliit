@@ -3,6 +3,13 @@ import { afterAll, describe, expect, it } from 'vitest'
 import { prisma } from '@spliit/db'
 
 import { app } from '../app'
+import {
+  ASSISTANT_WRITE_SCOPE,
+  DEFAULT_CLIENT_SCOPES,
+  DESTRUCTIVE_SCOPES,
+  SPLIIT_SCOPES,
+} from '../lib/auth/scopes'
+import { getApiBaseUrl } from '../lib/auth/urls'
 import { checkDbConnection } from './setup'
 
 await checkDbConnection()
@@ -16,7 +23,7 @@ describe('OAuth dynamic client registration', () => {
     })
   })
 
-  it('registers a minimal public MCP client without optional array fields', async () => {
+  it('registers a minimal public client with safe API defaults', async () => {
     const response = await app.request('/auth/oauth2/register', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -26,6 +33,7 @@ describe('OAuth dynamic client registration', () => {
         token_endpoint_auth_method: 'none',
       }),
     })
+    expect(response.status).toBe(201)
 
     const body = (await response.json()) as {
       client_id: string
@@ -34,25 +42,61 @@ describe('OAuth dynamic client registration', () => {
       grant_types: string[]
       response_types: string[]
       scope: string
+      resources: string[]
     }
     if (body.client_id) clientIds.push(body.client_id)
 
-    expect(response.status).toBe(201)
     expect(body).toMatchObject({
       contacts: [],
       post_logout_redirect_uris: [],
       grant_types: ['authorization_code'],
       response_types: ['code'],
+      resources: [getApiBaseUrl()],
     })
-    expect(body.scope.split(' ')).toEqual(
+    const registeredScopes = body.scope.split(' ')
+    expect(new Set(registeredScopes)).toEqual(new Set(DEFAULT_CLIENT_SCOPES))
+    expect(registeredScopes).toEqual(
       expect.arrayContaining([
-        'openid',
-        'profile',
-        'email',
-        'offline_access',
-        'spliit:groups:read',
-        'spliit:expenses:write',
+        SPLIIT_SCOPES.groupsRead,
+        SPLIIT_SCOPES.expensesRead,
       ]),
+    )
+    // An omitted `scope` must never grant write authority: no manage, no
+    // delete, no legacy assistant write. Clients name those explicitly and
+    // reach them through the insufficient_scope step-up flow.
+    expect(registeredScopes).not.toContain(SPLIIT_SCOPES.groupsManage)
+    expect(registeredScopes).not.toContain(SPLIIT_SCOPES.expensesManage)
+    for (const scope of DESTRUCTIVE_SCOPES) {
+      expect(registeredScopes).not.toContain(scope)
+    }
+    expect(registeredScopes).not.toContain(ASSISTANT_WRITE_SCOPE)
+  })
+
+  it('still registers manage scopes when a client asks for them by name', async () => {
+    const requestedScope = [
+      'openid',
+      'offline_access',
+      SPLIIT_SCOPES.groupsRead,
+      SPLIIT_SCOPES.groupsManage,
+      SPLIIT_SCOPES.expensesManage,
+    ].join(' ')
+    const response = await app.request('/auth/oauth2/register', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        client_name: 'Spliit OAuth explicit-scope test',
+        redirect_uris: ['http://localhost:3002/oauth/callback'],
+        token_endpoint_auth_method: 'none',
+        scope: requestedScope,
+      }),
+    })
+    expect(response.status).toBe(201)
+
+    const body = (await response.json()) as { client_id: string; scope: string }
+    if (body.client_id) clientIds.push(body.client_id)
+
+    expect(new Set(body.scope.split(' '))).toEqual(
+      new Set(requestedScope.split(' ')),
     )
   })
 

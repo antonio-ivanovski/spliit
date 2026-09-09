@@ -2,12 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router'
 import {
   ArrowRight,
-  Bot,
   Database,
   Eye,
   Loader2,
   LockKeyhole,
-  PlusCircle,
+  Plug,
   ShieldCheck,
   TriangleAlert,
 } from 'lucide-react'
@@ -20,21 +19,63 @@ import { authClient } from '@/lib/auth'
 
 import {
   getOAuthPublicClient,
+  readOAuthRequest,
   resolveOAuthQuery,
   submitConsent,
 } from './oauth-api'
+import {
+  describeScopes,
+  KNOWN_SCOPES,
+  OIDC_SCOPES,
+} from './oauth-consent-scopes'
 import { OAuthShell } from './oauth-shell'
 
 const route = getRouteApi('/oauth/consent')
 
+function readExternalHttpUrl(value: string | undefined) {
+  if (!value) return null
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null
+    return { href: url.toString(), host: url.host }
+  } catch {
+    return null
+  }
+}
+
+const LOOPBACK_HOSTNAMES = new Set(['localhost', '127.0.0.1', '[::1]'])
+
+/**
+ * Where the authorization response will be sent. Parsed from the same signed
+ * `oauth_query` as the client identity and scopes — never from separate search
+ * params — so the destination shown is the one that receives the code.
+ */
+function describeRedirectDestination(value: string | undefined) {
+  if (!value) return null
+  try {
+    const url = new URL(value)
+    const isHttp = url.protocol === 'https:' || url.protocol === 'http:'
+    return {
+      href: url.toString(),
+      // `host` keeps the port, which matters for loopback redirects. Custom
+      // schemes (native apps) can have an empty host; show the full URI then.
+      display: isHttp && url.host ? url.host : url.toString(),
+      isLoopback: isHttp && LOOPBACK_HOSTNAMES.has(url.hostname),
+    }
+  } catch {
+    return null
+  }
+}
+
 export function OAuthConsentPage() {
   const { t } = useTranslation(undefined, { keyPrefix: 'OAuth.consent' })
-  const {
-    oauth_query: explicitOAuthQuery,
-    client_id: clientId,
-    scope,
-  } = route.useSearch()
+  const { oauth_query: explicitOAuthQuery } = route.useSearch()
   const oauthQuery = resolveOAuthQuery(explicitOAuthQuery)
+  // Identity, scopes and redirect target are read from the signed request
+  // itself, never from separate search params, so what is shown is what gets
+  // authorized.
+  const { clientId, redirectUri, scopes } = readOAuthRequest(oauthQuery)
+  const redirectDestination = describeRedirectDestination(redirectUri)
   const { data: session, isPending: sessionPending } = authClient.useSession()
   const client = useQuery({
     queryKey: ['oauth-public-client', clientId],
@@ -44,9 +85,29 @@ export function OAuthConsentPage() {
   })
   const [pending, setPending] = useState<'accept' | 'deny' | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const requestedScopes = new Set(scope?.split(' ') ?? [])
+  const grants = describeScopes(scopes)
+  const unknownScopes = scopes.filter(
+    (scope) => !KNOWN_SCOPES.has(scope) && !OIDC_SCOPES.has(scope),
+  )
   const clientName = client.data?.client_name ?? t('defaultClient')
+  const clientWebsite = readExternalHttpUrl(client.data?.client_uri)
+  const privacyPolicy = readExternalHttpUrl(client.data?.policy_uri)
+  const clientError =
+    !oauthQuery || !clientId
+      ? t('missingRequest')
+      : client.isError
+        ? t('clientUnavailable')
+        : null
   const account = session?.user
+  // Approving is only meaningful once the account is known, the client has
+  // been resolved, and every requested scope is one we can name.
+  const canApprove =
+    Boolean(account) &&
+    Boolean(client.data) &&
+    !client.isPending &&
+    !client.isError &&
+    unknownScopes.length === 0 &&
+    pending === null
 
   async function decide(accept: boolean) {
     if (!oauthQuery) {
@@ -55,7 +116,7 @@ export function OAuthConsentPage() {
     }
     setPending(accept ? 'accept' : 'deny')
     setError(null)
-    await submitConsent({ accept, oauthQuery, scope }).catch((cause) => {
+    await submitConsent({ accept, oauthQuery }).catch((cause) => {
       setError(cause instanceof Error ? cause.message : String(cause))
       setPending(null)
     })
@@ -105,7 +166,7 @@ export function OAuthConsentPage() {
 
             <IdentitySummary label={t('connectingTo')}>
               <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm shadow-primary/20">
-                <Bot className="size-5" aria-hidden="true" />
+                <Plug className="size-5" aria-hidden="true" />
               </div>
               <div className="min-w-0">
                 <p
@@ -117,6 +178,56 @@ export function OAuthConsentPage() {
                 <p className="text-xs break-words text-muted-foreground">
                   {t('assistantVia')}
                 </p>
+                {clientId ? (
+                  <p
+                    className="truncate font-mono text-[11px] text-muted-foreground"
+                    dir="ltr"
+                    title={clientId}
+                    translate="no"
+                  >
+                    {clientId}
+                  </p>
+                ) : null}
+                {redirectDestination ? (
+                  // The address that receives the authorization code. The
+                  // full URI stays one hover away via `title`.
+                  <p
+                    className="truncate text-[11px] text-muted-foreground"
+                    title={redirectDestination.href}
+                  >
+                    {t('redirectsTo')}{' '}
+                    <span className="font-mono" dir="ltr" translate="no">
+                      {redirectDestination.display}
+                    </span>
+                  </p>
+                ) : null}
+                <p className="mt-0.5 text-[11px] leading-4 text-amber-700 dark:text-amber-400">
+                  {t('unverifiedClient')}
+                </p>
+                {clientWebsite || privacyPolicy ? (
+                  <div className="mt-0.5 flex min-w-0 flex-wrap gap-x-2 gap-y-0.5 text-[11px]">
+                    {clientWebsite ? (
+                      <a
+                        className="truncate text-primary underline-offset-2 hover:underline"
+                        href={clientWebsite.href}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {t('clientWebsite')} ({clientWebsite.host})
+                      </a>
+                    ) : null}
+                    {privacyPolicy ? (
+                      <a
+                        className="text-primary underline-offset-2 hover:underline"
+                        href={privacyPolicy.href}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {t('privacyPolicy')}
+                      </a>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
             </IdentitySummary>
           </div>
@@ -135,20 +246,14 @@ export function OAuthConsentPage() {
               title={t('identityTitle')}
               description={t('identityDescription')}
             />
-            {requestedScopes.has('spliit:groups:read') && (
+            {grants.map((grant) => (
               <Permission
-                icon={<Database className="size-4" />}
-                title={t('groupsTitle')}
-                description={t('groupsDescription')}
+                key={grant.scope}
+                icon={<grant.icon className="size-4" />}
+                title={t(grant.titleKey)}
+                description={t(grant.descriptionKey)}
               />
-            )}
-            {requestedScopes.has('spliit:expenses:write') && (
-              <Permission
-                icon={<PlusCircle className="size-4" />}
-                title={t('expensesTitle')}
-                description={t('expensesDescription')}
-              />
-            )}
+            ))}
           </div>
         </section>
 
@@ -184,16 +289,42 @@ export function OAuthConsentPage() {
           </div>
         </div>
 
-        {error && (
+        {redirectDestination?.isLoopback && (
+          <section
+            role="note"
+            className="rounded-xl border border-amber-500/25 bg-amber-500/[0.06] p-2.5"
+            data-testid="oauth-loopback-warning"
+          >
+            <div className="flex gap-2">
+              <TriangleAlert
+                className="mt-0.5 size-4 shrink-0 text-amber-700 dark:text-amber-400"
+                aria-hidden="true"
+              />
+              <p className="text-xs leading-5 text-muted-foreground">
+                {t('loopbackWarning', {
+                  destination: redirectDestination.display,
+                })}
+              </p>
+            </div>
+          </section>
+        )}
+
+        {unknownScopes.length > 0 && (
           <p className="text-sm text-destructive" role="alert">
-            {error}
+            {t('unknownScopes', { scopes: unknownScopes.join(', ') })}
+          </p>
+        )}
+
+        {(clientError || error) && (
+          <p className="text-sm text-destructive" role="alert">
+            {clientError ?? error}
           </p>
         )}
 
         <div className="flex flex-col gap-2 border-t pt-3 sm:flex-row-reverse">
           <Button
             className="sm:min-w-48"
-            disabled={pending !== null || !account}
+            disabled={!canApprove}
             onClick={() => void decide(true)}
           >
             {pending === 'accept' ? (

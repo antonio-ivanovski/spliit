@@ -10,11 +10,13 @@ import {
 } from '@spliit/db'
 
 import { isAnonymousSetupIncomplete } from '../lib/auth/account-cache'
+import { hasScope, SPLIIT_SCOPES, type SpliitScope } from '../lib/auth/scopes'
 import type { OAuthResolvedAuth, ResolvedAuth } from '../lib/auth/session'
 import {
   getAuthFromRequest,
   getOAuthAuthFromRequest,
 } from '../lib/auth/session'
+import { getApiBaseUrl } from '../lib/auth/urls'
 import { env } from '../lib/env'
 import { groupViewKeysMatch } from '../lib/group-view'
 import { hashLinkToken } from '../lib/invitations'
@@ -49,7 +51,22 @@ export async function createTRPCContext(opts: {
 // since it's not very descriptive.
 // For instance, the use of a t variable
 // is common in i18n libraries.
-const t = initTRPC.context<AuthContext>().create({
+/**
+ * Per-procedure metadata.
+ *
+ * `scope` records the OAuth scope a programmatic caller must hold. It is set by
+ * `apiProcedure`, `scopedGroupReadProcedure` and `assistantProcedure` rather
+ * than maintained separately, so the OpenAPI generator reads the real
+ * requirement off the router instead of tracking a table that would drift.
+ *
+ * Typed as a plain string because `assistantProcedure` carries the legacy
+ * assistant scope, which is deliberately outside `SpliitScope`.
+ */
+export type ProcedureMeta = {
+  scope?: string
+}
+
+const t = initTRPC.context<AuthContext>().meta<ProcedureMeta>().create({
   /** @see https://trpc.io/docs/server/data-transformers */
   transformer: superjson,
 })
@@ -212,39 +229,234 @@ export const enforceAiRequestLimit = aiRequests.enforce
 export const enforceCategoryAiRequestLimit = categoryAiRequests.enforce
 export const enforceBulkAiRequestLimit = bulkAiRequests.enforce
 
-export function assistantProcedure(requiredScope: string) {
-  return baseProcedure.use(async ({ ctx, next }) => {
-    if (!env.ENABLE_MCP) {
-      throw new TRPCError({
-        code: 'NOT_FOUND',
-        message: 'Assistant API is disabled',
-      })
-    }
-    if (
-      !ctx.auth ||
-      !('credentialKind' in ctx.auth) ||
-      ctx.auth.credentialKind !== 'oauth'
-    ) {
-      throw new TRPCError({
-        code: 'UNAUTHORIZED',
-        message: 'OAuth bearer authentication required',
-      })
-    }
-    if (!ctx.auth.scopes.includes(requiredScope)) {
-      throw new TRPCError({
-        code: 'FORBIDDEN',
-        message: `Missing required scope: ${requiredScope}`,
-      })
-    }
-    const decision = assistantRequestLimiter.hit(ctx.auth.user.id)
-    if (!decision.allowed) {
-      throw new TRPCError({
-        code: 'TOO_MANY_REQUESTS',
-        message: 'Assistant request limit exceeded; try again shortly',
-      })
-    }
-    return next({ ctx: { ...ctx, auth: ctx.auth } })
+/**
+ * Reads made with a token. Mutations deliberately do not use this bucket: they
+ * share `authenticatedMutationLimiter` with the account's own sessions, so a
+ * token can never out-mutate the account it acts for.
+ */
+const scopedReadLimiter = new FixedWindowLimiter({
+  limit: 300,
+  windowMs: 60_000,
+})
+
+/**
+ * `FORBIDDEN` that remembers which scope was missing. The `/trpc` fetch handler
+ * collects these to build the RFC 6750 `insufficient_scope` challenge with the
+ * exact minimum scopes for the requested operations.
+ */
+export class MissingScopeError extends TRPCError {
+  readonly requiredScope: SpliitScope
+
+  constructor(requiredScope: SpliitScope) {
+    super({
+      code: 'FORBIDDEN',
+      message: `Missing required scope: ${requiredScope}`,
+    })
+    this.requiredScope = requiredScope
+  }
+}
+
+/**
+ * Enforce the token audience, the scope and the programmatic rate limit for an
+ * OAuth caller. Shared by `apiProcedure` and `scopedGroupReadProcedure` so the
+ * two cannot drift apart on what a token is allowed to do.
+ */
+function enforceScopedAccess(
+  auth: OAuthResolvedAuth,
+  requiredScope: SpliitScope,
+  path: string | undefined,
+  resHeaders: Headers | undefined,
+  type: 'query' | 'mutation' | 'subscription' = 'query',
+): void {
+  // RFC 8707 audience separation: the direct API only accepts tokens minted
+  // for itself. A token whose `aud` names only the MCP resource authenticates
+  // fine (the assistant surface needs that) but cannot reach this surface —
+  // otherwise the MCP hop's forwarded token would double as an API credential.
+  // Optional chaining keeps a malformed auth object fail-closed.
+  if (!auth.audiences?.includes(getApiBaseUrl())) {
+    throw new TRPCError({
+      code: 'UNAUTHORIZED',
+      message: 'Access token was not issued for this API resource',
+    })
+  }
+  if (!hasScope(auth.scopes, requiredScope)) {
+    throw new MissingScopeError(requiredScope)
+  }
+  // Mutations count against the same bucket as the account's browser
+  // sessions, so a leaked token cannot write faster than its own account.
+  const mutating = type === 'mutation'
+  const limiter = mutating ? authenticatedMutationLimiter : scopedReadLimiter
+  const decision = limiter.hit(auth.user.id)
+  if (decision.allowed) return
+  logRateLimitExceeded({
+    policy: mutating ? 'authenticated-mutation' : 'oauth-read',
+    identity: auth.user.id,
+    retryAfterSeconds: decision.retryAfterSeconds,
+    path,
   })
+  resHeaders?.set('Retry-After', String(decision.retryAfterSeconds))
+  throw new TRPCError({
+    code: 'TOO_MANY_REQUESTS',
+    message: 'Request limit exceeded; try again shortly',
+  })
+}
+
+/**
+ * Group read procedure that also accepts an OAuth token carrying
+ * `requiredScope`.
+ *
+ * Every non-OAuth path is untouched: sessions, `viewKey` holders and
+ * `linkInviteToken` invitees reach the resolver exactly as they do through
+ * `groupReadProcedure`, anonymous access included. Resolvers derive identity
+ * through `groupViewerArgs`, which reads `ctx.auth.user.id`, so a token caller
+ * resolves to its own account with no resolver change.
+ */
+export function scopedGroupReadProcedure(requiredScope: SpliitScope) {
+  return baseProcedure
+    .meta({ scope: requiredScope })
+    .use(async ({ ctx, next, path }) => {
+      if (ctx.auth && isAnonymousSetupIncomplete(ctx.auth.user)) {
+        throw new TRPCError({
+          code: 'PRECONDITION_FAILED',
+          message: 'ANONYMOUS_SETUP_REQUIRED',
+        })
+      }
+      if (
+        ctx.auth &&
+        'credentialKind' in ctx.auth &&
+        ctx.auth.credentialKind === 'oauth'
+      ) {
+        enforceScopedAccess(ctx.auth, requiredScope, path, ctx.resHeaders)
+        return next()
+      }
+      return next()
+    })
+}
+
+/**
+ * Procedure reachable by a signed-in session **or** an OAuth access token
+ * carrying `requiredScope`.
+ *
+ * Session callers are unaffected: they reach the resolver exactly as they do
+ * through `protectedProcedure`, with the same anonymous-setup gate. Token
+ * callers must carry the scope, so widening a procedure to programmatic clients
+ * never widens what a browser session could already do.
+ */
+export function apiProcedure(requiredScope: SpliitScope) {
+  return baseProcedure
+    .meta({ scope: requiredScope })
+    .use(async ({ ctx, next, path, type }) => {
+      if (!ctx.auth) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'Authentication required',
+        })
+      }
+
+      if (isAnonymousSetupIncomplete(ctx.auth.user)) {
+        throw new TRPCError({
+          code: 'PRECONDITION_FAILED',
+          message: 'ANONYMOUS_SETUP_REQUIRED',
+        })
+      }
+
+      const isOAuth =
+        'credentialKind' in ctx.auth && ctx.auth.credentialKind === 'oauth'
+
+      if (isOAuth) {
+        const auth = ctx.auth as OAuthResolvedAuth
+        enforceScopedAccess(auth, requiredScope, path, ctx.resHeaders, type)
+        return next({ ctx: { ...ctx, auth } })
+      }
+
+      if (type === 'mutation') {
+        const decision = authenticatedMutationLimiter.hit(ctx.auth.user.id)
+        if (!decision.allowed) {
+          logRateLimitExceeded({
+            policy: 'authenticated-mutation',
+            identity: ctx.auth.user.id,
+            retryAfterSeconds: decision.retryAfterSeconds,
+            path,
+          })
+          ctx.resHeaders?.set('Retry-After', String(decision.retryAfterSeconds))
+          throw new TRPCError({
+            code: 'TOO_MANY_REQUESTS',
+            message: 'Request limit exceeded; try again shortly',
+          })
+        }
+      }
+      return next({ ctx: { ...ctx, auth: ctx.auth } })
+    })
+}
+
+/**
+ * Require the delete scope for an edit that destroys data.
+ *
+ * Some mutations delete as a side effect: shortening a recurring series with
+ * `THIS_AND_FUTURE` drops the occurrences that fall outside the new schedule
+ * and their stored documents. Letting the manage scope cover that would break
+ * the promise that a default grant cannot destroy anything.
+ *
+ * Sessions are unaffected: a signed-in member is already bound by the group
+ * role rules, and scopes only ever constrain tokens.
+ */
+export function assertScopeForDestructiveEdit(
+  auth: ResolvedAuth | OAuthResolvedAuth,
+): void {
+  assertOAuthScope(auth, SPLIIT_SCOPES.expensesDelete)
+}
+
+/** Require an additional scope only for OAuth callers; sessions are unchanged. */
+export function assertOAuthScope(
+  auth: ResolvedAuth | OAuthResolvedAuth,
+  requiredScope: SpliitScope,
+): void {
+  if (!('credentialKind' in auth) || auth.credentialKind !== 'oauth') return
+  if (hasScope(auth.scopes, requiredScope)) return
+  throw new MissingScopeError(requiredScope)
+}
+
+export function assistantProcedure(requiredScope: string) {
+  return baseProcedure
+    .meta({ scope: requiredScope })
+    .use(async ({ ctx, next }) => {
+      if (!env.ENABLE_MCP) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Assistant API is disabled',
+        })
+      }
+      if (
+        !ctx.auth ||
+        !('credentialKind' in ctx.auth) ||
+        ctx.auth.credentialKind !== 'oauth'
+      ) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'OAuth bearer authentication required',
+        })
+      }
+      if (isAnonymousSetupIncomplete(ctx.auth.user)) {
+        throw new TRPCError({
+          code: 'PRECONDITION_FAILED',
+          message: 'ANONYMOUS_SETUP_REQUIRED',
+        })
+      }
+      if (!ctx.auth.scopes.includes(requiredScope)) {
+        throw new TRPCError({
+          code: 'FORBIDDEN',
+          message: `Missing required scope: ${requiredScope}`,
+        })
+      }
+      const decision = assistantRequestLimiter.hit(ctx.auth.user.id)
+      if (!decision.allowed) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: 'Assistant request limit exceeded; try again shortly',
+        })
+      }
+      return next({ ctx: { ...ctx, auth: ctx.auth } })
+    })
 }
 
 /**
