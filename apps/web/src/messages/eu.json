@@ -334,9 +334,19 @@
         "recurrenceRule": {
           "daily": "Egunero",
           "weekly": "Astero",
-          "monthly": "Hilero"
+          "monthly": "Hilero",
+          "yearly": "Urtero"
         },
-        "documentCount": "Dokumentuak: {imported} berreskuratuta, {skipped} saltatuta"
+        "documentCount": "Dokumentuak: {imported} berreskuratuta, {skipped} saltatuta",
+        "recurrenceSchedule": {
+          "every": "{interval} {frequency}ero",
+          "frequency": {
+            "daily": "egun",
+            "weekly": "aste",
+            "monthly": "hilabete",
+            "yearly": "urte"
+          }
+        }
       },
       "Destination": {
         "heading": "Nora inportatu nahi duzu <strong>{name}</strong>? ({participantCount} parte-hartzaile · {expenseCount} gastu)",
@@ -412,6 +422,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (laster)",
         "settleUp": "Settle Up (laster)",
         "spliitDescription": "Ekarri spliit.app-eko talde bat Spliit Cloud-era. Taldearen izena, parte-hartzaileak eta gastu guztiak irakurtzen ditugu.",
@@ -440,6 +451,11 @@
         "splitwiseDescription": "Jarein Splitwise-ko CSV esportazio bat bere gastuak Spliit Cloud-era inportatzeko. Fitxategia Splitwise-ko talde-esportaziotik etorri behar da — taldearen ezarpenetan eskuragarri dagoen taldeko CSV-a.",
         "receiptWarningTitleSplitwise": "Ordainagirien irudiak ez dira inportatzen.",
         "receiptWarningDescriptionSplitwise": "Splitwise-ko esportazioak ez ditu ordainagirien irudiak barne hartzen. Berriro igo itzazu helburuko taldean behar badituzu.",
+        "cospendDescription": "Jarein Cospend-eko CSV esportazio bat kideak, fakturak eta ordutegi errepikakorrak Spliit Cloud-era inportatzeko. Esportatu proiektua Cospend-en ezarpenetatik (proiektu bakoitzeko CSV bat). Faktura errepikakorrek euren ordutegia mantentzen dute — urtekoak, tarte anitzekoak eta amaiera-data dutenak onartzen dira.",
+        "receiptWarningTitleCospend": "Ordainagirien irudiak ez dira inportatzen.",
+        "receiptWarningDescriptionCospend": "Cospend-en esportazioak ez ditu ordainagirien irudiak biltzen. Berriz igo itzazu helburuko taldean, behar badituzu.",
+        "dropFileCospend": "Jaregin Cospend CSV fitxategi bat, edo egin klik hautatzeko",
+        "dropFileDescriptionCospend": "Cospend-ek proiektu bakoitzeko CSV fitxategi bat esportatzen du. Kideak, faktura guztiak eta ordutegi errepikakorrak inportatzen ditugu. Proiektuaren oinarrizko moneta EUR da lehenespenez esportazioan zehazten ez bada — egiaztatu hurrengo urratsean.",
         "unsupportedFileType": "Onartu gabeko fitxategi mota. Jaregin JSON edo CSV fitxategi bat.",
         "dropFileSplitwise": "Jaregin Splitwise CSV fitxategi bat, edo egin klik hautatzeko",
         "dropFileDescriptionSplitwise": "CSV da Splitwise-k esportatzen duen formatu bakarra. Parte-hartzaile bakoitzaren balioak aztertzen ditugu banaketa berreraikitzeko.",

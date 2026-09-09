@@ -1857,9 +1857,19 @@
         "recurrenceRule": {
           "daily": "दैनिक",
           "weekly": "साप्ताहिक",
-          "monthly": "मासिक"
+          "monthly": "मासिक",
+          "yearly": "वार्षिक"
         },
-        "documentCount": "दस्तावेज़: {imported} पुनर्प्राप्त किए गए, {skipped} छोड़ दिए गए"
+        "documentCount": "दस्तावेज़: {imported} पुनर्प्राप्त किए गए, {skipped} छोड़ दिए गए",
+        "recurrenceSchedule": {
+          "every": "हर {interval} {frequency}",
+          "frequency": {
+            "daily": "दिन",
+            "weekly": "सप्ताह",
+            "monthly": "महीने",
+            "yearly": "वर्ष"
+          }
+        }
       },
       "CurrencyConversion": {
         "pairSection": "{source} → {target}",
@@ -1949,6 +1959,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (जल्द आ रहा है)",
         "settleUp": "Settle Up (जल्द आ रहा है)",
         "spliitDescription": "मौजूदा spliit.app समूह को Spliit Cloud में लाएं। हम समूह का नाम, सदस्य और प्रत्येक खर्च पढ़ते हैं।",
@@ -1977,6 +1988,11 @@
         "splitwiseDescription": "Splitwise CSV निर्यात को Spliit Cloud में आयात करने के लिए छोड़ें। फ़ाइल Splitwise के समूह निर्यात से आनी चाहिए — समूह की सेटिंग से उपलब्ध प्रति-समूह CSV।",
         "receiptWarningTitleSplitwise": "रसीद छवियां आयात नहीं की गईं।",
         "receiptWarningDescriptionSplitwise": "Splitwise निर्यात में रसीद छवियां शामिल नहीं होतीं। यदि आवश्यक हों तो उन्हें गंतव्य समूह में पुनः अपलोड करें।",
+        "cospendDescription": "Cospend प्रोजेक्ट CSV निर्यात को Spliit Cloud में सदस्यों, बिलों और आवर्ती शेड्यूल को आयात करने के लिए छोड़ें। Cospend की सेटिंग से प्रोजेक्ट निर्यात करें (प्रति प्रोजेक्ट एक CSV)। आवर्ती बिल अपना शेड्यूल बनाए रखते हैं — वार्षिक, बहु-अंतराल और समाप्ति तिथि वाले दोहराव समर्थित हैं।",
+        "receiptWarningTitleCospend": "रसीद की छवियां आयात नहीं की जाती हैं।",
+        "receiptWarningDescriptionCospend": "Cospend निर्यात में रसीद की छवियां शामिल नहीं हैं। यदि आपको उनकी आवश्यकता है तो उन्हें गंतव्य समूह में फिर से अपलोड करें।",
+        "dropFileCospend": "Cospend CSV फ़ाइल छोड़ें, या चुनने के लिए क्लिक करें",
+        "dropFileDescriptionCospend": "Cospend प्रति प्रोजेक्ट एक CSV निर्यात करता है। हम सदस्यों, प्रत्येक बिल और आवर्ती शेड्यूल को आयात करते हैं। यदि निर्यात में नहीं बताया गया है तो प्रोजेक्ट की मूल मुद्रा डिफ़ॉल्ट रूप से EUR होती है — अगले चरण में इसकी जाँच करें।",
         "unsupportedFileType": "असमर्थित फ़ाइल प्रकार। कृपया JSON या CSV फ़ाइल छोड़ें।",
         "dropFileSplitwise": "Splitwise CSV फ़ाइल छोड़ें, या चुनने के लिए क्लिक करें",
         "dropFileDescriptionSplitwise": "CSV एकमात्र फ़ॉर्मेट है जो Splitwise निर्यात करता है। हम विभाजन को पुनर्निर्मित करने के लिए प्रति-सदस्य मानों को पार्स करते हैं।",

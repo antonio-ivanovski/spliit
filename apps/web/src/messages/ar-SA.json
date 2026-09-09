@@ -837,12 +837,18 @@
         "csvRecurrenceLimitation": "لا يتضمن تصدير CSV التكرارات. استخدم تصدير JSON من spliit.app لاستيراد المصروفات المتكررة.",
         "fileReadError": "فشل في قراءة الملف",
         "receiptWarningDescription": "لا يتضمن تصدير spliit.app صور الإيصالات. أعد رفعها في المجموعة الهدف إذا احتجتها.",
+        "cospendDescription": "أسقط تصدير CSV لمشروع Cospend لاستيراد أعضائه وفواتيره وجداول الدفع المتكررة إلى Spliit Cloud. قم بتصدير المشروع من إعدادات Cospend (ملف CSV واحد لكل مشروع). تحتفظ الفواتير المتكررة بجدولها — التكرار السنوي وتعدد الفترات والتواريخ المحددة للنهاية كلها مدعومة.",
+        "receiptWarningTitleCospend": "لا يتم استيراد صور الإيصالات.",
+        "receiptWarningDescriptionCospend": "لا يتضمن تصدير Cospend صور الإيصالات. أعد رفعها في المجموعة المستهدفة إذا كنت بحاجة إليها.",
+        "dropFileCospend": "أسقط ملف CSV من Cospend، أو انقر للاختيار",
+        "dropFileDescriptionCospend": "يصدر Cospend ملف CSV واحداً لكل مشروع. نستورد الأعضاء وكل فاتورة وجداول التكرار. العملة الأساسية للمشروع هي EUR افتراضياً عندما لا يحددها التصدير — تحقق منها في الخطوة التالية.",
         "unsupportedFileType": "نوع ملف غير مدعوم. يرجى إسقاط ملف JSON أو CSV.",
         "receiptWarningDescriptionSplitwise": "لا يتضمن تصدير Splitwise صور الإيصالات. أعد رفعها في المجموعة الهدف إذا احتجتها.",
         "fromSpliit": "سبيليت",
         "fetchGroupButton": "استيراد مجموعة",
         "urlDescription": "يجلب خادمنا المجموعة عبر نقطة نهاية التصدير العامة لـ spliit.app نيابة عنك.",
         "settleUpComingTitle": "استيراد Settle Up قادم قريباً",
+        "cospend": "Cospend",
         "tricount": "Tricount (قريباً)",
         "receiptWarningTitleSplitwise": "لا يتم استيراد صور الإيصالات.",
         "fetchingButton": "جارٍ الاستيراد…",
@@ -965,7 +971,8 @@
         "recurrenceRule": {
           "weekly": "أسبوعي",
           "daily": "يومي",
-          "monthly": "شهري"
+          "monthly": "شهري",
+          "yearly": "سنوي"
         },
         "footer": "سيتم استيراد كل مشارك مصدري ومصروفاته. ادعُ المرسل/المنشئ بعد إنشاء المجموعة.",
         "currencyRateFormat": "1 {source} = {rate} {target}",
@@ -1000,7 +1007,16 @@
         "importButton": "استيراد مجموعة",
         "existingGroupFormat": "مجموعة موجودة · مدمجة",
         "currencyConversionTitle": "تحويل العملة",
-        "documentCount": "المستندات: تم استرداد {imported}، وتخطّي {skipped}"
+        "documentCount": "المستندات: تم استرداد {imported}، وتخطّي {skipped}",
+        "recurrenceSchedule": {
+          "every": "كل {interval} {frequency}",
+          "frequency": {
+            "daily": "أيام",
+            "weekly": "أسابيع",
+            "monthly": "أشهر",
+            "yearly": "سنوات"
+          }
+        }
       },
       "Documents": {
         "title": "اصطحب إيصالاتك معك",

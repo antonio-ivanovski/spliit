@@ -248,9 +248,19 @@
         "recurrenceRule": {
           "daily": "매일",
           "weekly": "매주",
-          "monthly": "매월"
+          "monthly": "매월",
+          "yearly": "매년"
         },
-        "documentCount": "문서: {imported}개 복구됨, {skipped}개 건너뜀"
+        "documentCount": "문서: {imported}개 복구됨, {skipped}개 건너뜀",
+        "recurrenceSchedule": {
+          "every": "{interval}{frequency}마다",
+          "frequency": {
+            "daily": "일",
+            "weekly": "주",
+            "monthly": "개월",
+            "yearly": "년"
+          }
+        }
       },
       "Destination": {
         "heading": "<strong>{name}</strong>을(를) 어디로 가져오시겠습니까? ({participantCount}명의 참가자 · {expenseCount}개의 지출)",
@@ -329,6 +339,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (출시 예정)",
         "settleUp": "Settle Up (출시 예정)",
         "spliitDescription": "기존 spliit.app 그룹을 Spliit Cloud로 가져옵니다. 그룹 이름, 참가자 및 모든 지출을 읽어 들입니다.",
@@ -357,6 +368,11 @@
         "splitwiseDescription": "Splitwise CSV 내보내기를 드롭하여 해당 지출을 Spliit Cloud로 가져옵니다. 파일은 Splitwise의 그룹 내보내기에서 가져와야 합니다. 그룹 설정에서 사용할 수 있는 그룹별 CSV입니다.",
         "receiptWarningTitleSplitwise": "영수증 이미지는 가져오지 않습니다.",
         "receiptWarningDescriptionSplitwise": "Splitwise 내보내기에는 영수증 이미지가 포함되지 않습니다. 필요한 경우 대상 그룹에 다시 업로드하세요.",
+        "cospendDescription": "Cospend 프로젝트 CSV 내보내기를 드롭하여 멤버, 지출 내역 및 반복 일정을 Spliit Cloud로 가져옵니다. Cospend 설정에서 프로젝트를 내보내세요(프로젝트당 하나의 CSV). 반복 지출은 일정을 유지합니다. 연간, 다중 간격 및 종료일 지정 반복이 모두 지원됩니다.",
+        "receiptWarningTitleCospend": "영수증 이미지는 가져오지 않습니다.",
+        "receiptWarningDescriptionCospend": "Cospend 내보내기에는 영수증 이미지가 포함되지 않습니다. 필요한 경우 대상 그룹에 다시 업로드하세요.",
+        "dropFileCospend": "Cospend CSV 파일을 드롭하거나 클릭하여 선택하세요",
+        "dropFileDescriptionCospend": "Cospend는 프로젝트당 하나의 CSV를 내보냅니다. 멤버, 모든 지출 및 반복 일정을 가져옵니다. 내보내기에 명시되지 않은 경우 프로젝트 기본 통화는 EUR로 기본 설정됩니다. 다음 단계에서 확인하세요.",
         "unsupportedFileType": "지원하지 않는 파일 형식입니다. JSON 또는 CSV 파일을 드롭해 주세요.",
         "dropFileSplitwise": "Splitwise CSV 파일을 드롭하거나 클릭하여 선택하세요",
         "dropFileDescriptionSplitwise": "CSV는 Splitwise가 내보낼 수 있는 유일한 형식입니다. 참가자별 값을 분석하여 분담을 재구성합니다.",

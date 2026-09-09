@@ -433,6 +433,7 @@
       "Source": {
         "fromSpliit": "Từ Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount",
         "settleUp": "Settle Up",
         "spliitDescription": "Nhập từ URL Spliit.",
@@ -461,6 +462,11 @@
         "splitwiseDescription": "Nhập từ CSV Splitwise.",
         "receiptWarningTitleSplitwise": "Lưu ý biên lai",
         "receiptWarningDescriptionSplitwise": "Biên lai sẽ không được nhập.",
+        "cospendDescription": "Thả tệp xuất CSV dự án Cospend để nhập thành viên, hóa đơn và lịch lặp lại vào Spliit Cloud. Xuất dự án từ cài đặt của Cospend (một CSV cho mỗi dự án). Hóa đơn định kỳ giữ nguyên lịch trình — các lần lặp hàng năm, nhiều khoảng thời gian và có ngày kết thúc đều được hỗ trợ.",
+        "receiptWarningTitleCospend": "Hình ảnh biên lai không được nhập.",
+        "receiptWarningDescriptionCospend": "Tệp xuất Cospend không bao gồm hình ảnh biên lai. Hãy tải lại chúng lên nhóm đích nếu bạn cần.",
+        "dropFileCospend": "Thả tệp CSV Cospend hoặc nhấp để chọn",
+        "dropFileDescriptionCospend": "Cospend xuất một tệp CSV cho mỗi dự án. Chúng tôi nhập các thành viên, mọi hóa đơn và lịch định kỳ. Tiền tệ cơ sở của dự án mặc định là EUR khi tệp xuất không nêu rõ — hãy kiểm tra ở bước tiếp theo.",
         "unsupportedFileType": "Loại tệp không hỗ trợ.",
         "dropFileSplitwise": "Thả tệp Splitwise",
         "dropFileDescriptionSplitwise": "Kéo và thả CSV Splitwise.",
@@ -583,9 +589,19 @@
         "recurrenceRule": {
           "daily": "Hàng ngày",
           "weekly": "Hàng tuần",
-          "monthly": "Hàng tháng"
+          "monthly": "Hàng tháng",
+          "yearly": "Hàng năm"
         },
-        "documentCount": "Tài liệu: đã khôi phục {imported}, đã bỏ qua {skipped}"
+        "documentCount": "Tài liệu: đã khôi phục {imported}, đã bỏ qua {skipped}",
+        "recurrenceSchedule": {
+          "every": "Mỗi {interval} {frequency}",
+          "frequency": {
+            "daily": "ngày",
+            "weekly": "tuần",
+            "monthly": "tháng",
+            "yearly": "năm"
+          }
+        }
       },
       "Done": {
         "importComplete": "Nhập hoàn tất!",

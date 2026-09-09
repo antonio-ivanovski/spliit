@@ -1857,9 +1857,19 @@
         "recurrenceRule": {
           "daily": "Dagligen",
           "weekly": "Veckovis",
-          "monthly": "Månadsvis"
+          "monthly": "Månadsvis",
+          "yearly": "Årsvis"
         },
-        "documentCount": "Dokument: {imported} återställda, {skipped} överhoppade"
+        "documentCount": "Dokument: {imported} återställda, {skipped} överhoppade",
+        "recurrenceSchedule": {
+          "every": "Varje {interval} {frequency}",
+          "frequency": {
+            "daily": "dagar",
+            "weekly": "veckor",
+            "monthly": "månader",
+            "yearly": "år"
+          }
+        }
       },
       "CurrencyConversion": {
         "pairSection": "{source} → {target}",
@@ -1949,6 +1959,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (kommer snart)",
         "settleUp": "Settle Up (kommer snart)",
         "spliitDescription": "Ta in en befintlig spliit.app-grupp till Spliit Cloud. Vi läser gruppnamn, deltagare och varje utgift.",
@@ -1977,6 +1988,11 @@
         "splitwiseDescription": "Släpp en Splitwise CSV-export för att importera dess utgifter till Spliit Cloud. Filen måste komma från Splitwise groupexport — CSV:n per grupp som är tillgänglig från gruppens inställningar.",
         "receiptWarningTitleSplitwise": "Kvittobilder importeras inte.",
         "receiptWarningDescriptionSplitwise": "Splitwise-exporten innehåller inte kvittobilder. Ladda upp dem igen i destinationsgruppen om du behöver dem.",
+        "cospendDescription": "Släpp en Cospend-projekt CSV-export för att importera medlemmar, räkningar och återkommande scheman till Spliit Cloud. Exportera projektet från Cospends inställningar (en CSV per projekt). Återkommande räkningar behåller sitt schema — årliga, flerintervalls- och datumavslutade upprepningar stöds.",
+        "receiptWarningTitleCospend": "Kvittobilder importeras inte.",
+        "receiptWarningDescriptionCospend": "Cospend-exporten innehåller inga kvittobilder. Ladda upp dem igen i målgruppen om du behöver dem.",
+        "dropFileCospend": "Släpp en Cospend CSV-export, eller klicka för att välja",
+        "dropFileDescriptionCospend": "Cospend exporterar en CSV per projekt. Vi importerar medlemmar, varje räkning och återkommande scheman. Projektets basvaluta sätts som standard till EUR om den inte anges i exporten — kontrollera i nästa steg.",
         "unsupportedFileType": "Filtypen stöds inte. Släpp en JSON- eller CSV-fil.",
         "dropFileSplitwise": "Släpp en Splitwise CSV-fil, eller klicka för att välja",
         "dropFileDescriptionSplitwise": "CSV är det enda formatet Splitwise exporterar. Vi tolkar delta-deltagarvärdena för att återskapa fördelningen.",

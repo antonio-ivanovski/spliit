@@ -345,9 +345,19 @@
         "recurrenceRule": {
           "daily": "Täglich",
           "weekly": "Wöchentlich",
-          "monthly": "Monatlich"
+          "monthly": "Monatlich",
+          "yearly": "Jährlich"
         },
-        "documentCount": "Dokumente: {imported} wiederhergestellt, {skipped} übersprungen"
+        "documentCount": "Dokumente: {imported} wiederhergestellt, {skipped} übersprungen",
+        "recurrenceSchedule": {
+          "every": "Alle {interval} {frequency}",
+          "frequency": {
+            "daily": "Tage",
+            "weekly": "Wochen",
+            "monthly": "Monate",
+            "yearly": "Jahre"
+          }
+        }
       },
       "Destination": {
         "heading": "Wohin möchtest du <strong>{name}</strong> importieren? ({participantCount} Teilnehmer · {expenseCount} Ausgaben)",
@@ -426,6 +436,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (demnächst)",
         "settleUp": "Settle Up (demnächst)",
         "spliitDescription": "Bringe eine bestehende spliit.app-Gruppe in Spliit Cloud. Wir lesen den Gruppennamen, die Teilnehmer und jede Ausgabe ein.",
@@ -454,6 +465,11 @@
         "splitwiseDescription": "Lege einen CSV-Export aus Splitwise ab, um dessen Ausgaben in Spliit Cloud zu importieren. Die Datei muss aus dem Gruppenexport von Splitwise stammen — die CSV pro Gruppe, die in den Gruppeneinstellungen verfügbar ist.",
         "receiptWarningTitleSplitwise": "Belegbilder werden nicht importiert.",
         "receiptWarningDescriptionSplitwise": "Der Splitwise-Export enthält keine Belegbilder. Lade sie bei Bedarf in der Zielgruppe erneut hoch.",
+        "cospendDescription": "Lege einen CSV-Export aus Cospend ab, um dessen Mitglieder, Rechnungen und wiederkehrenden Zeitpläne in Spliit Cloud zu importieren. Exportiere das Projekt aus den Einstellungen von Cospend (eine CSV pro Projekt). Wiederkehrende Rechnungen behalten ihren Zeitplan — jährliche Wiederholungen, Intervalle und Wiederholungs-Enddaten werden unterstützt.",
+        "receiptWarningTitleCospend": "Belegbilder werden nicht importiert.",
+        "receiptWarningDescriptionCospend": "Der Cospend-Export enthält keine Belegbilder. Lade sie bei Bedarf in der Zielgruppe erneut hoch.",
+        "dropFileCospend": "Lege einen Cospend-CSV-Export ab oder klicke zum Auswählen",
+        "dropFileDescriptionCospend": "Cospend exportiert eine CSV-Datei pro Projekt. Wir importieren die Mitglieder, jede Rechnung und wiederkehrende Zeitpläne. Die Basiswährung des Projekts wird standardmäßig auf EUR gesetzt, wenn sie nicht im Export angegeben ist — überprüfe dies im nächsten Schritt.",
         "unsupportedFileType": "Nicht unterstützter Dateityp. Bitte lege eine JSON- oder CSV-Datei ab.",
         "dropFileSplitwise": "Lege eine Splitwise-CSV-Datei ab oder klicke zum Auswählen",
         "dropFileDescriptionSplitwise": "CSV ist das einzige Format, das Splitwise exportiert. Wir analysieren die Beträge pro Teilnehmer, um die Aufteilung wiederherzustellen.",

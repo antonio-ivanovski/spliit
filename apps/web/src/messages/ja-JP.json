@@ -326,9 +326,19 @@
         "recurrenceRule": {
           "daily": "毎日",
           "weekly": "毎週",
-          "monthly": "毎月"
+          "monthly": "毎月",
+          "yearly": "毎年"
         },
-        "documentCount": "書類：{imported}件を復元済み、{skipped}件をスキップ"
+        "documentCount": "書類：{imported}件を復元済み、{skipped}件をスキップ",
+        "recurrenceSchedule": {
+          "every": "{interval} {frequency}ごと",
+          "frequency": {
+            "daily": "日",
+            "weekly": "週間",
+            "monthly": "か月",
+            "yearly": "年"
+          }
+        }
       },
       "Destination": {
         "heading": "<strong>{name}</strong> をどこにインポートしますか？（{participantCount} 名の参加者 · {expenseCount} 件の支出）",
@@ -402,6 +412,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise（近日対応予定）",
+        "cospend": "Cospend",
         "tricount": "Tricount（近日対応予定）",
         "settleUp": "Settle Up（近日対応予定）",
         "spliitDescription": "既存の spliit.app グループを Spliit Cloud に取り込みます。グループ名、参加者、すべての支出を読み取ります。",
@@ -430,6 +441,11 @@
         "splitwiseDescription": "Splitwise の CSV エクスポートをドロップして、その支出を Spliit Cloud に取り込みます。ファイルは Splitwise のグループエクスポート(グループ設定から取得できるグループ単位の CSV)から取得する必要があります。",
         "receiptWarningTitleSplitwise": "レシート画像はインポートされません。",
         "receiptWarningDescriptionSplitwise": "Splitwise のエクスポートにはレシート画像は含まれません。必要な場合は、宛先グループに再アップロードしてください。",
+        "cospendDescription": "Cospend のプロジェクト CSV エクスポートをドロップして、メンバー、請求、定期スケジュールを Spliit Cloud に取り込みます。Cospend の設定からプロジェクトをエクスポートしてください (プロジェクトごとに1つの CSV)。定期的な請求はスケジュールを維持します — 年次、複数間隔、終了日指定の繰り返しにすべて対応しています。",
+        "receiptWarningTitleCospend": "レシート画像はインポートされません。",
+        "receiptWarningDescriptionCospend": "Cospend のエクスポートにはレシート画像が含まれていません。必要な場合は移行先のグループで再アップロードしてください。",
+        "dropFileCospend": "Cospend の CSV ファイルをドロップするか、クリックして選択してください",
+        "dropFileDescriptionCospend": "Cospend はプロジェクトごとに1つの CSV をエクスポートします。メンバー、すべての請求、定期スケジュールを取り込みます。エクスポートに記載がない場合、プロジェクトの基本通貨はデフォルトで EUR になります。次のステップで確認してください。",
         "unsupportedFileType": "サポートされていないファイル形式です。JSON または CSV ファイルをドロップしてください。",
         "dropFileSplitwise": "Splitwise の CSV ファイルをドロップするか、クリックして選択してください",
         "dropFileDescriptionSplitwise": "CSV は Splitwise がエクスポートできる唯一の形式です。参加者ごとの値を解析して分割を再構成します。",

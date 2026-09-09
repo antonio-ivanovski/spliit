@@ -338,9 +338,19 @@
         "recurrenceRule": {
           "daily": "Denně",
           "weekly": "Týdně",
-          "monthly": "Měsíčně"
+          "monthly": "Měsíčně",
+          "yearly": "Ročně"
         },
-        "documentCount": "Dokumenty: obnoveno {imported}, přeskočeno {skipped}"
+        "documentCount": "Dokumenty: obnoveno {imported}, přeskočeno {skipped}",
+        "recurrenceSchedule": {
+          "every": "Každé {interval} {frequency}",
+          "frequency": {
+            "daily": "dny",
+            "weekly": "týdny",
+            "monthly": "měsíce",
+            "yearly": "roky"
+          }
+        }
       },
       "Destination": {
         "heading": "Kam chcete importovat <strong>{name}</strong>? ({participantCount} účastníků · {expenseCount} výdajů)",
@@ -417,6 +427,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (již brzy)",
         "settleUp": "Settle Up (již brzy)",
         "spliitDescription": "Přeneste existující skupinu z spliit.app do Spliit Cloud. Načteme název skupiny, účastníky a každý výdaj.",
@@ -445,6 +456,11 @@
         "splitwiseDescription": "Přetáhněte CSV export ze Splitwise pro import jeho výdajů do Spliit Cloudu. Soubor musí pocházet ze skupinového exportu Splitwise — CSV pro konkrétní skupinu dostupného v nastavení skupiny.",
         "receiptWarningTitleSplitwise": "Obrázky účtenek se neimportují.",
         "receiptWarningDescriptionSplitwise": "Export ze Splitwise neobsahuje obrázky účtenek. V případě potřeby je nahrajte znovu do cílové skupiny.",
+        "cospendDescription": "Přetáhněte CSV export z Cospend pro import jeho členů, výdajů a opakujících se plánů do Spliit Cloudu. Exportujte projekt z nastavení Cospend (jeden soubor CSV na projekt). Opakující se výdaje si zachovají svůj plán — podporována jsou roční opakování, opakování s více intervaly i s datem ukončení.",
+        "receiptWarningTitleCospend": "Obrázky účtenek se neimportují.",
+        "receiptWarningDescriptionCospend": "Export Cospend neobsahuje obrázky účtenek. V případě potřeby je znovu nahrajte v cílové skupině.",
+        "dropFileCospend": "Přetáhněte CSV soubor Cospend, nebo kliknutím vyberte",
+        "dropFileDescriptionCospend": "Cospend exportuje jeden CSV soubor na projekt. Importujeme členy, každý výdaj i opakující se plány. Výchozí měnou projektu je EUR, pokud není v exportu uvedena — zkontrolujte ji v dalším kroku.",
         "unsupportedFileType": "Nepodporovaný typ souboru. Přetáhněte prosím soubor JSON nebo CSV.",
         "dropFileSplitwise": "Přetáhněte CSV soubor Splitwise, nebo kliknutím vyberte",
         "dropFileDescriptionSplitwise": "CSV je jediný formát, který Splitwise exportuje. Hodnoty za jednotlivé účastníky analyzujeme, abychom obnovili rozdělení.",

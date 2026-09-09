@@ -330,9 +330,19 @@
         "recurrenceRule": {
           "daily": "PPäivittäin",
           "weekly": "Viikoittain",
-          "monthly": "Kuukausittain"
+          "monthly": "Kuukausittain",
+          "yearly": "Vuosittain"
         },
-        "documentCount": "Asiakirjat: {imported} palautettu, {skipped} ohitettu"
+        "documentCount": "Asiakirjat: {imported} palautettu, {skipped} ohitettu",
+        "recurrenceSchedule": {
+          "every": "Joka {interval}. {frequency}",
+          "frequency": {
+            "daily": "päivä",
+            "weekly": "viikko",
+            "monthly": "kuukausi",
+            "yearly": "vuosi"
+          }
+        }
       },
       "Destination": {
         "heading": "Mihin haluat tuoda <strong>{name}</strong>? ({participantCount} osallistujaa · {expenseCount} kulua)",
@@ -407,6 +417,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (tulossa pian)",
         "settleUp": "Settle Up (tulossa pian)",
         "spliitDescription": "Tuo olemassa oleva spliit.app-ryhmä Spliit Cloudiin. Luemme ryhmän nimen, osallistujat ja kaikki kulut.",
@@ -435,6 +446,11 @@
         "splitwiseDescription": "Pudota Splitwise CSV-vienti tuodaksesi sen kulut Spliit Cloudiin. Tiedoston on tultava Splitwisen ryhmäviennistä — ryhmäkohtainen CSV, joka on saatavilla ryhmän asetuksista.",
         "receiptWarningTitleSplitwise": "Kuittikuvia ei tuoda.",
         "receiptWarningDescriptionSplitwise": "Splitwise-vienti ei sisällä kuittikuvia. Lataa ne uudelleen kohderyhmään, jos tarvitset niitä.",
+        "cospendDescription": "Pudota Cospend-projektin CSV-vienti tuodaksesi sen jäsenet, laskut ja toistuvat aikataulut Spliit Cloudiin. Vie projekti Cospendin asetuksista (yksi CSV projektia kohden). Toistuvat laskut säilyttävät aikataulunsa — vuosittaiset, usean jakson ja päättymispäivämäärän toistot ovat tuettuja.",
+        "receiptWarningTitleCospend": "Kuittikuvia ei tuoda.",
+        "receiptWarningDescriptionCospend": "Cospend-vienti ei sisällä kuittikuvia. Lataa ne uudelleen kohderyhmään, jos tarvitset niitä.",
+        "dropFileCospend": "Pudota Cospend CSV -vienti tai napsauta valitaksesi",
+        "dropFileDescriptionCospend": "Cospend vie yhden CSV-tiedoston projektia kohden. Tuomme jäsenet, kaikki laskut ja toistuvat aikataulut. Projektin perusvaluutaksi asetetaan oletuksena EUR, jos sitä ei ole ilmoitettu viennissä — tarkista se seuraavassa vaiheessa.",
         "unsupportedFileType": "Ei tuettu tiedostotyyppi. Pudota JSON- tai CSV-tiedosto.",
         "dropFileSplitwise": "Pudota Splitwise CSV -tiedosto tai napsauta valitaksesi",
         "dropFileDescriptionSplitwise": "CSV on ainoa muoto, jonka Splitwise vie. Jäsentelemme osallistujakohtaiset arvot jaon rekonstruoimiseksi.",

@@ -3,6 +3,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { fireEvent, render, screen } from '@/test/test-utils'
 
+import type { SourceMode } from './source-providers'
 import { SourceStep } from './source-step'
 
 // jsdom doesn't implement scrollIntoView; the SourceStep mount effect
@@ -16,12 +17,7 @@ beforeAll(() => {
 // ── Module mocks ────────────────────────────────────────────────────────
 
 const routerMocks = vi.hoisted(() => ({
-  source: 'spliit' as
-    | 'spliit'
-    | 'spliit-cloud'
-    | 'splitwise'
-    | 'tricount'
-    | 'settleup',
+  source: 'spliit' as SourceMode,
   navigate: vi.fn(),
 }))
 
@@ -80,6 +76,7 @@ describe('SourceStep — initialError (prefill) handling', () => {
       'Spliit',
       'Spliit Cloud',
       'Splitwise',
+      'Cospend',
       'Tricount (coming soon)',
       'Settle Up (coming soon)',
     ])
@@ -90,6 +87,7 @@ describe('SourceStep — initialError (prefill) handling', () => {
       'spliit',
       'spliit-cloud',
       'splitwise',
+      'cospend',
       'tricount',
       'settleup',
     ] as const

@@ -1,4 +1,5 @@
 import {
+  tryParseCospendCsv,
   tryParseSpliitCsv,
   tryParseSpliitExport,
   tryParseSplitwiseCsv,
@@ -9,6 +10,7 @@ export type SourceMode =
   | 'spliit'
   | 'spliit-cloud'
   | 'splitwise'
+  | 'cospend'
   | 'tricount'
   | 'settleup'
 
@@ -44,6 +46,12 @@ export const PROVIDERS: Record<SourceMode, ProviderConfig> = {
     hasUrlPaste: false,
     hasDomainSwap: false,
     fileImport: { csv: tryParseSplitwiseCsv },
+    accept: '.csv,text/csv',
+  },
+  cospend: {
+    hasUrlPaste: false,
+    hasDomainSwap: false,
+    fileImport: { csv: tryParseCospendCsv },
     accept: '.csv,text/csv',
   },
   tricount: {

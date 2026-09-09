@@ -219,7 +219,10 @@ export function SourceStep({
           onError(parsed.error)
           return
         }
-        const guessed = guessGroupNameFromFilename(file.name)
+        const guessed = guessGroupNameFromFilename(
+          file.name,
+          parsed.source.provider,
+        )
         if (guessed) parsed.source.name = guessed
         onLoaded(parsed.source)
       } catch (err) {
@@ -318,6 +321,7 @@ export function SourceStep({
   const showDomainSwap = cfg.hasDomainSwap
   const showUrlPaste = cfg.hasUrlPaste
   const isSplitwise = provider === 'splitwise'
+  const isCospend = provider === 'cospend'
   const isCloud = provider === 'spliit-cloud'
 
   return (
@@ -423,6 +427,16 @@ export function SourceStep({
               {t('Groups.Import.Source.splitwise')}
             </TabsTrigger>
             <TabsTrigger
+              value="cospend"
+              className="min-w-max"
+              nativeButton={false}
+              render={
+                <Link to="/groups/import" search={{ source: 'cospend' }} />
+              }
+            >
+              {t('Groups.Import.Source.cospend')}
+            </TabsTrigger>
+            <TabsTrigger
               value="tricount"
               className="min-w-max"
               nativeButton={false}
@@ -474,6 +488,19 @@ export function SourceStep({
             />
           </PageInset>
           <SplitwiseAnonymizerCard />
+        </TabsContent>
+        <TabsContent value="cospend">
+          <PageInset>
+            <ProviderDescription
+              description={t('Groups.Import.Source.cospendDescription')}
+              receiptTitle={t(
+                'Groups.Import.Source.receiptWarningTitleCospend',
+              )}
+              receiptDescription={t(
+                'Groups.Import.Source.receiptWarningDescriptionCospend',
+              )}
+            />
+          </PageInset>
         </TabsContent>
         <TabsContent value="tricount">
           <ComingSoonCard
@@ -537,14 +564,18 @@ export function SourceStep({
                 ? 'Groups.Import.Source.cloudZipRequired'
                 : isSplitwise
                   ? 'Groups.Import.Source.dropFileSplitwise'
-                  : 'Groups.Import.Source.dropFile',
+                  : isCospend
+                    ? 'Groups.Import.Source.dropFileCospend'
+                    : 'Groups.Import.Source.dropFile',
             ),
             dropFileDescription: t(
               isCloud
                 ? 'Groups.Import.Source.spliitCloudScopeDescription'
                 : isSplitwise
                   ? 'Groups.Import.Source.dropFileDescriptionSplitwise'
-                  : 'Groups.Import.Source.dropFileDescription',
+                  : isCospend
+                    ? 'Groups.Import.Source.dropFileDescriptionCospend'
+                    : 'Groups.Import.Source.dropFileDescription',
             ),
           }}
         />

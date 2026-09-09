@@ -1917,9 +1917,19 @@
         "recurrenceRule": {
           "daily": "দৈনিক",
           "weekly": "সাপ্তাহিক",
-          "monthly": "মাসিক"
+          "monthly": "মাসিক",
+          "yearly": "বার্ষিক"
         },
-        "documentCount": "নথি: {imported}টি উদ্ধার হয়েছে, {skipped}টি বাদ গেছে"
+        "documentCount": "নথি: {imported}টি উদ্ধার হয়েছে, {skipped}টি বাদ গেছে",
+        "recurrenceSchedule": {
+          "every": "প্রতি {interval} {frequency}",
+          "frequency": {
+            "daily": "দিন",
+            "weekly": "সপ্তাহ",
+            "monthly": "মাস",
+            "yearly": "বছর"
+          }
+        }
       },
       "CurrencyConversion": {
         "pairSection": "{source} → {target}",
@@ -2013,6 +2023,7 @@
       "Source": {
         "fromSpliit": "Spliit",
         "splitwise": "Splitwise",
+        "cospend": "Cospend",
         "tricount": "Tricount (শীঘ্রই আসছে)",
         "settleUp": "Settle Up (শীঘ্রই আসছে)",
         "spliitDescription": "একটি বিদ্যমান spliit.app গ্রুপকে Spliit Cloud-এ আনুন। আমরা গ্রুপের নাম, অংশগ্রহণকারী এবং প্রতিটি খরচ পড়ি।",
@@ -2041,6 +2052,11 @@
         "splitwiseDescription": "একটি Splitwise CSV এক্সপোর্ট ড্রপ করে এর খরচ Spliit Cloud-এ আমদানি করুন। ফাইলটি Splitwise-এর গ্রুপ এক্সপোর্ট থেকে হতে হবে — গ্রুপের সেটিংস থেকে উপলব্ধ প্রতি-গ্রুপ CSV।",
         "receiptWarningTitleSplitwise": "রসিদের ছবি আমদানি করা হয় না।",
         "receiptWarningDescriptionSplitwise": "Splitwise এক্সপোর্টে রসিদের ছবি অন্তর্ভুক্ত নয়। প্রয়োজন হলে গন্তব্য গ্রুপে পুনরায় আপলোড করুন।",
+        "cospendDescription": "Cospend প্রজেক্ট CSV এক্সপোর্ট ড্রপ করে সদস্য, বিল এবং পুনরাবৃত্ত সময়সূচী Spliit Cloud-এ আমদানি করুন। Cospend-এর সেটিংস থেকে প্রজেক্ট এক্সপোর্ট করুন (প্রতি প্রজেক্টে একটি CSV)। পুনরাবৃত্ত বিল তাদের সময়সূচী বজায় রাখে — বার্ষিক, বহু-ব্যবধান এবং শেষ তারিখের পুনরাবৃত্তি সমর্থিত।",
+        "receiptWarningTitleCospend": "রসিদের ছবি আমদানি করা হয় না।",
+        "receiptWarningDescriptionCospend": "Cospend এক্সপোর্টে রসিদের ছবি অন্তর্ভুক্ত থাকে না। প্রয়োজন হলে গন্তব্য গ্রুপে সেগুলি পুনরায় আপলোড করুন।",
+        "dropFileCospend": "একটি Cospend CSV ফাইল ড্রপ করুন, অথবা নির্বাচন করতে ক্লিক করুন",
+        "dropFileDescriptionCospend": "Cospend প্রতি প্রজেক্টে একটি CSV এক্সপোর্ট করে। আমরা সদস্য, প্রতিটি বিল এবং পুনরাবৃত্ত সময়সূচী আমদানি করি। এক্সপোর্টে উল্লেখ না থাকলে প্রজেক্টের বেস কারেন্সি ডিফল্টভাবে EUR হয় — পরবর্তী ধাপে এটি পরীক্ষা করুন।",
         "unsupportedFileType": "অসমর্থিত ফাইল টাইপ। অনুগ্রহ করে একটি JSON বা CSV ফাইল ড্রপ করুন।",
         "dropFileSplitwise": "একটি Splitwise CSV ফাইল ড্রপ করুন, অথবা নির্বাচন করতে ক্লিক করুন",
         "dropFileDescriptionSplitwise": "CSV হল Splitwise এক্সপোর্টের একমাত্র ফরম্যাট। আমরা বিভাজন পুনর্গঠন করতে প্রতি-অংশগ্রহণকারী মান পার্স করি।",

@@ -54,4 +54,23 @@ describe('guessGroupNameFromFilename', () => {
       guessGroupNameFromFilename('john-d-and-jane-d_2026-06-30_export.json'),
     ).toBe('John D. and Jane D.')
   })
+
+  it('humanizes Cospend dated project slugs', () => {
+    expect(guessGroupNameFromFilename('family-zu-besuch_2026-09-06.csv')).toBe(
+      'Family Zu Besuch',
+    )
+    expect(guessGroupNameFromFilename('osterreich-2026_2026-09-06.csv')).toBe(
+      'Osterreich 2026',
+    )
+  })
+
+  it('humanizes bare slugs when provider is COSPEND', () => {
+    expect(guessGroupNameFromFilename('family.csv', 'COSPEND')).toBe('Family')
+    expect(guessGroupNameFromFilename('family-zu-besuch.csv', 'COSPEND')).toBe(
+      'Family Zu Besuch',
+    )
+    expect(guessGroupNameFromFilename('family.csv')).toBeNull()
+    expect(guessGroupNameFromFilename('family.csv', 'SPLITWISE')).toBeNull()
+    expect(guessGroupNameFromFilename('12345.csv', 'COSPEND')).toBeNull()
+  })
 })
