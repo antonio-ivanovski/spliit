@@ -16,7 +16,7 @@
     "prisma-create-migration": "prisma migrate dev",
     "prisma-generate": "prisma generate --schema prisma/schema.prisma",
     "prisma-migrate": "prisma migrate deploy --schema prisma/schema.prisma",
-    "test": "vitest run --globals src"
+    "test": "vitest run src"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.9.1",
@@ -33,6 +33,6 @@
     "prisma-json-types-generator": "^5.1.1",
     "prisma-mock": "^1.1.0",
     "typescript": "7.0.2",
-    "vitest": "5.0.0-rc.2"
+    "vitest": "^5.0.0"
   }
 }

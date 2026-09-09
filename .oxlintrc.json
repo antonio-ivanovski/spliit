@@ -20,6 +20,7 @@
     "**/dist/**",
     "**/.turbo/**",
     "**/coverage/**",
+    "**/.vitest/**",
     "**/*.gen.ts",
     "packages/db/src/generated/**"
   ],

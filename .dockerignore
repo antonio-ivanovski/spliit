@@ -12,6 +12,8 @@ dist
 **/dist
 coverage
 **/coverage
+.vitest
+**/.vitest
 apps/api/openapi.json
 
 # local / runtime data

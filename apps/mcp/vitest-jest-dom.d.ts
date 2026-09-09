@@ -12,6 +12,10 @@ import type { TestingLibraryMatchers } from '@testing-library/jest-dom/matchers'
  * file when jest-dom's published vitest.d.ts augments Matchers.
  */
 declare module 'vitest' {
-  // Vitest 5.0.0-beta.7 still uses Matchers<T>; main docs use Matchers<R, T>.
-  interface Matchers<T = unknown> extends TestingLibraryMatchers<unknown, T> {}
+  // Vitest 5 uses Matchers<R, T> (R = return type, T = received type).
+  // Keep the parameter list identical so the augmentation merges.
+  interface Matchers<R = unknown, T = unknown> extends TestingLibraryMatchers<
+    unknown,
+    R
+  > {}
 }

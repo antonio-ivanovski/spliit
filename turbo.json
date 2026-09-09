@@ -107,7 +107,7 @@
     },
     "test": {
       "dependsOn": ["^build", "@spliit/db#prisma-generate"],
-      "outputs": ["coverage/**"]
+      "outputs": ["coverage/**", ".vitest/**"]
     },
     "test:integration": {
       "dependsOn": ["^build", "@spliit/db#prisma-generate"],

@@ -21,6 +21,7 @@ export default defineConfig({
     '**/dist/**',
     '**/.turbo/**',
     '**/coverage/**',
+    '**/.vitest/**',
     'apps/web/src/components/ui/**',
     'apps/web/src/routeTree.gen.ts',
     'packages/db/src/generated/**',

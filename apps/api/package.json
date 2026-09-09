@@ -38,7 +38,7 @@
     "mine-category-aliases": "bun --env-file=../../.env run scripts/mine-category-aliases.ts",
     "start": "bun --env-file=../../.env run src/server.ts",
     "start:integration": "bun --env-file=.env.integration run src/server.ts",
-    "test": "bun --env-file=.env.test vitest run --globals src",
+    "test": "bun --env-file=.env.test vitest run src",
     "test:integration": "bun --env-file=.env.integration vitest run --config vitest.integration.config.ts --reporter=verbose"
   },
   "dependencies": {
@@ -86,7 +86,7 @@
     "prisma-mock": "^1.1.0",
     "react-email": "^6.6.8",
     "typescript": "7.0.2",
-    "vitest": "5.0.0-rc.2",
+    "vitest": "^5.0.0",
     "vitest-mock-extended": "^5.1.1"
   }
 }

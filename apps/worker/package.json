@@ -12,7 +12,7 @@
     "lint": "oxlint -c ../../.oxlintrc.json --format=unix --report-unused-disable-directives .",
     "lint:fix": "oxlint -c ../../.oxlintrc.json --format=unix --report-unused-disable-directives --fix .",
     "start": "bun --env-file=../../.env run src/server.ts",
-    "test": "vitest run --globals src"
+    "test": "vitest run src"
   },
   "dependencies": {
     "@spliit/api": "workspace:*",
@@ -24,6 +24,6 @@
     "@spliit/config": "workspace:*",
     "@types/bun": "^1.4.0",
     "typescript": "7.0.2",
-    "vitest": "5.0.0-rc.2"
+    "vitest": "^5.0.0"
   }
 }

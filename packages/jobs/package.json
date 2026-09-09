@@ -16,7 +16,7 @@
     "format": "oxfmt .",
     "lint": "oxlint -c ../../.oxlintrc.json --format=unix --report-unused-disable-directives .",
     "lint:fix": "oxlint -c ../../.oxlintrc.json --format=unix --report-unused-disable-directives --fix .",
-    "test": "vitest run --globals src"
+    "test": "vitest run src"
   },
   "dependencies": {
     "pg-boss": "12.26.2",
@@ -26,6 +26,6 @@
     "@spliit/config": "workspace:*",
     "@types/node": "24.13.2",
     "typescript": "7.0.2",
-    "vitest": "5.0.0-rc.2"
+    "vitest": "^5.0.0"
   }
 }

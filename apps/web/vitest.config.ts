@@ -28,7 +28,6 @@ export default defineConfig({
     // Root options (reporters/coverage) live here; environments are per-project.
     projects: [
       {
-        extends: true,
         resolve: { alias },
         test: {
           ...sharedTest,
@@ -45,7 +44,6 @@ export default defineConfig({
         },
       },
       {
-        extends: true,
         resolve: { alias },
         test: {
           ...sharedTest,
