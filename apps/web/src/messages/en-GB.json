@@ -1174,13 +1174,13 @@
     },
     "CurrencyField": {
       "label": "Currency symbol",
-      "placeholder": "$, €, £…",
+      "placeholder": "£, €, $…",
       "description": "We’ll use it to display amounts."
     },
     "CurrencyCodeField": {
       "label": "Main currency",
       "createDescription": "All amounts and balances will be in this currency.",
-      "editDescription": "All amounts and balances will be in this currency. Changing this will NOT convert expenses already entered, except when the currency has different \"minor units\" than the current one (e.g. changing from US Dollar to Japanese Yen)",
+      "editDescription": "All amounts and balances will be in this currency. Changing this will NOT convert expenses already entered, except when the currency has different \"minor units\" than the current one (e.g. changing from British Pound to Japanese Yen)",
       "customOption": "Custom",
       "lockedAfterExpenses": "The currency is locked because this group already has expenses."
     },
@@ -3223,7 +3223,7 @@
     "hintSettle": "Balances is where we settle up.",
     "hintSettings": "You can change or turn me off in mascot settings.",
     "resetPosition": "Reset position",
-    "landingHintSplit": "Split a dinner, a trip, or the rent — I’ll keep the math.",
+    "landingHintSplit": "Split a dinner, a trip, or the rent — I’ll do the maths.",
     "landingHintSettle": "When you’re ready to settle up, I’ll cheer you on.",
     "landingHintTap": "Tap me anytime. I don’t bite — I’m a receipt.",
     "hintTapToAddExpense": "I'm {name} — tap me to add an expense.",
