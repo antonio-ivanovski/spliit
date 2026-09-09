@@ -4,9 +4,9 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 
 const alias = {
-  '@': path.resolve(__dirname, './src'),
+  '@': path.resolve(import.meta.dirname, './src'),
   'virtual:pwa-register': path.resolve(
-    __dirname,
+    import.meta.dirname,
     './src/test/virtual-pwa-register.ts',
   ),
 }

@@ -211,6 +211,7 @@
       "name": "@spliit/domain",
       "version": "0.1.0",
       "dependencies": {
+        "@marcbachmann/cel-js": "^8.0.0",
         "clsx": "^2.1.1",
         "currency-list": "^1.0.8",
         "dayjs": "^1.11.21",
@@ -770,6 +771,8 @@
     "@json2csv/formatters": ["@json2csv/formatters@7.0.6", "", {}, "sha512-hjIk1H1TR4ydU5ntIENEPgoMGW+Q7mJ+537sDFDbsk+Y3EPl2i4NfFVjw0NJRgT+ihm8X30M67mA8AS6jPidSA=="],
 
     "@json2csv/plainjs": ["@json2csv/plainjs@7.0.6", "", { "dependencies": { "@json2csv/formatters": "^7.0.6", "@streamparser/json": "^0.0.20" } }, "sha512-4Md7RPDCSYpmW1HWIpWBOqCd4vWfIqm53S3e/uzQ62iGi7L3r34fK/8nhOMEe+/eVfCx8+gdSCt1d74SlacQHw=="],
+
+    "@marcbachmann/cel-js": ["@marcbachmann/cel-js@8.0.0", "", { "bin": { "cel-evaluate": "bin/cel-evaluate.js" } }, "sha512-oaTrAziGr3zDLFiMt/yLU3nZuRMawyWQB5X1a0I7s9eGy3JYzX9l8ZXXHyMd64nzbeVFZTewuUShwsZQdK6UCA=="],
 
     "@mcp-ui/server": ["@mcp-ui/server@6.1.0", "", { "dependencies": { "@modelcontextprotocol/ext-apps": "^0.3.1", "@modelcontextprotocol/sdk": "^1.25.1" } }, "sha512-uxv9JrzEzHfdGo/V/KTFKp5WeCOsaiAoQZ3V88jw1dSXUofONEw4rMwEvVP3612aj/unS2TIeM0o1I0asfIxtw=="],
 

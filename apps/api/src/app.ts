@@ -10,6 +10,7 @@ import { Scalar } from '@scalar/hono-api-reference'
 import { TRPCError } from '@trpc/server'
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { Hono, type MiddlewareHandler } from 'hono'
+import { bodyLimit } from 'hono/body-limit'
 import { cors } from 'hono/cors'
 
 import { auth } from './lib/auth'
@@ -242,6 +243,23 @@ app.get(
   Scalar({
     url: '/openapi.json',
     ...buildScalarConfig(),
+  }),
+)
+
+// tRPC body cap: the CSV expense import accepts up to 10k rows per call,
+// each row carrying expense + items + splits (no documents from web).
+// A typical web row serializes to ~0.8–1KB (rowId, two 64-hex
+// fingerprints, expense fields, 1–2 splits), so 10k rows ≈ 10MB. API-built
+// payloads may additionally use the zod budgets (20k items total, 200k
+// splits total, 50k approved keys total); 25MB comfortably admits the web
+// worst case plus a heavily-itemized API payload while still rejecting
+// unbounded amplification before JSON parsing. Oversize returns 413.
+const TRPC_BODY_LIMIT_BYTES = 25 * 1024 * 1024
+app.use(
+  '/trpc/*',
+  bodyLimit({
+    maxSize: TRPC_BODY_LIMIT_BYTES,
+    onError: (c) => c.json({ message: 'Payload Too Large' }, 413),
   }),
 )
 

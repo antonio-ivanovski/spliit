@@ -1,25 +1,20 @@
 /* oxlint-disable jsx-a11y/prefer-tag-over-role, jsx-a11y/role-has-required-aria-props -- popover triggers expose combobox semantics; popup IDs are managed by the UI primitive. */
+import { Combobox } from '@base-ui/react/combobox'
 import {
+  Search,
   Check,
   ChevronDown,
   ChevronsUpDown,
   Loader2,
   Sparkles,
 } from 'lucide-react'
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CategoryIcon } from '@/app/groups/[groupId]/expenses/category-icon'
 import { categoryLabel } from '@/app/groups/[groupId]/stats/category-utils'
 import type { ButtonProps } from '@/components/ui/button'
 import { Button } from '@/components/ui/button'
-import {
-  Command,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command'
 import {
   Drawer,
   DrawerContent,
@@ -28,6 +23,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
+import { Input } from '@/components/ui/input'
 import {
   Popover,
   PopoverContent,
@@ -99,6 +95,7 @@ export function CategorySelector({
   mobileDoneLabel,
 }: Props) {
   const [open, setOpen] = useState(false)
+  const commandInputRef = useRef<HTMLInputElement>(null)
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const { t } = useTranslation()
 
@@ -112,11 +109,12 @@ export function CategorySelector({
 
   if (mode === 'multi') {
     const command = (
-      <CategoryCommand
+      <CategoryOptions
         hierarchy={hierarchy}
         mode="multi"
         selectedValues={selectedValues}
         onValueToggle={onValueToggle}
+        inputRef={commandInputRef}
       />
     )
 
@@ -145,7 +143,7 @@ export function CategorySelector({
               </Button>
             }
           />
-          <DrawerContent className="p-0">
+          <DrawerContent className="p-0" initialFocus={commandInputRef}>
             <DrawerHeader className="pb-2 text-start">
               <DrawerTitle>
                 {mobileTitle ?? t('Expenses.filters.category')}
@@ -184,7 +182,12 @@ export function CategorySelector({
           </span>
           <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
         </PopoverTrigger>
-        <PopoverContent className="p-0" align="start">
+        <PopoverContent
+          className="max-h-[var(--available-height)] overflow-hidden p-0"
+          align="start"
+          positionMethod="fixed"
+          initialFocus={commandInputRef}
+        >
           {command}
         </PopoverContent>
       </Popover>
@@ -206,8 +209,13 @@ export function CategorySelector({
             />
           }
         />
-        <PopoverContent className="p-0" align="start">
-          <CategoryCommand
+        <PopoverContent
+          className="max-h-[var(--available-height)] overflow-hidden p-0"
+          align="start"
+          positionMethod="fixed"
+          initialFocus={commandInputRef}
+        >
+          <CategoryOptions
             hierarchy={hierarchy}
             mode="single"
             selectedValues={[selectedCategory.id]}
@@ -215,6 +223,7 @@ export function CategorySelector({
               onValueChange(id)
               setOpen(false)
             }}
+            inputRef={commandInputRef}
           />
         </PopoverContent>
       </Popover>
@@ -235,8 +244,8 @@ export function CategorySelector({
           />
         }
       />
-      <DrawerContent className="p-0">
-        <CategoryCommand
+      <DrawerContent className="p-0" initialFocus={commandInputRef}>
+        <CategoryOptions
           hierarchy={hierarchy}
           mode="single"
           selectedValues={[selectedCategory.id]}
@@ -244,30 +253,32 @@ export function CategorySelector({
             onValueChange(id)
             setOpen(false)
           }}
+          inputRef={commandInputRef}
         />
       </DrawerContent>
     </Drawer>
   )
 }
 
-function CategoryCommand({
+function CategoryOptions({
   hierarchy,
   onValueChange,
   mode = 'single',
   selectedValues = [],
   onValueToggle,
+  inputRef,
 }: {
   hierarchy: Hierarchy
   onValueChange?: (categoryId: CategoryId) => void
   mode?: 'single' | 'multi'
   selectedValues?: CategoryId[]
   onValueToggle?: (categoryId: CategoryId) => void
+  inputRef?: React.Ref<HTMLInputElement>
 }) {
   const { t } = useTranslation(undefined, { keyPrefix: 'Categories' })
   const locale = useLocale()
   const localeDictionary = useLocaleCategoryDictionary(locale)
   const [search, setSearch] = useState('')
-  const [keyboardValue, setKeyboardValue] = useState<string | null>(null)
   const selectedSet = new Set(selectedValues)
   const isEffectivelySelected = (category: Category) =>
     selectedSet.has(category.id) ||
@@ -318,115 +329,127 @@ function CategoryCommand({
     return rankCategories(query, documents)
   }, [documents, search])
 
-  const topHitId = ranked?.[0]?.id
-  const selectedId = selectedValues[0] ?? ''
-  const activeValue = keyboardValue ?? topHitId ?? selectedId
-
-  const selectCategory = (categoryId: CategoryId) => {
-    if (mode === 'multi') {
-      onValueToggle?.(categoryId)
-    } else {
-      onValueChange?.(categoryId)
-    }
+  const items = ranked
+    ? ranked.map((hit) => hit.id)
+    : documents.map((document) => document.id)
+  const selectCategory = (id: CategoryId) => {
+    if (mode === 'multi') onValueToggle?.(id)
+    else onValueChange?.(id)
   }
 
   return (
-    <Command
-      shouldFilter={false}
-      value={activeValue}
-      onValueChange={setKeyboardValue}
+    <Combobox.Root<CategoryId, boolean>
+      inline
+      open
+      autoHighlight
+      items={items}
+      filter={null}
+      multiple={mode === 'multi'}
+      value={mode === 'multi' ? selectedValues : (selectedValues[0] ?? null)}
+      inputValue={search}
+      onInputValueChange={(value, details) => {
+        if (
+          details.reason === 'input-change' ||
+          details.reason === 'input-clear'
+        )
+          setSearch(value)
+      }}
     >
-      <CommandInput
-        placeholder={t('search')}
-        className="text-base"
-        value={search}
-        onValueChange={(next) => {
-          setSearch(next)
-          setKeyboardValue(null)
-        }}
-      />
-      <CommandList>
-        {ranked && ranked.length === 0 ? (
-          <div className="py-6 text-center text-sm">{t('noCategory')}</div>
-        ) : ranked ? (
-          <CommandGroup>
-            {ranked.map((hit) => {
-              const category = categoryById.get(hit.id)
-              if (!category) return null
-              const document = documentById.get(hit.id)
-              if (!document) return null
-              return (
-                <CategoryCommandRow
-                  key={hit.id}
-                  category={category}
-                  label={document.label}
-                  grouping={document.grouping}
-                  mode={mode}
-                  selected={
-                    mode === 'multi'
-                      ? isEffectivelySelected(category)
-                      : selectedSet.has(category.id)
-                  }
-                  ranked
-                  onSelect={() => selectCategory(hit.id)}
-                />
+      <div className="flex min-h-0 flex-col">
+        <div className="flex shrink-0 items-center gap-2 border-b px-3">
+          <Search className="size-4 shrink-0 text-muted-foreground" />
+          <Combobox.Input
+            ref={inputRef}
+            aria-label={t('search')}
+            placeholder={t('search')}
+            render={
+              <Input className="h-11 border-0 bg-transparent px-0 text-base shadow-none focus-visible:ring-0" />
+            }
+          />
+        </div>
+        <Combobox.List className="max-h-[min(300px,calc(var(--available-height,80dvh)-3rem))] min-h-0 overflow-x-hidden overflow-y-auto overscroll-contain p-1">
+          {ranked && ranked.length === 0 ? (
+            <div className="py-6 text-center text-sm">{t('noCategory')}</div>
+          ) : ranked ? (
+            <Combobox.Group>
+              {ranked.map((hit) => {
+                const category = categoryById.get(hit.id)
+                if (!category) return null
+                const document = documentById.get(hit.id)
+                if (!document) return null
+                return (
+                  <CategoryOptionsRow
+                    key={hit.id}
+                    category={category}
+                    label={document.label}
+                    grouping={document.grouping}
+                    mode={mode}
+                    selected={
+                      mode === 'multi'
+                        ? isEffectivelySelected(category)
+                        : selectedSet.has(category.id)
+                    }
+                    ranked
+                    onSelect={() => selectCategory(hit.id)}
+                  />
+                )
+              })}
+            </Combobox.Group>
+          ) : (
+            hierarchy.map(({ parent, children }) => {
+              const groupLabel = String(
+                t(
+                  CATEGORY_GROUPING_HEADINGS[
+                    parent.grouping as keyof typeof CATEGORY_GROUPING_HEADINGS
+                  ],
+                ),
               )
-            })}
-          </CommandGroup>
-        ) : (
-          hierarchy.map(({ parent, children }) => {
-            const groupLabel = String(
-              t(
-                CATEGORY_GROUPING_HEADINGS[
-                  parent.grouping as keyof typeof CATEGORY_GROUPING_HEADINGS
-                ],
-              ),
-            )
-            const parentSelected =
-              mode === 'multi'
-                ? isEffectivelySelected(parent)
-                : selectedSet.has(parent.id)
+              const parentSelected =
+                mode === 'multi'
+                  ? isEffectivelySelected(parent)
+                  : selectedSet.has(parent.id)
 
-            return (
-              <CommandGroup key={parent.id}>
-                <CategoryCommandRow
-                  category={parent}
-                  label={groupLabel}
-                  grouping={groupLabel}
-                  mode={mode}
-                  selected={parentSelected}
-                  parentRow
-                  hasChildren={children.length > 0}
-                  onSelect={() => selectCategory(parent.id)}
-                />
-                {children.map((category) => {
-                  const childSelected =
-                    mode === 'multi'
-                      ? isEffectivelySelected(category)
-                      : selectedSet.has(category.id)
-                  return (
-                    <CategoryCommandRow
-                      key={category.id}
-                      category={category}
-                      label={categoryLabel(t, category.id)}
-                      grouping={groupLabel}
-                      mode={mode}
-                      selected={childSelected}
-                      indented
-                      onSelect={() => selectCategory(category.id)}
-                    />
-                  )
-                })}
-              </CommandGroup>
-            )
-          })
-        )}
-      </CommandList>
-    </Command>
+              return (
+                <Combobox.Group key={parent.id}>
+                  <CategoryOptionsRow
+                    category={parent}
+                    label={groupLabel}
+                    grouping={groupLabel}
+                    mode={mode}
+                    selected={parentSelected}
+                    parentRow
+                    hasChildren={children.length > 0}
+                    onSelect={() => selectCategory(parent.id)}
+                  />
+                  {children.map((category) => {
+                    const childSelected =
+                      mode === 'multi'
+                        ? isEffectivelySelected(category)
+                        : selectedSet.has(category.id)
+                    return (
+                      <CategoryOptionsRow
+                        key={category.id}
+                        category={category}
+                        label={categoryLabel(t, category.id)}
+                        grouping={groupLabel}
+                        mode={mode}
+                        selected={childSelected}
+                        indented
+                        onSelect={() => selectCategory(category.id)}
+                      />
+                    )
+                  })}
+                </Combobox.Group>
+              )
+            })
+          )}
+        </Combobox.List>
+      </div>
+    </Combobox.Root>
   )
 }
 
-function CategoryCommandRow({
+function CategoryOptionsRow({
   category,
   label,
   grouping,
@@ -451,11 +474,15 @@ function CategoryCommandRow({
 }) {
   const isGroupHeader = parentRow && hasChildren
   return (
-    <CommandItem
+    <Combobox.Item
       value={category.id}
-      onSelect={onSelect}
+      onClick={onSelect}
+      aria-selected={selected}
       aria-label={label}
-      className={cn('w-full', isGroupHeader && 'bg-muted/40 font-semibold')}
+      className={cn(
+        'relative flex w-full cursor-pointer items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground',
+        isGroupHeader && 'bg-muted/40 font-semibold',
+      )}
     >
       {mode === 'multi' && (
         <Check
@@ -476,7 +503,7 @@ function CategoryCommandRow({
           {grouping}
         </span>
       ) : null}
-    </CommandItem>
+    </Combobox.Item>
   )
 }
 

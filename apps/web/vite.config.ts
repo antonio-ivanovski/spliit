@@ -27,7 +27,7 @@ const buildSha =
 export default defineConfig({
   // All workspace apps share the repository-level .env file. Vite otherwise
   // resolves env files relative to apps/web when this task runs via Turbo.
-  envDir: path.resolve(__dirname, '../..'),
+  envDir: path.resolve(import.meta.dirname, '../..'),
   plugins: [
     tanstackRouter({
       target: 'react',
@@ -108,7 +108,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(import.meta.dirname, './src'),
     },
   },
   define: {

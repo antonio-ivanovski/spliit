@@ -52,6 +52,35 @@ export async function createTRPCContext(opts: {
 const t = initTRPC.context<AuthContext>().create({
   /** @see https://trpc.io/docs/server/data-transformers */
   transformer: superjson,
+  /**
+   * Forward stable import message codes to HTTP clients. Procedures throw
+   * `TRPCError` with `cause: { code, params }` (English `message` unchanged);
+   * `cause` itself does not survive serialization, so the pair is copied into
+   * `data.importCode`/`data.importParams` where the web UI can translate it
+   * (`ExpenseImport.apiErrors.<code>`) with fallback to `message`.
+   */
+  errorFormatter({ shape, error }) {
+    const cause = error.cause as
+      | { code?: unknown; params?: unknown }
+      | null
+      | undefined
+    if (
+      cause &&
+      typeof cause === 'object' &&
+      typeof cause.code === 'string' &&
+      cause.code.length > 0
+    ) {
+      const params =
+        cause.params && typeof cause.params === 'object'
+          ? (cause.params as Record<string, string | number>)
+          : {}
+      return {
+        ...shape,
+        data: { ...shape.data, importCode: cause.code, importParams: params },
+      }
+    }
+    return shape
+  },
 })
 
 // Base router and procedure helpers

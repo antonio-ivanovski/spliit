@@ -6,6 +6,10 @@ import { commonCurrenciesProcedure } from './common-currencies.procedure'
 import { createGroupExpenseProcedure } from './create.procedure'
 import { deleteGroupExpenseProcedure } from './delete.procedure'
 import { getGroupExpenseProcedure } from './get.procedure'
+import {
+  importExpenseFileProcedure,
+  previewExpenseFileImportDuplicatesProcedure,
+} from './import-csv.procedure'
 import { listGroupExpensesProcedure } from './list.procedure'
 import { listRecurringExpenseSeriesProcedure } from './series-list.procedure'
 import { seriesProgressProcedure } from './series-progress.procedure'
@@ -44,6 +48,10 @@ export const groupExpensesRouter = createTRPCRouter({
    * an FX rate when `conversion.type` is 'exchange'.
    */
   create: createGroupExpenseProcedure,
+  /** Preview likely duplicate rows before committing a file import batch. */
+  previewImportDuplicates: previewExpenseFileImportDuplicatesProcedure,
+  /** Import reviewed expense-file rows atomically with idempotency. */
+  importFile: importExpenseFileProcedure,
   /** Update an existing expense. Same conversion rules as create. */
   update: updateGroupExpenseProcedure,
   delete: deleteGroupExpenseProcedure,

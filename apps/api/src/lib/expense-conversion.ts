@@ -1,3 +1,5 @@
+import { TRPCError } from '@trpc/server'
+
 import {
   convertMinorUnitsByRate,
   exchangeRateLookupDate,
@@ -172,6 +174,11 @@ async function resolveExchange(args: {
       target: args.ledgerCurrency,
     })
   } catch (err) {
+    // TRPCError passes through unwrapped: cached batch resolvers throw coded
+    // errors (BAD_GATEWAY for provider gaps, INTERNAL for cache-invariant
+    // violations) that must survive with their code intact instead of being
+    // relabeled PROVIDER_UNAVAILABLE below.
+    if (err instanceof TRPCError) throw err
     if (err instanceof UnsupportedCurrencyError) {
       throw new ConversionError(
         `Unsupported currency for EXCHANGE: ${err.code}`,

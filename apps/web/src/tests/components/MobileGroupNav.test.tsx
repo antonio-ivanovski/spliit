@@ -71,6 +71,15 @@ vi.mock('@/components/ui/responsive-dialog', () => ({
 }))
 
 describe('MobileGroupNav', () => {
+  it('lists Tools in the group actions menu', () => {
+    render(<MobileGroupNav groupId="group-1" />)
+
+    expect(screen.getByRole('link', { name: 'Tools' })).toHaveAttribute(
+      'href',
+      '/groups/$groupId/tools',
+    )
+  })
+
   it('includes feedback in the group actions menu', () => {
     render(<MobileGroupNav groupId="group-1" />)
 

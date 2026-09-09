@@ -8,6 +8,7 @@ import {
   shouldRecoverSpliitOriginal,
 } from './spliit-original-amount'
 import type {
+  ImportMessageParams,
   ImportParseResult,
   NormalizedSource,
   NormalizedSourceExpense,
@@ -107,7 +108,15 @@ export const spliitExportSchema = z.object({
 
 export type SpliitExport = z.infer<typeof spliitExportSchema>
 
-class ImportError extends Error {}
+class ImportError extends Error {
+  constructor(
+    message: string,
+    readonly code: string,
+    readonly params: ImportMessageParams = {},
+  ) {
+    super(message)
+  }
+}
 
 function resolveCategoryId(
   category: SpliitExport['expenses'][number]['category'],
@@ -133,6 +142,8 @@ function normalizeSpliitExport(parsed: SpliitExport): NormalizedSource {
       if (seenUpstreamIds.has(p.id)) {
         throw new ImportError(
           `The export contains duplicate participant ids (id "${p.id}").`,
+          'SPLIIT_DUPLICATE_PARTICIPANT_IDS',
+          { participantId: p.id },
         )
       }
       seenUpstreamIds.add(p.id)
@@ -146,6 +157,8 @@ function normalizeSpliitExport(parsed: SpliitExport): NormalizedSource {
     if (!sourceId) {
       throw new ImportError(
         `Expense "${title}" references an unknown participant.`,
+        'SPLIIT_UNKNOWN_PARTICIPANT',
+        { title },
       )
     }
     return sourceId
@@ -157,6 +170,8 @@ function normalizeSpliitExport(parsed: SpliitExport): NormalizedSource {
     if (e.id && seenExpenseIds.has(e.id)) {
       throw new ImportError(
         `The export contains duplicate expense ids (id "${e.id}").`,
+        'SPLIIT_DUPLICATE_EXPENSE_IDS',
+        { expenseId: e.id },
       )
     }
     if (e.id) seenExpenseIds.add(e.id)
@@ -164,6 +179,8 @@ function normalizeSpliitExport(parsed: SpliitExport): NormalizedSource {
       if (seenDocumentIds.has(document.id)) {
         throw new ImportError(
           `The export contains duplicate document ids (id "${document.id}").`,
+          'SPLIIT_DUPLICATE_DOCUMENT_IDS',
+          { documentId: document.id },
         )
       }
       seenDocumentIds.add(document.id)
@@ -176,11 +193,17 @@ function normalizeSpliitExport(parsed: SpliitExport): NormalizedSource {
       if (seenInRow.has(sourceId)) {
         throw new ImportError(
           `Expense "${e.title}" has duplicate paid-for participants.`,
+          'SPLIIT_DUPLICATE_PAID_FOR',
+          { title: e.title },
         )
       }
       seenInRow.add(sourceId)
       if (!Number.isInteger(row.shares) || row.shares <= 0) {
-        throw new ImportError(`Expense "${e.title}" has a non-positive share.`)
+        throw new ImportError(
+          `Expense "${e.title}" has a non-positive share.`,
+          'SPLIIT_NON_POSITIVE_SHARE',
+          { title: e.title },
+        )
       }
       // Legacy whole-share weights from spliit.app's BY_SHARES export.
       // Spliit Cloud stores BY_SHARES as fixed units (`100 = 1 share`),
@@ -195,7 +218,11 @@ function normalizeSpliitExport(parsed: SpliitExport): NormalizedSource {
       paidFor.push({ sourceId, shares: normalizedShares })
     }
     if (!Number.isInteger(e.amount) || e.amount < 0) {
-      throw new ImportError(`Expense "${e.title}" has an invalid amount.`)
+      throw new ImportError(
+        `Expense "${e.title}" has an invalid amount.`,
+        'SPLIIT_INVALID_AMOUNT',
+        { title: e.title },
+      )
     }
     // Export `amount` is always the source-group ledger total (reliable).
     // Do not trust export `originalAmount` — recover from ledger ÷ rate
@@ -279,13 +306,23 @@ export function tryParseSpliitExport(input: unknown): ImportParseResult {
   try {
     return { ok: true, source: parseSpliitExport(input) }
   } catch (err) {
-    if (err instanceof ImportError) return { ok: false, error: err.message }
+    if (err instanceof ImportError)
+      return {
+        ok: false,
+        error: err.message,
+        code: err.code,
+        params: err.params,
+      }
     if (err instanceof z.ZodError) {
       return {
         ok: false,
         error: 'This file is not a supported spliit.app JSON export.',
+        code: 'SPLIIT_UNSUPPORTED_SHAPE',
+        params: {},
       }
     }
+    // Fully dynamic upstream passthrough: no static source text to translate,
+    // so no code — UI falls back to the raw English message.
     return {
       ok: false,
       error: err instanceof Error ? err.message : 'Invalid Spliit export',

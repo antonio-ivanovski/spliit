@@ -37,7 +37,7 @@ license: MIT
 | i18next load       | glob in `setup.ts`                    | automatic              |
 | flag               | `locale-switcher.tsx`                 | `init-locale --flag`   |
 | family (plan/refs) | `scripts/i18n/src/families.ts`        | `init-locale --family` |
-| guides             | `scripts/i18n/guides/<locale>.md`    | `init-locale --guide`  |
+| guides             | `scripts/i18n/guides/<locale>.md`     | `init-locale --guide`  |
 | RTL                | `react.tsx` `RTL_LOCALES`             | `init-locale --rtl`    |
 
 Families: `romance` | `germanic` | `slavic` | `east-asian` | `indic` | `semitic` | `southeast-asian` | `turkic`.

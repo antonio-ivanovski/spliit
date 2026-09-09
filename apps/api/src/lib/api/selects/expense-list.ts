@@ -18,6 +18,7 @@ export const groupExpenseListCardSelect = {
   originalCurrency: true,
   conversionRate: true,
   conversionSource: true,
+  fileImportSource: { select: { provider: true } },
   recurrenceSequence: true,
   paidByList: { select: expenseParticipantWithDisplayNameSelect },
   paidFor: { select: expenseParticipantWithDisplayNameSelect },

@@ -60,8 +60,12 @@ export const GroupHeader = ({
   const navigate = useNavigate({ from: '/groups/$groupId' })
   const utils = trpc.useUtils()
   const pathname = useLocation({ select: (location) => location.pathname })
+  const searchStr = useLocation({ select: (location) => location.searchStr })
   const focusedMobileRoute = isFocusedMobilePath(pathname)
   const mobileGroupTabRoute = isMobileGroupTabPath(pathname)
+  const isEditingImportedRow =
+    pathname.endsWith('/tools/import') &&
+    new URLSearchParams(searchStr).has('editRow')
   const { invite: inviteToken } = useSearch({
     from: '/groups/$groupId',
   })
@@ -172,15 +176,17 @@ export const GroupHeader = ({
         <h1
           className={`flex min-w-0 items-center gap-2 text-2xl font-bold ${focusedMobileRoute || mobileGroupTabRoute ? 'hidden sm:flex' : ''}`}
         >
-          <Button
-            variant="ghost"
-            size="icon"
-            className="-ms-2"
-            nativeButton={false}
-            render={<Link to="/" title={tGroups('backToHome')} />}
-          >
-            <ArrowLeft className="h-5 w-5 rtl:rotate-180" />
-          </Button>
+          {!isEditingImportedRow ? (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="-ms-2"
+              nativeButton={false}
+              render={<Link to="/" title={tGroups('backToHome')} />}
+            >
+              <ArrowLeft className="h-5 w-5 rtl:rotate-180" />
+            </Button>
+          ) : null}
           <Link to="/groups/$groupId" params={{ groupId }} className="truncate">
             {isLoading ? (
               <Skeleton className="mt-1.5 mb-1.5 h-5 w-32" />

@@ -28,7 +28,7 @@ export function isFocusedMobilePath(pathname: string) {
 }
 
 export function isMobileGroupNavPath(pathname: string) {
-  return /^\/groups\/[^/]+\/(expenses|balances|budgets|activity|stats|members|edit)\/?$/.test(
+  return /^\/groups\/[^/]+\/(expenses|balances|budgets|activity|stats|members|tools|edit)\/?$/.test(
     pathname,
   )
 }
@@ -38,7 +38,7 @@ export function isMobileGroupNavPath(pathname: string) {
  * focused workflow and keeps the focused route title/back affordance.
  */
 export function isMobileGroupTabPath(pathname: string) {
-  return /^\/groups\/[^/]+\/(expenses|balances|budgets|activity|stats|members)\/?$/.test(
+  return /^\/groups\/[^/]+\/(expenses|balances|budgets|activity|stats|members|tools)\/?$/.test(
     pathname,
   )
 }

@@ -172,6 +172,8 @@ describe('parseSpliitExport', () => {
     expect(tryParseSpliitExport({ ...validExport, exportVersion: 4 })).toEqual({
       ok: false,
       error: 'This file is not a supported spliit.app JSON export.',
+      code: 'SPLIIT_UNSUPPORTED_SHAPE',
+      params: {},
     })
   })
 

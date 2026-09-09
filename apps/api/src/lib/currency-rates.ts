@@ -6,6 +6,7 @@ import {
   supportedCurrencyCodes,
 } from '@spliit/domain/currency'
 
+import { mapWithConcurrency } from './concurrency'
 import { fetchCoinbaseSpot, type CryptoFetchImpl } from './crypto-rates'
 import {
   CurrencyRateNotFoundError,
@@ -66,6 +67,72 @@ export type CurrencyRate = {
 }
 
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+
+/**
+ * Batch FX robustness: only transient failures are retried with exponential
+ * backoff + jitter — transport failures without an HTTP status
+ * (timeout/abort/network, wrapped as PROVIDER_ERROR with no `status`), HTTP
+ * 429, and HTTP 5xx. Permanent HTTP 4xx (other than 429), validation failures
+ * (unsupported currency, invalid date), and RATE_NOT_FOUND (valid response,
+ * missing quote) are never retried.
+ */
+const FX_MAX_ATTEMPTS = 3
+const FX_RETRY_BASE_MS = 250
+const FX_RETRY_CAP_MS = 3000
+const FX_FIAT_CONCURRENCY = 8
+const FX_CRYPTO_CONCURRENCY = 8
+
+function isNetworkLikeError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false
+  if (err.name === 'AbortError' || err.name === 'TimeoutError') return true
+  if (err instanceof TypeError) return true
+  return /timeout|abort|network|fetch failed|ECONN|ENOTFOUND|EAI_AGAIN|EPIPE|ETIMEDOUT/i.test(
+    err.message,
+  )
+}
+
+function isRetryableFxError(err: unknown): boolean {
+  if (err instanceof UnsupportedCurrencyError) return false
+  if (err instanceof CurrencyRateNotFoundError) return false
+  if (err instanceof Error && /Invalid date/.test(err.message)) return false
+  if (err instanceof CurrencyRateProviderError) {
+    // Transport failures carry no HTTP status (fetch throw wrapped at the
+    // construction site); HTTP failures carry `status` (see fiat/crypto
+    // rates). Only 429 and 5xx are transient.
+    if (err.status === undefined) return true
+    return err.status === 429 || (err.status >= 500 && err.status <= 599)
+  }
+  return isNetworkLikeError(err)
+}
+
+function fxRetryDelayMs(attempt: number): number {
+  const exponential = FX_RETRY_BASE_MS * 2 ** attempt
+  const jitter = Math.floor(Math.random() * 100)
+  return Math.min(exponential + jitter, FX_RETRY_CAP_MS)
+}
+
+function sleepMs(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+async function withFxRetry<T>(fn: () => Promise<T>): Promise<T> {
+  let lastError: unknown
+  for (let attempt = 0; attempt < FX_MAX_ATTEMPTS; attempt++) {
+    try {
+      return await fn()
+    } catch (err) {
+      lastError = err
+      if (!isRetryableFxError(err) || attempt + 1 >= FX_MAX_ATTEMPTS) throw err
+      await sleepMs(fxRetryDelayMs(attempt))
+    }
+  }
+  throw lastError
+}
+
+// Re-exported for the file importer, which bounds its own document-promotion
+// fan-out with the same semaphore. New code should import from
+// `./concurrency` directly.
+export { mapWithConcurrency } from './concurrency'
 
 function assertSupported(code: string) {
   if (!(supportedCurrencyCodes as readonly string[]).includes(code)) {
@@ -139,7 +206,9 @@ async function fetchFiatPair(
   if (cached) return cached
 
   try {
-    const payload = await ctx.fiatFetch(ctx.date, base, [target])
+    const payload = await withFxRetry(() =>
+      ctx.fiatFetch(ctx.date, base, [target]),
+    )
     const rate = payload.rates[target]
     if (typeof rate !== 'number') return null
     const result = makeRate(ctx.date, base, target, rate, payload.date, {
@@ -171,13 +240,17 @@ async function fetchCryptoPair(
   if (inFlight) return inFlight
 
   const pending = (async (): Promise<CurrencyRate | null> => {
-    const direct = await ctx.cryptoFetch(ctx.date, base, target)
+    const direct = await withFxRetry(() =>
+      ctx.cryptoFetch(ctx.date, base, target),
+    )
     if (direct !== null) {
       return makeRate(ctx.date, base, target, direct, ctx.date, {
         sources: [{ provider: 'coinbase', base, target }],
       })
     }
-    const inverted = await ctx.cryptoFetch(ctx.date, target, base)
+    const inverted = await withFxRetry(() =>
+      ctx.cryptoFetch(ctx.date, target, base),
+    )
     if (inverted !== null) {
       return makeRate(ctx.date, base, target, 1 / inverted, ctx.date, {
         // Inversion still uses the Coinbase quote for target→base.
@@ -355,7 +428,7 @@ export async function getCurrencyRate({
   }
 
   // Pure fiat: single Frankfurter call (preserves prior asOfDate / ttlMs behaviour).
-  const payload = await fetchImpl(date, base, [target])
+  const payload = await withFxRetry(() => fetchImpl(date, base, [target]))
   const rate = payload.rates[target]
   if (typeof rate !== 'number') {
     throw new CurrencyRateNotFoundError(target)
@@ -481,8 +554,14 @@ export async function getCurrencyRates(
   }
   const resolvedByKey = new Map<Key, ResolvedGroup>()
 
-  const fiatGroupsPromise = Promise.all(
-    Array.from(groups.entries()).map(async ([key, group]) => {
+  // Fiat groups run with a bounded concurrency cap so a 276-row import with
+  // many distinct (date, base) pairs cannot open hundreds of simultaneous
+  // upstream connections. Cache hits were already partitioned out above and
+  // stay unthrottled.
+  const fiatGroupsPromise = mapWithConcurrency(
+    Array.from(groups.entries()),
+    FX_FIAT_CONCURRENCY,
+    async ([key, group]) => {
       const byTarget = new Map<string, BatchRateResult>()
       try {
         assertSupported(group.base)
@@ -490,7 +569,9 @@ export async function getCurrencyRates(
           throw new CurrencyRateProviderError(`Invalid date: ${group.date}`)
         }
 
-        const payload = await fetchImpl(group.date, group.base, group.targets)
+        const payload = await withFxRetry(() =>
+          fetchImpl(group.date, group.base, group.targets),
+        )
         for (const target of group.targets) {
           const rate = payload.rates[target]
           if (typeof rate !== 'number') {
@@ -532,7 +613,7 @@ export async function getCurrencyRates(
         }
       }
       resolvedByKey.set(key, { byTarget })
-    }),
+    },
   )
 
   const cryptoCtx: ResolveDeps = {
@@ -541,30 +622,33 @@ export async function getCurrencyRates(
     cryptoFetch: cryptoFetchImpl,
     memo: new Map(),
   }
-  const cryptoResultsPromise = Promise.all(
-    Array.from(cryptoGroups.values()).map(
-      async ({ date, base, target, indices }) => {
-        try {
-          assertSupported(base)
-          assertSupported(target)
-          if (!ISO_DATE_RE.test(date)) {
-            throw new CurrencyRateProviderError(`Invalid date: ${date}`)
-          }
-          const ctx: ResolveDeps = { ...cryptoCtx, date }
-          return {
-            ok: true as const,
-            indices,
-            rate: await resolveRate(ctx, base, target),
-          }
-        } catch (err) {
-          return {
-            ok: false as const,
-            indices,
-            error: classifyBatchError(err, date, target),
-          }
+  // Crypto groups fan out over distinct pairs just like fiat groups; bound
+  // them with the same limiter so a many-pair batch cannot open unbounded
+  // simultaneous upstream connections.
+  const cryptoResultsPromise = mapWithConcurrency(
+    Array.from(cryptoGroups.values()),
+    FX_CRYPTO_CONCURRENCY,
+    async ({ date, base, target, indices }) => {
+      try {
+        assertSupported(base)
+        assertSupported(target)
+        if (!ISO_DATE_RE.test(date)) {
+          throw new CurrencyRateProviderError(`Invalid date: ${date}`)
         }
-      },
-    ),
+        const ctx: ResolveDeps = { ...cryptoCtx, date }
+        return {
+          ok: true as const,
+          indices,
+          rate: await resolveRate(ctx, base, target),
+        }
+      } catch (err) {
+        return {
+          ok: false as const,
+          indices,
+          error: classifyBatchError(err, date, target),
+        }
+      }
+    },
   )
 
   await Promise.all([fiatGroupsPromise, cryptoResultsPromise])

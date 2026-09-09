@@ -13,6 +13,7 @@ export const createRequestIdSchema = z.uuid()
 export const CREATE_OPERATIONS = {
   group: 'groups.create',
   expense: 'groups.expenses.create',
+  expenseFileImport: 'groups.expenses.importFile',
   import: 'groups.import',
   cloudImport: 'groups.importCloudBundle',
   budget: 'groups.budgets.create',
@@ -60,6 +61,12 @@ export const CREATE_MUTATION_CATALOG = [
     operation: CREATE_OPERATIONS.expense,
     source: 'groups/expenses/create.procedure.ts',
     symbol: 'createGroupExpenseProcedure',
+  },
+  {
+    mechanism: 'shared',
+    operation: CREATE_OPERATIONS.expenseFileImport,
+    source: 'groups/expenses/import-csv.procedure.ts',
+    symbol: 'importExpenseFileProcedure',
   },
   {
     mechanism: 'shared',
@@ -233,6 +240,28 @@ export async function runIdempotentCreate<T, Prepared = undefined>(args: {
   /** Complete external I/O before opening the interactive transaction. */
   prepare?: () => Promise<Prepared>
   execute: (tx: TransactionClient, prepared: Prepared) => Promise<T>
+  /**
+   * Interactive-transaction settings for the owned transaction. Ordinary
+   * creates omit this and keep the database defaults; heavy operations (file
+   * import) opt into a bounded timeout/maxWait at the call site.
+   */
+  transaction?: { timeout?: number; maxWait?: number }
+  /**
+   * Compensation for a prepared attempt that never committed: invoked when
+   * execution fails, when the idempotency-result update fails, when the
+   * transaction itself fails, and when a lost creation race replays (or
+   * rejects) before this attempt's writes could commit. Never invoked for
+   * replays of an already-stored request (nothing was prepared) or for fresh
+   * commits. Must be non-throwing; errors are swallowed so compensation never
+   * masks the original failure.
+   */
+  compensate?: (prepared: Prepared) => Promise<void>
+  /**
+   * Post-commit work for a fresh commit only (never for replays, whose
+   * originating attempt already ran it). Non-throwing by contract — errors are
+   * swallowed so hygiene never fails a committed result.
+   */
+  onSuccess?: (prepared: Prepared) => Promise<void>
   encode?: (value: T) => EncodedResult
   decode?: (value: PrismaTypes.JsonValue) => T
 }): Promise<{ value: T; replayed: boolean }> {
@@ -256,9 +285,21 @@ export async function runIdempotentCreate<T, Prepared = undefined>(args: {
   if (existing) return replayExisting(existing, requestHash, decode)
 
   const prepared = args.prepare ? await args.prepare() : (undefined as Prepared)
+  const compensate = async () => {
+    try {
+      await args.compensate?.(prepared)
+    } catch {
+      // Compensation is best-effort by contract (see above).
+    }
+  }
+
+  const openTransaction = (run: (tx: TransactionClient) => Promise<T>) =>
+    args.transaction
+      ? prisma.$transaction(run, args.transaction)
+      : prisma.$transaction(run)
 
   try {
-    const value = await prisma.$transaction(async (tx) => {
+    const value = await openTransaction(async (tx) => {
       await tx.idempotencyRequest.create({
         data: {
           accountId: args.accountId,
@@ -278,11 +319,24 @@ export async function runIdempotentCreate<T, Prepared = undefined>(args: {
       })
       return created
     })
+    try {
+      await args.onSuccess?.(prepared)
+    } catch {
+      // Post-commit hygiene must never fail a committed result (see above).
+    }
     return { value, replayed: false }
   } catch (error) {
-    if (!isUniqueConstraintError(error)) throw error
+    if (!isUniqueConstraintError(error)) {
+      await compensate()
+      throw error
+    }
 
     const racedRequest = await findExisting()
+    // Our attempt never committed (the unique violation is the concurrent
+    // same-key creation winning the race), so compensate before replaying
+    // or rejecting — either way this attempt's prepared side effects are
+    // unreferenced.
+    await compensate()
     if (!racedRequest) throw error
     return replayExisting(racedRequest, requestHash, decode)
   }

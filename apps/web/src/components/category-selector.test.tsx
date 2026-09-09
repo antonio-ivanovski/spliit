@@ -133,7 +133,11 @@ describe('CategorySelector', () => {
     const user = await openSelector()
     await user.type(screen.getByPlaceholderText(/search category/i), 'uber')
 
-    const selected = await screen.findByRole('option', { selected: true })
+    const selected = await screen.findByRole('option', { name: 'Taxi' })
+    expect(screen.getByPlaceholderText(/search category/i)).toHaveAttribute(
+      'aria-activedescendant',
+      selected.id,
+    )
     expect(selected).toHaveAccessibleName(/^Taxi$/)
     expect(screen.queryByRole('option', { name: /^Home$/ })).toBeNull()
   })
@@ -154,7 +158,11 @@ describe('CategorySelector', () => {
       'grocereis',
     )
 
-    const selected = await screen.findByRole('option', { selected: true })
+    const selected = await screen.findByRole('option', { name: 'Groceries' })
+    expect(screen.getByPlaceholderText(/search category/i)).toHaveAttribute(
+      'aria-activedescendant',
+      selected.id,
+    )
     expect(selected).toHaveAccessibleName(/^Groceries$/)
   })
 

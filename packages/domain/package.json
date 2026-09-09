@@ -32,6 +32,7 @@
     "test": "vitest run --globals src"
   },
   "dependencies": {
+    "@marcbachmann/cel-js": "^8.0.0",
     "clsx": "^2.1.1",
     "currency-list": "^1.0.8",
     "dayjs": "^1.11.21",

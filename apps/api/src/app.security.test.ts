@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import './test/mocks'
 import {
+  app,
   clientRateLimitMiddleware,
   requestWithTrustedProxyHeaders,
 } from './app'
@@ -63,5 +64,34 @@ describe('proxy header trust', () => {
     const headers = { 'cf-connecting-ip': '203.0.113.10' }
     expect((await testApp.request('/limited', { headers })).status).toBe(200)
     expect((await testApp.request('/limited', { headers })).status).toBe(429)
+  })
+})
+
+describe('tRPC body limit', () => {
+  it('rejects oversize tRPC payloads with 413', async () => {
+    // hono/body-limit short-circuits on the content-length header before
+    // reading the body, so spoof the header to prove the middleware is wired
+    // without allocating 25MB in the test.
+    const response = await app.request('/trpc/groups.create?batch=1', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'content-length': String(26 * 1024 * 1024),
+      },
+      body: JSON.stringify({}),
+    })
+
+    expect(response.status).toBe(413)
+  })
+
+  it('passes normal-size tRPC payloads through to the router', async () => {
+    const response = await app.request('/trpc/groups.create?batch=1', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({}),
+    })
+
+    // Unauthenticated, but must NOT be a body-limit rejection.
+    expect(response.status).not.toBe(413)
   })
 })

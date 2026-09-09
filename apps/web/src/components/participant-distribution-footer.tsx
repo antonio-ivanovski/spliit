@@ -24,7 +24,7 @@ export function ParticipantDistributionFooter({
   dataTestId,
 }: {
   splitMode: SplitMode
-  targetAmount: number
+  targetAmount?: number
   shares: number[]
   currency: Currency
   paidByCount: number
@@ -39,9 +39,10 @@ export function ParticipantDistributionFooter({
   let colorClass = ''
 
   if (splitMode === 'BY_AMOUNT') {
+    const amountTarget = targetAmount ?? 0
     const sum = shares.reduce((s, x) => s + x, 0)
-    const diff = targetAmount - sum
-    const formattedTotal = formatCurrency(currency, targetAmount, locale)
+    const diff = amountTarget - sum
+    const formattedTotal = formatCurrency(currency, amountTarget, locale)
     if (Math.abs(diff) < 0.5) {
       message = t('matches', { total: formattedTotal })
       colorClass = 'text-emerald-600'
@@ -77,7 +78,11 @@ export function ParticipantDistributionFooter({
           : t('percentageSurplus', { pct })
       colorClass = 'text-red-600'
     }
-  } else if (splitMode === 'EVENLY' && paidByCount > 0) {
+  } else if (
+    splitMode === 'EVENLY' &&
+    targetAmount != null &&
+    paidByCount > 0
+  ) {
     const evenAmount = targetAmount / paidByCount
     const formattedAmount = formatCurrency(
       currency,

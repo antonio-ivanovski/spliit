@@ -22,6 +22,16 @@ export type NormalizedSourceActivity = {
   data: string | null
 }
 
+/**
+ * Interpolation params for a coded user-facing import message. Values are plain
+ * scalars that survive worker structured-clone and superjson transport.
+ * Suffix-style params (`receivedSuffix`, `titlePart`, `detail`) carry
+ * preformatted English fragments (user file content, column labels) that are
+ * intentionally not translated; single braces (`{name}`) match i18next
+ * interpolation used by the web UI.
+ */
+export type ImportMessageParams = Record<string, string | number>
+
 import type { RecurrenceFrequency } from '../enums'
 import type { RecurrenceConfig, RecurrenceEnd } from '../recurring-expenses'
 
@@ -75,4 +85,14 @@ export type NormalizedSource = {
 
 export type ImportParseResult =
   | { ok: true; source: NormalizedSource }
-  | { ok: false; error: string }
+  | {
+      ok: false
+      error: string
+      /**
+       * Stable message identifier for UI translation. Kept alongside the
+       * English `error` (tests/logs/compat depend on it). Absent only for fully
+       * dynamic upstream passthroughs that have no static source text.
+       */
+      code?: string
+      params?: ImportMessageParams
+    }

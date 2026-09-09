@@ -52,18 +52,31 @@ export function tryParseSpliitCsv(input: string): ImportParseResult {
 
   const rows = parsed.data
   if (rows.length < 2) {
-    return { ok: false, error: 'CSV has no data rows' }
-  }
-  if (parsed.errors.length > 0) {
     return {
       ok: false,
-      error: `CSV could not be parsed: ${parsed.errors[0]?.message ?? 'unknown error'}`,
+      error: 'CSV has no data rows',
+      code: 'CSV_NO_DATA_ROWS',
+      params: {},
+    }
+  }
+  if (parsed.errors.length > 0) {
+    const detail = parsed.errors[0]?.message ?? 'unknown error'
+    return {
+      ok: false,
+      error: `CSV could not be parsed: ${detail}`,
+      code: 'CSV_PARSE_FAILED',
+      params: { detail },
     }
   }
   const header = rows[0]
   const layout = detectCsvLayout(header)
   if (!layout) {
-    return { ok: false, error: 'CSV header is not a Spliit export' }
+    return {
+      ok: false,
+      error: 'CSV header is not a Spliit export',
+      code: 'CSV_NOT_SPLIIT_EXPORT',
+      params: {},
+    }
   }
 
   const participantHeaders = header
@@ -72,7 +85,12 @@ export function tryParseSpliitCsv(input: string): ImportParseResult {
     .filter((h: string) => h.length > 0)
 
   if (participantHeaders.length === 0) {
-    return { ok: false, error: 'CSV is missing participant columns' }
+    return {
+      ok: false,
+      error: 'CSV is missing participant columns',
+      code: 'CSV_MISSING_PARTICIPANT_COLUMNS',
+      params: {},
+    }
   }
 
   const participantIndex = new Map<string, number>()
@@ -261,7 +279,12 @@ export function tryParseSpliitCsv(input: string): ImportParseResult {
   }
 
   if (expenses.length === 0) {
-    return { ok: false, error: 'CSV had no parseable expenses' }
+    return {
+      ok: false,
+      error: 'CSV had no parseable expenses',
+      code: 'CSV_NO_PARSEABLE_EXPENSES',
+      params: {},
+    }
   }
 
   let mostCommonCurrency: string | null = null

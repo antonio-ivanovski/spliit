@@ -186,7 +186,9 @@ export const importSummaryActivityDataSchema = z.object({
   kind: z.literal('import_summary'),
   summary: z.string().optional(),
   count: z.number().int().nonnegative(),
-  totalAmount: z.number().int().nonnegative().optional(),
+  // Signed ledger total: refunds/credits are represented as negative
+  // expenses by generic statement imports.
+  totalAmount: z.number().int().optional(),
   currencyCode: z.string().nullable().optional(),
   sourceProvider: z.string().optional(),
   // Ledger participant IDs affected by the imported expenses. Used by

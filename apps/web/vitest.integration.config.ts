@@ -8,7 +8,7 @@ const integrationApiUrl =
 
 export default defineConfig({
   // Keep the integration API separate from the sequential local-dev ports.
-  envDir: path.resolve(__dirname, '../..'),
+  envDir: path.resolve(import.meta.dirname, '../..'),
   define: {
     'import.meta.env.VITE_API_URL': JSON.stringify(integrationApiUrl),
   },
@@ -27,7 +27,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(import.meta.dirname, './src'),
     },
   },
 })

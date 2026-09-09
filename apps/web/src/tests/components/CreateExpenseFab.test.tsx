@@ -239,6 +239,10 @@ describe('CreateExpenseFab', () => {
     expect(
       within(actions).getByRole('button', { name: 'Scan receipt' }),
     ).toBeInTheDocument()
+    // Import moved to the Tools tab and is no longer a mascot action.
+    expect(
+      within(actions).queryByRole('button', { name: 'Import expenses' }),
+    ).toBeNull()
 
     await user.click(
       within(actions).getByRole('button', { name: 'Add expense' }),
@@ -265,9 +269,7 @@ describe('CreateExpenseFab', () => {
       />,
     )
 
-    // With both AI surfaces disabled the mobile FAB collapses to a single
-    // button; the desktop toolbar still exposes the same action. Scope the
-    // query to the desktop wrapper so both surfaces stay valid.
+    // Scope the query to the desktop wrapper so both surfaces stay valid.
     const control = screen.getByTestId('expense-action-control')
     const addExpense = within(control).getByRole('button', {
       name: 'Add expense',
@@ -329,7 +331,7 @@ describe('CreateExpenseFab', () => {
     state.currentGroup = null
   })
 
-  it('collapses the mobile FAB to a single button when no AI surface is available', async () => {
+  it('collapses to a single primary action when no AI surface is enabled', () => {
     state.currentGroup = {
       groupId: 'group-1',
       group: { id: 'group-1', archived: false },
@@ -343,19 +345,55 @@ describe('CreateExpenseFab', () => {
       />,
     )
 
-    // SpeedDial trigger is gone; the single-action mobile FAB takes its
-    // place as a link to the expense form.
-    expect(
-      screen.queryByRole('button', { name: 'Open expense actions' }),
-    ).not.toBeInTheDocument()
+    // Desktop control still offers manual create.
     const control = screen.getByTestId('expense-action-control')
     expect(
       within(control).getByRole('button', { name: 'Add expense' }),
     ).toHaveAttribute('href', '/groups/$groupId/expenses/create')
+    // Mobile collapses to a single button now that import lives in Tools:
+    // no speed-dial trigger and no import action anywhere.
+    expect(
+      screen.queryByRole('button', { name: 'Open expense actions' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: 'Import expenses' }),
+    ).not.toBeInTheDocument()
     expect(screen.getByTestId('create-expense-fab-mobile')).toHaveAttribute(
       'href',
       '/groups/$groupId/expenses/create',
     )
+    state.currentGroup = null
+  })
+
+  it('offers no import action on the expense list (import lives in Tools)', () => {
+    state.pathname = '/groups/group-1/expenses'
+    state.currentGroup = {
+      groupId: 'group-1',
+      group: { id: 'group-1', archived: false },
+      currentInvitation: null,
+    }
+
+    render(
+      <CreateExpenseFab
+        enableReceiptExtract={false}
+        enableVoiceExpense={false}
+      />,
+    )
+
+    expect(screen.getByTestId('expense-action-control')).toBeInTheDocument()
+    expect(
+      screen.queryByRole('button', { name: 'Import expenses' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByRole('menuitem', { name: 'Import expenses' }),
+    ).not.toBeInTheDocument()
+    // Without AI surfaces the mobile FAB goes straight to manual create.
+    expect(screen.getByTestId('create-expense-fab-mobile')).toHaveAttribute(
+      'href',
+      '/groups/$groupId/expenses/create',
+    )
+
+    state.pathname = '/'
     state.currentGroup = null
   })
 

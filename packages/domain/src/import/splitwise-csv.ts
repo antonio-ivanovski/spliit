@@ -44,12 +44,20 @@ export function tryParseSplitwiseCsv(input: string): ImportParseResult {
 
   const rows = parsed.data
   if (rows.length < 2) {
-    return { ok: false, error: 'CSV has no data rows' }
-  }
-  if (parsed.errors.length > 0) {
     return {
       ok: false,
-      error: `CSV could not be parsed: ${parsed.errors[0]?.message ?? 'unknown error'}`,
+      error: 'CSV has no data rows',
+      code: 'CSV_NO_DATA_ROWS',
+      params: {},
+    }
+  }
+  if (parsed.errors.length > 0) {
+    const detail = parsed.errors[0]?.message ?? 'unknown error'
+    return {
+      ok: false,
+      error: `CSV could not be parsed: ${detail}`,
+      code: 'CSV_PARSE_FAILED',
+      params: { detail },
     }
   }
 
@@ -62,7 +70,12 @@ export function tryParseSplitwiseCsv(input: string): ImportParseResult {
     }
   }
   if (headerRowIdx === -1) {
-    return { ok: false, error: 'CSV header is not a Splitwise export' }
+    return {
+      ok: false,
+      error: 'CSV header is not a Splitwise export',
+      code: 'CSV_NOT_SPLITWISE_EXPORT',
+      params: {},
+    }
   }
   const header = rows[headerRowIdx]
 
@@ -81,7 +94,12 @@ export function tryParseSplitwiseCsv(input: string): ImportParseResult {
     })
   }
   if (participants.length === 0) {
-    return { ok: false, error: 'CSV is missing participant columns' }
+    return {
+      ok: false,
+      error: 'CSV is missing participant columns',
+      code: 'CSV_MISSING_PARTICIPANT_COLUMNS',
+      params: {},
+    }
   }
 
   const expenses: NormalizedSource['expenses'] = []
@@ -241,7 +259,12 @@ export function tryParseSplitwiseCsv(input: string): ImportParseResult {
   }
 
   if (expenses.length === 0) {
-    return { ok: false, error: 'CSV had no parseable expenses' }
+    return {
+      ok: false,
+      error: 'CSV had no parseable expenses',
+      code: 'CSV_NO_PARSEABLE_EXPENSES',
+      params: {},
+    }
   }
 
   let mostCommonCurrency = ''

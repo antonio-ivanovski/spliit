@@ -872,6 +872,7 @@ model Expense {
   items              ExpenseItem[]
   itemizedRemainder  ExpenseItemizedRemainder?
   comments           ExpenseComment[]
+  fileImportSource   ExpenseFileImportSource?
 
   @@unique([recurringSeriesId, recurrenceSequence])
   // ledgerId prefix covers group-scoped scans; expenseDate supports
@@ -880,8 +881,57 @@ model Expense {
   @@index([ledgerId, createdAt])
   @@index([createdByAccountId])
   @@index([ledgerId, amount])
+  @@index([ledgerId, expenseDate, amount])
+  // Prefer-source amount lookup for file-import duplicate detection:
+  // bank amounts are in source currency (originalAmount/originalCurrency).
+  @@index([ledgerId, originalCurrency, originalAmount])
   @@index([recurringSeriesId, recurrenceSequence])
   @@index([title(ops: raw("gin_trgm_ops"))], type: Gin, map: "Expense_title_trgm_idx")
+}
+
+// ---------------------------------------------------------------------------
+// File-import provenance (CSV-only for now, extensible via `provider`).
+//
+// Optional 1-1 side table: a row exists only for expenses created via file
+// import, so the main Expense model stays clean. All keys here are immutable:
+// they survive user edits of title/date/amount, which is what makes exact
+// re-import detection work. Fuzzy duplicate detection queries the live
+// Expense columns (title/date/amount, trigram index) and therefore sees
+// manual expenses too. Matches are advisory only (API/UI flags, no DB
+// unique constraints) so intentional duplicates remain possible.
+model ExpenseFileImportSource {
+  expense   Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  expenseId String  @id
+  // Denormalized scope key so all lookups stay ledger-scoped via index.
+  ledgerId  String
+
+  // Import provider namespace. Only GENERIC_CSV is produced today; other
+  // future sources get their own value instead of new columns on Expense.
+  provider String @default("GENERIC_CSV")
+  // Immutable replay key: sha256("spliit:expense-file-import:v3" + ledgerId + originFingerprint).
+  importKey String
+  // Hash-only bank identity: sha256("spliit:expense-file-identity:v1" +
+  // normalized source account + normalized bank transaction id). Raw bank
+  // ids are never stored — the client sends them per request, the server
+  // hashes at the boundary, and lookups match on the hash. Null when the
+  // export provides no transaction id (no bank-id matching for that row).
+  externalIdentityHash String?
+
+  // One-way debug/forensic hashes (never raw source data).
+  semanticHash String
+  rawHash      String
+
+  // Extensible import context without future migrations,
+  // e.g. { fileName, mappingVersion, rowNumber }.
+  meta Json?
+
+  importedByAccountId String?
+  createdAt           DateTime @default(now())
+
+  @@index([ledgerId, importKey])
+  // The bank-id lookup (`findExpenseFileImportDuplicates`: ledgerId +
+  // provider + externalIdentityHash IN …) is served by the index below.
+  @@index([ledgerId, provider, externalIdentityHash], map: "ExpenseFileImportSource_ledgerId_provider_extIdHash_idx")
 }
 
 model ExpenseDocument {
@@ -1037,6 +1087,10 @@ model Activity {
   ledgerId String
   time     DateTime @default(now())
 
+  // Imported per-expense audit rows can be retained without flooding the
+  // current group activity feed; summary activities remain visible.
+  visibleInGroupFeed Boolean @default(true)
+
   /// ![ActivityType]
   type String
 
@@ -1058,6 +1112,7 @@ model Activity {
   notificationDeliveries NotificationDelivery[]
 
   @@index([ledgerId, time])
+  @@index([ledgerId, visibleInGroupFeed, time])
   @@index([ledgerId, type, time])
   @@index([subjectType, subjectId])
 }

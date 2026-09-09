@@ -9,7 +9,7 @@ export default function GroupExpensesPageClient() {
 
   return (
     <ScanSurface className="mb-4">
-      <div className="flex flex-row items-center gap-4 p-4 sm:justify-between sm:gap-x-6 sm:p-6">
+      <div className="flex flex-row flex-wrap items-center gap-4 p-4 sm:justify-between sm:gap-x-6 sm:p-6">
         <div className="min-w-0 flex-1">
           <CardTitle>{t('title')}</CardTitle>
           <CardDescription>{t('description')}</CardDescription>

@@ -986,7 +986,7 @@ export const expenseApiSchema = z
     notes: z.string().optional(),
     recurrence: recurrenceConfigSchema.nullish(),
     recurrenceRule: recurrenceRuleSchema,
-    items: z.array(expenseItemApiSchema).optional(),
+    items: z.array(expenseItemApiSchema).max(100).optional(),
     itemizedRemainder: itemizedRemainderApiSchema
       .optional()
       .describe(

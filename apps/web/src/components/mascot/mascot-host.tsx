@@ -204,12 +204,13 @@ export function MascotHost() {
   const hasPrimaryAction = actions.some((action) => action.primary)
   const reactionExpansion = expressive && !offline
   const hiddenSurface = pathname.endsWith('/expenses/print')
+  const compactSurface = pathname.endsWith('/tools/import')
   const interactionScope = `${pathname}:${blockedByOverlay ? 'blocked' : 'active'}`
   const hasActions = actions.length > 0
   const interactive = hasActions && !blockedByOverlay
   const open = interactive && openScope === interactionScope
   const docked = Boolean(
-    !hasPrimaryAction &&
+    (compactSurface || !hasPrimaryAction) &&
     !open &&
     !speechLine &&
     !reactionExpansion &&
@@ -425,7 +426,13 @@ export function MascotHost() {
       style={positionStyle}
       data-testid={docked ? 'bill-mascot-docked' : 'bill-mascot'}
       data-mascot-size={
-        hasPrimaryAction ? 'primary' : docked ? 'compact' : 'expanded'
+        compactSurface
+          ? 'compact'
+          : hasPrimaryAction
+            ? 'primary'
+            : docked
+              ? 'compact'
+              : 'expanded'
       }
       data-reaction={mascot.reaction}
       data-mascot-docked={docked ? 'true' : 'false'}
@@ -551,7 +558,11 @@ export function MascotHost() {
           data-reaction={mascot.reaction}
           className={cn(
             'group relative rounded-[2rem] outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-            docked ? 'h-16 w-16' : 'h-[118px] w-[108px]',
+            compactSurface
+              ? 'h-12 w-12 opacity-80 transition-opacity hover:opacity-100'
+              : docked
+                ? 'h-16 w-16'
+                : 'h-[118px] w-[108px]',
             blockedByOverlay && 'pointer-events-none',
           )}
           onPointerDown={onTriggerPointerDown}

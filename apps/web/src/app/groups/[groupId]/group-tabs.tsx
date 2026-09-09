@@ -20,6 +20,7 @@ const GROUP_TAB_TO = {
   budgets: '/groups/$groupId/budgets',
   activity: '/groups/$groupId/activity',
   members: '/groups/$groupId/members',
+  tools: '/groups/$groupId/tools',
   edit: '/groups/$groupId/edit',
 } as const
 
@@ -164,6 +165,13 @@ export function GroupTabs({ groupId }: Props) {
                 )}
               </TabsTrigger>
             )}
+            <TabsTrigger
+              value="tools"
+              nativeButton={false}
+              render={<Link to={GROUP_TAB_TO.tools} params={{ groupId }} />}
+            >
+              {t('Tools.title')}
+            </TabsTrigger>
             {canViewSettings && (
               <TabsTrigger
                 value="edit"

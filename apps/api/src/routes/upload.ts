@@ -147,19 +147,44 @@ export async function promoteUploadedDocument(
   fileUrl: string,
   options: { deleteSource?: boolean } = {},
 ): Promise<string> {
-  if (!uploadsConfigured()) return fileUrl
+  return (await promoteUploadedDocumentDetailed(fileUrl, options)).url
+}
+
+export type PromotedDocumentResult = {
+  /** Permanent URL (or the input unchanged when nothing needed copying). */
+  url: string
+  /**
+   * True only when THIS call performed the copy. A converged retry (the
+   * permanent object already existed) returns `created: false`: the caller must
+   * never rollback-delete a reused object it does not own.
+   */
+  created: boolean
+  /**
+   * The staged `tmp/` key the copy came from, for post-commit source cleanup.
+   * Null when the input was not a staged upload.
+   */
+  sourceKey: string | null
+}
+
+export async function promoteUploadedDocumentDetailed(
+  fileUrl: string,
+  options: { deleteSource?: boolean; attemptKey?: string } = {},
+): Promise<PromotedDocumentResult> {
+  if (!uploadsConfigured())
+    return { url: fileUrl, created: false, sourceKey: null }
 
   const key = keyFromFileUrl(fileUrl)
-  if (!key.startsWith('tmp/')) return fileUrl
+  if (!key.startsWith('tmp/'))
+    return { url: fileUrl, created: false, sourceKey: null }
 
-  const permanentKey = key.replace(/^tmp\//, 'documents/')
+  const deterministicKey = key.replace(/^tmp\//, 'documents/')
 
-  const permanentObjectExists = async () => {
+  const objectExists = async (headKey: string) => {
     try {
       await getS3Client().send(
         new HeadObjectCommand({
           Bucket: env.S3_UPLOAD_BUCKET,
-          Key: permanentKey,
+          Key: headKey,
         }),
       )
       return true
@@ -174,39 +199,84 @@ export async function promoteUploadedDocument(
     }
   }
 
-  // A create retry may arrive after the first request copied and deleted the
-  // temporary object but before its response reached the browser.
-  if (await permanentObjectExists()) {
-    return publicUrlForKey(permanentKey)
-  }
-
-  try {
+  const copyTo = async (destinationKey: string) => {
     await getS3Client().send(
       new CopyObjectCommand({
         Bucket: env.S3_UPLOAD_BUCKET,
         CopySource: `${env.S3_UPLOAD_BUCKET}/${encodeURIComponent(key)}`,
-        Key: permanentKey,
+        Key: destinationKey,
       }),
     )
-  } catch (error) {
-    // Two same-request attempts may both observe a missing destination before
-    // one wins the copy/delete race. If the permanent object now exists, the
-    // losing promotion converges on the same URL; otherwise preserve the real
-    // copy failure.
-    if (await permanentObjectExists()) return publicUrlForKey(permanentKey)
-    throw error
+    if (options.deleteSource !== false) {
+      await getS3Client().send(
+        new DeleteObjectCommand({
+          Bucket: env.S3_UPLOAD_BUCKET,
+          Key: key,
+        }),
+      )
+    }
+    return {
+      url: publicUrlForKey(destinationKey),
+      created: true,
+      sourceKey: key,
+    }
   }
 
-  if (options.deleteSource !== false) {
-    await getS3Client().send(
-      new DeleteObjectCommand({
-        Bucket: env.S3_UPLOAD_BUCKET,
-        Key: key,
-      }),
+  if (!options.attemptKey) {
+    // Legacy deterministic destination, shared by the non-import flows and
+    // pre-attempt-keys generations: converge without taking ownership.
+    // A create retry may arrive after the first request copied and deleted the
+    // temporary object but before its response reached the browser.
+    if (await objectExists(deterministicKey)) {
+      return {
+        url: publicUrlForKey(deterministicKey),
+        created: false,
+        sourceKey: key,
+      }
+    }
+
+    try {
+      return await copyTo(deterministicKey)
+    } catch (error) {
+      // Two same-request attempts may both observe a missing destination before
+      // one wins the copy/delete race. If the permanent object now exists, the
+      // losing promotion converges on the same URL; otherwise preserve the real
+      // copy failure.
+      if (await objectExists(deterministicKey)) {
+        return {
+          url: publicUrlForKey(deterministicKey),
+          created: false,
+          sourceKey: key,
+        }
+      }
+      throw error
+    }
+  }
+
+  // Attempt-scoped destination (`documents/imports/<attempt>/<path>`): two
+  // concurrent attempts copying the same staged upload land on different
+  // keys, so neither attempt's compensation can address — and delete — the
+  // other's object. Ownership follows from the key alone; the
+  // reference-checked cleanup remains as backstop for this attempt's own
+  // ambiguous commit.
+  if (!(await objectExists(key))) {
+    // The staged source is gone (a previous attempt committed and cleaned
+    // up, or the upload expired). Adopt a legacy deterministic object when
+    // one exists; otherwise fail with an actionable error instead of a
+    // dangling reference. No copy is made, so nothing is owned.
+    if (await objectExists(deterministicKey)) {
+      return {
+        url: publicUrlForKey(deterministicKey),
+        created: false,
+        sourceKey: null,
+      }
+    }
+    throw new Error(
+      `Staged import document is no longer available (re-upload it or reuse the original import request): ${fileUrl}`,
     )
   }
-
-  return publicUrlForKey(permanentKey)
+  const permanentKey = `documents/imports/${options.attemptKey}/${key.slice('tmp/'.length)}`
+  return copyTo(permanentKey)
 }
 
 export async function mintImportDocumentPresign(input: {

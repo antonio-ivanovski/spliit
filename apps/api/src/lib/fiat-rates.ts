@@ -52,6 +52,8 @@ export async function fetchFrankfurterRates(
   if (!res.ok) {
     throw new CurrencyRateProviderError(
       `Currency rate provider returned ${res.status}`,
+      undefined,
+      res.status,
     )
   }
   const entries = (await res.json()) as FrankfurterV2Entry[]

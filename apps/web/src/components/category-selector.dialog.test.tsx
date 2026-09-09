@@ -40,6 +40,7 @@ describe('CategorySelector inside modal dialog (desktop)', () => {
     )
 
     await user.click(screen.getByRole('combobox'))
+    expect(screen.getByPlaceholderText('Search category...')).toHaveFocus()
 
     const parent = await screen.findByRole('option', {
       name: /^Home$/,

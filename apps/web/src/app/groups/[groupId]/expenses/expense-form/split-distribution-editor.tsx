@@ -33,7 +33,7 @@ export function SplitDistributionEditor(props: {
   participants: DistributionParticipant[]
   selectedCount: number
   mode: DistributionMode
-  targetAmount: number
+  targetAmount?: number
   shares: number[]
   currency: Currency
   readOnly?: boolean

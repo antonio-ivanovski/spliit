@@ -8,7 +8,11 @@ import {
   type Expense,
 } from '@spliit/domain'
 
-import { promoteUploadedDocument } from '../../../routes/upload'
+import {
+  promoteUploadedDocument,
+  promoteUploadedDocumentDetailed,
+} from '../../../routes/upload'
+import { mapWithConcurrency } from '../../concurrency'
 import { toRecurrenceConfig } from '../recurrence-series'
 import type { getExpense } from './queries'
 
@@ -137,5 +141,110 @@ export async function promoteExpenseDocuments(
       ...doc,
       url: await promoteUploadedDocument(doc.url),
     })),
+  )
+}
+
+export type PromotedExpenseDocument = {
+  id: string
+  url: string
+  fileName?: string | null
+  contentType?: string | null
+  width?: number | null
+  height?: number | null
+  /**
+   * True only when this attempt copied the object. Reused permanent objects
+   * (converged retries) report `created: false` and must never be
+   * rollback-deleted: a changed URL is NOT ownership evidence.
+   */
+  created: boolean
+  /** Staged `tmp/` source key for post-commit cleanup; null when N/A. */
+  sourceKey: string | null
+  /**
+   * Staged `tmp/` source URL for post-commit cleanup; null when the input was
+   * not a staged upload. Deleting staged sources only after commit keeps failed
+   * imports retryable with the same payload.
+   */
+  temporaryUrl: string | null
+}
+
+export type SettledDocumentPromotion =
+  | { status: 'fulfilled'; value: PromotedExpenseDocument }
+  | { status: 'rejected'; reason: unknown }
+
+/**
+ * Ownership-aware promotion for the file importer. Unlike
+ * {@link promoteExpenseDocuments} (row-local `Promise.all`, URL-only), this
+ * settles EVERY in-flight promotion before returning — so the caller can clean
+ * up successfully created siblings when one document fails — and reports
+ * per-document creation ownership. Never deletes staged sources: the caller
+ * removes them after commit so failed imports stay retryable.
+ *
+ * With `attemptKey`, copies land on attempt-scoped destinations
+ * (`documents/imports/<attempt>/…`) so concurrent attempts never share an
+ * object. Repeated references to one staged URL within the attempt converge on
+ * a single copy.
+ */
+export async function promoteExpenseDocumentsDetailed(
+  documents: Array<{
+    id: string
+    url: string
+    fileName?: string | null
+    contentType?: string | null
+    width?: number | null
+    height?: number | null
+  }>,
+  options: { concurrency?: number; attemptKey?: string } = {},
+): Promise<SettledDocumentPromotion[]> {
+  // In-flight promotions keyed by staged URL. The entry is stored BEFORE
+  // awaiting: concurrent workers referencing one staged URL share a single
+  // copy instead of each missing a populate-after-await cache. Awaited by
+  // every sharer, so rejections propagate without extra copies and without
+  // unhandled rejections.
+  const inflight = new Map<
+    string,
+    Promise<{
+      url: string
+      created: boolean
+      sourceKey: string | null
+      temporaryUrl: string | null
+    }>
+  >()
+  return mapWithConcurrency(
+    documents,
+    options.concurrency ?? 10,
+    async (doc): Promise<SettledDocumentPromotion> => {
+      let pending = inflight.get(doc.url)
+      if (!pending) {
+        const stagedUrl = doc.url
+        pending = (async () => {
+          const promoted = await promoteUploadedDocumentDetailed(stagedUrl, {
+            deleteSource: false,
+            attemptKey: options.attemptKey,
+          })
+          return {
+            ...promoted,
+            temporaryUrl: promoted.sourceKey ? stagedUrl : null,
+          }
+        })()
+        inflight.set(doc.url, pending)
+      }
+      try {
+        const shared = await pending
+        // Same staged URL twice in one attempt: share the single copy,
+        // keeping this document's own identity fields.
+        return {
+          status: 'fulfilled',
+          value: {
+            ...doc,
+            url: shared.url,
+            created: shared.created,
+            sourceKey: shared.sourceKey,
+            temporaryUrl: shared.temporaryUrl,
+          },
+        }
+      } catch (reason) {
+        return { status: 'rejected', reason }
+      }
+    },
   )
 }

@@ -56,6 +56,7 @@ export function CreateExpenseFab({
   const currentGroupId = currentGroup?.group?.id
   const isExpenseFormRoute =
     pathname.endsWith('/expenses/create') ||
+    pathname.endsWith('/tools/import') ||
     /\/expenses\/[^/]+\/edit$/.test(pathname)
   const isExpenseListRoute = pathname.endsWith('/expenses')
   const isBudgetsRoute = pathname.includes('/budgets')

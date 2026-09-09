@@ -153,6 +153,10 @@ export const expensePreviewSearchSchema = groupAccessSearchSchema.extend({
   returnTo: globalExpensesReturnTo,
 })
 
+export const expenseImportSearchSchema = groupAccessSearchSchema.extend({
+  editRow: optionalString,
+})
+
 export const forgotPasswordSearchSchema = z.object({
   email: optionalString,
 })

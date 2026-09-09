@@ -43,6 +43,8 @@ export async function fetchCoinbaseSpot(
   if (!res.ok) {
     throw new CurrencyRateProviderError(
       `Crypto rate provider returned ${res.status}`,
+      undefined,
+      res.status,
     )
   }
   const payload = (await res.json()) as CoinbaseSpotResponse

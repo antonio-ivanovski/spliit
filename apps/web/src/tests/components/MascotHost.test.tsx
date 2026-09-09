@@ -346,6 +346,19 @@ describe('MascotHost', () => {
     )
   })
 
+  it('keeps the importer mascot unobtrusive', () => {
+    state.pathname = '/groups/group-1/tools/import'
+    renderHost()
+
+    const host = screen.getByTestId('bill-mascot-docked')
+    expect(host).toHaveAttribute('data-mascot-size', 'compact')
+    expect(screen.getByTestId('bill-mascot-trigger')).toHaveClass(
+      'h-12',
+      'w-12',
+      'opacity-80',
+    )
+  })
+
   it('explains the missing action on settings after a tap', async () => {
     state.pathname = '/account/settings'
     const { user } = renderHost()

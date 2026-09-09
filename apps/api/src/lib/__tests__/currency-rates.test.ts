@@ -660,4 +660,193 @@ describe('crypto rate resolution', () => {
       error: { code: 'RATE_NOT_FOUND', target: 'MKD' },
     })
   })
+
+  it('retries transient fiat failures with backoff and then succeeds', async () => {
+    const fetchImpl = mockFn<FetchRatesFn>()
+      .mockRejectedValueOnce(
+        new CurrencyRateProviderError('Currency rate provider request failed'),
+      )
+      .mockRejectedValueOnce(
+        new CurrencyRateProviderError('Currency rate provider request failed'),
+      )
+      .mockResolvedValue(makePayload({ rates: { USD: 1.1 } }))
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'EUR', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({ ok: true, rate: { rate: 1.1 } })
+    expect(fetchImpl).toHaveBeenCalledTimes(3)
+  })
+
+  it('does not retry RATE_NOT_FOUND (valid response, missing quote)', async () => {
+    const fetchImpl = mockFn<FetchRatesFn>().mockResolvedValue(
+      makePayload({ rates: { GBP: 0.85 } }),
+    )
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'EUR', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({
+      ok: false,
+      error: { code: 'RATE_NOT_FOUND', target: 'USD' },
+    })
+    expect(fetchImpl).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not retry validation errors (unsupported currency)', async () => {
+    const fetchImpl = mockFn<FetchRatesFn>()
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'ZZZ', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({
+      ok: false,
+      error: { code: 'UNSUPPORTED_CURRENCY' },
+    })
+    expect(fetchImpl).not.toHaveBeenCalled()
+  })
+
+  it('retries HTTP 500 then succeeds', async () => {
+    const fetchImpl = mockFn<FetchRatesFn>()
+      .mockRejectedValueOnce(
+        new CurrencyRateProviderError(
+          'Currency rate provider returned 500',
+          undefined,
+          500,
+        ),
+      )
+      .mockResolvedValue(makePayload({ rates: { USD: 1.1 } }))
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'EUR', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({ ok: true, rate: { rate: 1.1 } })
+    expect(fetchImpl).toHaveBeenCalledTimes(2)
+  })
+
+  it('retries HTTP 429 then succeeds', async () => {
+    const fetchImpl = mockFn<FetchRatesFn>()
+      .mockRejectedValueOnce(
+        new CurrencyRateProviderError(
+          'Currency rate provider returned 429',
+          undefined,
+          429,
+        ),
+      )
+      .mockResolvedValue(makePayload({ rates: { USD: 1.1 } }))
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'EUR', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({ ok: true, rate: { rate: 1.1 } })
+    expect(fetchImpl).toHaveBeenCalledTimes(2)
+  })
+
+  it('retries timeout/abort transport failures then succeeds', async () => {
+    const abort = new DOMException('The operation was aborted', 'AbortError')
+    const fetchImpl = mockFn<FetchRatesFn>()
+      .mockRejectedValueOnce(
+        new CurrencyRateProviderError(
+          'Currency rate provider request failed',
+          abort,
+        ),
+      )
+      .mockResolvedValue(makePayload({ rates: { USD: 1.1 } }))
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'EUR', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({ ok: true, rate: { rate: 1.1 } })
+    expect(fetchImpl).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not retry permanent HTTP 400', async () => {
+    const fetchImpl = mockFn<FetchRatesFn>().mockRejectedValue(
+      new CurrencyRateProviderError(
+        'Currency rate provider returned 400',
+        undefined,
+        400,
+      ),
+    )
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'EUR', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({
+      ok: false,
+      error: { code: 'PROVIDER_ERROR' },
+    })
+    expect(fetchImpl).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not retry permanent HTTP 404', async () => {
+    const fetchImpl = mockFn<FetchRatesFn>().mockRejectedValue(
+      new CurrencyRateProviderError(
+        'Currency rate provider returned 404',
+        undefined,
+        404,
+      ),
+    )
+
+    const results = await getCurrencyRates(
+      [{ date: '2026-06-28', base: 'EUR', target: 'USD' }],
+      { fetchImpl },
+    )
+
+    expect(results[0]).toMatchObject({
+      ok: false,
+      error: { code: 'PROVIDER_ERROR' },
+    })
+    expect(fetchImpl).toHaveBeenCalledTimes(1)
+  })
+
+  it('resolves many fiat groups correctly under a counting mock', async () => {
+    let inFlight = 0
+    let maxInFlight = 0
+    const fetchImpl = mockFn<FetchRatesFn>().mockImplementation(
+      async (date: string, base: string, quotes?: string[]) => {
+        inFlight += 1
+        maxInFlight = Math.max(maxInFlight, inFlight)
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 10))
+          return {
+            base,
+            date,
+            rates: Object.fromEntries((quotes ?? []).map((q) => [q, 1.5])),
+          }
+        } finally {
+          inFlight -= 1
+        }
+      },
+    )
+
+    const requests = Array.from({ length: 20 }, (_, index) => ({
+      date: `2026-06-${String((index % 28) + 1).padStart(2, '0')}`,
+      base: 'EUR',
+      target: 'USD',
+    }))
+
+    const results = await getCurrencyRates(requests, { fetchImpl })
+
+    for (const result of results) {
+      expect(result).toMatchObject({ ok: true, rate: { rate: 1.5 } })
+    }
+    // Concurrency is hard to assert strictly without flaky timing; at least
+    // verify correctness and that the cap was respected.
+    expect(maxInFlight).toBeLessThanOrEqual(8)
+  })
 })

@@ -104,11 +104,13 @@ export async function updateExpense(
   const timingChanged =
     incomingWall.timeMinutes !== existingWall.timeMinutes ||
     incomingTimeZone !== existingExpenseTimeZone
-  const conversionDateForFx = resolvedWallIso
 
+  // UTC convention: pass the instant Date so `toIsoDate` derives the UTC
+  // date, matching create/CSV/group-import/web-preview. `resolvedWallIso`
+  // stays wall-based for calendar dates below.
   const conversion = await resolveConversion(expense, {
     ledgerCurrency: group.ledger.currencyCode ?? null,
-    expenseDate: new Date(`${conversionDateForFx}T00:00:00.000Z`),
+    expenseDate: resolvedExpenseDate,
   })
 
   const expenseAmount = conversion.ledgerAmountMinor
@@ -354,11 +356,31 @@ export async function updateExpense(
               currency: recurrenceTemplate.originalCurrency ?? '',
             }
           : undefined
+    // UTC convention (matching create/CSV/group-import): resolve FX from the
+    // instant that will be persisted so `toIsoDate` derives the UTC date, not
+    // the wall-midnight calendar date. Redated rows use the reanchored
+    // occurrence instant; untouched rows use the stored instant.
+    // `exchangeRateLookupDate` clamping to today still applies inside
+    // `resolveConversion`. Terminal status is re-checked under lock below;
+    // this pre-transaction snapshot only selects which instant to look up.
+    const preTerminal =
+      existingSeries?.status === 'CANCELLED' ||
+      existingSeries?.status === 'COMPLETED'
     for (const row of materializedFutureRows) {
       if (rowsToDeleteIds.has(row.id)) continue
-      const expenseDateForRate =
-        expectedDatesByRowId.get(row.id) ??
-        dateOnlyInTimeZone(row.expenseDate, row.expenseTimeZone)
+      const willRedate = (scheduleChanged && !preTerminal) || timingChanged
+      const expenseDateForRate = willRedate
+        ? wallTimeToUtc(
+            (
+              expectedDatesByRowId.get(row.id) ??
+              dateOnlyInTimeZone(row.expenseDate, row.expenseTimeZone)
+            )
+              .toISOString()
+              .slice(0, 10),
+            incomingWall.timeMinutes,
+            resolvedExpenseTimeZone,
+          )
+        : row.expenseDate
       materializedConversions.set(
         row.id,
         await resolveConversion(

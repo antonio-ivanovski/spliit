@@ -38,6 +38,7 @@ export function mapExpenseListRow(row: ExpenseListDbRow) {
     paidByList: _paidByList,
     paidFor: _paidFor,
     items: _items,
+    fileImportSource,
     ...rest
   } = row
   void _paidByList
@@ -45,6 +46,9 @@ export function mapExpenseListRow(row: ExpenseListDbRow) {
   void _items
   return {
     ...rest,
+    // Import provenance lives in the side table; the list wire shape keeps
+    // the legacy `originType` field populated from the import provider.
+    originType: fileImportSource?.provider ?? null,
     permissions: {
       canEdit: false,
       canDelete: false,
@@ -367,6 +371,7 @@ export async function getExpense(groupId: string, expenseId: string) {
       paidFor: true,
       documents: true,
       recurringSeries: true,
+      fileImportSource: { select: { provider: true } },
       items: {
         include: { paidFor: true },
       },
@@ -398,8 +403,10 @@ export async function getExpense(groupId: string, expenseId: string) {
           select: { id: true },
         })
       : null
+  const { fileImportSource, ...expenseRest } = expense
   return {
-    ...expense,
+    ...expenseRest,
+    originType: fileImportSource?.provider ?? null,
     categoryId: narrowCategoryId(expense.categoryId),
     category: resolveCategory(expense.categoryId),
     recurrence: expense.recurringSeries

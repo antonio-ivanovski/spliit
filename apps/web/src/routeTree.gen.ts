@@ -39,11 +39,15 @@ import { Route as GroupsGroupIdExpensesRouteImport } from './routes/groups/$grou
 import { Route as GroupsGroupIdInformationRouteImport } from './routes/groups/$groupId/information'
 import { Route as GroupsGroupIdMembersRouteImport } from './routes/groups/$groupId/members'
 import { Route as GroupsGroupIdStatsRouteImport } from './routes/groups/$groupId/stats'
+import { Route as GroupsGroupIdToolsRouteImport } from './routes/groups/$groupId/tools'
 import { Route as GroupsBulkCategorizeGroupIdRouteImport } from './routes/groups/bulk-categorize/$groupId'
 import { Route as GroupsGroupIdBudgetsIndexRouteImport } from './routes/groups/$groupId/budgets/index'
 import { Route as GroupsGroupIdExpensesIndexRouteImport } from './routes/groups/$groupId/expenses/index'
 import { Route as GroupsGroupIdExpensesCreateRouteImport } from './routes/groups/$groupId/expenses/create'
+import { Route as GroupsGroupIdExpensesImportRouteImport } from './routes/groups/$groupId/expenses/import'
 import { Route as GroupsGroupIdExpensesPrintRouteImport } from './routes/groups/$groupId/expenses/print'
+import { Route as GroupsGroupIdToolsIndexRouteImport } from './routes/groups/$groupId/tools/index'
+import { Route as GroupsGroupIdToolsImportRouteImport } from './routes/groups/$groupId/tools/import'
 import { Route as GroupsGroupIdExpensesExpenseIdIndexRouteImport } from './routes/groups/$groupId/expenses/$expenseId/index'
 import { Route as GroupsGroupIdExpensesExpenseIdEditRouteImport } from './routes/groups/$groupId/expenses/$expenseId/edit'
 
@@ -228,6 +232,13 @@ const GroupsGroupIdStatsRoute = GroupsGroupIdStatsRouteImport.update({
 } as any).lazy(() =>
   import('./routes/groups/$groupId/stats.lazy').then((d) => d.Route),
 )
+const GroupsGroupIdToolsRoute = GroupsGroupIdToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
+  getParentRoute: () => GroupsGroupIdRouteRoute,
+} as any).lazy(() =>
+  import('./routes/groups/$groupId/tools.lazy').then((d) => d.Route),
+)
 const GroupsBulkCategorizeGroupIdRoute =
   GroupsBulkCategorizeGroupIdRouteImport.update({
     id: '/bulk-categorize/$groupId',
@@ -272,6 +283,12 @@ const GroupsGroupIdExpensesCreateRoute =
       (d) => d.Route,
     ),
   )
+const GroupsGroupIdExpensesImportRoute =
+  GroupsGroupIdExpensesImportRouteImport.update({
+    id: '/import',
+    path: '/import',
+    getParentRoute: () => GroupsGroupIdExpensesRoute,
+  } as any)
 const GroupsGroupIdExpensesPrintRoute =
   GroupsGroupIdExpensesPrintRouteImport.update({
     id: '/print',
@@ -279,6 +296,21 @@ const GroupsGroupIdExpensesPrintRoute =
     getParentRoute: () => GroupsGroupIdExpensesRoute,
   } as any).lazy(() =>
     import('./routes/groups/$groupId/expenses/print.lazy').then((d) => d.Route),
+  )
+const GroupsGroupIdToolsIndexRoute = GroupsGroupIdToolsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GroupsGroupIdToolsRoute,
+} as any).lazy(() =>
+  import('./routes/groups/$groupId/tools/index.lazy').then((d) => d.Route),
+)
+const GroupsGroupIdToolsImportRoute =
+  GroupsGroupIdToolsImportRouteImport.update({
+    id: '/import',
+    path: '/import',
+    getParentRoute: () => GroupsGroupIdToolsRoute,
+  } as any).lazy(() =>
+    import('./routes/groups/$groupId/tools/import.lazy').then((d) => d.Route),
   )
 const GroupsGroupIdBudgetsBudgetIdIndexLazyRoute =
   GroupsGroupIdBudgetsBudgetIdIndexLazyRouteImport.update({
@@ -349,13 +381,17 @@ export interface FileRoutesByFullPath {
   '/groups/$groupId/information': typeof GroupsGroupIdInformationRoute
   '/groups/$groupId/members': typeof GroupsGroupIdMembersRoute
   '/groups/$groupId/stats': typeof GroupsGroupIdStatsRoute
+  '/groups/$groupId/tools': typeof GroupsGroupIdToolsRouteWithChildren
   '/groups/bulk-categorize/$groupId': typeof GroupsBulkCategorizeGroupIdRoute
   '/groups/$groupId/': typeof GroupsGroupIdIndexRoute
   '/groups/$groupId/expenses/create': typeof GroupsGroupIdExpensesCreateRoute
+  '/groups/$groupId/expenses/import': typeof GroupsGroupIdExpensesImportRoute
   '/groups/$groupId/expenses/print': typeof GroupsGroupIdExpensesPrintRoute
+  '/groups/$groupId/tools/import': typeof GroupsGroupIdToolsImportRoute
   '/groups/$groupId/budgets/create': typeof GroupsGroupIdBudgetsCreateLazyRoute
   '/groups/$groupId/budgets/': typeof GroupsGroupIdBudgetsIndexRoute
   '/groups/$groupId/expenses/': typeof GroupsGroupIdExpensesIndexRoute
+  '/groups/$groupId/tools/': typeof GroupsGroupIdToolsIndexRoute
   '/groups/$groupId/expenses/$expenseId/edit': typeof GroupsGroupIdExpensesExpenseIdEditRoute
   '/groups/$groupId/budgets/$budgetId/edit': typeof GroupsGroupIdBudgetsBudgetIdEditLazyRoute
   '/groups/$groupId/expenses/$expenseId/': typeof GroupsGroupIdExpensesExpenseIdIndexRoute
@@ -389,10 +425,13 @@ export interface FileRoutesByTo {
   '/groups/bulk-categorize/$groupId': typeof GroupsBulkCategorizeGroupIdRoute
   '/groups/$groupId': typeof GroupsGroupIdIndexRoute
   '/groups/$groupId/expenses/create': typeof GroupsGroupIdExpensesCreateRoute
+  '/groups/$groupId/expenses/import': typeof GroupsGroupIdExpensesImportRoute
   '/groups/$groupId/expenses/print': typeof GroupsGroupIdExpensesPrintRoute
+  '/groups/$groupId/tools/import': typeof GroupsGroupIdToolsImportRoute
   '/groups/$groupId/budgets/create': typeof GroupsGroupIdBudgetsCreateLazyRoute
   '/groups/$groupId/budgets': typeof GroupsGroupIdBudgetsIndexRoute
   '/groups/$groupId/expenses': typeof GroupsGroupIdExpensesIndexRoute
+  '/groups/$groupId/tools': typeof GroupsGroupIdToolsIndexRoute
   '/groups/$groupId/expenses/$expenseId/edit': typeof GroupsGroupIdExpensesExpenseIdEditRoute
   '/groups/$groupId/budgets/$budgetId/edit': typeof GroupsGroupIdBudgetsBudgetIdEditLazyRoute
   '/groups/$groupId/expenses/$expenseId': typeof GroupsGroupIdExpensesExpenseIdIndexRoute
@@ -427,13 +466,17 @@ export interface FileRoutesById {
   '/groups/$groupId/information': typeof GroupsGroupIdInformationRoute
   '/groups/$groupId/members': typeof GroupsGroupIdMembersRoute
   '/groups/$groupId/stats': typeof GroupsGroupIdStatsRoute
+  '/groups/$groupId/tools': typeof GroupsGroupIdToolsRouteWithChildren
   '/groups/bulk-categorize/$groupId': typeof GroupsBulkCategorizeGroupIdRoute
   '/groups/$groupId/': typeof GroupsGroupIdIndexRoute
   '/groups/$groupId/expenses/create': typeof GroupsGroupIdExpensesCreateRoute
+  '/groups/$groupId/expenses/import': typeof GroupsGroupIdExpensesImportRoute
   '/groups/$groupId/expenses/print': typeof GroupsGroupIdExpensesPrintRoute
+  '/groups/$groupId/tools/import': typeof GroupsGroupIdToolsImportRoute
   '/groups/$groupId/budgets/create': typeof GroupsGroupIdBudgetsCreateLazyRoute
   '/groups/$groupId/budgets/': typeof GroupsGroupIdBudgetsIndexRoute
   '/groups/$groupId/expenses/': typeof GroupsGroupIdExpensesIndexRoute
+  '/groups/$groupId/tools/': typeof GroupsGroupIdToolsIndexRoute
   '/groups/$groupId/expenses/$expenseId/edit': typeof GroupsGroupIdExpensesExpenseIdEditRoute
   '/groups/$groupId/budgets/$budgetId/edit': typeof GroupsGroupIdBudgetsBudgetIdEditLazyRoute
   '/groups/$groupId/expenses/$expenseId/': typeof GroupsGroupIdExpensesExpenseIdIndexRoute
@@ -469,13 +512,17 @@ export interface FileRouteTypes {
     | '/groups/$groupId/information'
     | '/groups/$groupId/members'
     | '/groups/$groupId/stats'
+    | '/groups/$groupId/tools'
     | '/groups/bulk-categorize/$groupId'
     | '/groups/$groupId/'
     | '/groups/$groupId/expenses/create'
+    | '/groups/$groupId/expenses/import'
     | '/groups/$groupId/expenses/print'
+    | '/groups/$groupId/tools/import'
     | '/groups/$groupId/budgets/create'
     | '/groups/$groupId/budgets/'
     | '/groups/$groupId/expenses/'
+    | '/groups/$groupId/tools/'
     | '/groups/$groupId/expenses/$expenseId/edit'
     | '/groups/$groupId/budgets/$budgetId/edit'
     | '/groups/$groupId/expenses/$expenseId/'
@@ -509,10 +556,13 @@ export interface FileRouteTypes {
     | '/groups/bulk-categorize/$groupId'
     | '/groups/$groupId'
     | '/groups/$groupId/expenses/create'
+    | '/groups/$groupId/expenses/import'
     | '/groups/$groupId/expenses/print'
+    | '/groups/$groupId/tools/import'
     | '/groups/$groupId/budgets/create'
     | '/groups/$groupId/budgets'
     | '/groups/$groupId/expenses'
+    | '/groups/$groupId/tools'
     | '/groups/$groupId/expenses/$expenseId/edit'
     | '/groups/$groupId/budgets/$budgetId/edit'
     | '/groups/$groupId/expenses/$expenseId'
@@ -546,13 +596,17 @@ export interface FileRouteTypes {
     | '/groups/$groupId/information'
     | '/groups/$groupId/members'
     | '/groups/$groupId/stats'
+    | '/groups/$groupId/tools'
     | '/groups/bulk-categorize/$groupId'
     | '/groups/$groupId/'
     | '/groups/$groupId/expenses/create'
+    | '/groups/$groupId/expenses/import'
     | '/groups/$groupId/expenses/print'
+    | '/groups/$groupId/tools/import'
     | '/groups/$groupId/budgets/create'
     | '/groups/$groupId/budgets/'
     | '/groups/$groupId/expenses/'
+    | '/groups/$groupId/tools/'
     | '/groups/$groupId/expenses/$expenseId/edit'
     | '/groups/$groupId/budgets/$budgetId/edit'
     | '/groups/$groupId/expenses/$expenseId/'
@@ -776,6 +830,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GroupsGroupIdStatsRouteImport
       parentRoute: typeof GroupsGroupIdRouteRoute
     }
+    '/groups/$groupId/tools': {
+      id: '/groups/$groupId/tools'
+      path: '/tools'
+      fullPath: '/groups/$groupId/tools'
+      preLoaderRoute: typeof GroupsGroupIdToolsRouteImport
+      parentRoute: typeof GroupsGroupIdRouteRoute
+    }
     '/groups/bulk-categorize/$groupId': {
       id: '/groups/bulk-categorize/$groupId'
       path: '/bulk-categorize/$groupId'
@@ -811,12 +872,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GroupsGroupIdExpensesCreateRouteImport
       parentRoute: typeof GroupsGroupIdExpensesRoute
     }
+    '/groups/$groupId/expenses/import': {
+      id: '/groups/$groupId/expenses/import'
+      path: '/import'
+      fullPath: '/groups/$groupId/expenses/import'
+      preLoaderRoute: typeof GroupsGroupIdExpensesImportRouteImport
+      parentRoute: typeof GroupsGroupIdExpensesRoute
+    }
     '/groups/$groupId/expenses/print': {
       id: '/groups/$groupId/expenses/print'
       path: '/print'
       fullPath: '/groups/$groupId/expenses/print'
       preLoaderRoute: typeof GroupsGroupIdExpensesPrintRouteImport
       parentRoute: typeof GroupsGroupIdExpensesRoute
+    }
+    '/groups/$groupId/tools/': {
+      id: '/groups/$groupId/tools/'
+      path: '/'
+      fullPath: '/groups/$groupId/tools/'
+      preLoaderRoute: typeof GroupsGroupIdToolsIndexRouteImport
+      parentRoute: typeof GroupsGroupIdToolsRoute
+    }
+    '/groups/$groupId/tools/import': {
+      id: '/groups/$groupId/tools/import'
+      path: '/import'
+      fullPath: '/groups/$groupId/tools/import'
+      preLoaderRoute: typeof GroupsGroupIdToolsImportRouteImport
+      parentRoute: typeof GroupsGroupIdToolsRoute
     }
     '/groups/$groupId/budgets/$budgetId/': {
       id: '/groups/$groupId/budgets/$budgetId/'
@@ -870,6 +952,7 @@ const GroupsGroupIdBudgetsRouteWithChildren =
 
 interface GroupsGroupIdExpensesRouteChildren {
   GroupsGroupIdExpensesCreateRoute: typeof GroupsGroupIdExpensesCreateRoute
+  GroupsGroupIdExpensesImportRoute: typeof GroupsGroupIdExpensesImportRoute
   GroupsGroupIdExpensesPrintRoute: typeof GroupsGroupIdExpensesPrintRoute
   GroupsGroupIdExpensesIndexRoute: typeof GroupsGroupIdExpensesIndexRoute
   GroupsGroupIdExpensesExpenseIdEditRoute: typeof GroupsGroupIdExpensesExpenseIdEditRoute
@@ -878,6 +961,7 @@ interface GroupsGroupIdExpensesRouteChildren {
 
 const GroupsGroupIdExpensesRouteChildren: GroupsGroupIdExpensesRouteChildren = {
   GroupsGroupIdExpensesCreateRoute: GroupsGroupIdExpensesCreateRoute,
+  GroupsGroupIdExpensesImportRoute: GroupsGroupIdExpensesImportRoute,
   GroupsGroupIdExpensesPrintRoute: GroupsGroupIdExpensesPrintRoute,
   GroupsGroupIdExpensesIndexRoute: GroupsGroupIdExpensesIndexRoute,
   GroupsGroupIdExpensesExpenseIdEditRoute:
@@ -891,6 +975,19 @@ const GroupsGroupIdExpensesRouteWithChildren =
     GroupsGroupIdExpensesRouteChildren,
   )
 
+interface GroupsGroupIdToolsRouteChildren {
+  GroupsGroupIdToolsImportRoute: typeof GroupsGroupIdToolsImportRoute
+  GroupsGroupIdToolsIndexRoute: typeof GroupsGroupIdToolsIndexRoute
+}
+
+const GroupsGroupIdToolsRouteChildren: GroupsGroupIdToolsRouteChildren = {
+  GroupsGroupIdToolsImportRoute: GroupsGroupIdToolsImportRoute,
+  GroupsGroupIdToolsIndexRoute: GroupsGroupIdToolsIndexRoute,
+}
+
+const GroupsGroupIdToolsRouteWithChildren =
+  GroupsGroupIdToolsRoute._addFileChildren(GroupsGroupIdToolsRouteChildren)
+
 interface GroupsGroupIdRouteRouteChildren {
   GroupsGroupIdActivityRoute: typeof GroupsGroupIdActivityRoute
   GroupsGroupIdBalancesRoute: typeof GroupsGroupIdBalancesRoute
@@ -900,6 +997,7 @@ interface GroupsGroupIdRouteRouteChildren {
   GroupsGroupIdInformationRoute: typeof GroupsGroupIdInformationRoute
   GroupsGroupIdMembersRoute: typeof GroupsGroupIdMembersRoute
   GroupsGroupIdStatsRoute: typeof GroupsGroupIdStatsRoute
+  GroupsGroupIdToolsRoute: typeof GroupsGroupIdToolsRouteWithChildren
   GroupsGroupIdIndexRoute: typeof GroupsGroupIdIndexRoute
 }
 
@@ -912,6 +1010,7 @@ const GroupsGroupIdRouteRouteChildren: GroupsGroupIdRouteRouteChildren = {
   GroupsGroupIdInformationRoute: GroupsGroupIdInformationRoute,
   GroupsGroupIdMembersRoute: GroupsGroupIdMembersRoute,
   GroupsGroupIdStatsRoute: GroupsGroupIdStatsRoute,
+  GroupsGroupIdToolsRoute: GroupsGroupIdToolsRouteWithChildren,
   GroupsGroupIdIndexRoute: GroupsGroupIdIndexRoute,
 }
 

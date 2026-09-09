@@ -36,12 +36,20 @@ export type PreparedExpenseCreate = {
   documents: Awaited<ReturnType<typeof promoteExpenseDocuments>>
   notificationBoss: SpliitBoss | null
   recurrenceBoss?: SpliitBoss
+  /** Optional IDs allocated before opening the transaction for batch callers. */
+  expenseId?: string
+  activityId?: string
+  itemIds?: string[]
+  documentIds?: string[]
+  /** Optional preallocated id for recurring-series creation in a batch. */
+  recurringSeriesId?: string
 }
 
 /** Resolve network/object-store dependencies before an interactive transaction. */
 export async function prepareExpenseCreate(
   expense: Expense,
   groupId: string,
+  options: { prepareNotification?: boolean } = {},
 ): Promise<PreparedExpenseCreate> {
   const group = await prisma.group.findUnique({
     where: { id: groupId },
@@ -58,17 +66,23 @@ export async function prepareExpenseCreate(
     expense as unknown as { recurrence?: unknown; recurrenceRule?: string },
     new Date(`${wallForFx0}T00:00:00.000Z`),
   )
-  const conversion = await resolveConversion(expense, {
-    ledgerCurrency: group.ledger.currencyCode ?? null,
-    expenseDate: wallForFx0,
-  })
-  const [documents, notificationBoss, recurrenceBoss] = await Promise.all([
-    promoteExpenseDocuments(expense.documents),
-    getApiBoss(),
-    recurrence && jobsEnv.JOBS_ENABLED
-      ? getApiBossForWrite()
-      : Promise.resolve(undefined),
-  ])
+  // UTC convention: pass the instant Date so `toIsoDate` derives the UTC
+  // date, matching the CSV/group-import batch builders and web preview.
+  // `wallForFx0` below stays wall-based for recurrence calendar purposes.
+  const [conversion, documents, notificationBoss, recurrenceBoss] =
+    await Promise.all([
+      resolveConversion(expense, {
+        ledgerCurrency: group.ledger.currencyCode ?? null,
+        expenseDate: rawExpenseDate,
+      }),
+      promoteExpenseDocuments(expense.documents),
+      options.prepareNotification === false
+        ? Promise.resolve(null)
+        : getApiBoss(),
+      recurrence && jobsEnv.JOBS_ENABLED
+        ? getApiBossForWrite()
+        : Promise.resolve(undefined),
+    ])
 
   return { conversion, documents, notificationBoss, recurrenceBoss }
 }
@@ -93,6 +107,27 @@ export async function createExpense(
     itemizedPaidForResolution?: Expense['paidFor']
     prepared?: PreparedExpenseCreate
     tx?: Prisma.TransactionClient
+    /** Internal batch-create controls used by the expense file importer. */
+    batchContext?: {
+      groupLockHeld: boolean
+      visibleInGroupFeed: boolean
+      suppressNotification: boolean
+      /** Provenance for the side table (only present for file imports). */
+      fileImport?: {
+        provider: string
+        importKey: string
+        externalIdentityHash: string | null
+        semanticHash: string
+        rawHash: string
+        importedByAccountId: string
+      }
+      /**
+       * Participant ids already read under the caller's group lock in the same
+       * transaction. Skips the per-row participant queries for batch callers;
+       * ordinary creates always query fresh.
+       */
+      participants?: { active: string[]; removed: string[] }
+    }
   },
 ): Promise<DbExpense> {
   const client = options?.tx ?? prisma
@@ -105,39 +140,41 @@ export async function createExpense(
   const ledgerId = group.ledgerId
 
   const resolvedExpenseDate = new Date(expense.expenseDate)
-  const wallForFx2 = utcToWallTime(
-    resolvedExpenseDate,
-    expense.expenseTimeZone,
-  ).dateIso
+  // UTC convention (see above): pass the instant Date for FX lookup.
   const conversion =
     options?.conversionResolution ??
     options?.prepared?.conversion ??
     (await resolveConversion(expense, {
       ledgerCurrency: group.ledger.currencyCode ?? null,
-      expenseDate: wallForFx2,
+      expenseDate: resolvedExpenseDate,
     }))
 
   const expenseAmount = conversion.ledgerAmountMinor
 
-  const activeParticipants = await client.ledgerParticipant.findMany({
-    where: {
-      ledgerId,
-      removedAt: null,
-      OR: [
-        { groupMemberId: { not: null } },
-        { invitations: { some: { status: 'PENDING' } } },
-        { kind: 'UNLINKED_PARTICIPANT' },
-      ],
-    },
-    select: { id: true },
-  })
+  const batchParticipants = options?.batchContext?.participants
+  const activeParticipants = batchParticipants
+    ? batchParticipants.active.map((id) => ({ id }))
+    : await client.ledgerParticipant.findMany({
+        where: {
+          ledgerId,
+          removedAt: null,
+          OR: [
+            { groupMemberId: { not: null } },
+            { invitations: { some: { status: 'PENDING' } } },
+            { kind: 'UNLINKED_PARTICIPANT' },
+          ],
+        },
+        select: { id: true },
+      })
   // Settlements may involve soft-removed participants who still appear in
   // balances. Keep them off new ordinary expenses, but allow settlements.
   const removedParticipants = isSettlementCategory(expense.category)
-    ? await client.ledgerParticipant.findMany({
-        where: { ledgerId, removedAt: { not: null } },
-        select: { id: true },
-      })
+    ? batchParticipants
+      ? batchParticipants.removed.map((id) => ({ id }))
+      : await client.ledgerParticipant.findMany({
+          where: { ledgerId, removedAt: { not: null } },
+          select: { id: true },
+        })
     : []
   const participantIds = new Set([
     ...activeParticipants.map((p) => p.id),
@@ -157,7 +194,7 @@ export async function createExpense(
     }
   }
 
-  const expenseId = randomId()
+  const expenseId = options?.prepared?.expenseId ?? randomId()
 
   const expenseDate = toSecondPrecision(new Date(expense.expenseDate))
   const expenseTimeZone = expense.expenseTimeZone
@@ -196,7 +233,9 @@ export async function createExpense(
     ? ('RECURRING_EXPENSE_CREATED' as const)
     : ('EXPENSE_CREATED' as const)
 
-  const recurringSeriesId = isCreateRecurrence ? randomId() : undefined
+  const recurringSeriesId = isCreateRecurrence
+    ? (options?.prepared?.recurringSeriesId ?? randomId())
+    : undefined
   const creatorTimeZone = expenseTimeZone
   const anchorTimeMinutes = utcToWallTime(
     expenseDate,
@@ -248,7 +287,9 @@ export async function createExpense(
     ? options.prepared.notificationBoss
     : await getApiBoss()
   const run = async (tx: Prisma.TransactionClient) => {
-    await tx.$queryRaw`SELECT id FROM "Group" WHERE id = ${groupId} FOR UPDATE`
+    if (!options?.batchContext?.groupLockHeld) {
+      await tx.$queryRaw`SELECT id FROM "Group" WHERE id = ${groupId} FOR UPDATE`
+    }
     const lockedGroup = await tx.group.findUnique({
       where: { id: groupId },
       select: { archived: true },
@@ -258,6 +299,7 @@ export async function createExpense(
     const activity = await logActivity(
       groupId,
       {
+        id: options?.prepared?.activityId,
         type: activityType,
         actor: { type: 'ACCOUNT', id: actor.accountId },
         subject: { type: 'EXPENSE', id: expenseId },
@@ -290,6 +332,7 @@ export async function createExpense(
               }
             : {}),
         }),
+        visibleInGroupFeed: options?.batchContext?.visibleInGroupFeed ?? true,
       },
       tx,
       ledgerId,
@@ -356,10 +399,11 @@ export async function createExpense(
           },
         },
         items: {
-          create: (expense.items ?? []).map((item) => ({
-            // Item IDs are database-global and create requests may be copied
-            // or replayed, so never persist a client-provided ID here.
-            id: randomId(),
+          create: (expense.items ?? []).map((item, index) => ({
+            // Item IDs are database-global. Batch callers may preallocate
+            // them before opening the transaction; ordinary creates still get
+            // fresh IDs here.
+            id: options?.prepared?.itemIds?.[index] ?? randomId(),
             title: item.title,
             unitPrice: item.unitPrice,
             quantity: item.quantity,
@@ -394,8 +438,8 @@ export async function createExpense(
           : {}),
         documents: {
           createMany: {
-            data: documents.map((doc) => ({
-              id: randomId(),
+            data: documents.map((doc, index) => ({
+              id: options?.prepared?.documentIds?.[index] ?? randomId(),
               url: doc.url,
               fileName: doc.fileName,
               contentType: doc.contentType,
@@ -409,8 +453,17 @@ export async function createExpense(
         assistantRequestId: options?.assistantRequestId,
       },
     })
+    if (options?.batchContext?.fileImport) {
+      await tx.expenseFileImportSource.create({
+        data: {
+          expenseId: createdExpense.id,
+          ledgerId,
+          ...options.batchContext.fileImport,
+        },
+      })
+    }
 
-    if (!catchUpSeed) {
+    if (!catchUpSeed && !options?.batchContext?.suppressNotification) {
       await planNotificationForActivity(
         tx,
         activity,

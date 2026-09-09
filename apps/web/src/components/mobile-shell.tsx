@@ -10,6 +10,7 @@ import {
   Settings2,
   Users,
   WalletCards,
+  Wrench,
 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -141,6 +142,7 @@ const GROUP_NAV_TO = {
   budgets: '/groups/$groupId/budgets',
   activity: '/groups/$groupId/activity',
   members: '/groups/$groupId/members',
+  tools: '/groups/$groupId/tools',
   edit: '/groups/$groupId/edit',
 } as const
 
@@ -187,6 +189,13 @@ export function MobileGroupNav({ groupId }: GroupNavProps) {
             icon: Users,
           },
         ]),
+    // Tools stays visible to everyone so group utilities remain
+    // discoverable; each tool gates its own action.
+    {
+      to: GROUP_NAV_TO.tools,
+      label: t('Tools.title'),
+      icon: Wrench,
+    },
     ...(viewer
       ? [
           {

@@ -4,6 +4,7 @@ import type { CreateExpenseSearch } from '@/router/schemas'
 import type { AppRouterOutput } from '@spliit/api/router'
 import type {
   Currency,
+  Expense,
   ExpenseFormInputValues,
   ExpenseFormItemValues,
   SplitMode,
@@ -78,6 +79,64 @@ export type GroupShape = NonNullable<AppRouterOutput['groups']['get']['group']>
 export type LoadedExpense = NonNullable<
   AppRouterOutput['groups']['expenses']['get']['expense']
 >
+
+/** Adapt an in-memory import draft to the storage-shaped form input boundary. */
+export function importDraftAsLoadedExpense(expense: Expense): LoadedExpense {
+  const converted = expense.conversion != null
+  return {
+    ...expense,
+    id: `import-draft-${randomId()}`,
+    ledgerId: '',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    createdByAccountId: '',
+    categoryId: expense.category,
+    originalAmount: converted ? expense.amount : null,
+    originalCurrency: converted ? expense.conversion!.currency : null,
+    conversionRate:
+      expense.conversion?.type === 'custom' ? expense.conversion.rate : null,
+    conversionSource: expense.conversion
+      ? expense.conversion.type === 'custom'
+        ? 'CUSTOM'
+        : 'EXCHANGE'
+      : null,
+    paidByList: expense.paidByList.map((row) => ({
+      ...row,
+      expenseId: '',
+      ledgerParticipantId: row.participant,
+    })),
+    paidFor: expense.paidFor.map((row) => ({
+      ...row,
+      expenseId: '',
+      ledgerParticipantId: row.participant,
+    })),
+    items: (expense.items ?? []).map((item) => ({
+      ...item,
+      id: item.id ?? randomId(),
+      expenseId: '',
+      paidFor: item.paidFor.map((row) => ({
+        ...row,
+        expenseItemId: '',
+        ledgerParticipantId: row.participant,
+      })),
+    })),
+    itemizedRemainder: expense.itemizedRemainder
+      ? {
+          ...expense.itemizedRemainder,
+          expenseId: '',
+          paidFor: expense.itemizedRemainder.paidFor.map((row) => ({
+            ...row,
+            expenseId: '',
+            ledgerParticipantId: row.participant,
+          })),
+        }
+      : null,
+    recurrence: expense.recurrence ?? null,
+    recurrenceSequence: null,
+    recurringSeriesId: null,
+    originType: null,
+  } as unknown as LoadedExpense
+}
 
 type ExpenseItemPaidForInput =
   | { ledgerParticipantId: string; shares: number }

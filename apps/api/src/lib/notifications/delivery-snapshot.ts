@@ -199,7 +199,7 @@ const importSummarySnapshotSchema = z.object({
   group: snapshotGroupSchema,
   link: z.string(),
   import: snapshotImportSchema,
-  totalAmount: z.number().int().nonnegative().nullable().optional(),
+  totalAmount: z.number().int().nullable().optional(),
   currencyCode: z.string().nullable().optional(),
 })
 

@@ -31,6 +31,8 @@ export {
 type ActivityClient = Prisma.TransactionClient | typeof prisma
 
 export type LogActivityArgs = {
+  /** Optional caller-generated id for batched writes prepared before a tx. */
+  id?: string
   type: ActivityType
   actor?: { type: ActivityActorType; id: string }
   subject?: { type: ActivitySubjectType; id: string }
@@ -38,6 +40,8 @@ export type LogActivityArgs = {
   expenseCommentId?: string
   /** Opt in to notifying the actor for recurring expense creation only. */
   includeActorAsRecipient?: boolean
+  /** Keep audit-only rows out of the current group feed when requested. */
+  visibleInGroupFeed?: boolean
 }
 
 /**
@@ -136,7 +140,7 @@ export async function logActivity(
 
   return client.activity.create({
     data: {
-      id: randomId(),
+      id: args.id ?? randomId(),
       ledgerId: resolvedLedgerId,
       type: args.type,
       actorType: args.actor?.type ?? null,
@@ -145,6 +149,7 @@ export async function logActivity(
       subjectId: args.subject?.id ?? null,
       data: args.data,
       expenseCommentId: args.expenseCommentId ?? null,
+      visibleInGroupFeed: args.visibleInGroupFeed ?? true,
     },
   })
 }
@@ -192,7 +197,7 @@ export async function getActivities(
   if (!group?.ledgerId) return []
 
   const activities = await prisma.activity.findMany({
-    where: { ledgerId: group.ledgerId },
+    where: { ledgerId: group.ledgerId, visibleInGroupFeed: true },
     orderBy: [{ time: 'desc' }],
     skip: options?.offset,
     take: options?.length,

@@ -91,4 +91,20 @@ describe('GroupTabs', () => {
       screen.queryByRole('tab', { name: /Members/i }),
     ).not.toBeInTheDocument()
   })
+
+  it('renders Tools tab immediately before Settings', () => {
+    mocks.mockUseCurrentGroup.mockReturnValue({
+      group: { id: 'group-1', groupType: 'GROUP' },
+      currentMember: { role: 'ADMIN' },
+      viewer: { source: 'MEMBER' },
+    })
+    render(<GroupTabs groupId="group-1" />)
+
+    const tabs = screen.getAllByRole('tab').map((tab) => tab.textContent ?? '')
+    const toolsIndex = tabs.findIndex((label) => label === 'Tools')
+    const settingsIndex = tabs.findIndex((label) => /Settings/.test(label))
+    expect(toolsIndex).toBeGreaterThan(-1)
+    expect(settingsIndex).toBeGreaterThan(-1)
+    expect(toolsIndex).toBe(settingsIndex - 1)
+  })
 })

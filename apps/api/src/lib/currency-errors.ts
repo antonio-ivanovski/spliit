@@ -19,6 +19,7 @@ export class CurrencyRateProviderError extends Error {
   constructor(
     message: string,
     readonly cause?: unknown,
+    readonly status?: number,
   ) {
     super(message)
     this.name = 'CurrencyRateProviderError'
