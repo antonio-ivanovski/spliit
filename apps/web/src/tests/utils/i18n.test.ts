@@ -41,7 +41,7 @@ describe('matchSupportedLocale', () => {
   it.each([
     ['fr-FR', 'fr-FR'],
     ['FR-fr', 'fr-FR'],
-    ['en-GB', 'en-US'],
+    ['en-GB', 'en-GB'],
     ['fr-CA', 'fr-FR'],
     ['de-AT', 'de-DE'],
     ['es-MX', 'es'],
