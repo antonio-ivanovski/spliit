@@ -6,6 +6,10 @@
 
 <!-- List the meaningful implementation, schema, test, or documentation changes. -->
 
+## Migration
+
+<!-- Does this break compatibility or need manual steps (env vars, volumes, DB)? If yes, describe them here so they land in `releases/vX.Y.Z.md`. If no, delete this section. -->
+
 ## Verification
 
 - [ ] `bun run check`

@@ -126,14 +126,18 @@ expenses as well as notifications.
 
 ## Updates and rollback
 
-`latest` follows successful builds from `main`. Every build is also published
-with an immutable commit tag. For controlled upgrades, set `SPLIIT_TAG` to a
-known commit tag before pulling:
+`latest` follows the most recent stable version release. Every release is
+also published with its immutable version tag. To upgrade, set `SPLIIT_TAG`
+to the new version before pulling:
 
 ```bash
+export SPLIIT_TAG=v2.0.0
 docker compose --env-file container.env pull
 docker compose --env-file container.env up -d
 ```
+
+Check the GitHub Release for that version first: it lists what changed
+and any breaking changes with migration steps.
 
 The one-shot migration service applies pending database migrations before the
 new API starts. Back up the database before upgrading. Roll back application

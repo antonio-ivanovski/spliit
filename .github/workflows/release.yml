@@ -1,16 +1,18 @@
-name: Deploy Spliit Cloud
-run-name: ${{ github.event.workflow_run.display_title || github.event.head_commit.message || github.event_name }} - ${{ github.event.workflow_run.head_sha || github.sha }}
+name: Release Spliit Cloud
+run-name: Release ${{ github.ref_name }} (${{ github.sha }})
 
-# Runs after the CI workflow completes successfully on main. PRs against main
-# do not trigger this workflow; a failed CI run on main also aborts it.
+# Versioned releases. Push a `v*.*.*` tag to build, publish, create the
+# GitHub Release from `releases/<tag>.md`, and deploy prod immediately.
+# `main` pushes do nothing here; CI runs separately.
 on:
-  workflow_run:
-    workflows:
-      - CI
-    branches:
-      - main
-    types:
-      - completed
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing version tag to rebuild and re-release (e.g. v2.0.0)'
+        required: true
 
 permissions:
   contents: read
@@ -20,13 +22,43 @@ env:
   REGISTRY: ghcr.io
 
 concurrency:
-  group: deploy-main
-  cancel-in-progress: true
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
+  validate-notes:
+    name: Validate release notes file
+    runs-on: ubuntu-24.04-arm
+    outputs:
+      tag: ${{ steps.resolve.outputs.tag }}
+    steps:
+      - name: Resolve tag
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ steps.resolve.outputs.tag }}
+          fetch-depth: 1
+
+      - name: Check releases/<tag>.md exists
+        run: |
+          TAG="${{ steps.resolve.outputs.tag }}"
+          if [ ! -f "releases/${TAG}.md" ]; then
+            echo "::error::Missing releases/${TAG}.md. Write the hand-written release notes first — see releases/README.md."
+            exit 1
+          fi
+          echo "Found releases/${TAG}.md"
+
   build-and-push:
     name: Build ${{ matrix.app }} (${{ matrix.arch }})
-    if: github.event.workflow_run.conclusion == 'success'
+    needs: validate-notes
     runs-on: ${{ matrix.arch == 'amd64' && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
     strategy:
       fail-fast: false
@@ -63,9 +95,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          # workflow_run default checks out the workflow file's SHA on the
-          # default branch; we want the exact commit CI tested.
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ needs.validate-notes.outputs.tag }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
@@ -89,7 +119,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}
           tags: |
-            type=raw,value=${{ github.event.workflow_run.head_sha }},suffix=-${{ matrix.arch }}
+            type=raw,value=${{ needs.validate-notes.outputs.tag }},suffix=-${{ matrix.arch }}
 
       - name: Build and push
         uses: docker/build-push-action@v7
@@ -100,7 +130,7 @@ jobs:
           platforms: linux/${{ matrix.arch }}
           build-args: |
             APP_SCOPE=${{ matrix.scope }}
-            VITE_BUILD_SHA=${{ github.event.workflow_run.head_sha }}
+            VITE_BUILD_SHA=${{ github.sha }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -115,7 +145,7 @@ jobs:
 
   merge-images:
     name: Publish ${{ matrix.app }} multi-arch manifest
-    needs: build-and-push
+    needs: [validate-notes, build-and-push]
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -148,99 +178,84 @@ jobs:
           image_name="${{ github.repository_owner }}/${{ matrix.image }}"
           echo "name=${image_name,,}" >> "$GITHUB_OUTPUT"
 
+      # Only two floating tags exist: the immutable version and `latest`
+      # (stable). No SHA, major/minor, or RC channels.
       - name: Create multi-arch manifests
         env:
           IMAGE: ${{ env.REGISTRY }}/${{ steps.image.outputs.name }}
-          SHA: ${{ github.event.workflow_run.head_sha }}
+          TAG: ${{ needs.validate-notes.outputs.tag }}
         run: |
           docker buildx imagetools create \
-            --tag "${IMAGE}:${SHA}" \
+            --tag "${IMAGE}:${TAG}" \
             --tag "${IMAGE}:latest" \
-            "${IMAGE}:${SHA}-amd64" \
-            "${IMAGE}:${SHA}-arm64"
-          docker buildx imagetools inspect "${IMAGE}:${SHA}"
+            "${IMAGE}:${TAG}-amd64" \
+            "${IMAGE}:${TAG}-arm64"
+          docker buildx imagetools inspect "${IMAGE}:${TAG}"
           docker buildx imagetools inspect "${IMAGE}:latest"
 
   create-release:
-    name: Create GitHub Release (SHA → rolling)
-    needs: merge-images
+    name: Create GitHub Release
+    needs: [validate-notes, merge-images]
     runs-on: ubuntu-24.04-arm
     permissions:
       contents: write
-    if: github.event.workflow_run.conclusion == 'success'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-          fetch-depth: 0
+          ref: ${{ needs.validate-notes.outputs.tag }}
+          fetch-depth: 1
 
-      - name: Create SHA release + update rolling release
+      - name: Build notes from releases/<tag>.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SHA: ${{ github.event.workflow_run.head_sha }}
+          TAG: ${{ needs.validate-notes.outputs.tag }}
         run: |
           set -euo pipefail
-          SHORT_SHA="${SHA:0:7}"
-          TAG="sha-${SHA}"
-          TITLE="rolling $SHORT_SHA"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Generate notes via GitHub API so we can inject Docker links.
-          # Use last semver tag as previous_tag_name so rolling notes stay
-          # cumulative since the last stable 1.x release.
-          PREV_TAG=$(git describe --tags --match "1.*" --abbrev=0 2>/dev/null || git describe --tags --abbrev=0 2>/dev/null || echo "")
-          echo "Previous tag: ${PREV_TAG:-<none>}"
-          if [ -n "$PREV_TAG" ]; then
-            gh api "repos/${{ github.repository }}/releases/generate-notes" \
-              -f tag_name="$TAG" -f target_commitish="$SHA" -f previous_tag_name="$PREV_TAG" --jq .body > /tmp/notes.md
-          else
-            gh api "repos/${{ github.repository }}/releases/generate-notes" \
-              -f tag_name="$TAG" -f target_commitish="$SHA" --jq .body > /tmp/notes.md
+          NOTES_FILE="releases/${TAG}.md"
+          if [ ! -f "$NOTES_FILE" ]; then
+            echo "::error::Missing $NOTES_FILE"
+            exit 1
           fi
 
-          # Append Docker image pointers (links SHA directly to GHCR)
+          cp "$NOTES_FILE" /tmp/notes.md
+
+          # Rewrite relative screenshot links `./assets/...` (relative to
+          # `releases/`) to absolute tagged blob URLs so they render on the
+          # Releases page and stay pinned to this tag.
+          # (`-i.bak` keeps this working on both GNU and BSD sed.)
+          sed -i.bak "s#](\./assets/#](https://github.com/${{ github.repository }}/blob/${TAG}/releases/assets/#g" /tmp/notes.md
+          rm -f /tmp/notes.md.bak
+
+          # Append Docker image pointers. `:latest` always equals this
+          # stable version.
           {
             echo ""
             echo "---"
-            echo "### 🐳 Docker images for this commit"
+            echo "### 🐳 Docker images for this release"
             echo ""
             repo_lc=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
             for img in spliit-cloud-api spliit-cloud-migrate spliit-cloud-worker spliit-cloud-mcp spliit-cloud-web; do
-              echo "- \`ghcr.io/${repo_lc}/${img}:${SHA}\` \`(${SHORT_SHA})\`"
+              echo "- \`ghcr.io/${repo_lc}/${img}:${TAG}\` (also available as \`:latest\`)"
             done
-            echo "- also available as \`:latest\` (rolling)"
             echo ""
-            echo "> Pin with \`SPLIIT_TAG=${SHA}\` or follow rolling with \`SPLIIT_TAG=latest\` — see \`compose.yaml\`"
+            echo "> Pin with \`SPLIIT_TAG=${TAG}\` or follow stable with \`SPLIIT_TAG=latest\` — see \`compose.yaml\`"
           } >> /tmp/notes.md
 
           cat /tmp/notes.md
 
-          # 1) Immutable per-commit release: tag = full SHA (version = git SHA, 1:1 with GHCR :SHA)
           if gh release view "$TAG" --repo "${{ github.repository }}" >/dev/null 2>&1; then
             echo "Release $TAG already exists, updating notes..."
             gh release edit "$TAG" --notes-file /tmp/notes.md --repo "${{ github.repository }}"
           else
-            gh release create "$TAG" --target "$SHA" --title "$TITLE" --notes-file /tmp/notes.md --repo "${{ github.repository }}"
+            gh release create "$TAG" --target "$TAG" --title "$TAG" --notes-file /tmp/notes.md --latest --repo "${{ github.repository }}"
           fi
 
-          # 2) Rolling evergreen release: tag = 'rolling' (moves every commit, keeps 1 entry on Releases page)
-          #    Points at same SHA, body is the same cumulative notes. Self-hosters can watch this one release.
-          if gh release view rolling --repo "${{ github.repository }}" >/dev/null 2>&1; then
-            gh release edit rolling --title "Rolling ($SHORT_SHA)" --notes-file /tmp/notes.md --repo "${{ github.repository }}"
-            git tag -f rolling "$SHA"
-            git push -f origin rolling
-          else
-            gh release create rolling --target "$SHA" --title "Rolling ($SHORT_SHA)" --notes-file /tmp/notes.md --repo "${{ github.repository }}"
-          fi
-
-          echo "Done: $TAG + rolling updated"
+          echo "Done: $TAG"
 
   deploy-dokploy:
     name: Trigger Dokploy deploy
     needs: [merge-images, create-release]
-    if: always() && needs.merge-images.result == 'success'
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Trigger Dokploy compose deploy
@@ -276,7 +291,7 @@ jobs:
 
   deploy-pages:
     name: Trigger Cloudflare Pages deploy
-    if: github.event.workflow_run.conclusion == 'success'
+    needs: [merge-images, create-release]
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Trigger CF Pages deploy
