@@ -1,0 +1,3367 @@
+{
+  "Homepage": {
+    "title": "Share <strong>Expenses</strong> with <strong>Friends & Family</strong>",
+    "description": "Track shared expenses and settle up. Free and open source, <strong>synced and secured by your account</strong>.",
+    "features": {
+      "groupsSync": {
+        "title": "Groups + sync",
+        "description": "Create groups for trips, events, gifts, and keep them synced across devices."
+      },
+      "expenses": {
+        "title": "Expenses + receipts",
+        "description": "Add expenses, attach receipt images, and create daily, weekly, or monthly recurring costs."
+      },
+      "splitting": {
+        "title": "Advanced split",
+        "description": "Split by percentage, shares, exact amount, or a simple equal share."
+      },
+      "settlement": {
+        "title": "Balances",
+        "description": "See who paid what and optimise money transfers between participants."
+      },
+      "organization": {
+        "title": "Categories",
+        "description": "Assign categories so shared spending stays easy to scan."
+      },
+      "accounts": {
+        "title": "Accounts",
+        "description": "Sign in once to protect your data and keep your expense history available."
+      }
+    },
+    "button": {
+      "github": "GitHub",
+      "signIn": "Sign in to Spliit Cloud",
+      "createAccount": "Create an account",
+      "createGroup": "Create a group",
+      "importGroup": "Import group from another service",
+      "createFriendLedger": "Track expenses with a friend"
+    },
+    "welcomeBack": "Welcome back, {name}.",
+    "overview": {
+      "youAreOwed": "You are owed",
+      "youOwe": "You owe",
+      "acrossGroups": "Across your groups",
+      "viewGroups": "View groups",
+      "noOneOwesYou": "No one owes you",
+      "youOweNoOne": "You don't owe anyone",
+      "groupsTab": "Groups",
+      "peopleTab": "People",
+      "unknownPerson": "Unknown participant",
+      "viewPersonGroups": "View groups for {name} ({currency})"
+    },
+    "savedGroupsAction": "View saved groups",
+    "savedGroupsTitle": "Saved groups",
+    "savedGroupsDescription": "Groups you saved on this device."
+  },
+  "Header": {
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "account": "Account",
+    "accountSettings": "Account settings",
+    "back": "Back",
+    "menu": "Menu",
+    "feedback": "Feedback",
+    "anonymousSignOutWarning": "This anonymous account can only be accessed with your saved sign in link. Sign out now?",
+    "signOutTitle": "Sign out?",
+    "signOutError": "Could not sign out. Please try again.",
+    "cancel": "Cancel"
+  },
+  "Common": {
+    "close": "Close",
+    "previousSlide": "Previous slide",
+    "nextSlide": "Next slide",
+    "destructiveConfirmation": {
+      "inputLabel": "Enter the name to confirm",
+      "copyName": "Copy name",
+      "copied": "Copied",
+      "prompt": {
+        "deleteGroup": "To permanently delete the group <target>{name}</target>, type its name exactly as shown below.",
+        "deleteExpense": "To permanently delete the expense <target>{name}</target>, type its title exactly as shown below.",
+        "deleteRecurringExpense": "To confirm this deletion for <target>{name}</target>, type the expense title exactly as shown below.",
+        "removeParticipant": "To remove <target>{name}</target> from this group, type their name exactly as shown below."
+      },
+      "placeholder": "Type “{name}” here",
+      "mismatch": "Doesn’t match. Type {name} exactly."
+    }
+  },
+  "Theme": {
+    "toggle": "Change theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System default"
+  },
+  "Footer": {
+    "madeIn": "Made by the open-source community with love ❤️",
+    "builtBy": "See <source>source and contributors</source>",
+    "legalNavigation": "Legal links",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "imprint": "Project notice"
+  },
+  "Expenses": {
+    "title": "Expenses",
+    "description": "Here are the expenses that you created for your group.",
+    "create": "Create expense",
+    "createFirst": "Create the first one",
+    "noExpenses": "Your group doesn’t contain any expense yet.",
+    "export": "Export",
+    "exportCsv": "Export to CSV",
+    "searchPlaceholder": "Search for an expense…",
+    "ActiveUserModal": {
+      "title": "Who are you?",
+      "description": "Tell us which participant you are to let us customise how the information is displayed.",
+      "nobody": "I don’t want to select anyone",
+      "save": "Save changes",
+      "footer": "This setting can be changed later in the group settings."
+    },
+    "Groups": {
+      "upcoming": "Upcoming",
+      "thisWeek": "This week",
+      "earlierThisMonth": "Earlier this month",
+      "lastMonth": "Last month",
+      "earlierThisYear": "Earlier this year",
+      "lastYear": "Last year",
+      "older": "Older expenses",
+      "previousWeek": "Previous week",
+      "today": "Today"
+    },
+    "filters": {
+      "mobileTitle": "Filter expenses",
+      "sort": {
+        "options": {
+          "expenseDate": {
+            "desc": "Date (newest first)",
+            "asc": "Date (oldest first)"
+          },
+          "amount": {
+            "desc": "Amount (highest first)",
+            "asc": "Amount (lowest first)"
+          },
+          "createdAt": {
+            "desc": "Created (newest first)",
+            "asc": "Created (oldest first)"
+          }
+        },
+        "title": "Sort expenses"
+      },
+      "cancel": "Cancel",
+      "apply": "Apply",
+      "clearAll": "Clear all",
+      "clearFilterAria": "Clear {label} filter",
+      "noMatchTitle": "No expenses match your filters",
+      "noMatchBody": "Try removing or changing some filters to see more results.",
+      "noMatchClear": "Clear filters",
+      "category": "Category",
+      "paidBy": "Paid by",
+      "paidFor": "Split between",
+      "dateRange": "Date range",
+      "dateFrom": "From",
+      "dateTo": "To",
+      "amountRange": "Amount",
+      "minAmount": "Min",
+      "maxAmount": "Max",
+      "currency": "Currency",
+      "matchModeAny": "Match any",
+      "matchModeAll": "Match all",
+      "button": "Filters",
+      "matchModeExact": "Match exact",
+      "allCategories": "All categories",
+      "allParticipants": "All participants",
+      "allCurrencies": "All currencies",
+      "nSelected_zero": "{count} selected",
+      "nSelected_one": "{count} selected",
+      "nSelected_two": "{count} selected",
+      "nSelected_few": "{count} selected",
+      "nSelected_many": "{count} selected",
+      "nSelected_other": "{count} selected",
+      "removeFilter": "Remove filter",
+      "settlementsHidden": "Settlements hidden",
+      "title": "Filters"
+    },
+    "showSettlements": "Show settlements",
+    "globalTitle": "All expenses",
+    "globalDescription": "Search and browse expenses across your groups.",
+    "globalGroups": "Groups",
+    "globalInactive": "inactive",
+    "globalCurrency": "Base currency",
+    "globalAllCurrencies": "All currencies",
+    "globalCurrencyRequired": "Choose a base currency to filter or sort by amount.",
+    "globalFiltersActive": "{count} filters active",
+    "globalEmpty": "No expenses match your filters.",
+    "clearSearch": "Clear search",
+    "loading": "Loading expenses…",
+    "exportPdfTitle": "Print / save PDF",
+    "exportCsvTitle": "CSV spreadsheet",
+    "exportPdfPurpose": "Compact branded report. Use your browser to print or save it as a PDF.",
+    "exportCsvPurpose": "Full history in a spreadsheet for Excel or Sheets.",
+    "exportPdfAction": "Print / save PDF",
+    "exportCsvAction": "Download CSV",
+    "exportPdfDialogTitle": "Print expense report",
+    "exportPdfDialogDescription": "Choose the period to include. Your browser will open the report so you can print it or save it as a PDF.",
+    "exportPdfFromLabel": "From",
+    "exportPdfToLabel": "To",
+    "exportPdfGenerate": "Open print view",
+    "exportPdfGenerating": "Opening…",
+    "exportPdfCancel": "Cancel",
+    "exportPdfInvalidRange": "The end date must be on or after the start date.",
+    "exportPdfError": "Could not open the print report. Please try again.",
+    "exportPdfSuccess": "Print report opened.",
+    "exportPdfRetryBounds": "Retry",
+    "exportBundleTitle": "Spliit backup bundle",
+    "exportBundlePurpose": "Portable group data with expenses, settings, and attached documents.",
+    "exportBundleAction": "Download bundle"
+  },
+  "ExpenseCard": {
+    "paidBy": "Paid by <strong>{paidBy}</strong> · split between <paidFor></paidFor>",
+    "paidByMultiple": "Paid by <paidByNames></paidByNames> · split between <paidFor></paidFor>",
+    "everyone": "everyone",
+    "receivedBy": "Received by <strong>{paidBy}</strong> · allocated to <paidFor></paidFor>",
+    "receivedByMultiple": "Received by <paidByNames></paidByNames> · allocated to <paidFor></paidFor>",
+    "yourBalance": "Your balance:",
+    "notInvolved": "You are not involved",
+    "settlementBadge": "Settlement",
+    "items": {
+      "more_zero": "+{count} more",
+      "more_one": "+{count} more",
+      "more_two": "+{count} more",
+      "more_few": "+{count} more",
+      "more_many": "+{count} more",
+      "more_other": "+{count} more",
+      "title": "Items",
+      "participants": "{names}",
+      "showLess": "Show less"
+    },
+    "copyToast": "Copy expense initiated. The existing expense details will be used to create a new one.",
+    "incomeBadge": "Income"
+  },
+  "ExpenseSeries": {
+    "badge": "Recurring",
+    "occurrence": "Occurrence {sequence}",
+    "previous": "Previous",
+    "next": "Next",
+    "viewSeries": "View series",
+    "title": "Expense series",
+    "empty": "No other occurrences yet.",
+    "scopeTitle": "Update recurring expense",
+    "scopeDescription": "Choose which occurrences should be affected.",
+    "occurrenceOnly": "Only this occurrence",
+    "thisAndFuture": "This and future occurrences",
+    "deleteScopeTitle": "Delete recurring expense",
+    "deleteScopeDescription": "Choose whether to remove one occurrence, this and following occurrences, or also stop the recurrence.",
+    "deleteOccurrence": "Delete only this occurrence",
+    "deleteThisAndFuture": "Delete this and following occurrences",
+    "deleteThisAndFutureStop": "Delete this and following occurrences and stop recurrence",
+    "deleteThisAndFutureDescription": "Remove this and following expenses; the schedule stays active.",
+    "deleteThisAndFutureStopDescription": "Remove this and following expenses and permanently stop the schedule.",
+    "deleteOccurrenceDescription": "Remove only this expense. Other scheduled occurrences stay unchanged.",
+    "actions": "Recurring actions",
+    "actionsTitle": "Recurring expense actions",
+    "actionsDescription": "Choose exactly which occurrence to edit or delete.",
+    "editActions": "Edit",
+    "deleteActions": "Delete",
+    "editOccurrence": "Edit this occurrence",
+    "editOccurrenceDescription": "Change only this expense.",
+    "editThisAndFuture": "Edit this and future occurrences",
+    "editThisAndFutureDescription": "Change this expense and all future scheduled expenses.",
+    "stopRecurrence": "Stop recurrence",
+    "stopConfirmTitle": "Stop this recurrence?",
+    "stopConfirmDescription": "Existing expenses will stay. No new occurrences will be created.",
+    "stopConfirmHint": "Stopping is permanent. To start again, create a new recurring expense.",
+    "deleteConfirmTitle": "Confirm deletion",
+    "deleteConfirm": {
+      "OCCURRENCE": "Only this occurrence will be deleted.",
+      "THIS_AND_FUTURE": "This and following occurrences will be deleted. The recurrence will continue with the next scheduled occurrence.",
+      "THIS_AND_FUTURE_STOP": "This and following occurrences will be deleted and the recurrence will stop."
+    },
+    "confirmDelete": "Delete",
+    "confirmStop": "Stop recurrence",
+    "working": "Working…",
+    "back": "Back",
+    "confirm": "Continue",
+    "cancel": "Cancel",
+    "occurrences": "{count} occurrences in this series",
+    "loading": "Loading…",
+    "loadMore": "Load more occurrences",
+    "badgeRunning": "Recurring · Running",
+    "badgeStopped": "Recurring · Stopped",
+    "badgeCompleted": "Recurring · Completed",
+    "timeZone": "Runs at 3:00 PM in {timeZone}"
+  },
+  "Groups": {
+    "myGroups": "My groups",
+    "create": "Create",
+    "createdInviteHint": "Group created. Invite members to get started.",
+    "loadingRecent": "Loading recent groups…",
+    "starred": "Starred",
+    "archived": "Archived groups",
+    "hidden": "Hidden",
+    "showHidden": "Show hidden groups",
+    "showArchived": "Show archived groups",
+    "hide": "Hide group",
+    "unhide": "Unhide group",
+    "hideFriend": "Hide friend expenses",
+    "unhideFriend": "Show friend expenses",
+    "starGroup": "Star group",
+    "unstarGroup": "Unstar group",
+    "starFriend": "Star friend expenses",
+    "unstarFriend": "Unstar friend expenses",
+    "groupActions": "Group actions",
+    "friendActions": "Friend expense actions",
+    "archiveGroup": "Archive group",
+    "unarchiveGroup": "Unarchive group",
+    "archiveSuccess": "Group archived.",
+    "unarchiveSuccess": "Group unarchived.",
+    "archiveWithBalancesTitle": "Unsettled balances",
+    "archiveWithBalancesDescription": "This group has unsettled balances. Archiving will create settlement expenses to zero them out. Continue?",
+    "archiveWithBalancesForce": "Force archive",
+    "archiveWithBalancesCancel": "Cancel",
+    "archiveWithBalancesSuccess": "Settlement expenses created and group archived.",
+    "archiveWithBalancesView": "View balances",
+    "archiveSectionTitle": "Archive group",
+    "archiveSectionDescription": "Archiving freezes the group. No new expenses can be added or modified, but the existing data stays visible. You can unarchive the group at any time.",
+    "delete": {
+      "sectionTitle": "Delete group",
+      "sectionDescription": "Permanently delete this group, every expense, and all history. This cannot be undone — only do this if you are sure no one needs this data anymore.",
+      "button": "Delete group",
+      "toast": {
+        "deleted": "Group deleted."
+      },
+      "error": {
+        "generic": "Could not delete the group. Please try again."
+      },
+      "dialog": {
+        "title": "Delete this group?",
+        "description": "Every expense, receipt, invitation, and activity entry in this group will be removed and cannot be recovered.",
+        "warningTitle": "This action is irreversible",
+        "warningDescription": "The following data will be deleted immediately:",
+        "warningList": {
+          "expenses": "Every expense and balance",
+          "activity": "The full activity history",
+          "invitations": "Pending invitations",
+          "receipts": "Uploaded receipt files"
+        },
+        "cancel": "Cancel",
+        "confirm": "Delete group",
+        "deleting": "Deleting…"
+      }
+    },
+    "archivedBadge": "Archived",
+    "bannerArchivedTitle": "This group is archived",
+    "bannerArchivedDescription": "No new expenses or invitations can be added while the group is archived. Existing data stays visible.",
+    "bannerArchived": "This group is archived. No new expenses can be added.",
+    "bannerUnarchive": "Unarchive",
+    "bannerUnarchiveSuccess": "Group unarchived.",
+    "invitationBannerTitle": "You've been invited to this group",
+    "invitationBannerDescription": "Accept to join as a member, or decline to discard the invitation.",
+    "invitationAccept": "Accept",
+    "invitationDecline": "Decline",
+    "invitationAccepted": "Invitation accepted.",
+    "invitationDeclined": "Invitation declined.",
+    "pendingInviteeReadOnlyTitle": "You've been invited",
+    "pendingInviteeReadOnlyDescription": "Accept the invitation above to start adding expenses and changing group settings. Until then, this group is read-only.",
+    "pendingInviteeSettingsTitle": "Group settings are locked",
+    "pendingInviteeSettingsDescription": "You need to accept the invitation before you can change group settings or invite members.",
+    "pendingInviteeExpenseTitle": "Expenses are read-only",
+    "pendingInviteeExpenseDescription": "Accept the invitation above to start adding or editing expenses. Until then, the group's existing data is visible but cannot be modified.",
+    "archivedReadOnly": "This group is archived. Expenses can no longer be added or modified.",
+    "backToExpenses": "Back to expenses",
+    "backToGroups": "Back to groups",
+    "removeRecent": "Remove from recent groups",
+    "RecentRemovedToast": {
+      "title": "Group has been removed",
+      "description": "The group was removed from your recent groups list.",
+      "undoAlt": "Undo group removal",
+      "undo": "Undo"
+    },
+    "NotFound": {
+      "text": "This group does not exist.",
+      "link": "Go to home",
+      "lookingUp": "Looking for this group…"
+    },
+    "Importable": {
+      "title": "Found this group on spliit.app",
+      "description": "\"{name}\" is reachable on spliit.app. Would you like to import it into Spliit Cloud?",
+      "cta": "Import this group",
+      "backToHome": "Go to home"
+    },
+    "Unauthorized": {
+      "title": "You don't have access to this group",
+      "description": "If you believe this is a mistake, ask a group owner or admin to invite you.",
+      "link": "Back to home"
+    },
+    "invitations": {
+      "title": "Pending invitations",
+      "description": "You have been invited to join the following groups.",
+      "accept": "Accept",
+      "decline": "Decline",
+      "accepted": "Invitation accepted.",
+      "declined": "Invitation declined.",
+      "invitedBy": "Invited by {name}",
+      "unknownInviter": "someone",
+      "unknownGroup": "Unknown group",
+      "sentOn": "Sent {date}"
+    },
+    "linkInvitationBannerDescription": "{inviter} invited you to join {groupName} on Spliit Cloud.",
+    "linkInvitationSingleUse": "This link can only be used once. After you accept, it will stop working.",
+    "linkInvitationTemporaryName": "You'll join as {name}.",
+    "linkInvitationAlreadyMemberTitle": "You're already in {groupName}",
+    "linkInvitationAlreadyMemberDescription": "You already have an account on this group. The invite link isn't needed.",
+    "linkInvitationDismiss": "Dismiss",
+    "linkInvitationExpiredTitle": "This invite link is no longer valid",
+    "linkInvitationExpiredDescription": "The link was either revoked, declined, or has expired. Ask the inviter to send a new one.",
+    "linkInvitationInvalid": {
+      "title": "This invite link is invalid",
+      "description": "The link is malformed or doesn't match any invitation on this group."
+    },
+    "backToHome": "Back to home",
+    "Import": {
+      "StepHeader": {
+        "title": "Import a group",
+        "source": "Source",
+        "destination": "Destination",
+        "mapping": "Mapping",
+        "confirm": "Confirm",
+        "done": "Done",
+        "backAriaLabel": "Back",
+        "currencyConversion": "Currency conversion",
+        "backTo": "Back to {step}",
+        "continueTo": "Continue to {step}",
+        "documents": "Documents"
+      },
+      "fetchingGroup": "Fetching the group from spliit.app…",
+      "fetchSourceError": "Failed to fetch the source",
+      "Source": {
+        "fromSpliit": "Spliit",
+        "splitwise": "Splitwise",
+        "tricount": "Tricount (coming soon)",
+        "settleUp": "Settle Up (coming soon)",
+        "spliitDescription": "Bring an existing spliit.app group into Spliit Cloud. We read the group name, participants, and every expense.",
+        "splitwiseComingTitle": "Splitwise import is on the way",
+        "splitwiseComingDescription": "We're working on bringing Splitwise CSV exports into Spliit Cloud. The flow will be available here once it ships — no need to re-import anything in the meantime.",
+        "tricountComingTitle": "Tricount import is on the way",
+        "tricountComingDescription": "Tricount CSV export support is on the roadmap.",
+        "settleUpComingTitle": "Settle Up import is on the way",
+        "settleUpComingDescription": "Settle Up CSV export support is on the roadmap.",
+        "dropFile": "Drop a JSON or CSV file, or click to select",
+        "dropFileDescription": "JSON preserves every amount and payer exactly. CSV is a fallback — Spliit Cloud rounds each per-participant amount to 2 decimals.",
+        "or": "or",
+        "pasteUrl": "Paste a spliit.app URL",
+        "urlDescription": "Our server fetches the group through the spliit.app public export endpoint on your behalf.",
+        "urlPlaceholder": "https://spliit.app/groups/…",
+        "fetchingButton": "Importing…",
+        "fetchGroupButton": "Import group",
+        "receiptWarningTitle": "Receipt images are not imported.",
+        "receiptWarningDescription": "The spliit.app export does not include receipt images. Re-upload them in the destination group if you need them.",
+        "invalidUrl": "Please paste a valid spliit.app group URL",
+        "notFoundUrl": "Spliit Cloud did not find this group",
+        "fetchUrlError": "Failed to fetch the source",
+        "fileReadError": "Failed to read the file",
+        "appToCloudDescription": "Change .app to .cloud in any spliit.app group URL to import it into Spliit Cloud.",
+        "appToCloudTitle": "Swap .app for .cloud",
+        "splitwiseDescription": "Drop a Splitwise CSV export to import its expenses into Spliit Cloud. The file must come from Splitwise's group export — the per-group CSV available from the group's settings.",
+        "receiptWarningTitleSplitwise": "Receipt images are not imported.",
+        "receiptWarningDescriptionSplitwise": "The Splitwise export does not include receipt images. Re-upload them in the destination group if you need them.",
+        "unsupportedFileType": "Unsupported file type. Please drop a JSON or CSV file.",
+        "dropFileSplitwise": "Drop a Splitwise CSV file, or click to select",
+        "dropFileDescriptionSplitwise": "CSV is the only format Splitwise exports. We parse the per-participant values to reconstruct the split.",
+        "splitwiseAnonymizeTitle": "Having trouble importing your Splitwise CSV? Anonymise it before sharing.",
+        "splitwiseAnonymizeDescription": "If the importer rejects your CSV, you can strip participant names and expense descriptions locally and attach the result to a GitHub issue. Your file stays on your device — we never upload it.",
+        "splitwiseAnonymizeButton": "Anonymise a CSV",
+        "splitwiseAnonymizeIssuesLink": "Open an import issue",
+        "splitwiseAnonymizeError": "Could not anonymise this file. Make sure it's a Splitwise CSV export.",
+        "csvRecurrenceLimitation": "CSV exports do not include recurrence. Use a JSON export from spliit.app to import recurring expenses.",
+        "fromSpliitCloud": "Spliit Cloud",
+        "cloudZipRequired": "Choose a Spliit Cloud .spliit.zip bundle.",
+        "wrongImporterCloudTitle": "This belongs in the Spliit Cloud importer",
+        "wrongImporterCloudDescription": "The selected file is a Spliit Cloud bundle or manifest. Open the Spliit Cloud tab to continue.",
+        "wrongImporterSpliitTitle": "This belongs in the Spliit importer",
+        "wrongImporterSpliitDescription": "The selected file is a legacy spliit.app export. Open the Spliit tab to continue.",
+        "openCloudImporter": "Open Spliit Cloud importer",
+        "openSpliitImporter": "Open Spliit importer",
+        "cloudBundleReadyTitle": "Spliit Cloud bundle ready",
+        "cloudBundleReadyDescription": "This inspected bundle is ready to import. You can continue without selecting the file again.",
+        "resumeCloudBundle": "Continue with this bundle",
+        "spliitCloudScopeDescription": "Import a Spliit Cloud account backup containing multiple groups, or a single group export, from a .spliit.zip file.",
+        "legacyExportTitle": "A newer Spliit export is available",
+        "legacyExportDescription": "This older export requires Spliit Cloud to search spliit.app for documents. For the most reliable import, copy the group link from spliit.app or download a new JSON export and attach it here."
+      },
+      "Destination": {
+        "heading": "Where would you like to import <strong>{name}</strong>? ({participantCount} participants · {expenseCount} expenses)",
+        "newGroup": "New group",
+        "existingGroup": "Existing group",
+        "loading": "Loading…",
+        "noAdminGroups": "You don't administer any group yet.",
+        "memberCount_zero": "{count} members",
+        "memberCount_one": "{count} member",
+        "memberCount_two": "{count} members",
+        "memberCount_few": "{count} members",
+        "memberCount_many": "{count} members",
+        "memberCount_other": "{count} members"
+      },
+      "Mapping": {
+        "headsUp": "Heads up",
+        "noLinkAccount": "No participant is linked to your account. The importer (you) will be created as a fresh owner participant on the imported group — their share of the imported expenses will be zero until you link a source row to your account or invite yourself.",
+        "continue": "Continue to confirm",
+        "Row": {
+          "linkToMe": "Link to me",
+          "linkToMeDescription": "Connects this person to your account.",
+          "linkToMeFollowUp": "{name} will be linked to your account on this group. Their past and future expenses will appear under your name.",
+          "inviteByEmail": "Invite by email",
+          "inviteByEmailDescription": "Sends an invite mail after the import commits.",
+          "inviteeEmailLabel": "Invitee email",
+          "inviteeEmailPlaceholder": "invitee@example.com",
+          "selfEmailDetected": "That's your email — switched to \"Link to me\".",
+          "inviteByLink": "Invite by link",
+          "inviteByLinkDescription": "Generates a shareable URL on the Done step.",
+          "inviteByLinkFollowUp": "We'll generate a single-use shareable URL after the import commits. You'll find it on the Done step — copy and send it to {name} yourself.",
+          "linkToExisting": "Link to existing member",
+          "linkToExistingDescription": "Maps this person to an existing active member or pending invite in the destination group. No new participant is created.",
+          "selectExistingMember": "Select existing member",
+          "selectExistingPlaceholder": "Pick an existing member…",
+          "membersLabel": "Members",
+          "pendingInvitesLabel": "Pending invites",
+          "pendingSuffix": "(pending)",
+          "leaveUnlinked": "Leave unlinked",
+          "leaveUnlinkedDescription": "Keeps the name only — link later from Members.",
+          "leaveUnlinkedFollowUp": "{name} will appear as a name-only entry with no app access. You can link them to an account later from the Members tab.",
+          "inviteFriend": "From your friends",
+          "inviteFriendDescription": "Invite a friend from groups you have shared before.",
+          "selectFriendLabel": "Friend",
+          "selectFriendPlaceholder": "Select a friend…",
+          "friendAlreadyMember": "Already a member",
+          "friendPendingInvite": "Already invited"
+        },
+        "Errors": {
+          "duplicateExistingMember": "Two source rows are mapped to the same existing member.",
+          "inviteConflictsPending": "You're inviting {email} but they're already a pending invite; link to them instead.",
+          "inviteConflictsMember": "You're inviting {email} but they're already a member of this group; link to them instead.",
+          "duplicateMemberName": "Two existing members look like the same person — pick one.",
+          "onlyOneLinkedAccount": "Only one source row can be linked to your account.",
+          "missingExistingMember": "Pick an existing member to link to.",
+          "missingEmail": "Add an email address to invite by email.",
+          "selfEmailAddress": "This is your email — pick \"Link to me\" instead.",
+          "duplicateEmail": "This email is already invited from another row."
+        }
+      },
+      "Confirm": {
+        "destinationLabel": "Destination",
+        "newGroupFormat": "New group · {currency}",
+        "existingGroupFormat": "Existing group · merged",
+        "summaryLabel": "Summary",
+        "sourceParticipants_zero": "{count} source participants",
+        "sourceParticipants_one": "{count} source participant",
+        "sourceParticipants_two": "{count} source participants",
+        "sourceParticipants_few": "{count} source participants",
+        "sourceParticipants_many": "{count} source participants",
+        "sourceParticipants_other": "{count} source participants",
+        "participantBreakdown": "{linked} linked · {email} email invites · {link} link invites · {unlinked} unlinked",
+        "expenseCount_zero": "{count} expenses will be created",
+        "expenseCount_one": "{count} expense will be created",
+        "expenseCount_two": "{count} expenses will be created",
+        "expenseCount_few": "{count} expenses will be created",
+        "expenseCount_many": "{count} expenses will be created",
+        "expenseCount_other": "{count} expenses will be created",
+        "sourceName": "Source: {name}",
+        "footer": "Every source participant and expense will be imported. Invitations are sent / generated after the group is created.",
+        "importingButton": "Importing…",
+        "importButton": "Import group",
+        "ratesLoading": "Fetching exchange rates for cross-currency expenses…",
+        "rateFetchError": "Couldn't fetch exchange rates. The import is blocked until the rate provider is reachable again.",
+        "currencyRateFormat": "1 {source} = {rate} {target}",
+        "currencyRateAsOfFormat": "Requested {requested} · provider used {asOf}",
+        "currencyConversionTitle": "Currency conversion",
+        "currencyConversionDescription": "Expenses will be converted from the source currency to the destination ledger currency using the rates below.",
+        "currencyRateForDateFormat": "Applied for expenses dated {date}",
+        "appliedExchangeRatesLabel": "Applied exchange rates",
+        "conversionPerDate": "Per-date",
+        "conversionFixed": "Fixed rate",
+        "importErrorTitle": "Import failed",
+        "importErrorFallback": "An unexpected error occurred while importing the group. Please try again.",
+        "executeImport": "Import group",
+        "recurringSchedulesLabel": "Recurring schedules to import",
+        "recurringScheduleItem": "{title} · {rule}",
+        "recurrenceRule": {
+          "daily": "Daily",
+          "weekly": "Weekly",
+          "monthly": "Monthly"
+        },
+        "documentCount": "Documents: {imported} recovered, {skipped} skipped"
+      },
+      "Done": {
+        "importComplete": "Import complete",
+        "description": "Your imported group is ready. Compare the imported expenses and balances with the original export. If anything looks wrong, open an import issue on GitHub; import problems are highest priority and will be looked into as soon as possible.",
+        "openGroup": "Open group",
+        "shareableLinksTitle": "Shareable invite links",
+        "shareableLinksDescription": "Copy each link and send it to the matching person. The link is single-use; they join the group as soon as they open it.",
+        "shareAriaLabel": "Share invite link",
+        "emailInvitesTitle": "Email invites sent",
+        "emailInvitesDescription": "The server emailed the following people. They'll see an Accept/Decline banner in the group page when they sign in.",
+        "shareTitle": "Join my group on Spliit Cloud",
+        "shareText": "Join our expense group on Spliit Cloud — {name}. Open this link to accept: {url}",
+        "copyLink": "Copy invite link",
+        "copied": "Copied"
+      },
+      "CurrencyConversion": {
+        "pairSection": "{source} → {target}",
+        "fixedRateRow": "1 {source} = {rate} {target}",
+        "customRateLabel": "Custom rate",
+        "fetchingRates": "Fetching exchange rates…",
+        "fixedDescription": "Use one exchange rate for all expenses in this currency pair. By default, the rate is fetched from Frankfurter for the selected date; you can also enter a custom rate.",
+        "fixedTitle": "Fixed rate",
+        "noConversionNeeded": "All expenses are in the group's default currency. No currency conversion is needed.",
+        "perDateDescription": "More accurate — uses the exchange rate from each expense's actual date.",
+        "perDateSelectedHint": "Uses the historical exchange rate for each expense's date (Frankfurter API).",
+        "perDateTitle": "Per-date conversion",
+        "rateDateLabel": "Frankfurter rate date",
+        "ratesError": "Unable to fetch exchange rates. Check your connection and try again.",
+        "refresh": "Refresh"
+      },
+      "Documents": {
+        "title": "Bring your receipts with you",
+        "description": "Spliit Cloud can securely copy receipt images from the original spliit.app group and store normalised JPEG versions in your Cloud storage.",
+        "fetchFailed": "Could not download the source image.",
+        "tooLarge": "The normalised image is still larger than 2 MiB.",
+        "uploadFailed": "Could not upload the normalised image.",
+        "unknownFailure": "Unknown document error.",
+        "discoveryFailed": "Could not discover documents on spliit.app.",
+        "progress": "Preparing document {processed} of {total}…",
+        "recovered": "Recovered {count} document",
+        "recovered_plural": "Recovered {count} documents",
+        "unavailableTitle": "This source cannot be matched safely",
+        "unavailableDescription": "This export does not include the stable expense timestamps needed to recover documents. You can continue without them.",
+        "failedTitle": "{count} document could not be recovered",
+        "failedTitle_plural": "{count} documents could not be recovered",
+        "skipTitle": "Continue without receipt images?",
+        "skipDescription": "The expenses will still be imported, but their documents will be missing. This cannot be repaired automatically after the import.",
+        "acceptMissing": "I understand that the listed documents will be missing from the imported expenses.",
+        "retry": "Retry document recovery",
+        "start": "Find and copy documents",
+        "confirmSkip": "Yes, continue without documents",
+        "skip": "Continue without documents",
+        "continueWithMissing": "Continue with missing documents",
+        "cloudDescription": "Restore the original document files embedded in this Spliit Cloud backup to your Cloud storage.",
+        "cloudStart": "Restore {count} document(s) from this backup.",
+        "cloudNoDocuments": "This backup contains no documents to restore.",
+        "cloudNoDocumentsAvailable": "None of the documents in this backup are available to restore."
+      },
+      "Cloud": {
+        "importFailed": "Cloud import failed",
+        "importFailedDescription": "Please try the bundle again or choose another file.",
+        "doneTitle": "Group restored",
+        "doneDescription": "The Spliit Cloud group bundle was restored as a new group.",
+        "importAnother": "Import another bundle",
+        "summary": "Restore {participants} participants and {expenses} expenses as a new group.",
+        "incompleteTitle": "This backup is incomplete",
+        "incompleteDescription": "The export contains {count} warning(s). Review them before continuing.",
+        "restoreArchived": "Restore this group as archived",
+        "continueToMapping": "Continue to participant mapping",
+        "documentsTitle": "Review documents",
+        "documentsSummary": "{included} of {total} document(s) are ready to restore. Files are limited to {maxSize} MiB.",
+        "documentIssuesTitle": "Some documents cannot be restored",
+        "acknowledgeDocuments": "I understand these documents will be skipped",
+        "back": "Back",
+        "continueToConfirmation": "Continue to confirmation",
+        "confirmTitle": "Confirm group restore",
+        "confirmExpenses": "{count} expense(s) will be restored",
+        "confirmParticipants": "{count} participant(s) will be restored",
+        "confirmDocuments": "{count} document(s) will be restored",
+        "confirmActiveRecurrence": "{count} active recurrence schedule(s) will resume",
+        "confirmArchived": "The group will be archived",
+        "executeImport": "Restore group",
+        "stagingDocuments": "Preparing document files for restore…",
+        "friendSourceWarning": "This backup came from a friend ledger. It will be restored as a friend ledger with the mapped peer.",
+        "accountTitle": "Import Spliit Cloud account backup",
+        "accountProgress": "Group {current} of {total}: {name}",
+        "continueToGroups": "Continue to group imports",
+        "continueToNextGroup": "Continue to next group",
+        "skipGroup": "Skip this group"
+      }
+    },
+    "groups": "Groups",
+    "friends": "Friends",
+    "createExpense": "Create expense",
+    "pending": "Pending",
+    "scopePickerGroups": "Choose a group",
+    "scopePickerFriends": "Choose a friend",
+    "scopePickerEmpty": "No groups yet",
+    "scopePickerMembers_zero": "{count} members",
+    "scopePickerMembers_one": "{count} member",
+    "scopePickerMembers_two": "{count} members",
+    "scopePickerMembers_few": "{count} members",
+    "scopePickerMembers_many": "{count} members",
+    "scopePickerMembers_other": "{count} members",
+    "createFriendLedgerCard": {
+      "description": "Settle up one-on-one with a specific person.",
+      "title": "Track expenses with a friend"
+    },
+    "createGroupCard": {
+      "title": "Create a group",
+      "description": "Track shared expenses with friends, family, or roommates."
+    },
+    "importGroup": "Import group",
+    "exportDescription": "Print the group expenses as a PDF report, or download them as CSV or JSON.",
+    "allExpenses": "All expenses",
+    "viewOnlyBannerTitle": "View-only access",
+    "viewOnlyBannerDescription": "You can explore this group, but you cannot add, edit, delete, comment, settle balances, or download its data.",
+    "invitationSignInToAccept": "Sign in to accept",
+    "viewLinkInvalid": {
+      "title": "This view-only link is invalid",
+      "description": "The link is malformed or doesn't match any view-only access for this group."
+    },
+    "viewOnlyBannerSaveNoteAccount": "Save this group to find it on your dashboard.",
+    "viewOnlyBannerSaveNoteDevice": "Save this group to find it on this device when you come back.",
+    "viewOnlyBannerSave": "Save group",
+    "viewOnlyBannerSavedAccount": "Saved. You'll find it on your dashboard.",
+    "viewOnlyBannerSavedDevice": "Saved. You'll find it on this device.",
+    "viewOnlyBadge": "View-only",
+    "removeSavedView": "Remove",
+    "removeSavedViewAccount": "Removed from your dashboard.",
+    "removeSavedViewDevice": "Removed from this device."
+  },
+  "Auth": {
+    "title": "Sign in to Spliit Cloud",
+    "signUpTitle": "Create your Spliit Cloud account",
+    "subtitle": "Use your account to access your groups across devices.",
+    "signUpSubtitle": "Create an account to save and sync your groups across devices.",
+    "email": "Email",
+    "password": "Password",
+    "signInWithPassword": "Sign in with password",
+    "signUpWithPassword": "Sign up with password",
+    "signInWithGoogle": "Continue with Google",
+    "orContinueWithEmail": "or continue with email",
+    "magicLinkTab": "Magic link",
+    "passwordTab": "Password",
+    "sendMagicLink": "Send sign-in link",
+    "magicLinkEmail": "Email",
+    "usePasswordInstead": "Use email and password instead",
+    "hidePasswordForm": "Hide password form",
+    "passwordFormDescription": "If you'd rather use a password, enter your email and password below.",
+    "passwordFormDescriptionSignUp": "Create an account with your email and a password.",
+    "useDifferentEmail": "Use a different email",
+    "magicLinkSent": "Check your inbox for a sign-in link.",
+    "verificationEmailSent": "Check your inbox to verify your account.",
+    "noAccount": "Don't have an account yet?",
+    "haveAccount": "Already have an account?",
+    "createAccount": "Create an account",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "confirmPassword": "Confirm password",
+    "passwordMismatch": "Passwords don't match.",
+    "passwordTooShort": "Password must be at least 8 characters.",
+    "passwordRequirements": {
+      "minLength": "8 characters",
+      "uppercase": "Uppercase",
+      "lowercase": "Lowercase",
+      "number": "Number",
+      "symbol": "Symbol"
+    },
+    "forgotPasswordLink": "Forgot password?",
+    "errors": {
+      "invalidCredentials": "Email or password is incorrect.",
+      "emailRequired": "Enter your email address.",
+      "passwordRequired": "Enter your password.",
+      "nameRequired": "Enter a display name.",
+      "generic": "Something went wrong. Please try again.",
+      "magicLinkFailed": "Could not send the sign-in link.",
+      "passwordPolicy": "Use at least 8 characters with uppercase, lowercase, a number, and a symbol.",
+      "signupInviteRequired": "This instance is invite-only. Use an invitation link or ask someone to invite you to a group."
+    },
+    "loading": "Loading…",
+    "signedInAs": "Signed in as {name}",
+    "required": "You need to sign in to access your groups.",
+    "back": "Back to home",
+    "signInWithGithub": "Continue with GitHub",
+    "legalNotice": "By continuing, you agree to the <terms>Terms of use</terms> and acknowledge the <privacy>Privacy notice</privacy>.",
+    "inviteOnly": {
+      "message": "This instance is invite-only. Use an invitation link or ask someone to invite you to a group.",
+      "useInvitedEmail": "Use the email address you were invited with."
+    },
+    "signInWithX": "Continue with X",
+    "signInWithOidc": "Continue with {name}",
+    "signInAnonymously": "Anonymous"
+  },
+  "AccountSettings": {
+    "title": "Account settings",
+    "profile": {
+      "title": "Profile",
+      "description": "Update how you appear to your groups."
+    },
+    "nameLabel": "Display name",
+    "emailLabel": "Email",
+    "submit": "Save changes",
+    "saving": "Saving…",
+    "success": "Profile updated.",
+    "errors": {
+      "nameRequired": "Enter a display name.",
+      "nameTooShort": "Name must be at least 2 characters.",
+      "nameTooLong": "Name must be at most 50 characters.",
+      "generic": "Something went wrong. Please try again.",
+      "imageUpload": "Could not update your profile photo. Please try again."
+    },
+    "image": {
+      "label": "Profile photo",
+      "help": "Choose a photo to update it immediately. Without one, your initials are shown.",
+      "choose": "Choose photo",
+      "uploading": "Uploading…",
+      "updated": "Profile photo updated.",
+      "remove": "Remove photo",
+      "removed": "Profile photo removed."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Choose where Spliit sends activity notifications.",
+      "enable": "Enable push notifications",
+      "disable": "Disable push notifications",
+      "enabled": "Push notifications are enabled on this device.",
+      "disabled": "Push notifications are currently disabled on this device.",
+      "unsupported": "Push notifications aren't supported by this browser or context.",
+      "notConfigured": "Push notifications aren't available on this deployment.",
+      "permissionDenied": "Notifications are blocked. Allow them in your browser or device settings, then try again.",
+      "iosInstall": "On iPhone or iPad, add Spliit to your Home Screen before enabling push notifications.",
+      "error": "Could not update push notification settings. Please try again.",
+      "preferencesTitle": "Notification preferences",
+      "preferencesDescription": "These choices apply to future group and expense activity.",
+      "globalLabel": "All activity",
+      "globalDescription": "Recommended varies by activity and adapts when Push is unavailable: quick updates use push, while higher-volume activity stays in email. Choose Email or Push to use one global channel.",
+      "recommended": "Recommended",
+      "recommendedDescription": "Recommended delivery: {channels}. Push notifications are delivered only to devices you enable.",
+      "mixedByActivity": "Mixed by activity",
+      "recommendedCategoryDescription": "Using the recommended {channels} delivery for this activity.",
+      "useRecommended": "Use recommended",
+      "custom": "Custom",
+      "useGlobal": "Use all activity setting",
+      "inheritedDescription": "Following your all activity setting. Choose a channel to customise this category.",
+      "customDescription": "Custom delivery for this category. Choose one or both channels.",
+      "channelsLabel": "Notification channels",
+      "email": "Email",
+      "emailDescription": "Receive a message in your inbox.",
+      "push": {
+        "deviceTitle": "This device",
+        "deviceDescription": "Enable push alerts on this device. This does not change your other devices.",
+        "deviceDisabled": "Push is selected, but push is not enabled on this device.",
+        "noDevices": "Push is selected, but no device is enabled yet."
+      },
+      "pushDescription": "Receive an alert on an enabled device.",
+      "off": "Off",
+      "pushSelectionError": "Push could not be enabled on this device. Push was not selected.",
+      "pushMissingTarget": "Push is selected, but these notifications will not be delivered until you enable a device. You can enable one below or in Settings.",
+      "rowSaved": "Notification preference saved.",
+      "comingSoon": "Coming soon",
+      "sections": {
+        "groups": "Groups and friends",
+        "expenses": "Expenses",
+        "summaries": "Summaries"
+      },
+      "rows": {
+        "addedToGroup": {
+          "title": "Added to a group",
+          "description": "When someone adds you to a group."
+        },
+        "addedAsFriend": {
+          "title": "Friend ledger",
+          "description": "When someone starts a friend ledger with you."
+        },
+        "newExpense": {
+          "title": "New expense",
+          "description": "When someone adds an expense to a group."
+        },
+        "recurringExpense": {
+          "title": "Recurring expense",
+          "description": "When a scheduled recurring expense is created in a group."
+        },
+        "expenseChanged": {
+          "title": "Expense edited or deleted",
+          "description": "When an expense is updated or deleted."
+        },
+        "newComment": {
+          "title": "New comment",
+          "description": "When someone comments on an expense."
+        },
+        "weeklySummary": {
+          "title": "Weekly activity summary",
+          "description": "A weekly summary of activity across your groups."
+        },
+        "cloudNews": {
+          "title": "Spliit Cloud news and updates",
+          "description": "Product news, tips, and service updates."
+        },
+        "budgetAlert": {
+          "title": "Budget alerts",
+          "description": "When a shared group budget is trending over or has exceeded its limit."
+        }
+      },
+      "inherited": "Inherited",
+      "currently": "Currently: {channels}",
+      "categories": {
+        "EXPENSE_ADDED": {
+          "title": "New expenses",
+          "description": "When someone adds an expense to a group."
+        },
+        "EXPENSE_CHANGES": {
+          "title": "Expense changes",
+          "description": "When an expense is updated or deleted."
+        },
+        "EXPENSE_BULK_ACTIVITY": {
+          "title": "Expense imports and bulk changes",
+          "description": "When expenses are imported or updated in bulk."
+        },
+        "GROUP_CHANGES": {
+          "title": "Group changes",
+          "description": "When group details or archive status changes."
+        },
+        "GROUP_INVITATIONS": {
+          "title": "Invitations",
+          "description": "When invitations are sent, accepted, declined, or revoked."
+        },
+        "GROUP_MEMBERSHIP": {
+          "title": "Membership",
+          "description": "When members leave, are removed, or change roles."
+        }
+      },
+      "expenseActivity": "Expense activity",
+      "groupActivity": "Group activity",
+      "save": "Save changes",
+      "saving": "Saving…",
+      "reset": "Reset",
+      "saved": "Notification preferences saved.",
+      "saveError": "Could not save notification preferences. Please try again.",
+      "loading": "Loading notification preferences…",
+      "loadError": "Could not load notification preferences.",
+      "retry": "Try again",
+      "pushChannel": "Push",
+      "masterLabel": "Enable notifications",
+      "masterDescription": "Turn off to silence all email and push notifications. Your per-category choices are preserved.",
+      "emailAddToEnable": "Add a verified email to receive inbox notifications.",
+      "emailAddLink": "Add email"
+    },
+    "preferences": {
+      "title": "App preferences",
+      "description": "Use the same defaults and appearance on every signed-in device.",
+      "saveError": "Could not save preferences",
+      "defaultCurrency": "Default currency",
+      "timeZone": "Account timezone",
+      "timeZoneHelp": "Sets the default timezone for new expense times and recurring schedules, and is used to display timestamps and relative dates.",
+      "language": "Language",
+      "theme": "Theme",
+      "chooseTheme": "Choose",
+      "saving": "Saving preferences…",
+      "mascot": "Mascot",
+      "mascotHelp": "Choose a companion that offers contextual shortcuts and reacts to your expense flows.",
+      "chooseMascot": "Choose a mascot",
+      "mascotOptions": {
+        "off": "Off",
+        "bill": "Bill the receipt"
+      }
+    },
+    "aiPreferences": {
+      "title": "AI features",
+      "description": "Configure AI features and customise how they behave.",
+      "categoryExtractLabel": "Expense categoriser",
+      "categoryExtractDescription": "Suggest a category automatically when you fill in an expense title.",
+      "receiptScanLabel": "Receipt scan",
+      "receiptScanDescription": "Extract expense details from a receipt photo.",
+      "voiceExpenseLabel": "Voice expense",
+      "voiceExpenseDescription": "Create an expense from a short voice recording.",
+      "comingSoon": "Coming soon",
+      "voiceLanguageLabel": "Preferred voice language",
+      "voiceLanguageDescription": "Choose the language the voice expense AI listens for.",
+      "receiptPromptsLabel": "Custom instructions for receipt scan",
+      "receiptPromptsDescription": "Tailor the AI behavior when scanning receipts (currency hints, line-item grouping, etc.).",
+      "voicePromptsLabel": "Custom instructions for voice expense",
+      "voicePromptsDescription": "Tailor the AI behavior when creating expenses from your voice (splitting, payer defaults, etc.).",
+      "saving": "Saving preferences…",
+      "masterLabel": "Enable AI features"
+    },
+    "export": {
+      "sectionTitle": "Backups & export",
+      "sectionDescription": "Export or restore a portable backup of your Spliit Cloud data.",
+      "sectionRowLabel": "Account backup",
+      "sectionRowDescription": "Download selected groups and preferences, or restore a Spliit Cloud bundle.",
+      "open": "Export",
+      "title": "Export account backup",
+      "description": "Choose what to include in this Spliit Cloud backup. Your selection is used for this download only.",
+      "contentTitle": "Include",
+      "content": {
+        "documents": "Document files",
+        "documentsDescription": "Copy receipt files into the backup.",
+        "accountPreferences": "Account preferences",
+        "accountPreferencesDescription": "Include appearance, defaults, AI, and notification preferences.",
+        "groupPreferences": "Group preferences",
+        "groupPreferencesDescription": "Include starred, hidden, and default split settings."
+      },
+      "groupsTitle": "Groups and friends",
+      "selectedCount": "{selected} of {total} ledgers selected",
+      "loadingGroups": "Loading groups…",
+      "groupsError": "Groups could not be loaded.",
+      "retry": "Retry",
+      "emptySection": "No groups in this section.",
+      "cancel": "Cancel",
+      "download": "Download backup",
+      "sections": {
+        "GROUPS": "Groups",
+        "FRIENDS": "Friends",
+        "STARRED": "Starred",
+        "ARCHIVED": "Archived",
+        "HIDDEN": "Hidden"
+      },
+      "badges": {
+        "archived": "Archived group",
+        "hidden": "Hidden group"
+      },
+      "sectionOverrides": "{count} exceptions",
+      "import": "Import"
+    },
+    "email": {
+      "empty": "No email",
+      "add": "Add email",
+      "change": "Change email",
+      "addHelp": "Add a verified email to recover this account and receive notifications.",
+      "changeHelp": "Changing your email requires a confirmation code sent to the new address.",
+      "addTitle": "Add an email address",
+      "changeTitle": "Change your email",
+      "addDescription": "We'll send a 6-digit code to this address. The email is saved only after you confirm it.",
+      "changeDescription": "We'll send a 6-digit code to the new address. Your current email stays until you confirm.",
+      "newLabel": "Email address",
+      "sendCode": "Send code",
+      "sending": "Sending…",
+      "codeTitle": "Enter the confirmation code",
+      "codeDescription": "We sent a 6-digit code to {email}.",
+      "codeLabel": "Confirmation code",
+      "verify": "Confirm email",
+      "verifying": "Confirming…",
+      "resend": "Resend code",
+      "cancel": "Cancel",
+      "added": "Email added.",
+      "changed": "Email updated.",
+      "graduationBody": "Anonymous sign-in links are a weak form of security: anyone with the saved URL can use this account. After you add a verified email, that link stops working and cannot be restored. You will sign in with the email instead.",
+      "errors": {
+        "inUse": "This email is already used by another account.",
+        "invalid": "Enter a valid email address.",
+        "same": "That is already your email address.",
+        "graduation": "Confirm that adding an email replaces your sign-in link.",
+        "otp": "That code is incorrect. Try again.",
+        "expired": "This code has expired. Request a new one.",
+        "rateLimited": "Too many email requests. Please try again later.",
+        "generic": "Could not update your email. Please try again.",
+        "sendFailed": "Could not send the confirmation email. Please try again."
+      },
+      "graduationTitle": "This replaces your sign-in link",
+      "useDifferent": "Use a different email",
+      "resendIn": "Resend in {seconds}s",
+      "sent": "Code sent"
+    },
+    "password": {
+      "label": "Password",
+      "set": "Set password",
+      "change": "Change password",
+      "hasPasswordHelp": "Password is set. You can sign in with email and password, or use a magic link or provider.",
+      "noPasswordHelp": "Set a password to sign in with email and password. You can also use a magic link or provider.",
+      "anonymousHelp": "Anonymous accounts must add a verified email before they can set a password.",
+      "anonymousRequiresEmailHelp": "Add a verified email before setting a password.",
+      "addEmailHelp": "Add a verified email before you can set a password.",
+      "addEmailFirst": "Add a verified email first.",
+      "verifyEmailHelp": "Verify your email before you can set a password.",
+      "verifyEmailFirst": "Verify your email first.",
+      "loadError": "Could not check password status. Try again.",
+      "setTitle": "Set a password",
+      "setDescription": "Choose a password to sign in with your email.",
+      "changeTitle": "Change your password",
+      "changeDescription": "Enter your current password and choose a new one.",
+      "currentLabel": "Current password",
+      "newLabel": "New password",
+      "confirmLabel": "Confirm new password",
+      "cancel": "Cancel",
+      "setSubmit": "Set password",
+      "setting": "Saving…",
+      "changeSubmit": "Change password",
+      "changing": "Saving…",
+      "mismatch": "Passwords don't match.",
+      "setSuccess": "Password set.",
+      "changeSuccess": "Password changed.",
+      "errors": {
+        "anonymousRequiresEmail": "Add a verified email before setting a password.",
+        "placeholderEmail": "A verified email is required before setting a password.",
+        "emailNotVerified": "Verify your email before setting a password.",
+        "alreadyHasPassword": "Password already set. Use change password instead.",
+        "passwordPolicy": "Use at least 8 characters with uppercase, lowercase, a number, and a symbol.",
+        "credentialNotFound": "No password is set for this account.",
+        "invalidCurrentPassword": "Current password is incorrect.",
+        "currentRequired": "Enter your current password.",
+        "rateLimited": "Too many attempts. Please try again later.",
+        "generic": "Could not update password. Please try again.",
+        "noAlternativeSignIn": "Add a verified email or connect another sign-in method before removing your password.",
+        "notFound": "No password is set for this account."
+      },
+      "empty": "Not set",
+      "masked": "••••••••",
+      "remove": "Remove password",
+      "removing": "Removing…",
+      "removeTitle": "Remove password?",
+      "removeDescription": "You can still sign in with a magic link or a connected provider (Google, GitHub, X) using your verified email. Removing your password will not lock you out as long as you have another sign-in method.",
+      "removeDescriptionNoAlternative": "You need a verified email or another connected sign-in method before you can remove your password.",
+      "removeConfirm": "Remove password",
+      "removeSuccess": "Password removed. You can still sign in with a magic link or provider.",
+      "removeHelp": "Remove your password and sign in with a magic link or provider instead.",
+      "removeForgotHint": "Forgot your password? Reset it first via the forgot password flow.",
+      "removeForgotLink": "Forgot password?",
+      "removeCurrentRequired": "Enter your current password.",
+      "changeShort": "Change",
+      "setShort": "Set"
+    }
+  },
+  "CompleteProfile": {
+    "title": "Complete your profile",
+    "description": "Tell us the name you'd like your groups to see. You can change it later.",
+    "nameLabel": "Display name",
+    "namePlaceholder": "Your name",
+    "submit": "Save and continue",
+    "saving": "Saving…",
+    "signedInAs": "Signed in as {email}",
+    "errors": {
+      "nameRequired": "Enter a display name.",
+      "nameTooShort": "Name must be at least 2 characters.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "ForgotPassword": {
+    "title": "Reset your password",
+    "subtitle": "Enter your account email and we'll send you a link to choose a new password.",
+    "emailLabel": "Email",
+    "submit": "Send reset link",
+    "emailSent": "If an account exists for that email, you'll receive a reset link shortly.",
+    "tryAgain": "Use a different email",
+    "backToSignIn": "Back to sign in",
+    "errors": {
+      "sendFailed": "Could not send the reset link. Please try again."
+    }
+  },
+  "ResetPassword": {
+    "title": "Choose a new password",
+    "subtitle": "Enter the new password for your Spliit Cloud account.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "passwordMismatch": "Passwords don't match.",
+    "submit": "Save new password",
+    "submitting": "Saving…",
+    "success": "Password updated",
+    "successDescription": "Your password has been changed. Sign in with your new password to continue.",
+    "goToSignIn": "Go to sign in",
+    "invalidTokenTitle": "This reset link can't be used",
+    "invalidTokenDescription": "The link may have expired or already been used. Request a new one to try again.",
+    "requestNewLink": "Request a new link",
+    "backToSignIn": "Back to sign in",
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "invalidToken": "This reset link has expired or already been used.",
+      "passwordTooShort": "Password must be at least 8 characters.",
+      "passwordPolicy": "Use at least 8 characters with uppercase, lowercase, a number, and a symbol."
+    }
+  },
+  "GroupForm": {
+    "title": "Group information",
+    "readOnlyNote": "Only owners and admins can change group settings.",
+    "readOnlyTitle": "Group settings",
+    "readOnlyBack": "Back to group",
+    "archivedNotice": "This group is archived. Its settings are frozen and can no longer be changed.",
+    "NameField": {
+      "label": "Group name",
+      "placeholder": "Summer vacations",
+      "description": "Enter a name for your group."
+    },
+    "InformationField": {
+      "label": "Group information",
+      "placeholder": "What information is relevant to group participants?"
+    },
+    "CurrencyField": {
+      "label": "Currency symbol",
+      "placeholder": "£, €, $…",
+      "description": "We’ll use it to display amounts."
+    },
+    "CurrencyCodeField": {
+      "label": "Main currency",
+      "createDescription": "All amounts and balances will be in this currency.",
+      "editDescription": "All amounts and balances will be in this currency. Changing this will NOT convert expenses already entered, except when the currency has different \"minor units\" than the current one (e.g. changing from British Pound to Japanese Yen)",
+      "customOption": "Custom",
+      "lockedAfterExpenses": "The currency is locked because this group already has expenses."
+    },
+    "Participants": {
+      "title": "Participants",
+      "description": "Enter the name for each participant.",
+      "protectedParticipant": "This participant is part of an expense and cannot be removed.",
+      "new": "New",
+      "add": "Add participant",
+      "John": "John",
+      "Jane": "Jane",
+      "Jack": "Jack"
+    },
+    "Settings": {
+      "title": "Local settings",
+      "description": "These settings are set per-device, and are used to customise your experience.",
+      "ActiveUserField": {
+        "label": "Active user",
+        "placeholder": "Select a participant",
+        "none": "None",
+        "description": "User used as default for paying expenses."
+      },
+      "save": "Save",
+      "saving": "Saving…",
+      "create": "Create",
+      "creating": "Creating…",
+      "cancel": "Cancel",
+      "inviteAfterCreate": "After the group is created, open the Members tab to invite people by email or by shareable link."
+    },
+    "bulkCategorizeSectionTitle": "Bulk AI tools",
+    "bulkCategorizeSectionDescription": "Run the AI categoriser across many expenses at once. Useful after importing expenses or when many titles are still uncategorised.",
+    "bulkCategorizeButton": "Open bulk categoriser"
+  },
+  "ExpenseForm": {
+    "Income": {
+      "create": "Create income",
+      "edit": "Edit income",
+      "TitleField": {
+        "label": "Income title",
+        "placeholder": "Salary or refund"
+      },
+      "DateField": {
+        "label": "Income date",
+        "description": "Enter the date the income was received."
+      },
+      "currencyField": {
+        "label": "Currency of income",
+        "description": "The currency in which the income was received."
+      },
+      "categoryFieldDescription": "Select the income category.",
+      "paidByField": {
+        "label": "Received by",
+        "description": "Select who received the money and how much each person received."
+      },
+      "paidFor": {
+        "title": "Allocated to",
+        "description": "Select the participants who share this income."
+      },
+      "splitModeDescription": "Select how to split the income.",
+      "attachDescription": "Add receipts, photos, and supporting documents to this income.",
+      "recurrence": {
+        "scheduleHint": "Will be created at {time} {timeZone} and may trigger a notification — pick a sleep-safe time. Edit the time above to change this."
+      }
+    },
+    "Expense": {
+      "create": "Create expense",
+      "edit": "Edit expense",
+      "TitleField": {
+        "label": "Expense title",
+        "placeholder": "Monday evening restaurant"
+      },
+      "DateField": {
+        "label": "Expense date",
+        "description": "Enter the date the expense was paid."
+      },
+      "currencyField": {
+        "label": "Currency of expense",
+        "description": "The currency in which the expense was paid."
+      },
+      "categoryFieldDescription": "Select the expense category.",
+      "paidByField": {
+        "label": "Paid by",
+        "placeholder": "Select a participant",
+        "description": "Select who provided the money and how much each payer contributed."
+      },
+      "recurrenceRule": {
+        "label": "Expense Recurrence",
+        "description": "Select how often the expense should repeat.",
+        "none": "None",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly"
+      },
+      "recurrence": {
+        "label": "Expense recurrence",
+        "description": "Choose when this expense should be created again.",
+        "checkboxLabel": "Recurring",
+        "checkboxDescription": "Create this expense on a schedule",
+        "enable": "Add recurrence",
+        "remove": "Remove recurrence",
+        "repeatEvery": "Repeat every",
+        "interval": "Repeat interval",
+        "frequency": "Recurrence frequency",
+        "frequencyOptions": {
+          "daily": "day(s)",
+          "weekly": "week(s)",
+          "monthly": "month(s)",
+          "yearly": "year(s)"
+        },
+        "ends": {
+          "label": "Ends",
+          "never": "Never",
+          "count": "After a number of occurrences",
+          "date": "On a date",
+          "countInput": "Total occurrences (including this expense)",
+          "dateInput": "End date"
+        },
+        "previewLabel": "Next occurrences",
+        "currentOccurrence": "Current",
+        "viewAll": "View all",
+        "scheduleTitle": "Recurrence schedule",
+        "remainingCount": "There are {count} remaining occurrences.",
+        "unlimitedSchedule": "This recurrence has no end date.",
+        "noFurtherOccurrences": "No further occurrences with these settings.",
+        "scheduleCount": "Showing {count} occurrences from this expense.",
+        "decreaseOccurrences": "Decrease occurrences",
+        "increaseOccurrences": "Increase occurrences",
+        "ruleSummary": "Every {interval} {frequency} · {count} occurrences",
+        "ruleSummaryIndefinite": "Every {interval} {frequency} · No end date",
+        "scheduleChangeWarningTitle": "Recurrence schedule will change",
+        "scheduleChangeWarning": "Saving will reschedule this and future occurrences. Existing future expenses may move to new dates or be removed, and missing due dates may be created automatically.",
+        "pastDateBackfillNote": "Because this expense starts in the past, occurrences through today will be created automatically after you save.",
+        "completedOccurrence": "Created",
+        "upcomingOccurrence": "Upcoming",
+        "timeZoneDescription": "New recurring expenses run at 3:00 PM in {timeZone}. Existing schedules keep their original timezone.",
+        "timeZonePending": "Waiting for your account timezone before recurrence can be enabled.",
+        "scheduleHint": "Will be created at {time} {timeZone} and may trigger a notification — pick a sleep-safe time. Edit the time above to change this."
+      },
+      "paidFor": {
+        "title": "Split between",
+        "description": "Select the participants who share this expense."
+      },
+      "splitModeDescription": "Select how to split the expense.",
+      "attachDescription": "Add receipts, photos, and supporting documents to this expense.",
+      "createCopy": "Create copy: {title}",
+      "editTitle": "Edit: {title}",
+      "recurringEditScopeOccurrence": "Editing this occurrence only",
+      "recurringEditScopeFuture": "Editing this and future occurrences",
+      "conflictTitle": "Expense changed",
+      "conflictDescription": "Another member or device changed this expense. Reload the latest version or keep your draft.",
+      "conflictKeepDraft": "Keep my draft",
+      "conflictReload": "Reload latest"
+    },
+    "amountField": {
+      "label": "Amount",
+      "calculator": {
+        "buttonLabel": "Open calculator",
+        "title": "Calculator",
+        "description": "Calculate an amount or create expense items.",
+        "clear": "Clear",
+        "backspace": "Backspace",
+        "equals": "Equals",
+        "plus": "Plus",
+        "minus": "Minus",
+        "multiply": "Multiply",
+        "divide": "Divide",
+        "openBracket": "Open bracket",
+        "closeBracket": "Close bracket",
+        "decimal": "Decimal point",
+        "invalid": "Invalid expression",
+        "replaceItemsTitle": "Replace expense items?",
+        "replaceItemsDescription": "This will replace your existing expense items with the calculated items.",
+        "replaceItemsConfirm": "Replace items",
+        "splitIntoItems_zero": "Create {count} expense items",
+        "splitIntoItems_one": "Create {count} expense item",
+        "splitIntoItems_two": "Create {count} expense items",
+        "splitIntoItems_few": "Create {count} expense items",
+        "splitIntoItems_many": "Create {count} expense items",
+        "splitIntoItems_other": "Create {count} expense items",
+        "replaceItems": "Replace expense items",
+        "createItems": "Create expense items",
+        "itemTransferInvalid": "Finish the calculation",
+        "itemTransferUnsupported": "Use +, ×, and brackets only",
+        "itemTransferEmpty": "Enter a calculation",
+        "createItemsHint": "Add calculated rows",
+        "replaceItemsHint": "Replace current rows"
+      }
+    },
+    "conversionUnavailable": "To set a different currency per expense and convert amounts, select a non-custom currency for the group.",
+    "conversionRateField": {
+      "useApi": "Use exchange rate",
+      "useCustom": "Use custom rate",
+      "label": "Exchange rate",
+      "futureDateUsesToday": "This expense is in the future and todays exchange rate will be used."
+    },
+    "conversionRateState": {
+      "loading": "Getting exchange rates…",
+      "success": "Obtained rates:",
+      "error": "Oops, we could not get the most recent rates.",
+      "staleRate": "Using rate:",
+      "noRate": "Enter a custom rate below.",
+      "currencyNotFound": "Oops, Frankfurter does not have the rate for this currency at this day.",
+      "noDate": "Enter the expense date to get a conversion rate.",
+      "dateMismatch": "Rates from date: {date}",
+      "refresh": "Refresh",
+      "customRate": "Using custom rate",
+      "via": "via {currencies}"
+    },
+    "categoryField": {
+      "label": "Category"
+    },
+    "notesField": {
+      "label": "Notes"
+    },
+    "selectNone": "Select none",
+    "selectAll": "Select all",
+    "shares": "share(s)",
+    "participant": {
+      "pending": "(invited)"
+    },
+    "SplitModeField": {
+      "label": "Split mode",
+      "evenly": "Evenly",
+      "byShares": "Unevenly – By shares",
+      "byPercentage": "Unevenly – By percentage",
+      "byAmount": "Unevenly – By amount"
+    },
+    "PaidBySplitModeField": {
+      "label": "Payer split mode"
+    },
+    "DeletePopup": {
+      "label": "Delete",
+      "title": "Delete this expense?",
+      "description": "This expense will be permanently removed. This action cannot be undone.",
+      "yes": "Yes",
+      "deleting": "Deleting…",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "attachDocuments": "Attachments",
+    "create": "Create",
+    "creating": "Creating…",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "readOnlyNotice": "This group is archived. The expense is shown read-only.",
+    "ParticipantDistribution": {
+      "missing": "Missing {missing} of {total}",
+      "surplus": "Surplus {extra} of {total}",
+      "matches": "✓ Matches {total}",
+      "evenlySplit": "Evenly split: {amount} × {count}",
+      "sharesTotal": "Total weight: {sum} shares",
+      "percentageMatches": "✓ Matches 100%",
+      "percentageMissing": "Missing {pct}%",
+      "percentageSurplus": "Surplus {pct}%"
+    },
+    "splittingOptions": "Splitting options",
+    "multiplePayers": "Multiple payers",
+    "paidByOptionSinglePayer": "Single payer",
+    "paidByOptionEvenly": "Evenly",
+    "paidByOptionByShares": "By shares",
+    "paidByOptionByPercentage": "By percentage",
+    "paidByOptionByAmount": "By amount",
+    "paidForOptionEvenly": "Evenly",
+    "paidForOptionByShares": "By shares",
+    "paidForOptionByPercentage": "By percentage",
+    "paidForOptionByAmount": "By amount",
+    "paidBySectionSingle": "Single",
+    "paidBySectionMultiple": "Multiple payers",
+    "paidForSection": "Split between participants",
+    "splitOptionAria": "Split: {title}",
+    "paidByOptionSinglePayerHelper": "One person covers the full expense",
+    "paidByOptionEvenlyHelper": "Each pays an equal share",
+    "paidByOptionBySharesHelper": "Each pays a weighted share",
+    "paidByOptionByPercentageHelper": "Each pays a percentage",
+    "paidByOptionByAmountHelper": "Each pays a fixed amount",
+    "paidForOptionEvenlyHelper": "Split evenly between everyone",
+    "paidForOptionBySharesHelper": "Assign a share to each person",
+    "paidForOptionByPercentageHelper": "Assign a percentage to each person",
+    "paidForOptionByAmountHelper": "Assign an exact amount to each person",
+    "convertedAmountField": {
+      "label": "Converted amount"
+    },
+    "paidForOptionItemized": "Itemised",
+    "paidForOptionItemizedHelper": "Calculate each participant's share from individual items in the expense.",
+    "items": {
+      "title": "Items",
+      "description": "Add items to split the expense precisely, or to keep them as documentation alongside any split mode.",
+      "addItem": "Add item",
+      "empty": "No items yet. Click \"Add item\" to start.",
+      "allMembers": "All participants",
+      "noMembers": "No participants",
+      "other": "Other (unaccounted)",
+      "derivedBadge": "Derived",
+      "errorExceedsAmount": "Items total exceeds the expense amount.",
+      "actionEdit": "Edit",
+      "actionDelete": "Delete",
+      "total": "Items total",
+      "requiredForItemized": "Add at least one item to use Itemised split.",
+      "participantsSummary_zero": "{count} participants",
+      "participantsSummary_one": "{count} participant",
+      "participantsSummary_two": "{count} participants",
+      "participantsSummary_few": "{count} participants",
+      "participantsSummary_many": "{count} participants",
+      "participantsSummary_other": "{count} participants",
+      "modalTitle": "Item participants",
+      "columnItem": "Item",
+      "columnCost": "Cost",
+      "columnQuantity": "Qty",
+      "columnParticipants": "Participants",
+      "columnTotal": "Total",
+      "setExpenseAmount": "Set expense amount",
+      "splitEvenlyLabel": "Split evenly",
+      "splitBySharesLabel": "Split by shares",
+      "splitByPercentageLabel": "Split by percentage",
+      "splitByAmountLabel": "Split by amount",
+      "switchToItemizedTitle": "Switch to itemised split?",
+      "switchToItemizedDescription": "Editing item participants changes Split between to Itemised and replaces the participant split you configured.",
+      "switchToItemizedConfirm": "Switch to itemised",
+      "showItems": "Show items",
+      "hideItems": "Hide items",
+      "participantValueLabel": "Split value for {name}",
+      "defaultSplitLabel": "Default items split",
+      "defaultSplitMixed": "Mixed",
+      "defaultSplitEdit": "Edit default items split",
+      "defaultSplitModalTitle": "Default items split",
+      "calculationError": "Could not calculate the itemised split. Check the item values and participant shares.",
+      "allItemsSplitLabel": "All-items split",
+      "allItemsSplitMixed": "Items use different splits",
+      "allItemsSplitEdit": "Edit all-items split",
+      "allItemsSplitModalTitle": "All-items split"
+    },
+    "leaveItemized": {
+      "title": "Switch split mode?",
+      "description": "Switching to {mode} will keep your items as documentation only. All per-item participant assignments will be removed.",
+      "cancel": "Cancel",
+      "confirm": "Switch"
+    },
+    "paidForItemizedEntryHint": "To split by item, edit participants from an item row.",
+    "paidForItemizedActiveHint": "Itemised splitting is active. Edit item participants from the Items card to change this split.",
+    "DefaultSplit": {
+      "savedAsDefault": "Saved as default",
+      "heading": "Default split",
+      "load": "Load",
+      "save": "Save"
+    },
+    "scanReceipt": "Scan receipt with AI",
+    "participantAmountLabel": "Amount for {name}",
+    "participantPercentageLabel": "Percentage for {name}",
+    "participantSharesLabel": "Shares for {name}",
+    "decreaseShares": "Decrease shares for {name}",
+    "increaseShares": "Increase shares for {name}",
+    "validationSummary": "Please correct the highlighted fields before saving.",
+    "resetDistribution": "Reset",
+    "savedButNotNavigated": "The expense was saved, but we couldn't leave this page. You can close it safely.",
+    "tryLeavingAgain": "Try leaving again",
+    "dateTimePicker": {
+      "changesDate": "Changes date",
+      "timezone": "Timezone",
+      "dateTab": "Date",
+      "timeTab": "Time",
+      "back": "Back",
+      "chooseTimezone": "Choose timezone",
+      "done": "Done",
+      "yourTime": "your time"
+    },
+    "settlementTitle": "Settlement payment",
+    "settlementHint": "{category}: Not counted as spending in totals, stats, or budgets. Still updates who owes whom.",
+    "incomeHint": "{category}: For money received. Grouped as income, not as a purchase.",
+    "SplitPreset": {
+      "apply": "Split preset",
+      "chooseTitle": "Choose a split preset",
+      "chooseDescription": "Search and select a preset to copy into this split.",
+      "search": "Search presets or participants",
+      "emptySearch": "No matching split presets.",
+      "save": "Save as preset",
+      "saveTitle": "Save split preset",
+      "saveDescription": "Save these split values as a new preset.",
+      "namePlaceholder": "Preset name",
+      "saveError": "Unable to save the split preset.",
+      "load": "Load split preset",
+      "loaded": "Loaded: {name}",
+      "change": "Change",
+      "reload": "Reload",
+      "saveChanges": "Save changes",
+      "saveAsNew": "Save as new",
+      "stopTracking": "Stop tracking",
+      "modified": "Modified",
+      "loading": "Loading split presets…",
+      "confirmSharedOverwrite": "Overwrite this shared split preset? Other group members will see the change.",
+      "loadedLabel": "Loaded preset",
+      "actions": "Preset actions",
+      "payerDistribution": "Payer distribution",
+      "paidForDistribution": "Participant distribution",
+      "pays": "pays",
+      "owes": "owes",
+      "receives": "receives",
+      "heading": "Split preset",
+      "saveAsPreset": "Save as preset",
+      "untracked": "No preset loaded",
+      "loadAnother": "Load another",
+      "receivesShare": "receives a share"
+    }
+  },
+  "ExpenseDocumentsInput": {
+    "deleteDocument": "Delete document",
+    "document": "Document",
+    "close": "Close",
+    "TooBigToast": {
+      "title": "The file is too big",
+      "description": "The maximum file size you can upload is {maxSize}. Yours is {size}."
+    },
+    "ErrorToast": {
+      "title": "Error while uploading document",
+      "description": "Something wrong happened when uploading the document. Please retry later or select a different file.",
+      "retry": "Retry"
+    },
+    "dropTitle": "Drop files to attach",
+    "dropDescription": "Images, PDFs, and common receipt documents up to 2 MB",
+    "chooseFiles": "Choose files",
+    "takePhoto": "Take photo",
+    "openDocument": "Open document",
+    "UnsupportedToast": {
+      "title": "Unsupported file",
+      "description": "{fileName} is not a supported attachment type."
+    },
+    "FileErrorToast": {
+      "description": "{fileName}: something went wrong while uploading. Please retry later or choose a different file."
+    },
+    "addAttachments": "Add attachments",
+    "uploading": "Uploading…",
+    "noAttachments": "No attachments yet."
+  },
+  "CreateFromReceipt": {
+    "Dialog": {
+      "triggerTitle": "AI receipt scan",
+      "title": "Create from receipt",
+      "description": "Extract the expense information from a receipt photo.",
+      "body": "Upload the photo of a receipt, and we’ll scan it to extract the expense information if we can.",
+      "selectImage": "Select image…",
+      "titleLabel": "Title:",
+      "categoryLabel": "Category:",
+      "amountLabel": "Amount:",
+      "dateLabel": "Date:",
+      "editNext": "You’ll be able to edit the expense information next.",
+      "continue": "Continue",
+      "existingDocuments": "Choose an attached receipt",
+      "existingDocumentAlt": "Attached receipt",
+      "uploadAndScan": "Upload and scan receipt",
+      "scannedReceiptAlt": "Scanned receipt",
+      "fillTitle": "Fill expense from receipt",
+      "fillNext": "Review the suggested details, then apply them to this expense.",
+      "scanningHint": "Scanning can take a little while — please be patient.",
+      "fillBody": "Choose an attached receipt or upload a new one — we’ll scan it to suggest details for this expense.",
+      "translateToLocale": "Translate title and items to {language}",
+      "dropTitle": "Drop a receipt image",
+      "dropDescription": "Drop one image here to scan it with AI",
+      "takePhoto": "Take photo",
+      "scanReceipt": "Scan receipt"
+    },
+    "unknown": "Unknown",
+    "TooBigToast": {
+      "title": "The file is too big",
+      "description": "The maximum file size you can upload is {maxSize}. Yours is {size}."
+    },
+    "ErrorToast": {
+      "title": "Error while uploading document",
+      "description": "Something wrong happened when uploading the document. Please retry later or select a different file.",
+      "retry": "Retry"
+    },
+    "UnsupportedToast": {
+      "title": "Image required",
+      "aiDescription": "AI receipt scan supports image files only."
+    }
+  },
+  "Balances": {
+    "title": "Balances",
+    "description": "See each participant’s net balance.",
+    "removedBadge": "Removed",
+    "currencyDisplay": {
+      "label": "Currency",
+      "group": "Group currency ({currency})",
+      "original": "Original",
+      "title": "Choose how to view balances",
+      "groupDescription": "Convert all expenses to {currency} for one combined view.",
+      "originalDescription": "Keep each expense in the currency it was entered in.",
+      "originalNote": "Settlement payments are usually recorded in the group currency. This original-currency view is a separate per-currency ledger, so balances can look unsettled here even when the group-currency plan is settled. Prefer the group currency view when settling."
+    },
+    "view": {
+      "label": "View",
+      "title": "Choose how to view balances",
+      "simple": "Simple",
+      "simpleDescription": "See who owes whom and record settlement payments.",
+      "visual": "Visual",
+      "visualDescription": "Balance breakdown and charts."
+    },
+    "simple": {
+      "title": "Settle balances",
+      "description": "See who owes what and mark payments as settled.",
+      "netBalances": "Net balances",
+      "isOwed": "is owed {amount}",
+      "owes": "owes {amount}",
+      "suggestedPayments": "Suggested payments",
+      "empty": "Everyone is settled up."
+    },
+    "direction": {
+      "toReceive": "To receive",
+      "toPay": "To pay",
+      "settledUp": "Settled up",
+      "toReceiveDescription": "Each segment shows who pays this participant.",
+      "toPayDescription": "Each segment shows who this participant pays.",
+      "participantReceives": "<strong>{name}</strong> receives",
+      "participantPays": "<strong>{name}</strong> pays",
+      "fromParticipant": "from <strong>{name}</strong>",
+      "toParticipant": "to <strong>{name}</strong>",
+      "settle": "Settle",
+      "settlePaymentsBy": "Settle {count} payments by {name}, {amount}",
+      "settlePaymentsTo": "Settle {count} payments to {name}, {amount}"
+    },
+    "settlementMode": {
+      "label": "Settle balances as",
+      "individual": "Individual",
+      "subgroups": "Subgroups"
+    },
+    "subgroups": {
+      "balanceTitle": "Subgroup balances",
+      "balanceDescription": "Use each subgroup as one settlement unit for people who share spending, such as couples or families. Individual expense splits stay unchanged.",
+      "emptyBalances": "Every subgroup is settled with the others.",
+      "internalBalancesNote": "After the subgroup payments are settled, members may still have balances inside their subgroup.",
+      "viewIndividual": "View individual balances",
+      "suggestedPayments": "Suggested payments",
+      "emptyPayments": "Nothing is owed between subgroups.",
+      "pays": "pays",
+      "receives": "receives",
+      "to": "to",
+      "from": "from",
+      "personPays": "pays",
+      "settle": "Settle",
+      "individualAllHint": "You are viewing the standard group-wide individual plan. It may include payments between subgroups.",
+      "unknownParticipant": "Pending invite",
+      "individualWithinHint": "You are viewing a subgroup-aware individual plan. Suggested payments stay within each subgroup when the subgroup totals are already settled."
+    },
+    "Settlements": {
+      "title": "Suggested settlements",
+      "description": "Use these payments to settle balances with as few transfers as possible.",
+      "noSettlements": "Everyone in your group is settled up 😁",
+      "owes": "<strong>{from}</strong> owes <strong>{to}</strong>",
+      "markAsPaid": "Mark as paid",
+      "markAsPaidAria": "Mark {amount} from {from} to {to} as paid"
+    }
+  },
+  "Stats": {
+    "title": "Stats",
+    "Totals": {
+      "title": "Totals",
+      "description": "Spending summary of the entire group.",
+      "groupSpendings": "Total group spendings",
+      "groupEarnings": "Total group earnings",
+      "yourSpendings": "Your total spendings",
+      "yourEarnings": "Your total earnings",
+      "yourShare": "Your total share"
+    },
+    "Dashboard": {
+      "description": "A snapshot of how this group spends together.",
+      "title": "Spending activity",
+      "periods": {
+        "LATEST_ACTIVITY": "Latest activity",
+        "WEEK": "1W",
+        "MONTH": "1M",
+        "QUARTER": "3M",
+        "YEAR": "1Y",
+        "CUSTOM": "Custom"
+      },
+      "lifetime": "Lifetime spending",
+      "selectedPeriod": "Selected period",
+      "lifetimeDescription": "Across the group’s full history",
+      "expenseCount_zero": "{count} expenses",
+      "expenseCount_one": "{count} expense",
+      "expenseCount_two": "{count} expenses",
+      "expenseCount_few": "{count} expenses",
+      "expenseCount_many": "{count} expenses",
+      "expenseCount_other": "{count} expenses",
+      "spendingOverTime": "Spending over time",
+      "bucketedBy": "Grouped by {granularity}",
+      "granularity": {
+        "DAY": "day",
+        "WEEK": "week",
+        "MONTH": "month"
+      },
+      "other": "Other",
+      "inactiveGap": "Inactive period",
+      "categories": "Categories",
+      "categoriesDescription": "Where the selected spending went",
+      "participants": "Participant shares",
+      "participantsDescription": "How the spending was shared",
+      "emptyTitle": "No spending to show yet",
+      "emptyDescription": "Add an expense to start building this group’s spending story.",
+      "error": "We could not load the group statistics.",
+      "retry": "Try again",
+      "customRange": {
+        "from": "From",
+        "to": "To"
+      }
+    }
+  },
+  "Activity": {
+    "title": "Activity",
+    "description": "Overview of all activity in this group.",
+    "noActivity": "There is not yet any activity in your group.",
+    "someone": "Someone",
+    "settingsModified": "Group settings were modified by <strong>{participant}</strong>.",
+    "expenseCreated": "Expense <em>{expense}</em> created by <strong>{participant}</strong>.",
+    "expenseUpdated": "Expense <em>{expense}</em> updated by <strong>{participant}</strong>.",
+    "expenseDeleted": "Expense <em>{expense}</em> deleted by <strong>{participant}</strong>.",
+    "Groups": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "earlierThisWeek": "Earlier this week",
+      "lastWeek": "Last week",
+      "earlierThisMonth": "Earlier this month",
+      "lastMonth": "Last month",
+      "earlierThisYear": "Earlier this year",
+      "lastYear": "Last year",
+      "older": "Older activity"
+    }
+  },
+  "Information": {
+    "title": "Information",
+    "description": "Add information that may be useful to the group’s participants.",
+    "empty": "No group information yet."
+  },
+  "Settings": {
+    "title": "Settings"
+  },
+  "Share": {
+    "title": "Share",
+    "description": "For other participants to see the group and add expenses, share its URL with them.",
+    "warning": "Warning!",
+    "warningHelp": "Every person with the group URL will be able to see and edit expenses. Share with caution!"
+  },
+  "SchemaErrors": {
+    "min1": "Enter at least one character.",
+    "min2": "Enter at least two characters.",
+    "max5": "Enter at most five characters.",
+    "max50": "Enter at most 50 characters.",
+    "duplicateParticipantName": "Another participant already has this name.",
+    "titleRequired": "Please enter a title.",
+    "invalidNumber": "Invalid number.",
+    "amountRequired": "You must enter an amount.",
+    "amountNotZero": "The amount must not be zero.",
+    "amountTenMillion": "The amount must be lower than 10,000,000.",
+    "ratePositive": "The rate must be strictly greater than zero.",
+    "paidByRequired": "You must select a participant.",
+    "paidForMin1": "The expense must be split between at least one participant.",
+    "noZeroShares": "All shares must be higher than 0.",
+    "amountSum": "Sum of amounts must equal the expense amount.",
+    "percentageSum": "Sum of percentages must equal 100.",
+    "paidByMin1": "At least one payer must be selected.",
+    "paidByAmountSum": "Sum of payer amounts must equal the expense amount.",
+    "paidByPercentageSum": "Sum of payer percentages must equal 100.",
+    "duplicateParticipant": "Another payer is already selected.",
+    "sharesInvalid": "Shares must be between 0.01 and 1,000,000 with up to two decimals.",
+    "itemTitleRequired": "Item name is required.",
+    "itemQuantityMin1": "Item quantity must be at least 1.",
+    "rowErrorsHeading": "Fix these shares:",
+    "invalidWallTime": "This time does not exist on the selected date in this timezone."
+  },
+  "Categories": {
+    "search": "Search category...",
+    "noCategory": "No category found.",
+    "Uncategorized": {
+      "heading": "Uncategorised",
+      "General": "General",
+      "Payment": "Payment"
+    },
+    "Entertainment": {
+      "heading": "Entertainment",
+      "Games": "Games",
+      "Movies": "Movies",
+      "Music": "Music",
+      "Sports": "Sports"
+    },
+    "Food and Drink": {
+      "heading": "Food and Drink",
+      "Dining Out": "Dining Out",
+      "Groceries": "Groceries",
+      "Liquor": "Liquor"
+    },
+    "Home": {
+      "heading": "Home",
+      "Electronics": "Electronics",
+      "Furniture": "Furniture",
+      "Household Supplies": "Household Supplies",
+      "Maintenance": "Maintenance",
+      "Mortgage": "Mortgage",
+      "Pets": "Pets",
+      "Rent": "Rent",
+      "Services": "Services",
+      "Gardening": "Gardening",
+      "Plants": "Plants"
+    },
+    "Life": {
+      "heading": "Life",
+      "Childcare": "Childcare",
+      "Clothing": "Clothing",
+      "Donation": "Donation",
+      "Education": "Education",
+      "Gifts": "Gifts",
+      "Insurance": "Insurance",
+      "Medical Expenses": "Medical Expenses",
+      "Taxes": "Taxes"
+    },
+    "Transportation": {
+      "heading": "Transportation",
+      "Bicycle": "Bicycle",
+      "Bus/Train": "Bus/Train",
+      "Car": "Car",
+      "Gas/Fuel": "Gas/Fuel",
+      "Hotel": "Hotel",
+      "Parking": "Parking",
+      "Plane": "Plane",
+      "Taxi": "Taxi",
+      "Tolls": "Tolls"
+    },
+    "Utilities": {
+      "heading": "Utilities",
+      "Cleaning": "Cleaning",
+      "Electricity": "Electricity",
+      "Heat/Gas": "Heat/Gas",
+      "Trash": "Trash",
+      "TV/Phone/Internet": "TV/Phone/Internet",
+      "Water": "Water"
+    },
+    "Social and Activities": {
+      "heading": "Social and Activities",
+      "Events and Activities": "Events and Activities"
+    },
+    "Subscriptions and Memberships": {
+      "heading": "Subscriptions and Memberships",
+      "Digital Subscriptions": "Digital Subscriptions",
+      "Memberships": "Memberships"
+    },
+    "Personal Care and Wellness": {
+      "heading": "Personal Care and Wellness"
+    },
+    "Income": {
+      "heading": "Income"
+    },
+    "Settlement": {
+      "heading": "Settlement"
+    }
+  },
+  "Currencies": {
+    "search": "Search currency...",
+    "noCurrency": "No currencies found.",
+    "byCode": {
+      "AED": {
+        "name": "United Arab Emirates Dirham"
+      },
+      "ARS": {
+        "name": "Argentine Peso"
+      },
+      "AUD": {
+        "name": "Australian Dollar"
+      },
+      "BDT": {
+        "name": "Bangladeshi Taka"
+      },
+      "BGN": {
+        "name": "Bulgarian Lev"
+      },
+      "BRL": {
+        "name": "Brazilian Real"
+      },
+      "CAD": {
+        "name": "Canadian Dollar"
+      },
+      "CHF": {
+        "name": "Swiss Franc"
+      },
+      "CLP": {
+        "name": "Chilean Peso"
+      },
+      "CNY": {
+        "name": "Chinese Yuan"
+      },
+      "COP": {
+        "name": "Colombian Peso"
+      },
+      "CZK": {
+        "name": "Czech Koruna"
+      },
+      "DKK": {
+        "name": "Danish Krone"
+      },
+      "EGP": {
+        "name": "Egyptian Pound"
+      },
+      "EUR": {
+        "name": "Euro"
+      },
+      "GBP": {
+        "name": "British Pound"
+      },
+      "GEL": {
+        "name": "Georgian Lari"
+      },
+      "GHS": {
+        "name": "Ghanaian Cedi"
+      },
+      "HKD": {
+        "name": "Hong Kong Dollar"
+      },
+      "HNL": {
+        "name": "Honduran Lempira"
+      },
+      "HRK": {
+        "name": "Croatian Kuna"
+      },
+      "HUF": {
+        "name": "Hungarian Forint"
+      },
+      "IDR": {
+        "name": "Indonesian Rupiah"
+      },
+      "ILS": {
+        "name": "Israeli New Shekel"
+      },
+      "INR": {
+        "name": "Indian Rupee"
+      },
+      "ISK": {
+        "name": "Icelandic Króna"
+      },
+      "JPY": {
+        "name": "Japanese Yen"
+      },
+      "KES": {
+        "name": "Kenyan Shilling"
+      },
+      "KHR": {
+        "name": "Cambodian Riel"
+      },
+      "KRW": {
+        "name": "South Korean Won"
+      },
+      "KWD": {
+        "name": "Kuwaiti Dinar"
+      },
+      "KZT": {
+        "name": "Kazakhstani Tenge"
+      },
+      "LKR": {
+        "name": "Sri Lankan Rupee"
+      },
+      "MAD": {
+        "name": "Moroccan Dirham"
+      },
+      "MDL": {
+        "name": "Moldovan Leu"
+      },
+      "MKD": {
+        "name": "Macedonian Denar"
+      },
+      "MXN": {
+        "name": "Mexican Peso"
+      },
+      "MYR": {
+        "name": "Malaysian Ringgit"
+      },
+      "NGN": {
+        "name": "Nigerian Naira"
+      },
+      "NOK": {
+        "name": "Norwegian Krone"
+      },
+      "NPR": {
+        "name": "Nepalese Rupee"
+      },
+      "NZD": {
+        "name": "New Zealand Dollar"
+      },
+      "PEN": {
+        "name": "Peruvian Sol"
+      },
+      "PHP": {
+        "name": "Philippine Peso"
+      },
+      "PKR": {
+        "name": "Pakistani Rupee"
+      },
+      "PLN": {
+        "name": "Polish Zloty"
+      },
+      "QAR": {
+        "name": "Qatari Rial"
+      },
+      "RON": {
+        "name": "Romanian Leu"
+      },
+      "RUB": {
+        "name": "Russian Ruble"
+      },
+      "SAR": {
+        "name": "Saudi Riyal"
+      },
+      "SEK": {
+        "name": "Swedish Krona"
+      },
+      "SGD": {
+        "name": "Singapore Dollar"
+      },
+      "THB": {
+        "name": "Thai Baht"
+      },
+      "TRY": {
+        "name": "Turkish Lira"
+      },
+      "TWD": {
+        "name": "New Taiwan Dollar"
+      },
+      "UAH": {
+        "name": "Ukrainian Hryvnia"
+      },
+      "USD": {
+        "name": "US Dollar"
+      },
+      "UYU": {
+        "name": "Uruguayan Peso"
+      },
+      "VND": {
+        "name": "Vietnamese Dong"
+      },
+      "ZAR": {
+        "name": "South African Rand"
+      },
+      "BHD": {
+        "name": "Bahraini Dinar"
+      },
+      "BND": {
+        "name": "Brunei Dollar"
+      },
+      "BOB": {
+        "name": "Bolivian Boliviano"
+      },
+      "BWP": {
+        "name": "Botswana Pula"
+      },
+      "CRC": {
+        "name": "Costa Rican Colón"
+      },
+      "DOP": {
+        "name": "Dominican Peso"
+      },
+      "ETB": {
+        "name": "Ethiopian Birr"
+      },
+      "GTQ": {
+        "name": "Guatemalan Quetzal"
+      },
+      "IQD": {
+        "name": "Iraqi Dinar"
+      },
+      "IRR": {
+        "name": "Iranian Rial"
+      },
+      "JOD": {
+        "name": "Jordanian Dinar"
+      },
+      "KGS": {
+        "name": "Kyrgyzstani Som"
+      },
+      "LAK": {
+        "name": "Lao Kip"
+      },
+      "LBP": {
+        "name": "Lebanese Pound"
+      },
+      "MMK": {
+        "name": "Myanmar Kyat"
+      },
+      "MNT": {
+        "name": "Mongolian Tögrög"
+      },
+      "MOP": {
+        "name": "Macanese Pataca"
+      },
+      "MUR": {
+        "name": "Mauritian Rupee"
+      },
+      "MWK": {
+        "name": "Malawian Kwacha"
+      },
+      "MZN": {
+        "name": "Mozambican Metical"
+      },
+      "NAD": {
+        "name": "Namibian Dollar"
+      },
+      "NIO": {
+        "name": "Nicaraguan Córdoba"
+      },
+      "OMR": {
+        "name": "Omani Rial"
+      },
+      "PAB": {
+        "name": "Panamanian Balboa"
+      },
+      "PYG": {
+        "name": "Paraguayan Guaraní"
+      },
+      "RSD": {
+        "name": "Serbian Dinar"
+      },
+      "TJS": {
+        "name": "Tajikistani Somoni"
+      },
+      "TND": {
+        "name": "Tunisian Dinar"
+      },
+      "TZS": {
+        "name": "Tanzanian Shilling"
+      },
+      "UGX": {
+        "name": "Ugandan Shilling"
+      },
+      "UZS": {
+        "name": "Uzbekistani Som"
+      },
+      "XAF": {
+        "name": "Central African CFA Franc"
+      },
+      "XOF": {
+        "name": "West African CFA Franc"
+      },
+      "ZMW": {
+        "name": "Zambian Kwacha"
+      },
+      "BTC": {
+        "name": "Bitcoin"
+      },
+      "DOGE": {
+        "name": "Dogecoin"
+      },
+      "ETH": {
+        "name": "Ethereum"
+      },
+      "LTC": {
+        "name": "Litecoin"
+      },
+      "SAT": {
+        "name": "Sats"
+      },
+      "SOL": {
+        "name": "Solana"
+      },
+      "XRP": {
+        "name": "XRP"
+      }
+    }
+  },
+  "Members": {
+    "title": "Members",
+    "description": "People who can see and contribute to this group.",
+    "empty": "No active members yet.",
+    "unknownMember": "Unknown member",
+    "youBadge": "You",
+    "role": {
+      "admin": "Admin",
+      "member": "Member"
+    },
+    "joinedOn": "Joined {date}",
+    "changeRoleAria": "Change role",
+    "remove": "Remove",
+    "removed": "Participant removed.",
+    "roleUpdated": "Role updated to {role}.",
+    "removeDialog": {
+      "title": "Remove participant?",
+      "description": "Past expenses will stay in the ledger, but this participant will no longer appear in the members list or new expenses.",
+      "cancel": "Cancel",
+      "confirm": "Remove",
+      "unsettled": {
+        "title": "Remove participant with unsettled balance?",
+        "description": "Remove {name} from this group? They have unsettled balances — tick the box below to settle them automatically before removing.",
+        "warning": {
+          "title": "This participant has unsettled balances",
+          "description": "Removing without settling will leave these balances in the group indefinitely. Select the option below to create one settlement payment for each balance involving this participant, or remove them and settle the balances manually."
+        },
+        "toast": "Participant removed, balances settled.",
+        "checkbox": "Settle this participant’s balances before removing",
+        "previewWillCreate_one": "Will create {count} settlement payment",
+        "previewPays": "{name} will pay",
+        "previewReceives": "{name} will receive",
+        "previewTo": "to {name}",
+        "previewFrom": "from {name}",
+        "previewWillCreate_other": "Will create {count} settlement payments",
+        "previewWillCreate_zero": "Will create {count} settlement payments",
+        "previewWillCreate_two": "Will create {count} settlement payments",
+        "previewWillCreate_few": "Will create {count} settlement payments",
+        "previewWillCreate_many": "Will create {count} settlement payments"
+      }
+    },
+    "noManagePermission": "Only admins can invite, revoke, or manage group members.",
+    "archivedNotice": "Invitations and member management are disabled while the group is archived. Unarchive the group to invite new members.",
+    "invite": {
+      "title": "Add people",
+      "email": "Email",
+      "emailPlaceholder": "friend@example.com",
+      "role": "Role",
+      "send": "Send invite",
+      "invalidEmail": "Enter a valid email address.",
+      "tab": {
+        "email": "Email",
+        "link": "Invite link",
+        "friends": "Friends",
+        "unlinked": "No account"
+      },
+      "link": {
+        "generate": "Generate invite link",
+        "generating": "Generating…",
+        "singleUse": "This invite link can be used once. After someone accepts it, the link will stop working.",
+        "copy": "Copy invite link",
+        "copied": "Copied!",
+        "expiresOn": "Expires {date}",
+        "created": "Invite link ready. Copy and share it before the group leaves this page.",
+        "intro": "Here's your single-use invite link for {groupName}. Send it to the person you want to join — the first one to use it becomes a member, then the link stops working.",
+        "share": "Share invite link",
+        "shareTitle": "Join {groupName} on Spliit Cloud",
+        "shareText": "I just created {groupName} for our shared expenses on Spliit Cloud. Here's a one-time invite link — open it to join:\n{inviteUrl}",
+        "generateNew": "Generate new link",
+        "copyLink": "Copy link"
+      },
+      "emailDescription": "Send an invitation by email. The invitee joins once they accept from a matching account.",
+      "linkDescription": "Generate a single-use link anyone can use to join. The link stops working after the first accept.",
+      "temporaryName": "Temporary name (optional)",
+      "temporaryNamePlaceholder": "e.g. Alex's roommate",
+      "friendsDescription": "Invite someone from groups you have shared.",
+      "selectFriendPlaceholder": "Select a friend…",
+      "friendAlreadyMember": "Already a member",
+      "noFriends": "No friends yet. Invite from the Email tab.",
+      "friendAlreadyInvited": "Already invited",
+      "noAccountDescription": "Add someone to expenses without inviting them to Spliit. You can link them to an account later.",
+      "temporaryNameRequired": "Temporary name",
+      "noAccountNameDescription": "Shown in expenses and balances until this participant is linked to an account.",
+      "addParticipant": "Add participant"
+    },
+    "invitations": {
+      "title": "Pending invitations",
+      "description": "Invitations awaiting acceptance.",
+      "empty": "No pending invitations.",
+      "sentOn": "Sent {date}",
+      "revoke": "Revoke",
+      "revokeButton": "Revoke invitation",
+      "revoked": "Invitation revoked.",
+      "created": "Invitation sent to {email}.",
+      "link": {
+        "type": "Single-use link",
+        "fallbackLabel": "Invite link",
+        "anyoneWithLink": "Anyone with the link",
+        "expiresOn": "Link expires {date}",
+        "expired": "Expired"
+      },
+      "email": {
+        "type": "Email invite"
+      },
+      "updatedOn": "Updated {date}"
+    },
+    "leave": {
+      "button": "Leave group",
+      "title": "Leave group?",
+      "description": "You will lose access to this group's expenses, balances, and activity. Past data is kept in the ledger so other members can still see it.",
+      "descriptionOnlyMember": "You are the only active member of this group, so leaving the group this way isn't possible. To get rid of the group entirely, delete it from the settings page.",
+      "onlyMemberHint": "You are the only active member. Use the “Delete group” option in Settings to remove the group.",
+      "lastMemberRedirect": "You can't leave a group where you're the only active member. Delete the group from the settings page instead.",
+      "body": {
+        "otherAdmins": "These admins will keep control after you leave: {names}.",
+        "lastAdmin": {
+          "title": "Choose a new admin",
+          "description": "You are the last admin of this group. Pick an active member to take over before you leave, otherwise no one will be able to manage the group.",
+          "placeholder": "Select a member"
+        },
+        "unsettled": {
+          "title": "You have unsettled balances",
+          "description": "Spliit will create settlement payments for balances involving you before you leave. Other participants’ balances will not change."
+        }
+      },
+      "cancel": "Cancel",
+      "confirm": "Leave group",
+      "confirmWithForce": "Settle and leave",
+      "toast": {
+        "left": "You left the group."
+      },
+      "error": {
+        "lastAdmin": "Choose a member to promote to admin before leaving.",
+        "unsettled": "Settle your balance or confirm forced settlement to leave."
+      }
+    },
+    "unlinked": {
+      "title": "Participants without accounts",
+      "description": "These participants can be included in expenses but cannot access the group. An admin can link them to an account later.",
+      "emailPlaceholder": "account@example.com",
+      "link": "Link to account",
+      "linkSuccess": "Participant linked to account",
+      "idHint": "Ledger participant id: {id}",
+      "linkDialog": {
+        "title": "Link unlinked participant",
+        "description": "Pick the existing member that {displayName} should be linked to. That member must not already have an expense balance with this participant.",
+        "membersGroup": "Members",
+        "cancel": "Cancel",
+        "confirm": "Link",
+        "noCandidates": "No compatible members found. This usually means this unlinked participant has conflicting expense balances with every other member. Import the group again or adjust the expenses first.",
+        "pendingLabel": "pending",
+        "pendingHint": "Linking to a pending invitation merges this name-only entry into the invitee. The invitee keeps their own row; the merged references now resolve through it when they accept.",
+        "membersGroupWithPending": "Members and pending invitations",
+        "pendingGroup": "Pending invites",
+        "pendingSuffix": "(pending)"
+      },
+      "linkButton": "Link",
+      "created": "{name} was added to the group."
+    },
+    "dropdown": {
+      "remove": "Remove",
+      "changeRole": "Change role",
+      "revoke": "Revoke invitation"
+    },
+    "subgroups": {
+      "title": "Subgroups",
+      "description": "Group people who manage trip spending together, such as couples or families. In Balances, each subgroup can be viewed and settled as one unit; expenses and splits remain individual.",
+      "enableAria": "Enable Subgroups",
+      "emptyTitle": "No subgroups yet",
+      "emptyDescription": "Create one for a couple, household, or any people who settle as a unit.",
+      "ungroupedTitle": "Not in a subgroup",
+      "ungroupedDescription": "These members settle individually until they join a subgroup.",
+      "create": "Create subgroup",
+      "edit": "Edit subgroup",
+      "delete": "Delete subgroup",
+      "editAria": "Edit {name}",
+      "deleteAria": "Delete {name}",
+      "disableTitle": "Disable Subgroups?",
+      "disableDescription": "Turning off Subgroups will permanently delete all subgroup definitions from this group.",
+      "disableImpact": "Existing expenses and balances will remain unchanged, but the subgroup settlement option will no longer be available.",
+      "keep": "Keep Subgroups",
+      "disable": "Disable Subgroups",
+      "disabling": "Disabling…",
+      "deleteTitle": "Delete subgroup?",
+      "deleteDescription": "Delete “{name}” from this group?",
+      "deleteImpact": "This removes only the subgroup definition. Existing expenses and balances will remain unchanged.",
+      "cancel": "Cancel",
+      "deleting": "Deleting…",
+      "editorCreateTitle": "Create subgroup",
+      "editorEditTitle": "Edit subgroup",
+      "editorDescription": "Give it a name and choose the people who settle together.",
+      "namePlaceholder": "Subgroup name",
+      "notInTitle": "Not in a subgroup",
+      "inTitle": "In a subgroup",
+      "assignedTo": "in {name}",
+      "pickedCount": "{count} picked · at least 2 required",
+      "saving": "Saving…",
+      "save": "Save subgroup",
+      "validation": "Add a name and at least two participants.",
+      "loadError": "Subgroups could not be loaded.",
+      "disableAria": "Disable Subgroups"
+    },
+    "manage": {
+      "manageButton": "Manage",
+      "title": "Manage invitation",
+      "description": "Changes affect the pending invitation and preserve any expenses recorded for {name}.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "account@example.com",
+      "emailChangeWarning": "The current recipient won't be able to accept this invitation anymore.",
+      "nameLabel": "Display name",
+      "profileNameNote": "Uses their Spliit profile name",
+      "saveChanges": "Save changes",
+      "updateSend": "Update & send",
+      "switchToEmailSend": "Switch & send invitation",
+      "switchToLinkGenerate": "Switch & generate link",
+      "saved": "Changes saved",
+      "cancel": "Cancel",
+      "done": "Done",
+      "regenerateWarning": "The current link will stop working immediately.",
+      "regenerateDescription": "A new link will be generated with a fresh 30-day expiry. The invitation and its expenses are kept.",
+      "linkReadyTitle": "New link ready",
+      "linkReadyDescription": "Share it with the person you want to invite.",
+      "linkReadyWarning": "Copy it now—you won't be able to view it again.",
+      "emailInvalid": "Enter a valid email address.",
+      "linkNotShown": "The invite link is not shown here. Use \"Generate new link\" on the list if you need to share it again.",
+      "switchToLinkNote": "Save to convert this invitation into a link. The email invitation will stop working."
+    },
+    "regenerate": {
+      "title": "Generate new link"
+    },
+    "actionsFor": "Actions for {name}",
+    "readOnlyDescription": "People and participants included in this group. Email addresses and invitation details are hidden.",
+    "splitPresets": {
+      "title": "Split presets",
+      "create": "Create preset",
+      "loading": "Loading split presets…",
+      "empty": "No split presets yet.",
+      "saveError": "Unable to save the split preset.",
+      "deleteError": "Unable to delete the split preset.",
+      "reorderError": "Unable to reorder split presets.",
+      "moveUp": "Move preset up",
+      "moveDown": "Move preset down",
+      "edit": "Edit preset",
+      "delete": "Delete preset",
+      "editorDescription": "Choose the participants and weights to reuse when splitting an expense.",
+      "editTitle": "Edit split preset",
+      "createTitle": "Create split preset",
+      "deleteTitle": "Delete split preset",
+      "deleteDescription": "Delete “{name}”? This cannot be undone.",
+      "namePlaceholder": "Preset name",
+      "valueLabel": "Weight for {name}",
+      "modes": {
+        "EVENLY": "Evenly",
+        "BY_SHARES": "By shares",
+        "BY_PERCENTAGE": "By percentage"
+      },
+      "cancel": "Cancel",
+      "save": "Save preset",
+      "description": "Save payer and participant splits to reuse when creating expenses.",
+      "shared": "Shared with group",
+      "personal": "Only me",
+      "defaults": "Defaults",
+      "defaultsDescription": "Choose which compatible split to use when a new expense starts.",
+      "paidBy": "Paid by",
+      "paidFor": "Paid for",
+      "groupPaidBy": "Group paid by",
+      "groupPaidFor": "Group paid for",
+      "myPaidBy": "My paid by",
+      "myPaidFor": "My paid for",
+      "noPreset": "No preset",
+      "useGroupDefault": "Use group default",
+      "noPresetPersonal": "No preset",
+      "participants": "Participants",
+      "duplicate": "Duplicate preset",
+      "default": "Default preset",
+      "target": "Applies to",
+      "visibility": "Visibility",
+      "name": "Name",
+      "actions": "Preset actions",
+      "myDefault": "My default",
+      "groupDefault": "Group default",
+      "setMyDefault": "Set as my default",
+      "setGroupDefault": "Set as group default",
+      "clearGroupDefault": "Clear group default",
+      "mine": "Mine",
+      "group": "Group",
+      "resetDistribution": "Reset distribution",
+      "selectNone": "Select none",
+      "selectAll": "Select all",
+      "selectPayer": "Select a payer",
+      "preferences": "Preset preferences",
+      "personalFallbacks": "Personal fallback behavior",
+      "noPresetForPaidBy": "No personal preset for Paid by",
+      "noPresetForPaidFor": "No personal preset for Paid for",
+      "removeMyDefault": "Remove {name} as my default",
+      "removeGroupDefault": "Remove {name} as the group default",
+      "namePlaceholderAuto": "Auto-generated: {name}",
+      "autoName": {
+        "paidBySingle": "{name} pays",
+        "paidByEveryone": "Everyone pays equally",
+        "paidByEvenly": "{names} pay equally",
+        "paidForEveryone": "Everyone splits equally",
+        "paidForEvenly": "{names} split equally",
+        "paidByItem": "{name} pays {value}",
+        "paidForItem": "{name} owes {value}",
+        "moreParticipants": "and {formattedCount} others",
+        "share": "shares",
+        "paidByFull": "{name} pays the full amount",
+        "paidForFull": "{name} owes the full amount",
+        "paidByGroup": "{names} pay {value}",
+        "paidForGroup": "{names} owe {value}"
+      },
+      "descriptionVisibility": "Shared with group presets are visible to everyone; Only me presets stay private to your account.",
+      "descriptionDefaults": "Set separate Paid by and Paid for defaults. Admins can choose group defaults, and your personal defaults override them."
+    }
+  },
+  "Activities": {
+    "expense": {
+      "created": "{participant} created expense {title}",
+      "updated": "{participant} updated expense {title}",
+      "deleted": "{participant} deleted expense {title}",
+      "changedFields": {
+        "title": "Title",
+        "amount": "Amount",
+        "date": "Date",
+        "category": "Category",
+        "notes": "Notes",
+        "payers": "Paid by",
+        "split": "Split",
+        "items": "Line items",
+        "documents": "Attachments",
+        "recurrence": "Recurrence",
+        "reimbursement": "Settlement payment",
+        "conversionSource": "Conversion source",
+        "conversionRate": "Conversion rate",
+        "settlement": "Settlement payment"
+      },
+      "changeEmptyValue": "Not set",
+      "recurringCreated": "{participant} created recurring expense “{title}”",
+      "stopped": "{participant} stopped the recurring expense {title}",
+      "commented": "{participant} commented on {title}: “{excerpt}”"
+    },
+    "group": {
+      "updated": "{participant} updated group settings",
+      "archived": "{participant} archived the group",
+      "unarchived": "{participant} unarchived the group",
+      "changedFields": {
+        "name": "Name",
+        "information": "Description",
+        "currency": "Currency",
+        "currencyCode": "Currency code",
+        "linkedParticipant": "Linked participant",
+        "subgroupsEnabled": "Subgroups",
+        "publicViewLink": "Public view-only link"
+      }
+    },
+    "member": {
+      "left": "{participant} left the group",
+      "removed": "{participant} removed {target} from the group",
+      "roleChanged": "{participant} changed {target}'s role from {previousRole} to {nextRole}"
+    },
+    "invitation": {
+      "created": "{participant} invited {target}",
+      "revoked": "{participant} revoked invitation to {target}",
+      "accepted": "{target} accepted the invitation",
+      "declined": "{target} declined the invitation",
+      "updated": "{participant} updated the invitation to {target}",
+      "changedFields": {
+        "deliveryType": "Delivery method",
+        "destination": "Recipient",
+        "displayName": "Name",
+        "role": "Role",
+        "credential": "Invite link"
+      }
+    },
+    "participant": {
+      "removed": "{participant} removed {target} from the group"
+    },
+    "import": {
+      "imported_zero": "{participant} imported {count} expenses",
+      "imported_one": "{participant} imported {count} expense",
+      "imported_two": "{participant} imported {count} expenses",
+      "imported_few": "{participant} imported {count} expenses",
+      "imported_many": "{participant} imported {count} expenses",
+      "imported_other": "{participant} imported {count} expenses"
+    },
+    "fallback": "An activity was recorded",
+    "unknownActor": "Someone",
+    "openExpense": "Open expense"
+  },
+  "OfflineBanner": {
+    "message": "You're offline. Changes you make now won't be saved until you reconnect."
+  },
+  "InstallPromotion": {
+    "title": "Install Spliit Cloud",
+    "description": "Add Spliit Cloud to your home screen — launches like a native app for quicker expense adding and simpler access.",
+    "install": "Install",
+    "remindLater": "Remind me later",
+    "dismiss": "Don't show again",
+    "chrome": {
+      "title": "Install Spliit Cloud",
+      "description": "Add Spliit Cloud to your home screen — launches like a native app for quicker expense adding and simpler access."
+    },
+    "ios": {
+      "title": "Install Spliit Cloud",
+      "description": "Add Spliit Cloud to your home screen for one-tap access.",
+      "step1": "Tap the Share button",
+      "step2": "Scroll down and tap Add to Home Screen",
+      "step3": "Tap Add in the top-right corner"
+    },
+    "firefox": {
+      "title": "Install Spliit Cloud",
+      "description": "Add Spliit Cloud to your home screen from the browser menu.",
+      "step1": "Tap the menu button (⋮) at the top right",
+      "step2": "Tap Install"
+    }
+  },
+  "PushOnboarding": {
+    "title": "Choose how to stay up to date",
+    "description": "Spliit can alert you about group and expense activity as it happens.",
+    "pushBenefit": "Push notifications arrive on this device even when Spliit is not open.",
+    "emailFallback": "Email is available for notifications you choose to receive there; Push-only choices are not rerouted.",
+    "settingsHint": "You can change these choices any time in Settings. Push notifications are enabled separately for each device.",
+    "enable": "Enable push notifications",
+    "enabling": "Enabling…",
+    "useEmail": "Use email",
+    "deniedTitle": "Push notifications are blocked",
+    "deniedDescription": "Your browser blocked notification permission. Notifications configured for Email will continue there; Push-only choices are not rerouted.",
+    "failedTitle": "Push could not be enabled",
+    "failedDescription": "We could not register this device. Notifications configured for Email will continue there; Push-only choices are not rerouted.",
+    "emailUsage": "Only notifications configured for Email will arrive until you enable a device. You can allow notifications in your browser settings and try again from Settings.",
+    "done": "Done"
+  },
+  "Friends": {
+    "title": "Track expenses with a friend",
+    "peerFriendsTab": "Friends list",
+    "peerEmailTab": "Email",
+    "peerLinkTab": "Shareable link",
+    "friendsSection": "Friends",
+    "pendingInvitationsSection": "Pending invitations",
+    "activeFriendExpensesSection": "Active friend expenses",
+    "alreadyInvited": "(already invited)",
+    "alreadyHasLedger": "(already shares expenses with you)",
+    "inviteSent": "Invitation sent. Your friend will be added when they join Spliit Cloud.",
+    "inviteLinkTitle": "Share this link",
+    "inviteLinkDescription": "Share this link so your friend can join your shared expenses.",
+    "copy": "Copy",
+    "share": "Share",
+    "linkHelp": "Generate a shareable link your friend can use to join.",
+    "emailLabel": "Friend's email",
+    "temporaryNameLabel": "Display name",
+    "temporaryNameHelp": "Enter a name for the person you're inviting.",
+    "friendsEmpty": "Add a friend by entering their email or share a link to invite them.",
+    "infoLabel": "Information (optional)",
+    "infoPlaceholder": "Add context like 'Roommate expenses'",
+    "createError": "Could not create friend expenses",
+    "copyInviteLink": "Copy invite link",
+    "copiedInviteLink": "Invite link copied"
+  },
+  "EmptyState": {
+    "title": {
+      "empty": "No {itemLabelPlural} yet",
+      "filtered": "All your {itemLabelPlural} are hidden"
+    },
+    "description": {
+      "empty": "Create your first {itemLabel} to get started."
+    },
+    "labels": {
+      "group": "group",
+      "groupPlural": "groups",
+      "friendLedger": "friend",
+      "friendLedgerPlural": "friends"
+    },
+    "actions": {
+      "createGroup": "Create a group",
+      "createFriendLedger": "Track expenses with a friend",
+      "showHidden": "Show hidden groups"
+    }
+  },
+  "BulkCategorize": {
+    "title": "Bulk categorise",
+    "calibrationTitle": "Step 1 — Calibration",
+    "calibrationDescription": "Each example you confirm helps the AI improve its next suggestions. It may be ready after one round or ask for more examples.",
+    "roundCount": "Round {round} of {max}",
+    "confidence": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "aiWantsMore": "The AI would like a few more examples. Confirm or correct the suggestions below and run another round.",
+    "aiSaidReady": "The AI feels ready. Move to the preview to commit.",
+    "feedbackTableTitle": "Selected expenses",
+    "emptySelection": "No expenses need review right now. Generate the preview to apply categories across all candidates.",
+    "runCalibration": "Run calibration round",
+    "runAnotherRound": "Run another calibration round",
+    "calibrationError": "Could not run calibration: {message}",
+    "generatePreview": "Generate preview",
+    "previewTitle": "Step 2 — Review & save",
+    "previewDescription": "Edit any row, then save. Confidence flags rows the model is least sure about.",
+    "previewHint": "Showing {shown} of {total} candidates.",
+    "removeAction": "Skip",
+    "targetExceedsCap_zero": "There are too many expenses to process ({count}). Narrow the date range or process them in batches.",
+    "targetExceedsCap_one": "Cannot process {count} expense in this batch. Narrow the date range and try again.",
+    "targetExceedsCap_two": "There are too many expenses to process ({count}). Narrow the date range or process them in batches.",
+    "targetExceedsCap_few": "There are too many expenses to process ({count}). Narrow the date range or process them in batches.",
+    "targetExceedsCap_many": "There are too many expenses to process ({count}). Narrow the date range or process them in batches.",
+    "targetExceedsCap_other": "There are too many expenses to process ({count}). Narrow the date range or process them in batches.",
+    "saveAll_zero": "Save {count} changes",
+    "saveAll_one": "Save {count} change",
+    "saveAll_two": "Save {count} changes",
+    "saveAll_few": "Save {count} changes",
+    "saveAll_many": "Save {count} changes",
+    "saveAll_other": "Save {count} changes",
+    "saving": "Saving…",
+    "saved_zero": "{count} expenses were recategorised.",
+    "saved_one": "{count} expense was recategorised.",
+    "saved_two": "{count} expenses were recategorised.",
+    "saved_few": "{count} expenses were recategorised.",
+    "saved_many": "{count} expenses were recategorised.",
+    "saved_other": "{count} expenses were recategorised.",
+    "applyError": "Could not save the bulk category update: {message}",
+    "noCandidates": "No expenses need categorising.",
+    "adminsOnly": "Only group admins can run the bulk categoriser.",
+    "description": "Use the AI to suggest categories for all uncategorised expenses at once.",
+    "backToSettings": "Back to settings",
+    "archived": "This group is archived. The bulk categoriser is unavailable.",
+    "requiresFeatureFlag": "This feature requires PUBLIC_ENABLE_CATEGORY_EXTRACT to be enabled.",
+    "previewError": "Could not generate a preview: {message}",
+    "introTitle": "How it works",
+    "loadingCandidates": "Checking uncategorised expenses…",
+    "introDescription_zero": "There are {count} uncategorised expenses ready for review.",
+    "introDescription_one": "There is {count} uncategorised expense ready for review.",
+    "introDescription_two": "There are {count} uncategorised expenses ready for review.",
+    "introDescription_few": "There are {count} uncategorised expenses ready for review.",
+    "introDescription_many": "There are {count} uncategorised expenses ready for review.",
+    "introDescription_other": "There are {count} uncategorised expenses ready for review.",
+    "introStepLook_zero": "The AI reviews up to {count} expenses to find the most useful examples.",
+    "introStepLook_one": "The AI reviews up to {count} expense to find the most useful example.",
+    "introStepLook_two": "The AI reviews up to {count} expenses to find the most useful examples.",
+    "introStepLook_few": "The AI reviews up to {count} expenses to find the most useful examples.",
+    "introStepLook_many": "The AI reviews up to {count} expenses to find the most useful examples.",
+    "introStepLook_other": "The AI reviews up to {count} expenses to find the most useful examples.",
+    "introStepReview_zero": "You review and correct up to {count} selected examples so the AI learns this group’s categories.",
+    "introStepReview_one": "You review and correct up to {count} selected example so the AI learns this group’s categories.",
+    "introStepReview_two": "You review and correct up to {count} selected examples so the AI learns this group’s categories.",
+    "introStepReview_few": "You review and correct up to {count} selected examples so the AI learns this group’s categories.",
+    "introStepReview_many": "You review and correct up to {count} selected examples so the AI learns this group’s categories.",
+    "introStepReview_other": "You review and correct up to {count} selected examples so the AI learns this group’s categories.",
+    "introStepPreview": "When the AI has enough examples, it prepares a full review and leaves uncertain expenses uncategorised.",
+    "startCalibration": "Start calibration",
+    "calibrationStartHint": "The AI is choosing useful examples for you to review.",
+    "calibrationReady": "The AI has enough feedback to prepare the full review.",
+    "reviewSample": "Review these examples",
+    "calibrationNoSample": "The AI did not need another sample.",
+    "categorizeSample": "Categorise a sample",
+    "submitReviewedExamples": "Submit reviewed examples",
+    "continueToPreview": "Continue to preview",
+    "back": "Back",
+    "backToCalibration": "Back to calibration",
+    "generatingPreview": "Preparing suggestions…",
+    "noSuggestions": "The AI left every expense uncategorised. You can try again after more calibration.",
+    "previewSummary": "The AI suggested categories for {suggested} of {total} expenses.",
+    "leftUncategorized_zero": "{count} expenses were left uncategorised because the AI was not confident enough.",
+    "leftUncategorized_one": "{count} expense was left uncategorised because the AI was not confident enough.",
+    "leftUncategorized_two": "{count} expenses were left uncategorised because the AI was not confident enough.",
+    "leftUncategorized_few": "{count} expenses were left uncategorised because the AI was not confident enough.",
+    "leftUncategorized_many": "{count} expenses were left uncategorised because the AI was not confident enough.",
+    "leftUncategorized_other": "{count} expenses were left uncategorised because the AI was not confident enough.",
+    "retryPreview": "Try preview again",
+    "doneTitle": "Categories saved",
+    "expenseColumn": "Expense",
+    "categoryColumn": "Category",
+    "confidenceColumn": "Confidence"
+  },
+  "ExpensePreview": {
+    "title": "Expense preview",
+    "category": "Category",
+    "date": "Date",
+    "paidBy": "Paid by",
+    "paidFor": "Split between",
+    "yourBalance": "Your balance",
+    "notes": "Notes",
+    "attachments_zero": "Attachments ({count})",
+    "attachments_one": "Attachment ({count})",
+    "attachments_two": "Attachments ({count})",
+    "attachments_few": "Attachments ({count})",
+    "attachments_many": "Attachments ({count})",
+    "attachments_other": "Attachments ({count})",
+    "edit": "Edit expense",
+    "makeCopy": "Make a copy",
+    "commentsTitle": "Comments",
+    "commentsLoading": "Loading comments…",
+    "commentsError": "Comments could not be loaded.",
+    "commentsRetry": "Try again",
+    "commentsEmpty": "No comments yet.",
+    "commentInputLabel": "Add a comment",
+    "commentPlaceholder": "Share a note with the group…",
+    "commentRequired": "Write a comment first.",
+    "commentTooLong": "Comments must be 500 characters or fewer.",
+    "commentSubmitting": "Posting…",
+    "commentDelete": "Delete comment",
+    "commentSend": "Send comment",
+    "openDocument": "Open document"
+  },
+  "Participants": {
+    "search": "Search participants...",
+    "noParticipant": "No participant found"
+  },
+  "Unsubscribe": {
+    "title": "Turn off these emails?",
+    "description": "You’re choosing whether to keep one type of email notification.",
+    "confirm": "Turn off these emails",
+    "submitting": "Unsubscribing…",
+    "cancel": "Keep these emails",
+    "error": "We could not update your email preferences. Please try again.",
+    "loading": "Checking unsubscribe link…",
+    "backHome": "Back to home",
+    "manageSettings": "Review all notification settings",
+    "invalid": {
+      "title": "This link no longer works",
+      "description": "It may have expired. Sign in to review your email and push notification settings."
+    },
+    "success": {
+      "title": "These emails are turned off",
+      "description": "You won’t receive emails for {category}. Your other notification settings haven’t changed."
+    },
+    "scope": "Only this email notification will be turned off. Your other emails and push notifications will stay the same."
+  },
+  "CurrencyConverter": {
+    "trigger": "Currency Conversion",
+    "title": "Currency Conversion",
+    "description": "Convert any amount and create an expense with the source currency.",
+    "swap": "Swap currencies",
+    "rateError": "Could not load exchange rate.",
+    "rateInfo": "1 {from} = {rate} {to}",
+    "createIn": "Create expense in…",
+    "noGroups": "No eligible groups found.",
+    "staleRate": "Using rate from:",
+    "fromLabel": "From",
+    "toLabel": "To",
+    "via": "via {currencies}",
+    "offlineDescription": "Currency conversion needs a connection. Reconnect to convert amounts and create expenses.",
+    "offlineComingSoon": "Full offline support for this feature is high on our priority list and coming soon."
+  },
+  "LanguageSwitcher": {
+    "title": "Choose language",
+    "search": "Search languages...",
+    "noLanguage": "No language found.",
+    "suggested": "Suggested",
+    "popular": "Popular",
+    "americas": "Americas",
+    "asiaPacific": "Asia-Pacific",
+    "europe": "Europe",
+    "middleEastAndNorthAfrica": "Middle East & North Africa"
+  },
+  "OAuth": {
+    "shell": {
+      "label": "Spliit Assistant",
+      "mobileDescription": "AI help, confirmed by you",
+      "title": "Expenses from conversation, confirmed by you.",
+      "previewBullet": "Review an exact, non-editable preview before creation",
+      "authorityBullet": "Your Spliit account remains the authority",
+      "validationBullet": "Existing validation, balances and notifications stay intact"
+    },
+    "consent": {
+      "title": "Connect Spliit to {client}?",
+      "description": "Review the account and access below. You stay in control of every expense creation.",
+      "connectionDetails": "Connection details",
+      "spliitAccount": "Spliit account",
+      "connectingTo": "Connecting to",
+      "assistantVia": "via Spliit Assistant",
+      "defaultClient": "your AI assistant",
+      "defaultUser": "Spliit user",
+      "sessionUnavailable": "Session unavailable. Return and sign in again.",
+      "sharedData": "What will be shared",
+      "identityTitle": "Your Spliit identity",
+      "identityDescription": "Your name and email identify the account being connected. Your password and sign-in method are never shared.",
+      "groupsTitle": "Group and spending context",
+      "groupsDescription": "Group names, participants, saved splits, balances and recent expenses so the assistant can understand your request.",
+      "expensesTitle": "Confirmed expense creation",
+      "expensesDescription": "The assistant may create only the exact expense shown in the preview after you press Create expense.",
+      "privacyTitle": "A quick privacy note",
+      "privacyDescription": "Financial group details can be sensitive. They become available to {client} while connected, but the assistant cannot edit or delete expenses and cannot create one without your preview confirmation.",
+      "authorityNote": "Spliit remains the source of truth. Existing validation, balances, activity history and notifications still apply.",
+      "allow": "Allow and connect",
+      "cancel": "Cancel",
+      "missingRequest": "The authorization request is missing. Return to your assistant."
+    },
+    "login": {
+      "missingTitle": "Authorization request missing",
+      "missingDescription": "Return to your assistant and start the connection again.",
+      "missingError": "Spliit did not receive the OAuth authorization details.",
+      "connectingTitle": "Connecting your account",
+      "connectingDescription": "Your existing Spliit Cloud session was found. No additional sign-in is required.",
+      "checkingSession": "Checking your Spliit session…",
+      "continuing": "Continuing securely…",
+      "signInTitle": "Sign in to connect",
+      "signInDescription": "Use your usual Spliit Cloud sign-in method. Your assistant never supplies the account identity used for expenses."
+    }
+  },
+  "TimeZoneSelector": {
+    "search": "Search timezones or cities",
+    "noTimeZone": "No timezone found.",
+    "title": "Choose timezone"
+  },
+  "TimeZoneMismatch": {
+    "title": "Update your timezone?",
+    "description": "Your account uses {accountTimeZone}, but this device is set to {browserTimeZone}.",
+    "impact": "Updating changes how timestamps and relative dates are shown and is used for new recurring expenses. Existing recurring schedules keep their original timezone.",
+    "saveError": "Could not update your timezone. Please try again.",
+    "keep": "Keep {timeZone}",
+    "update": "Update to {timeZone}"
+  },
+  "Budgets": {
+    "title": "Budgets",
+    "detailTitle": "Budget",
+    "description": "Track group spending against shared limits.",
+    "create": "Create budget",
+    "new": "New",
+    "edit": "Edit",
+    "archive": "Archive",
+    "delete": "Delete",
+    "deleting": "Deleting…",
+    "save": "Save budget",
+    "cancel": "Cancel",
+    "saving": "Saving…",
+    "created": "Budget created",
+    "updated": "Budget updated",
+    "archivedSuccess": "Budget archived",
+    "backToBudgets": "Back to budgets",
+    "status": {
+      "over": "Over budget",
+      "trending": "Trending over",
+      "onTrack": "On track",
+      "archived": "Archived",
+      "scheduled": "Scheduled",
+      "completed": "Completed"
+    },
+    "daysRemaining_one": "{count} day remaining",
+    "daysRemaining_other": "{count} days remaining",
+    "ofLimit": "of {amount}",
+    "overBy": "{amount} over",
+    "remaining": "{amount} remaining",
+    "projected": "Projected {amount}",
+    "progressLabel": "{percentage}% of the budget used",
+    "paceTick": "{percent}% expected by now",
+    "categoriesScope": "Categories: {scope}",
+    "all": "All",
+    "selected": "Selected",
+    "viewDetails": "View details",
+    "allCategories": "All categories",
+    "selectedCategories": "Selected categories",
+    "allParticipants": "All participants",
+    "selectedParticipants": "Selected participants",
+    "archived": "Archived budgets",
+    "empty": {
+      "title": "No budgets yet",
+      "description": "Create a shared budget to track spending for the whole group or selected participants."
+    },
+    "matchingExpenses": "Matching expenses",
+    "matchingExpensesDescription": "Expenses that contribute to this budget in the current period.",
+    "noMatchingExpenses": "No matching expenses in this period.",
+    "upcoming": "Upcoming expenses",
+    "upcomingDescription": "Future-dated expenses in this period. Status and trend exclude these so you don't get a false 'trending over' alert.",
+    "noUpcoming": "No future-dated expenses in this period.",
+    "upcomingTotal": "Upcoming total: {amount}",
+    "committedSubline": "+ {amount} committed",
+    "history": "Period history",
+    "historyDescription": "Earlier periods are recalculated using this budget's current limit and scope.",
+    "noHistory": "No completed periods yet.",
+    "deleteDescription": "Permanently delete this budget and its alert history. Group expenses will not be affected.",
+    "validation": "Complete all required budget fields.",
+    "form": {
+      "description": "Set the limit, period, categories, and participants this budget tracks.",
+      "notAllowed": "Only group admins can manage budgets.",
+      "name": "Budget name",
+      "namePlaceholder": "For example, household groceries",
+      "amount": "Amount",
+      "period": "Period",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "categories": "Categories",
+      "participants": "Participants",
+      "chooseCategories": "Choose categories",
+      "chooseParticipants": "Choose participants",
+      "notifications": "Notifications",
+      "notifyTrending": "Trending over budget",
+      "notifyTrendingDescription": "Alert selected members when projected spending exceeds the limit after 20% of the period.",
+      "notifyOver": "Over budget",
+      "notifyOverDescription": "Alert selected members when actual spending first exceeds the limit.",
+      "periodHint": "Current period: {range}",
+      "categoryScopeHint": "Selecting a parent includes the parent category and all of its subcategories.",
+      "participantScopeHint": "Only the shares owed by selected participants count toward this budget.",
+      "overlapHint": "An expense can count toward more than one budget when their scopes overlap.",
+      "notificationRecipients": "Alerts go to account members included in the participant scope who have budget notifications enabled.",
+      "allSubcategories": "all subcategories"
+    },
+    "period": {
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "custom": "Custom range"
+    },
+    "daysRemaining_zero": "{count} days remaining",
+    "daysRemaining_two": "{count} days remaining",
+    "daysRemaining_few": "{count} days remaining",
+    "daysRemaining_many": "{count} days remaining",
+    "unarchivedSuccess": "Budget unarchived",
+    "notificationsOff": "No alerts enabled",
+    "createCard": {
+      "title": "Create a budget",
+      "description": "Set a spending limit and get alerted before you overspend."
+    },
+    "chart": {
+      "heading": "Spend so far",
+      "sectionLabel": "Cumulative spend chart",
+      "legendSpent": "Spent",
+      "legendPace": "On pace",
+      "legendCommitted": "Committed",
+      "limitLine": "Limit",
+      "srSummary": "Spent {spent} of {limit}; committed {committed}."
+    },
+    "usedTooltip": "Used {used} of {limit}",
+    "paceTooltip": "Expected pace: day {elapsed} of {total}",
+    "scope": "Scope",
+    "remove": "Remove",
+    "retry": "Try again",
+    "completedBudgets": "Completed budgets",
+    "completed": "Completed",
+    "validationName": "Add a budget name.",
+    "validationAmount": "Enter an amount greater than zero.",
+    "validationDates": "Choose a valid start and end date.",
+    "validationCategories": "Select at least one category.",
+    "validationParticipants": "Select at least one participant.",
+    "startsIn": "Starts in {count} days",
+    "startsToday": "Starts today",
+    "moreExpenses": "{count} additional expenses are included in this total.",
+    "moreUpcomingExpenses": "{count} additional upcoming expenses are included in the committed total."
+  },
+  "AIExpense": {
+    "title": "Review AI expense",
+    "description": "Check what Spliit understood before adding this expense.",
+    "created": "Expense created.",
+    "createError": "Could not create the expense.",
+    "missing": "Not detected",
+    "group": "Group",
+    "expenseTitle": "Title",
+    "amount": "Amount",
+    "date": "Date",
+    "category": "Category",
+    "split": "Split",
+    "namedParticipants": "Evenly split among {count} named participants",
+    "defaultDate": "Today",
+    "defaultCategory": "General",
+    "defaultSplit": "Evenly across current participants",
+    "items": "Items",
+    "checkDetails": "Check these details",
+    "edit": "Edit details",
+    "completeDetails": "Complete details",
+    "create": "Create expense",
+    "creating": "Creating…",
+    "voiceAction": "Voice expense",
+    "voiceTitle": "Describe an expense",
+    "voiceDescription": "Say the expense naturally. Missing details can be completed in the full form.",
+    "processingError": "Could not understand that recording. Please try again.",
+    "audioError": "Could not prepare that recording. Please try again.",
+    "microphoneError": "Microphone access is unavailable. Check your browser permission and try again.",
+    "recording": "Listening…",
+    "stop": "Stop",
+    "record": "Record",
+    "processing": "Processing…",
+    "noTranscript": "No transcript returned",
+    "recordAgain": "Record again",
+    "receiptAction": "Scan receipt",
+    "closeActions": "Close expense actions",
+    "openActions": "Open expense actions",
+    "issues": {
+      "missingTitle": "Add a title before creating the expense.",
+      "missingAmount": "Add an amount before creating the expense.",
+      "invalidDate": "Choose a valid date in the full expense form.",
+      "unsupportedCurrency": "The spoken currency is not supported; choose one in the full expense form."
+    },
+    "addExpenseAction": "Add expense"
+  },
+  "Feedback": {
+    "navigationLabel": "Feedback",
+    "title": "Help shape Spliit Cloud",
+    "description": "Report a problem, suggest an improvement, or tell us about your experience. Choose a category to continue on GitHub.",
+    "categoriesLabel": "Feedback categories",
+    "categories": {
+      "bug": {
+        "title": "Report a bug",
+        "description": "Tell us about broken or unexpected behavior and include clear reproduction steps.",
+        "action": "Open bug report"
+      },
+      "idea": {
+        "title": "Suggest an idea",
+        "description": "Describe a problem worth solving or an improvement that would make Spliit more useful.",
+        "action": "Open idea form"
+      },
+      "feedback": {
+        "title": "Share feedback",
+        "description": "Tell us what feels helpful, difficult, confusing, or especially well designed.",
+        "action": "Open feedback form"
+      }
+    },
+    "githubNotice": {
+      "title": "Reports are public on GitHub",
+      "description": "You need a GitHub account to submit. You can review and edit everything before the issue is published."
+    },
+    "privacy": {
+      "title": "Protect your privacy",
+      "description": "Remove names, email addresses, amounts, receipts, group links, invitation tokens, and other private data before submitting."
+    },
+    "diagnostics": {
+      "title": "Safe diagnostics",
+      "description": "Copy this technical context into a bug report if it is relevant. It excludes account data, form contents, URL identifiers, query strings, and invitation tokens.",
+      "copy": "Copy diagnostics",
+      "copied": "Copied",
+      "copyFailed": "Clipboard access failed. Select and copy the diagnostics manually."
+    }
+  },
+  "ExpenseReport": {
+    "title": "Expense report",
+    "generatedOnLabel": "Generated on",
+    "periodLabel": "Selected period",
+    "balanceAsOfLabel": "Balance as of",
+    "totalSpentLabel": "Total spent",
+    "expensesCountLabel": "Expenses",
+    "participantsCountLabel": "Participants",
+    "participantsSectionLabel": "Participant summary",
+    "settlementsSectionLabel": "Suggested settlements",
+    "expensesSectionLabel": "Expense details",
+    "amountColumnLabel": "Amount",
+    "participantColumnLabel": "Participant",
+    "paidColumnLabel": "Paid",
+    "shareColumnLabel": "Share",
+    "balanceColumnLabel": "Balance",
+    "dateColumnLabel": "Date",
+    "fromColumnLabel": "From",
+    "toColumnLabel": "To",
+    "splitLabel": "Split",
+    "noExpensesLabel": "No expenses in the selected period.",
+    "noParticipantsLabel": "No participants with activity in the selected period.",
+    "noSettlementsLabel": "Everything is settled as of the end date.",
+    "originalAmountLabel": "Original amount",
+    "expenseColumnLabel": "Expense",
+    "categoryColumnLabel": "Category",
+    "recordedSettlementsSectionLabel": "Recorded settlements",
+    "noRecordedSettlementsLabel": "No settlements recorded through the end date."
+  },
+  "CurrencyRateProviders": {
+    "frankfurter": "Frankfurter",
+    "coinbase": "Coinbase",
+    "direct": {
+      "frankfurter": "Rate from <provider></provider>",
+      "coinbase": "Rate from <provider></provider>"
+    },
+    "bridged": "via {currencies} (<providers></providers>)",
+    "fallbackPrefix": "Rates from",
+    "fallbackSeparator": " and "
+  },
+  "DatePicker": {
+    "presets": {
+      "yesterday": "Yesterday",
+      "today": "Today",
+      "tomorrow": "Tomorrow"
+    }
+  },
+  "Mascot": {
+    "openActions": "Open actions with Bill",
+    "closeActions": "Close Bill's actions",
+    "greetBill": "Say hello to Bill",
+    "settingsAction": "Mascot settings",
+    "noActionMessage": "Nothing I can help with here right now.",
+    "noActionSettings": "Mascot settings",
+    "landingGreeting": "Hi — I help split expenses once you sign in.",
+    "hintReceiptVoice": "I can fill an expense from a receipt or a voice note.",
+    "hintSettle": "Balances is where we settle up.",
+    "hintSettings": "You can change or turn me off in mascot settings.",
+    "resetPosition": "Reset position",
+    "landingHintSplit": "Split a dinner, a trip, or the rent — I’ll do the maths.",
+    "landingHintSettle": "When you’re ready to settle up, I’ll cheer you on.",
+    "landingHintTap": "Tap me anytime. I don’t bite — I’m a receipt.",
+    "hintTapToAddExpense": "I'm {name} — tap me to add an expense.",
+    "hintTapToCreateGroup": "I'm {name} — tap me to create a group.",
+    "billName": "Bill",
+    "offlineMessage": "I can't create anything while you're offline."
+  },
+  "CreateSettlement": {
+    "description": "Review the payment before recording it.",
+    "pays": "{from} pays {to}",
+    "amount": "Amount",
+    "date": "Date",
+    "category": "Category",
+    "create": "Create",
+    "edit": "Edit details",
+    "creating": "Creating…",
+    "successToast": "Settlement payment recorded",
+    "successToastMultiple": "Recorded {count} settlement payments as one entry",
+    "paysMany": "{from} pays {count} people",
+    "receivesMany": "{to} receives {count} payments",
+    "paymentsToInclude": "Payments to include",
+    "selectionSummary": "{count} payments selected, totaling {total}",
+    "legToAria": "{from} pays {to}, {amount}",
+    "legFromAria": "{from} pays {to}, {amount}",
+    "toParticipant": "to {name}",
+    "fromParticipant": "from {name}",
+    "createSingle": "Record payment",
+    "createMultiple": "Record {count} payments"
+  },
+  "AnonymousAccount": {
+    "signup": {
+      "title": "Anonymous account",
+      "description": "Create a new anonymous account or use a saved sign in link.",
+      "warning": "Use Spliit without email, password, or social sign-in. Before you start, you will need to save a permanent sign in link.",
+      "cancel": "Cancel",
+      "recoverDescription": "Paste your complete saved sign in link to access it.",
+      "recoveryOnlyHelp": "New anonymous accounts are not available here. Paste your complete saved sign in link to continue.",
+      "recover": "Sign in to anonymous account",
+      "create": "Create anonymous account",
+      "createError": "The anonymous account could not be created. Please try again.",
+      "recoverError": "This sign in link is invalid. Check the complete link and try again.",
+      "recoveryLinkRequiredLabel": "Sign in link",
+      "createTitle": "Create a new account",
+      "or": "OR",
+      "recoverTitle": "Already have an anonymous account?"
+    },
+    "onboarding": {
+      "title": "Save your sign in link",
+      "description": "This is the only way to get back into your anonymous account after signing out, clearing browser data, or moving to another device.",
+      "unavailableTitle": "Your sign in link cannot be displayed",
+      "unavailableDescription": "Generate a replacement link explicitly, then save it before continuing.",
+      "generateReplacement": "Generate replacement link",
+      "error": "Something went wrong. Please try again.",
+      "start": "Start using Spliit"
+    },
+    "recovery": {
+      "warningTitle": "Save this somewhere safe",
+      "warning": "This link never expires or changes unless you replace it. Anyone who has it can access your anonymous account.",
+      "storedDataNote": "Anonymous means the account is not connected to a sign-in identity. Your account data is still stored in Spliit Cloud.",
+      "linkLabel": "Sign in link",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "howItWorks": "Open the sign in link in any browser to access your account. In the installed PWA, choose Anonymous and paste the complete sign in link.",
+      "confirmation": "I copied and safely stored my sign in link.",
+      "copyFailed": "Copy failed. Select the sign in link and copy it manually."
+    },
+    "recover": {
+      "title": "Sign in to anonymous account",
+      "description": "Open your saved sign in link or paste the complete link below.",
+      "howItWorks": "A sign in link gives access to your account when opened in a browser. In the installed PWA, choose Anonymous and paste the complete saved link.",
+      "recovering": "Signing in to your account…",
+      "invalid": "This sign in link is invalid. Check the complete link and try again.",
+      "anonymousAccount": "anonymous account",
+      "switchTitle": "Switch accounts?",
+      "switchDescription": "You are already signed in. Continue to switch this browser to {name}.",
+      "switchConfirm": "Switch and sign in",
+      "submit": "Sign in",
+      "back": "Back to sign in",
+      "linkLabel": "Sign in link"
+    },
+    "settings": {
+      "recoveryTitle": "Sign in link",
+      "recoveryDescription": "This anonymous account can only be accessed with your saved link. Open it in a browser, or choose Anonymous and paste the complete link in the installed PWA. The current link cannot be shown again.",
+      "replace": "Replace sign in link",
+      "replaceTitle": "Replace your sign in link?",
+      "replaceDescription": "Generate a replacement link to review and save. Your current sign in link keeps working until you activate the replacement.",
+      "cancel": "Cancel",
+      "replaceConfirm": "Generate replacement link",
+      "error": "The sign in link could not be replaced. Please try again.",
+      "activateDescription": "Save the replacement link before activating it.",
+      "stagedDescription": "Your current sign in link keeps working until you activate this replacement. Closing or refreshing discards the replacement.",
+      "activateConfirm": "Activate replacement",
+      "replacementActivated": "Your replacement sign in link is now active."
+    }
+  },
+  "GroupViewLink": {
+    "title": "Public View-only link",
+    "description": "Let anyone with this link view the group without signing in.",
+    "warning": "This link provides view-only access to everything in the group. Share it only with people you trust.",
+    "linkLabel": "Public View-only link",
+    "copy": "Copy Public View-only link",
+    "copied": "Public View-only link copied",
+    "enable": "Enable public link",
+    "cancel": "Cancel",
+    "enabledStatus": "Anyone with this link can view the group.",
+    "replace": "Replace link",
+    "remove": "Remove public link",
+    "replaceDialogTitle": "Replace Public View-only link?",
+    "replaceDialogDescription": "The previous link will stop working immediately. Anyone who had it will lose view-only access.",
+    "replaceConfirm": "Replace link",
+    "removeDialogTitle": "Remove Public View-only link?",
+    "removeDialogDescription": "The current link will stop working immediately. Anyone who had it will lose view-only access.",
+    "removeConfirm": "Remove link",
+    "enableSuccess": "Public View-only link created",
+    "replaceSuccess": "Public View-only link replaced. The previous link no longer works.",
+    "removeSuccess": "Public View-only link removed"
+  },
+  "OfflineEmptyState": {
+    "title": "You're offline",
+    "description": "This screen needs a connection. Reconnect to load your groups and expenses.",
+    "retry": "Try again"
+  },
+  "PwaUpdate": {
+    "title": "New version available",
+    "description": "Updating is strongly recommended because this version may no longer work correctly.",
+    "unsavedWarning": "Restarting will discard unsaved changes in this window.",
+    "nextLaunchNote": "If you choose Later, the update will be applied automatically the next time you launch Spliit.",
+    "restartFailed": "Spliit couldn't restart. Close other app windows and try again.",
+    "later": "Later",
+    "restartNow": "Restart now",
+    "restarting": "Restarting…",
+    "otherClientsCountWarning": "Other open Spliit tabs or windows detected: {count}. Close them to protect unsaved work, or restart all anyway.",
+    "clientCheckFailed": "Spliit couldn't verify whether other tabs or windows are open. Retry, or restart all anyway.",
+    "checkingOtherClients": "Checking other tabs…",
+    "restartAllAnyway": "Restart all anyway",
+    "forceTitle": "Restart every Spliit window?",
+    "forceDescription": "Every open Spliit tab and window will reload. Any unsaved changes in them will be lost.",
+    "cancel": "Cancel",
+    "restartAll": "Restart all"
+  }
+}

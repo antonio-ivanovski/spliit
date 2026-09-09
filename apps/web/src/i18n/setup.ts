@@ -50,8 +50,8 @@ export async function loadLocale(locale: Locale) {
  * Match a browser locale tag to the closest locale supported by Spliit.
  *
  * Browser preferences commonly include a region that differs from the
- * translation bundle (for example en-GB or fr-CA), so exact matching alone is
- * not sufficient.
+ * translation bundle (for example fr-CA), so exact matching alone is not
+ * sufficient.
  */
 export function matchSupportedLocale(localeTag: string): Locale | undefined {
   let browserLocale: Intl.Locale
