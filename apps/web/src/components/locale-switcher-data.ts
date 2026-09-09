@@ -64,6 +64,7 @@ export const localeRegions = {
   ca: 'europe',
   'cs-CZ': 'europe',
   'de-DE': 'europe',
+  'en-GB': 'europe',
   'en-US': 'americas',
   es: 'europe',
   eu: 'europe',
