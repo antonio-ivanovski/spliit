@@ -4,7 +4,7 @@ import { dirname } from 'node:path'
 import { isAbsolute, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { type Locale } from '../../../packages/domain/src/i18n.ts'
+import { type Locale } from '../../../packages/domain/src/i18n'
 import { nonEnLocales } from './families'
 
 export const GUIDES_DIR = 'scripts/i18n/guides'

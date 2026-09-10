@@ -4,7 +4,7 @@ import { join } from 'node:path'
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
-import { locales } from '../../../packages/domain/src/i18n.ts'
+import { locales } from '../../../packages/domain/src/i18n'
 import {
   LOCALE_TO_FILE,
   addString,
@@ -13,6 +13,7 @@ import {
   flattenKeys,
   getAt,
   getMessagesDir,
+  isSparseLocale,
   missingKeys,
   missingKeysByLocale,
   removeAt,
@@ -22,7 +23,7 @@ import {
   setMessagesDir,
   setString,
   validateAllMessages,
-} from './lib.ts'
+} from './lib'
 
 let dir: string
 
@@ -488,6 +489,7 @@ describe('diffMessages', () => {
     expect(result.translationWork['ja-JP']).toEqual({
       missing: [],
       present: [],
+      covered: [],
     })
   })
 
@@ -690,10 +692,15 @@ describe('auditMessages', () => {
     // is legacy debt and must not appear in changesOnly output.
     expect(result.locales['fr-FR'].missingKeys).toEqual(['brandNew'])
     expect(result.locales['fr-FR'].missing).toBe(1)
-    // Every locale that lacks the introduced key is flagged once for it;
-    // no locale should be flagged for legacy debt ("pre", "kept").
+    // Every full locale that lacks the introduced key is flagged once for
+    // it; no locale should be flagged for legacy debt ("pre", "kept").
+    // Sparse overlays (en-GB, pt-BR) inherit the key — nothing to flag.
     for (const audit of Object.values(result.locales)) {
-      expect(audit.missingKeys).toEqual(['brandNew'])
+      if (isSparseLocale(audit.locale)) {
+        expect(audit.missingKeys).toEqual([])
+      } else {
+        expect(audit.missingKeys).toEqual(['brandNew'])
+      }
     }
   })
 

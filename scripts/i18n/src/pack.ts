@@ -1,4 +1,5 @@
-import { type Locale } from '../../../packages/domain/src/i18n.ts'
+import { type Locale } from '../../../packages/domain/src/i18n'
+import { fallbackChain, isSparseLocale, parentRefLocales } from './fallbacks'
 import { readGitBlob, readMessagesFile } from './fs-helpers'
 import { getGuidePaths, type GuidePaths } from './guides'
 import { expectedKeysForLocale } from './message-validation'
@@ -152,6 +153,12 @@ export async function packMessages(opts: PackOptions): Promise<PackResult> {
   const explicitRefs = (opts.refs ?? []).filter(
     (l) => !targetLocales.includes(l),
   )
+  // Sparse overlays inherit from their parent bundle(s): surface the parent
+  // values as refs automatically (en-US is already shown as `en`).
+  const autoRefs = [...new Set(targetLocales.flatMap(parentRefLocales))].filter(
+    (l) => !targetLocales.includes(l) && !explicitRefs.includes(l as Locale),
+  ) as Locale[]
+  const allRefs = [...explicitRefs, ...autoRefs]
   const offset = opts.offset ?? 0
   const limit = opts.limit ?? null
 
@@ -165,7 +172,7 @@ export async function packMessages(opts: PackOptions): Promise<PackResult> {
   )
   const externalRefDatas = new Map<Locale, Record<string, unknown>>()
   await Promise.all(
-    explicitRefs.map(async (locale) => {
+    allRefs.map(async (locale) => {
       externalRefDatas.set(locale, await readMessagesFile(locale))
     }),
   )
@@ -176,6 +183,34 @@ export async function packMessages(opts: PackOptions): Promise<PackResult> {
       : { all: [] as string[], modified: new Set<string>() }
   const staleKeys = intro.modified
 
+  // Fallback ancestors of sparse targets: keys inherited from them need no
+  // work in the overlay locale.
+  const sparseChainMembers = [
+    ...new Set(
+      targetLocales.flatMap((locale) =>
+        isSparseLocale(locale) ? fallbackChain(locale) : [],
+      ),
+    ),
+  ].filter((l) => !targetLocales.includes(l))
+  const ancestorDatas = new Map<Locale, Record<string, unknown>>()
+  await Promise.all(
+    sparseChainMembers.map(async (locale) => {
+      ancestorDatas.set(locale, await readMessagesFile(locale))
+    }),
+  )
+  const coveredByLocale = new Map<Locale, Set<string>>()
+  for (const locale of targetLocales) {
+    if (!isSparseLocale(locale)) continue
+    const covered = new Set(flattenKeys(localeDatas.get(locale)!))
+    for (const ancestor of fallbackChain(locale)) {
+      const data = ancestorDatas.get(ancestor) ?? localeDatas.get(ancestor)
+      if (data) {
+        for (const key of flattenKeys(data)) covered.add(key)
+      }
+    }
+    coveredByLocale.set(locale, covered)
+  }
+
   let candidateKeys: string[]
   if (opts.keys && opts.keys.length > 0) {
     candidateKeys = [...new Set(opts.keys)].sort()
@@ -183,30 +218,38 @@ export async function packMessages(opts: PackOptions): Promise<PackResult> {
     candidateKeys = intro.all
   } else if (!multi) {
     const data = localeDatas.get(primary)!
-    const present = new Set(flattenKeys(data))
+    const uncovered = (coveredByLocale.get(primary) ??
+      new Set(flattenKeys(data))) as Set<string>
     candidateKeys = expectedKeysForLocale(enKeys, primary).filter(
-      (k) => !present.has(k),
+      (k) => !uncovered.has(k),
     )
   } else {
     // Multi without --keys/--changes-only: union of missing across targets
     const keySet = new Set<string>()
     for (const locale of targetLocales) {
       const data = localeDatas.get(locale)!
-      const present = new Set(flattenKeys(data))
+      const uncovered = (coveredByLocale.get(locale) ??
+        new Set(flattenKeys(data))) as Set<string>
       for (const key of expectedKeysForLocale(enKeys, locale)) {
-        if (!present.has(key)) keySet.add(key)
+        if (!uncovered.has(key)) keySet.add(key)
       }
     }
     candidateKeys = [...keySet].sort()
   }
 
-  // Keep keys that need work in at least one target locale
+  // Keep keys that need work in at least one target locale.
+  // In explicit modes (--keys/--changes-only) inherited keys are kept for
+  // review (marked ok below); in missing-queue modes they are not work.
+  const explicitMode = (opts.keys?.length ?? 0) > 0 || opts.changesOnly || false
   const workKeys = candidateKeys.filter((key) =>
     targetLocales.some((locale) => {
       const data = localeDatas.get(locale)!
       const expected = new Set(expectedKeysForLocale(enKeys, locale))
       if (!expected.has(key)) return false
       const present = typeof getAt(data, key) === 'string'
+      if (!present && coveredByLocale.get(locale)?.has(key)) {
+        return explicitMode
+      }
       const status = statusFor(key, present, staleKeys)
       return status !== 'ok'
     }),
@@ -244,8 +287,12 @@ export async function packMessages(opts: PackOptions): Promise<PackResult> {
         const v = getAt(refData, key)
         values[refLocale] = typeof v === 'string' ? v : null
       }
+      // Inherited keys surface for review in explicit modes: nothing is
+      // stored (current null) and the parent value is visible in values.
+      const inherited =
+        current === null && coveredByLocale.get(locale)?.has(key) === true
       byLocale[locale] = {
-        status: statusFor(key, current !== null, staleKeys),
+        status: inherited ? 'ok' : statusFor(key, current !== null, staleKeys),
         current,
         neighbors: pickNeighbors(data, key),
         values,
@@ -271,7 +318,7 @@ export async function packMessages(opts: PackOptions): Promise<PackResult> {
     locales: targetLocales,
     guidePaths,
     ref,
-    refs: explicitRefs,
+    refs: allRefs,
     changesOnly: !!opts.changesOnly,
     total,
     offset,

@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "check-formatting": "oxfmt --check .",
+    "check-types": "tsc --noEmit",
     "cli": "bun src/cli.ts",
     "format": "oxfmt .",
     "lint": "oxlint -c ../../.oxlintrc.json --format=unix --report-unused-disable-directives .",

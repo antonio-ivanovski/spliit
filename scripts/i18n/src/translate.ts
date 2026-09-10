@@ -1,8 +1,14 @@
-import { locales, type Locale } from '../../../packages/domain/src/i18n.ts'
+import { locales, type Locale } from '../../../packages/domain/src/i18n'
 import {
   classifyEnglishIdentity,
   englishIdentityError,
 } from './english-identity'
+import {
+  findFallbackSource,
+  isSparseLocale,
+  readChainDatas,
+  type ChainData,
+} from './fallbacks'
 import { readMessagesFile, writeMessagesFile } from './fs-helpers'
 import { expectedKeysForLocale } from './message-validation'
 import {
@@ -38,10 +44,26 @@ function assertTranslationAllowed(
   value: string,
   enValue: unknown,
   allowEnglish: boolean,
+  chain?: ChainData | null,
 ): 'ok' | 'allow-english' {
   if (locale === 'en-US') return 'ok'
   if (typeof enValue !== 'string') {
     throw new Error(`key "${path}" does not exist in en-US`)
+  }
+  // Single-hop overlays on en-US (e.g. en-GB) inherit everything by
+  // default: storing an inherited value is dead weight — omit the key
+  // instead. Checked before the English-identity gate so en-GB gets the
+  // right advice ("omit") instead of "translate it".
+  // Multi-hop overlays (e.g. pt-BR → pt) may legitimately pin a parent
+  // value that differs from English, so only the English gate applies.
+  if (chain && chain[1]?.locale === 'en-US') {
+    const inherited = findFallbackSource(chain, path)
+    if (inherited && inherited.value === value) {
+      throw new Error(
+        `refusing to set ${path} in ${locale} to its inherited value from ${inherited.locale}. ` +
+          `Omit this key to inherit it — only set keys that genuinely differ.`,
+      )
+    }
   }
   const identity = classifyEnglishIdentity(enValue, value, { allowEnglish })
   if (identity.identical && !identity.allowed) {
@@ -59,9 +81,14 @@ export async function setString(
   value: string,
   opts: SetStringOptions = {},
 ): Promise<SetStringsResult> {
-  const pathStr = Array.isArray(path) ? path.join('.') : path
-  const data = await readMessagesFile(locale)
-  const enData = locale === 'en-US' ? data : await readMessagesFile('en-US')
+  const pathStr = typeof path === 'string' ? path : path.join('.')
+  const chain = isSparseLocale(locale) ? await readChainDatas(locale) : null
+  const data = chain ? chain[0].data : await readMessagesFile(locale)
+  const enData =
+    locale === 'en-US'
+      ? data
+      : (chain?.find((entry) => entry.locale === 'en-US')?.data ??
+        (await readMessagesFile('en-US')))
   const enValue = getAt(enData, path)
   const flag = assertTranslationAllowed(
     locale,
@@ -69,6 +96,7 @@ export async function setString(
     value,
     enValue,
     !!opts.allowEnglish,
+    chain,
   )
 
   if (opts.dryRun) {
@@ -102,8 +130,13 @@ export async function setStrings(
     return { count: 0, allowEnglishKeys: [], dryRun: !!opts.dryRun }
   }
 
-  const data = await readMessagesFile(locale)
-  const enData = locale === 'en-US' ? data : await readMessagesFile('en-US')
+  const chain = isSparseLocale(locale) ? await readChainDatas(locale) : null
+  const data = chain ? chain[0].data : await readMessagesFile(locale)
+  const enData =
+    locale === 'en-US'
+      ? data
+      : (chain?.find((entry) => entry.locale === 'en-US')?.data ??
+        (await readMessagesFile('en-US')))
   const allowEnglishKeys: string[] = []
 
   for (const path of paths) {
@@ -118,6 +151,7 @@ export async function setStrings(
       value,
       enValue,
       !!opts.allowEnglish,
+      chain,
     )
     if (flag === 'allow-english') allowEnglishKeys.push(path)
   }
@@ -160,5 +194,15 @@ export async function missingKeys(
   ])
   const sourceKeys = expectedKeysForLocale(flattenKeys(sourceData), target)
   const targetKeys = new Set(flattenKeys(targetData))
+  if (isSparseLocale(target)) {
+    const chain = await readChainDatas(target)
+    const inherited = new Set<string>()
+    for (const { data } of chain.slice(1)) {
+      for (const key of flattenKeys(data)) inherited.add(key)
+    }
+    return sourceKeys
+      .filter((k) => !targetKeys.has(k) && !inherited.has(k))
+      .sort()
+  }
   return sourceKeys.filter((k) => !targetKeys.has(k)).sort()
 }

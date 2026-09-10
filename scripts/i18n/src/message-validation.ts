@@ -1,4 +1,4 @@
-import { type Locale } from '../../../packages/domain/src/i18n.ts'
+import { type Locale } from '../../../packages/domain/src/i18n'
 import { flattenKeys, getAt } from './object-path'
 
 export const PLURAL_SUFFIXES = [
@@ -189,6 +189,12 @@ export function validateMessageData(
   data: Record<string, unknown>,
   sourceData: Record<string, unknown>,
   sourceKeys: readonly string[],
+  /**
+   * Keys inherited from a fallback ancestor (sparse overlays only). A missing
+   * plural form covered by the parent bundle is not an error — it resolves at
+   * runtime.
+   */
+  coveredKeys: ReadonlySet<string> = new Set(),
 ): string[] {
   const errors: string[] = []
   if (data === null || typeof data !== 'object' || Array.isArray(data)) {
@@ -263,7 +269,9 @@ export function validateMessageData(
       const key = `${family}_${suffix}`
       const value = getAt(data, key)
       if (typeof value !== 'string') {
-        errors.push(`${key}: missing required plural form`)
+        if (!coveredKeys.has(key)) {
+          errors.push(`${key}: missing required plural form`)
+        }
       } else if (!placeholders(value).has('count')) {
         errors.push(`${key}: plural form must contain {count}`)
       }

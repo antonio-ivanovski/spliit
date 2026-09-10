@@ -1,8 +1,9 @@
 export type Path = string | readonly string[]
 
 function parsePath(path: Path): string[] {
-  if (Array.isArray(path)) return [...path]
-  return path.split('.').filter((s) => s.length > 0)
+  if (typeof path === 'string')
+    return path.split('.').filter((s) => s.length > 0)
+  return [...path]
 }
 
 export function getAt(obj: unknown, path: Path): unknown {

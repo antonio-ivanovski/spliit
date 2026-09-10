@@ -1,4 +1,4 @@
-import { locales, type Locale } from '../../../packages/domain/src/i18n.ts'
+import { locales, type Locale } from '../../../packages/domain/src/i18n'
 
 export type LanguageFamily = {
   id: string

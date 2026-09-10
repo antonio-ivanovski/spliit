@@ -4,14 +4,14 @@ import { join } from 'node:path'
 
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
-import { assertFamiliesCoverAllLocales } from './families.ts'
-import { addLocaleToFamilySource } from './init-locale.ts'
+import { assertFamiliesCoverAllLocales } from './families'
+import { addLocaleToFamilySource } from './init-locale'
 import {
   LOCALE_TO_FILE,
   nextTranslationBatch,
   setMessagesDir,
   setStrings,
-} from './lib.ts'
+} from './lib'
 
 describe('families cover domain locales', () => {
   it('stays in sync with domain locales', () => {

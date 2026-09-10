@@ -12,19 +12,21 @@ import {
   getKeysAcrossLocales,
   identicalKeysByLocale,
   initLocale,
+  isSparseLocale,
   missingKeys,
   missingKeysByLocale,
   nextTranslationBatch,
   packMessages,
   planTranslations,
+  pruneLocale,
   readMessagesFile,
   removeString,
   setString,
   setStrings,
   validateAllMessages,
 } from './lib'
-import type { AuditResult, PlanMode } from './lib.ts'
-import { locales, type Locale } from './lib.ts'
+import type { AuditResult, PlanMode } from './lib'
+import { locales, type Locale } from './lib'
 
 type ParsedArgs = {
   positional: string[]
@@ -96,17 +98,24 @@ function formatDiffHuman(result: Awaited<ReturnType<typeof diffMessages>>) {
     lines.push('Translation work introduced by this change:')
     const maxLen = Math.max(...localeKeys.map((k) => k.length))
     for (const locale of localeKeys) {
-      const { missing, present } = translationWork[locale]
+      const { missing, present, covered } = translationWork[locale]
       const padded = locale.padEnd(maxLen)
+      const inherited =
+        covered.length > 0 ? ` / ${covered.length} inherited` : ''
       lines.push(
-        `  ${padded}  ${missing.length} missing / ${present.length} present`,
+        `  ${padded}  ${missing.length} missing / ${present.length} present${inherited}`,
       )
     }
 
     const single = localeKeys.length === 1
     if (single) {
       const locale = localeKeys[0]
-      const { missing, present } = translationWork[locale]
+      const { missing, present, covered } = translationWork[locale]
+      if (covered.length > 0) {
+        lines.push('')
+        lines.push(`${String(locale)} (inherited from parent — no action):`)
+        for (const k of covered) lines.push(`  = ${k}`)
+      }
       if (missing.length > 0) {
         lines.push('')
         lines.push(`${String(locale)} (missing):`)
@@ -181,6 +190,17 @@ function printCheckHuman(result: AuditResult) {
     }
   }
 
+  const sparse = audited.filter((a) => isSparseLocale(a.locale))
+  if (sparse.length > 0) {
+    console.log('')
+    console.log('  Sparse overlays (missing keys inherit from parent):')
+    for (const a of sparse) {
+      console.log(
+        `    ${a.locale}: ${a.overrides} overrides / ${a.present} covered`,
+      )
+    }
+  }
+
   const incomplete = audited.filter((a) => a.missing > 0)
   if (incomplete.length > 0) {
     console.log('')
@@ -231,6 +251,9 @@ function help() {
     '                                  Rejects English copies unless auto-allowed or --allow-english.',
     '                                  --dry-run validates without writing.',
     '  remove <path>                   Remove a key from every locale where it exists (cleanup).',
+    '  prune --locale <l> [--against <p>] [--write] [--json]',
+    '                                  Shrink a sparse overlay to its genuine overrides by',
+    '                                  deleting keys identical to its parent (dry run by default).',
     '  get <locale> <path>             Print the current value at a path.',
     '  get <key...> --locales a,b      Multi-key multi-locale read (--json recommended).',
     '  get --stdin --locales a,b       Read keys from stdin (JSON array or newline list).',
@@ -243,8 +266,10 @@ function help() {
     '  next --locale <l> [--size 40] [--refs a,b] [--usages] [--json]',
     '                                  Next unfinished batch for a locale (auto-advances after set).',
     '  usages <key...> [--json]        Best-effort code locations for message keys.',
-    '  init-locale <code> --label "…" --flag "…" --family <id> --guide <path.md> [--rtl] [--from <locale>]',
+    '  init-locale <code> --label "…" --flag "…" --family <id> --guide <path.md> [--rtl] [--from <locale>] [--sparse] [--fallback <locale>]',
     '                                  Register a language and install its completed translation guide.',
+    '                                  --sparse starts an overlay inheriting from --fallback (or en-US);',
+    '                                  only differing keys are stored.',
     '  missing [--locale <l>] [--all] [--json]',
     '                                  List keys missing in a locale (vs en-US).',
     '  identical [--locale <l>] [--json]',
@@ -392,6 +417,45 @@ async function main() {
         return
       }
       console.log(`Removed ${path} from ${count} locale(s).`)
+      return
+    }
+
+    case 'prune': {
+      const locale = kvFlags.locale as Locale | undefined
+      if (!locale)
+        die(
+          'usage: bun i18n prune --locale <l> [--against <p>] [--write] [--json]',
+          2,
+        )
+      if (!isLocale(locale)) die(`unknown locale: ${String(locale)}`, 2)
+      const against = kvFlags.against as Locale | undefined
+      if (against && !isLocale(against)) {
+        die(`unknown --against locale: ${String(against)}`, 2)
+      }
+      try {
+        const result = await pruneLocale(locale, {
+          against,
+          write: flags.has('write'),
+        })
+        if (flags.has('json')) {
+          console.log(JSON.stringify(result, null, 2))
+          return
+        }
+        const verb = result.written ? 'Removed' : 'Would remove'
+        console.log(
+          `${verb} ${result.removed} key(s) from ${String(locale)} identical to ${String(result.against)} (${result.kept} kept).`,
+        )
+        const shown = result.identical.slice(0, 30)
+        for (const k of shown) console.log(`  - ${k}`)
+        if (result.identical.length > shown.length) {
+          console.log(`  …and ${result.identical.length - shown.length} more`)
+        }
+        if (!flags.has('write') && result.removed > 0) {
+          console.log('Dry run — pass --write to apply.')
+        }
+      } catch (e) {
+        die((e as Error).message, 2)
+      }
       return
     }
 
@@ -623,7 +687,7 @@ async function main() {
       const guide = kvFlags.guide
       if (!code || !label || !flag || !family || !guide) {
         die(
-          'usage: bun i18n init-locale <code> --label "<Native>" --flag "<emoji>" --family <id> --guide <path.md> [--rtl] [--from <locale>]',
+          'usage: bun i18n init-locale <code> --label "<Native>" --flag "<emoji>" --family <id> --guide <path.md> [--rtl] [--from <locale>] [--sparse] [--fallback <locale>]',
           2,
         )
       }
@@ -639,6 +703,8 @@ async function main() {
           guide,
           rtl: flags.has('rtl'),
           from,
+          sparse: flags.has('sparse'),
+          fallback: kvFlags.fallback,
         })
         console.log(
           `Initialized locale ${result.code} (family ${result.family}).`,

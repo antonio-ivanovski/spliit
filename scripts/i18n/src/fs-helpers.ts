@@ -2,7 +2,7 @@ import { execSync } from 'node:child_process'
 import { readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-import { locales, type Locale } from '../../../packages/domain/src/i18n.ts'
+import { locales, type Locale } from '../../../packages/domain/src/i18n'
 
 /** Filename for a locale message file — always `<locale>.json`. */
 export function localeFileName(locale: Locale): string {

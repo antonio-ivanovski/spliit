@@ -7,13 +7,13 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import {
   classifyEnglishIdentity,
   isAutoAllowedEnglishIdentity,
-} from './english-identity.ts'
+} from './english-identity'
 import {
   assertCompletedGuide,
   assertGuideInventory,
   getGuidePaths,
-} from './guides.ts'
-import { addRtlLocale, initLocale, insertObjectEntry } from './init-locale.ts'
+} from './guides'
+import { addRtlLocale, initLocale, insertObjectEntry } from './init-locale'
 import {
   LOCALE_TO_FILE,
   getKeysAcrossLocales,
@@ -21,8 +21,8 @@ import {
   setMessagesDir,
   setString,
   setStrings,
-} from './lib.ts'
-import { findUsages, usageSearchKey } from './usages.ts'
+} from './lib'
+import { findUsages, usageSearchKey } from './usages'
 
 describe('translation guides', () => {
   it('keeps one completed guide per non-en-US locale', async () => {

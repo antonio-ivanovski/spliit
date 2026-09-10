@@ -3,51 +3,35 @@
     "title": "Compartilhe <strong>Despesas</strong> com <strong>Amigos e Família</strong>",
     "description": "Acompanhe despesas compartilhadas e acerte as contas. Gratuito e de código aberto, <strong>sincronizado e protegido pela sua conta</strong>.",
     "button": {
-      "github": "GitHub",
       "signIn": "Entrar no Spliit Cloud",
-      "createAccount": "Criar uma conta",
-      "createGroup": "Criar um grupo",
-      "importGroup": "Importar grupo de outro serviço",
       "createFriendLedger": "Registre despesas com um amigo"
     },
     "features": {
       "groupsSync": {
-        "title": "Grupos e sincronização",
         "description": "Crie grupos para viagens, eventos ou presentes e mantenha-os sincronizados em todos os dispositivos."
       },
       "expenses": {
-        "title": "Despesas e recibos",
         "description": "Adicione despesas, anexe imagens de recibos e crie custos recorrentes diários, semanais ou mensais."
       },
       "splitting": {
-        "title": "Divisão avançada",
         "description": "Divida por porcentagem, cotas, valor exato ou em partes iguais."
       },
       "settlement": {
-        "title": "Saldos",
         "description": "Veja quem pagou o quê e reduza as transferências entre participantes."
       },
       "organization": {
-        "title": "Categorias",
         "description": "Atribua categorias para consultar facilmente as despesas compartilhadas."
       },
       "accounts": {
-        "title": "Contas",
         "description": "Entre na sua conta para proteger seus dados e manter disponível o histórico de despesas."
       }
     },
-    "welcomeBack": "Bem-vindo de volta, {name}.",
     "overview": {
       "youAreOwed": "Você tem a receber",
       "youOwe": "Você deve",
       "acrossGroups": "Entre seus grupos",
-      "viewGroups": "Ver grupos",
       "noOneOwesYou": "Ninguém te deve nada",
-      "youOweNoOne": "Você não deve nada a ninguém",
-      "groupsTab": "Grupos",
-      "peopleTab": "Pessoas",
-      "unknownPerson": "Participante desconhecido",
-      "viewPersonGroups": "Ver grupos de {name} ({currency})"
+      "youOweNoOne": "Você não deve nada a ninguém"
     },
     "savedGroupsAction": "Ver grupos salvos",
     "savedGroupsTitle": "Grupos salvos",
@@ -56,211 +40,91 @@
   "Header": {
     "signIn": "Entrar",
     "signOut": "Sair",
-    "account": "Conta",
     "accountSettings": "Configurações da conta",
-    "back": "Voltar",
-    "menu": "Menu",
-    "feedback": "Comentários",
-    "anonymousSignOutWarning": "Esta conta anônima só pode ser recuperada com o link de login salvo. Sair agora?",
-    "signOutTitle": "Sair?",
-    "signOutError": "Não foi possível sair. Por favor, tente novamente.",
-    "cancel": "Cancelar"
+    "anonymousSignOutWarning": "Esta conta anônima só pode ser recuperada com o link de login salvo. Sair agora?"
   },
   "Footer": {
-    "madeIn": "Feito pela comunidade de código aberto com amor ❤️",
     "builtBy": "Veja o <source>código-fonte e contribuidores</source>",
-    "legalNavigation": "Links jurídicos",
-    "privacy": "Privacidade",
-    "terms": "Termos",
-    "imprint": "Aviso legal"
+    "legalNavigation": "Links jurídicos"
   },
   "Expenses": {
-    "title": "Despesas",
     "description": "Aqui estão as despesas que você criou para o seu grupo.",
-    "create": "Criar despesa",
     "createFirst": "Crie a primeira",
     "noExpenses": "Seu grupo ainda não contém nenhuma despesa.",
-    "exportCsv": "Exportar para CSV",
     "searchPlaceholder": "Pesquisar por uma despesa…",
     "ActiveUserModal": {
       "title": "Quem é você?",
       "description": "Informe qual participante você é para personalizarmos a exibição das informações.",
-      "nobody": "Não quero selecionar ninguém",
       "save": "Salvar alterações",
       "footer": "Essa configuração pode ser alterada posteriormente nas configurações do grupo."
     },
     "Groups": {
       "upcoming": "Próximas",
-      "thisWeek": "Esta semana",
       "earlierThisMonth": "Anteriores neste mês",
-      "lastMonth": "Mês passado",
       "earlierThisYear": "Anteriores neste ano",
-      "lastYear": "Ano passado",
-      "older": "Mais antigas",
-      "previousWeek": "Semana passada",
-      "today": "Hoje"
+      "older": "Mais antigas"
     },
-    "export": "Exportar",
     "filters": {
-      "mobileTitle": "Filtrar despesas",
       "sort": {
         "options": {
-          "expenseDate": {
-            "desc": "Data (mais recente primeiro)",
-            "asc": "Data (mais antiga primeiro)"
-          },
           "amount": {
             "desc": "Valor (maior primeiro)",
             "asc": "Valor (menor primeiro)"
-          },
-          "createdAt": {
-            "desc": "Criação (mais recente primeiro)",
-            "asc": "Criação (mais antiga primeiro)"
           }
-        },
-        "title": "Ordenar despesas"
+        }
       },
-      "cancel": "Cancelar",
-      "apply": "Aplicar",
-      "clearAll": "Limpar tudo",
-      "clearFilterAria": "Limpar o filtro {label}",
-      "noMatchTitle": "Nenhuma despesa corresponde aos seus filtros",
-      "noMatchBody": "Tente remover ou alterar alguns filtros para ver mais resultados.",
-      "noMatchClear": "Limpar filtros",
-      "category": "Categoria",
-      "paidBy": "Pago por",
-      "paidFor": "Dividido entre",
-      "dateRange": "Intervalo de datas",
-      "dateFrom": "De",
-      "dateTo": "Até",
       "amountRange": "Valor",
-      "minAmount": "Mín",
-      "maxAmount": "Máx",
-      "currency": "Moeda",
-      "matchModeAny": "Qualquer um",
-      "matchModeAll": "Todos",
-      "button": "Filtros",
-      "matchModeExact": "Exata",
-      "allCategories": "Todas as categorias",
-      "allParticipants": "Todos os participantes",
-      "allCurrencies": "Todas as moedas",
-      "nSelected_one": "{count} participante selecionado",
-      "nSelected_many": "{count} selecionados",
-      "nSelected_other": "{count} selecionados",
-      "removeFilter": "Remover filtro",
-      "settlementsHidden": "Acertos ocultos",
-      "title": "Filtros"
+      "settlementsHidden": "Acertos ocultos"
     },
     "showSettlements": "Mostrar acertos",
-    "globalTitle": "Todas as despesas",
-    "globalDescription": "Pesquise e navegue pelas despesas de todos os seus grupos.",
-    "globalGroups": "Grupos",
-    "globalInactive": "inativo",
-    "globalCurrency": "Moeda base",
-    "globalAllCurrencies": "Todas as moedas",
-    "globalCurrencyRequired": "Escolha uma moeda base para filtrar ou ordenar por valor.",
-    "globalFiltersActive": "{count} filtros ativos",
-    "globalEmpty": "Nenhuma despesa corresponde aos seus filtros.",
     "clearSearch": "Limpar busca",
     "loading": "Carregando despesas…",
-    "exportPdfTitle": "Relatório PDF",
     "exportCsvTitle": "Planilha CSV",
     "exportPdfPurpose": "Extrato personalizado com gastos, saldos e transferências sugeridas.",
     "exportCsvPurpose": "Histórico completo em uma planilha para Excel ou Sheets.",
-    "exportPdfAction": "Criar PDF",
     "exportCsvAction": "Baixar CSV",
-    "exportPdfDialogTitle": "Gerar relatório PDF",
     "exportPdfDialogDescription": "Escolha o período a incluir. As despesas abrangem as datas selecionadas; os saldos e as transferências são informados na data final.",
-    "exportPdfFromLabel": "De",
-    "exportPdfToLabel": "Até",
-    "exportPdfGenerate": "Gerar relatório PDF",
     "exportPdfGenerating": "Gerando…",
-    "exportPdfCancel": "Cancelar",
-    "exportPdfInvalidRange": "A data final deve ser igual ou posterior à data inicial.",
     "exportPdfError": "Não foi possível gerar o PDF. Tente novamente.",
     "exportPdfSuccess": "Relatório PDF baixado.",
-    "exportPdfRetryBounds": "Tentar novamente",
     "exportBundleTitle": "Pacote de backup do Spliit",
     "exportBundlePurpose": "Dados portáteis do grupo com despesas, configurações e documentos anexados.",
     "exportBundleAction": "Baixar pacote"
   },
   "ExpenseCard": {
-    "receivedBy": "Recebido por <strong>{paidBy}</strong> para <paidFor></paidFor>",
-    "receivedByMultiple": "Recebido por <paidByNames></paidByNames> para <paidFor></paidFor>",
     "yourBalance": "Seu saldo:",
-    "paidBy": "Pago por <strong>{paidBy}</strong> · dividido entre <paidFor></paidFor>",
-    "paidByMultiple": "Pago por <paidByNames></paidByNames> · dividido entre <paidFor></paidFor>",
     "everyone": "Todos",
     "notInvolved": "Você não está envolvido",
     "settlementBadge": "Acerto",
-    "items": {
-      "more_one": "+{count} a mais",
-      "more_many": "+{count} a mais",
-      "more_other": "+{count} a mais",
-      "title": "Itens",
-      "participants": "{names}",
-      "showLess": "Mostrar menos"
-    },
     "copyToast": "Cópia da despesa iniciada. Os dados da despesa existente serão usados para criar uma nova.",
     "incomeBadge": "Receita"
   },
   "Groups": {
     "myGroups": "Meus grupos",
-    "create": "Criar",
     "loadingRecent": "Carregando grupos recentes…",
-    "starred": "Favoritos",
-    "archived": "Grupos arquivados",
-    "backToGroups": "Voltar para grupos",
-    "removeRecent": "Remover dos grupos recentes",
     "RecentRemovedToast": {
       "title": "Grupo removido",
-      "description": "O grupo foi removido da sua lista de grupos recentes.",
-      "undoAlt": "Desfazer remoção do grupo",
-      "undo": "Desfazer"
+      "description": "O grupo foi removido da sua lista de grupos recentes."
     },
     "NotFound": {
-      "text": "Este grupo não existe.",
-      "link": "Ir para o início",
       "lookingUp": "Procurando o grupo…"
     },
     "createdInviteHint": "Grupo criado. Convide membros para começar.",
-    "hidden": "Ocultos",
-    "showHidden": "Mostrar grupos ocultos",
-    "showArchived": "Mostrar grupos arquivados",
-    "hide": "Ocultar grupo",
     "unhide": "Exibir grupo",
     "hideFriend": "Ocultar registro com um amigo",
     "unhideFriend": "Mostrar registro com um amigo",
-    "starGroup": "Favoritar grupo",
-    "unstarGroup": "Desfavoritar grupo",
     "starFriend": "Favoritar registro com um amigo",
     "unstarFriend": "Desfavoritar registro com um amigo",
-    "groupActions": "Ações do grupo",
     "friendActions": "Ações do registro com um amigo",
-    "archiveGroup": "Arquivar grupo",
-    "unarchiveGroup": "Desarquivar grupo",
-    "archiveSuccess": "Grupo arquivado.",
-    "unarchiveSuccess": "Grupo desarquivado.",
     "archiveWithBalancesTitle": "Saldos não acertados",
     "archiveWithBalancesDescription": "Este grupo tem saldos não acertados. O arquivamento criará despesas de acerto para zerá-los. Continuar?",
-    "archiveWithBalancesForce": "Forçar arquivamento",
-    "archiveWithBalancesCancel": "Cancelar",
     "archiveWithBalancesSuccess": "Despesas de acerto criadas e grupo arquivado.",
-    "archiveWithBalancesView": "Ver saldos",
-    "archiveSectionTitle": "Arquivar grupo",
     "archiveSectionDescription": "O arquivamento congela o grupo. Nenhuma nova despesa pode ser adicionada ou modificada, mas os dados existentes permanecem visíveis. Você pode desarquivar o grupo a qualquer momento.",
-    "archivedBadge": "Arquivado",
-    "bannerArchivedTitle": "Este grupo está arquivado",
     "bannerArchivedDescription": "Nenhuma nova despesa ou convite pode ser adicionado enquanto o grupo estiver arquivado. Os dados existentes permanecem visíveis.",
     "bannerArchived": "Este grupo está arquivado. Nenhuma nova despesa pode ser adicionada.",
-    "bannerUnarchive": "Desarquivar",
-    "bannerUnarchiveSuccess": "Grupo desarquivado.",
     "invitationBannerTitle": "Você foi convidado para este grupo",
     "invitationBannerDescription": "Aceite para entrar como membro ou recuse para descartar o convite.",
-    "invitationAccept": "Aceitar",
-    "invitationDecline": "Recusar",
     "invitationAccepted": "Convite aceito.",
-    "invitationDeclined": "Convite recusado.",
     "pendingInviteeReadOnlyTitle": "Você foi convidado",
     "pendingInviteeReadOnlyDescription": "Aceite o convite acima para começar a adicionar despesas e alterar configurações do grupo. Até lá, este grupo é somente leitura.",
     "pendingInviteeSettingsTitle": "As configurações do grupo estão bloqueadas",
@@ -271,181 +135,83 @@
     "backToExpenses": "Voltar para despesas",
     "Unauthorized": {
       "title": "Você não tem acesso a este grupo",
-      "description": "Se você acredita que isso é um erro, peça a um proprietário ou administrador do grupo para convidá-lo.",
-      "link": "Voltar ao início"
+      "description": "Se você acredita que isso é um erro, peça a um proprietário ou administrador do grupo para convidá-lo."
     },
     "invitations": {
-      "title": "Convites pendentes",
       "description": "Você foi convidado a entrar nos seguintes grupos.",
-      "accept": "Aceitar",
-      "decline": "Recusar",
-      "accepted": "Convite aceito.",
-      "declined": "Convite recusado.",
-      "invitedBy": "Convidado por {name}",
-      "unknownInviter": "alguém",
-      "unknownGroup": "Grupo desconhecido",
-      "sentOn": "Enviado em {date}"
+      "accepted": "Convite aceito."
     },
     "linkInvitationBannerDescription": "{inviter} convidou você para participar de {groupName} no Spliit.",
     "linkInvitationSingleUse": "Este link só pode ser usado uma vez. Depois que você aceitá-lo, ele deixará de funcionar.",
     "linkInvitationTemporaryName": "Você vai entrar como {name}.",
     "linkInvitationAlreadyMemberTitle": "Você já faz parte de {groupName}",
     "linkInvitationAlreadyMemberDescription": "Você já tem uma conta neste grupo. Pode abri-lo pelo botão abaixo.",
-    "linkInvitationDismiss": "Descartar",
     "linkInvitationExpiredTitle": "Este link de convite não é mais válido",
     "linkInvitationExpiredDescription": "O link foi revogado, recusado ou expirou. Peça a quem convidou para enviar um novo.",
     "linkInvitationInvalid": {
-      "title": "Este link de convite é inválido",
-      "description": "O link está malformado ou não corresponde a nenhum convite neste grupo."
+      "title": "Este link de convite é inválido"
     },
-    "backToHome": "Voltar ao início",
     "Import": {
       "Confirm": {
-        "destinationLabel": "Destino",
-        "newGroupFormat": "Novo grupo · {currency}",
-        "existingGroupFormat": "Grupo existente · mesclado",
-        "summaryLabel": "Resumo",
-        "sourceParticipants_one": "{count} participante de origem",
-        "sourceParticipants_many": "{count} participantes de origem",
-        "sourceParticipants_other": "{count} participantes de origem",
-        "participantBreakdown": "{linked} vinculados · {email} convites por e-mail · {link} convites por link · {unlinked} desvinculados",
-        "expenseCount_one": "Será criada {count} despesa",
-        "expenseCount_many": "{count} despesas serão criadas",
-        "expenseCount_other": "{count} despesas serão criadas",
-        "sourceName": "Origem: {name}",
         "footer": "Cada participante de origem e despesa será importado. Convites são enviados/gerados após a criação do grupo.",
         "importingButton": "Importando…",
-        "importButton": "Importar grupo",
         "ratesLoading": "Buscando taxas de câmbio para despesas em várias moedas…",
         "rateFetchError": "Não foi possível buscar as taxas de câmbio. A importação está bloqueada até que o provedor de taxas esteja acessível novamente.",
-        "currencyRateFormat": "1 {source} = {rate} {target}",
         "currencyRateAsOfFormat": "Solicitado {requested} · provedor usou {asOf}",
-        "currencyConversionTitle": "Conversão de moeda",
         "currencyConversionDescription": "As despesas serão convertidas da moeda de origem para a moeda do livro de destino usando as taxas abaixo.",
-        "currencyRateForDateFormat": "Aplicado para despesas com data {date}",
-        "appliedExchangeRatesLabel": "Taxas de câmbio aplicadas",
-        "conversionPerDate": "Por data",
-        "conversionFixed": "Taxa fixa",
-        "importErrorTitle": "Falha na importação",
-        "importErrorFallback": "Ocorreu um erro inesperado ao importar o grupo. Tente novamente.",
-        "executeImport": "Importar grupo",
-        "recurringSchedulesLabel": "Agendamentos recorrentes a importar",
-        "recurringScheduleItem": "{title} · {rule}",
-        "recurrenceRule": {
-          "daily": "Diária",
-          "weekly": "Semanal",
-          "monthly": "Mensal"
-        },
-        "documentCount": "Documentos: {imported} recuperados, {skipped} ignorados"
+        "currencyRateForDateFormat": "Aplicado para despesas com data {date}"
       },
       "Destination": {
         "heading": "Onde você gostaria de importar <strong>{name}</strong>? ({participantCount} participantes · {expenseCount} despesas)",
-        "newGroup": "Novo grupo",
-        "existingGroup": "Grupo existente",
         "loading": "Carregando…",
-        "noAdminGroups": "Você ainda não administra nenhum grupo.",
-        "memberCount_one": "{count} membro",
-        "memberCount_many": "{count} membros",
-        "memberCount_other": "{count} membros"
+        "noAdminGroups": "Você ainda não administra nenhum grupo."
       },
       "Done": {
-        "importComplete": "Importação concluída",
         "description": "Seu grupo importado está pronto. Você pode ajustar participantes, vincular entradas desvinculadas a contas ou editar qualquer despesa como de costume.",
-        "openGroup": "Abrir grupo",
         "shareableLinksTitle": "Links de convite compartilháveis",
-        "shareableLinksDescription": "Copie cada link e envie para a pessoa correspondente. O link é de uso único; eles entram no grupo assim que o abrem.",
         "shareAriaLabel": "Compartilhar link de convite",
-        "emailInvitesTitle": "Convites por e-mail enviados",
-        "emailInvitesDescription": "O servidor enviou e-mail para as seguintes pessoas. Elas verão um banner Aceitar/Recusar na página do grupo quando fizerem login.",
-        "shareTitle": "Entre no meu grupo Spliit",
-        "shareText": "Entre no nosso grupo de despesas no Spliit Cloud — {name}. Abra este link para aceitar: {url}",
         "copyLink": "Copiar link de convite",
         "copied": "Copiado"
       },
       "Mapping": {
         "Errors": {
-          "duplicateExistingMember": "Duas linhas de origem estão mapeadas para o mesmo membro existente.",
           "inviteConflictsPending": "Você está convidando {email} mas eles já têm um convite pendente; vincule-os em vez disso.",
           "inviteConflictsMember": "Você está convidando {email} mas eles já são membros deste grupo; vincule-os em vez disso.",
-          "duplicateMemberName": "Dois membros existentes parecem ser a mesma pessoa — escolha um.",
-          "onlyOneLinkedAccount": "Apenas uma linha de origem pode ser vinculada à sua conta.",
-          "missingExistingMember": "Escolha um membro existente para vincular.",
-          "missingEmail": "Adicione um endereço de e-mail para convidar por e-mail.",
-          "selfEmailAddress": "Este é seu e-mail — escolha \"Vincular a mim\" em vez disso.",
-          "duplicateEmail": "Este e-mail já foi convidado de outra linha."
+          "selfEmailAddress": "Este é seu e-mail — escolha \"Vincular a mim\" em vez disso."
         },
-        "headsUp": "Aviso",
         "noLinkAccount": "Nenhum participante está vinculado à sua conta. O importador (você) será criado como um novo participante proprietário no grupo importado — a parte dele nas despesas importadas será zero até que você vincule uma linha de origem à sua conta ou se convide.",
-        "continue": "Continuar para confirmar",
         "Row": {
           "linkToMe": "Vincular a mim",
-          "linkToMeDescription": "Conecta esta pessoa à sua conta.",
           "linkToMeFollowUp": "{name} será vinculado à sua conta neste grupo. As despesas passadas e futuras deles aparecerão sob seu nome.",
-          "inviteByEmail": "Convidar por e-mail",
-          "inviteByEmailDescription": "Envia um e-mail de convite após a confirmação da importação.",
-          "inviteeEmailLabel": "E-mail do convidado",
           "inviteeEmailPlaceholder": "convidado@exemplo.com.br",
           "selfEmailDetected": "Este é seu e-mail — alterado para \"Vincular a mim\".",
-          "inviteByLink": "Convidar por link",
           "inviteByLinkDescription": "Gera uma URL compartilhável na etapa Concluído.",
           "inviteByLinkFollowUp": "Geraremos uma URL compartilhável de uso único após a confirmação da importação. Você a encontrará na etapa Concluído — copie e envie para {name}.",
-          "linkToExisting": "Vincular a membro existente",
-          "linkToExistingDescription": "Mapeia esta pessoa para um membro ativo existente ou convite pendente no grupo de destino. Nenhum novo participante é criado.",
-          "selectExistingMember": "Selecionar membro existente",
-          "selectExistingPlaceholder": "Escolha um membro existente…",
-          "membersLabel": "Membros",
-          "pendingInvitesLabel": "Convites pendentes",
-          "pendingSuffix": "(pendente)",
-          "leaveUnlinked": "Deixar desvinculado",
-          "leaveUnlinkedDescription": "Mantém apenas o nome — vincule depois em Membros.",
           "leaveUnlinkedFollowUp": "{name} aparecerá como uma entrada apenas com nome, sem acesso ao aplicativo. Você pode vinculá-lo a uma conta mais tarde na guia Membros.",
           "inviteFriend": "Dos seus amigos",
           "inviteFriendDescription": "Convide um amigo de grupos que vocês já compartilharam.",
-          "selectFriendLabel": "Amigo",
-          "selectFriendPlaceholder": "Selecione um amigo…",
-          "friendAlreadyMember": "Já é membro",
-          "friendPendingInvite": "Já convidado"
+          "selectFriendPlaceholder": "Selecione um amigo…"
         }
       },
       "fetchingGroup": "Buscando o grupo do spliit.app…",
       "fetchSourceError": "Falha ao buscar a origem",
       "Source": {
-        "fromSpliit": "Spliit",
-        "splitwise": "Splitwise",
-        "tricount": "Tricount (em breve)",
-        "settleUp": "Settle Up (em breve)",
-        "spliitDescription": "Traga um grupo existente do spliit.app para o Spliit Cloud. Lemos o nome do grupo, participantes e cada despesa.",
-        "splitwiseComingTitle": "A importação do Splitwise está a caminho",
         "splitwiseComingDescription": "Estamos trabalhando para trazer exportações CSV do Splitwise para o Spliit Cloud. O fluxo estará disponível aqui assim que for lançado — não é necessário reimportar nada enquanto isso.",
-        "tricountComingTitle": "A importação do Tricount está a caminho",
-        "tricountComingDescription": "O suporte para exportação CSV do Tricount está no nosso roteiro.",
-        "settleUpComingTitle": "A importação do Settle Up está a caminho",
-        "settleUpComingDescription": "O suporte para exportação CSV do Settle Up está no nosso roteiro.",
         "dropFile": "Solte um arquivo JSON ou CSV, ou clique para selecionar",
         "dropFileDescription": "JSON preserva cada valor e pagador exatamente. CSV é uma alternativa — Spliit arredonda cada valor por participante para 2 casas decimais.",
-        "or": "ou",
         "pasteUrl": "Cole uma URL do spliit.app",
         "urlDescription": "Nosso servidor busca o grupo através do endpoint de exportação pública do spliit.app em seu nome.",
-        "urlPlaceholder": "https://spliit.app/groups/…",
         "fetchingButton": "Importando…",
-        "fetchGroupButton": "Importar grupo",
-        "receiptWarningTitle": "As imagens de recibos não são importadas.",
-        "receiptWarningDescription": "A exportação do spliit.app não inclui imagens de recibos. Refaça o upload no grupo de destino se precisar deles.",
         "invalidUrl": "Cole uma URL de grupo spliit.app válida",
         "notFoundUrl": "Spliit não encontrou este grupo",
         "fetchUrlError": "Falha ao buscar a origem",
         "fileReadError": "Falha ao ler o arquivo",
-        "appToCloudDescription": "Substitua .app por .cloud em qualquer URL de grupo do spliit.app para importá-lo para o Spliit Cloud.",
-        "appToCloudTitle": "Substitua .app por .cloud",
         "splitwiseDescription": "Solte um arquivo CSV exportado do Splitwise para importar suas despesas no Spliit Cloud. O arquivo deve vir da exportação de grupo do Splitwise — o CSV por grupo disponível nas configurações do grupo.",
-        "receiptWarningTitleSplitwise": "As imagens de recibos não são importadas.",
-        "receiptWarningDescriptionSplitwise": "A exportação do Splitwise não inclui imagens de recibos. Refaça o upload no grupo de destino se precisar delas.",
         "unsupportedFileType": "Tipo de arquivo não suportado. Solte um arquivo JSON ou CSV.",
         "dropFileSplitwise": "Solte um arquivo CSV do Splitwise, ou clique para selecionar",
         "dropFileDescriptionSplitwise": "CSV é o único formato que o Splitwise exporta. Analisamos os valores por participante para reconstruir a divisão.",
         "splitwiseAnonymizeTitle": "Problemas para importar seu CSV do Splitwise? Anonimize-o antes de compartilhar.",
         "splitwiseAnonymizeDescription": "Se o importador recusar seu CSV, você pode remover localmente os nomes dos participantes e as descrições das despesas e anexar o resultado a uma issue do GitHub. Seu arquivo fica no seu dispositivo — nunca o enviamos.",
-        "splitwiseAnonymizeButton": "Anonimizar um CSV",
         "splitwiseAnonymizeIssuesLink": "Abrir uma issue de importação",
         "splitwiseAnonymizeError": "Não foi possível anonimizar este arquivo. Verifique se é uma exportação CSV do Splitwise.",
         "csvRecurrenceLimitation": "Exportações CSV não incluem recorrência. Use uma exportação JSON do spliit.app para importar despesas recorrentes.",
@@ -459,38 +225,17 @@
         "openSpliitImporter": "Abrir importador do Spliit",
         "cloudBundleReadyTitle": "Pacote do Spliit Cloud pronto",
         "cloudBundleReadyDescription": "Este pacote inspecionado está pronto para importação. Você pode continuar sem selecionar o arquivo novamente.",
-        "resumeCloudBundle": "Continuar com este pacote",
         "spliitCloudScopeDescription": "Importe de um arquivo .spliit.zip um backup de uma conta Spliit Cloud contendo vários grupos ou a exportação de um único grupo.",
         "legacyExportTitle": "Uma exportação mais recente do Spliit está disponível",
         "legacyExportDescription": "Essa exportação antiga exige que o Spliit Cloud procure os documentos no spliit.app. Para uma importação mais confiável, copie o link do grupo no spliit.app ou baixe uma nova exportação JSON e anexe-a aqui."
       },
-      "StepHeader": {
-        "title": "Importar um grupo",
-        "source": "Origem",
-        "destination": "Destino",
-        "mapping": "Mapeamento",
-        "confirm": "Confirmar",
-        "done": "Concluído",
-        "backAriaLabel": "Voltar",
-        "currencyConversion": "Conversão de moeda",
-        "backTo": "Voltar para {step}",
-        "continueTo": "Continuar para {step}",
-        "documents": "Documentos"
-      },
       "CurrencyConversion": {
-        "pairSection": "{source} → {target}",
-        "fixedRateRow": "1 {source} = {rate} {target}",
-        "customRateLabel": "Taxa personalizada",
         "fetchingRates": "Obtendo taxas de câmbio…",
         "fixedDescription": "Use uma única taxa de câmbio para todas as despesas deste par de moedas. Por padrão, a taxa é obtida do Frankfurter para a data selecionada; você também pode inserir uma taxa personalizada.",
-        "fixedTitle": "Taxa fixa",
         "noConversionNeeded": "Todas as despesas estão na moeda padrão do grupo. Não é necessária nenhuma conversão de moeda.",
         "perDateDescription": "Mais preciso — usa a taxa de câmbio da data real de cada despesa.",
         "perDateSelectedHint": "Usa a taxa de câmbio histórica da data de cada despesa (Frankfurter API).",
-        "perDateTitle": "Conversão por data",
-        "rateDateLabel": "Data da taxa",
-        "ratesError": "Não foi possível obter as taxas de câmbio. Verifique sua conexão e tente novamente.",
-        "refresh": "Atualizar"
+        "ratesError": "Não foi possível obter as taxas de câmbio. Verifique sua conexão e tente novamente."
       },
       "Documents": {
         "title": "Leve seus recibos com você",
@@ -498,22 +243,12 @@
         "fetchFailed": "Não foi possível baixar a imagem de origem.",
         "tooLarge": "A imagem normalizada ainda é maior que 2 MiB.",
         "uploadFailed": "Não foi possível enviar a imagem normalizada.",
-        "unknownFailure": "Erro de documento desconhecido.",
         "discoveryFailed": "Não foi possível encontrar documentos no spliit.app.",
         "progress": "Preparando o documento {processed} de {total}…",
-        "recovered": "{count} documento recuperado",
-        "recovered_plural": "{count} documentos recuperados",
-        "unavailableTitle": "Não é possível associar esta origem com segurança",
         "unavailableDescription": "Esta exportação não inclui as marcas de tempo estáveis das despesas necessárias para recuperar os documentos. Você pode continuar sem eles.",
-        "failedTitle": "Não foi possível recuperar {count} documento",
-        "failedTitle_plural": "Não foi possível recuperar {count} documentos",
-        "skipTitle": "Continuar sem imagens dos recibos?",
         "skipDescription": "As despesas ainda serão importadas, mas seus documentos ficarão ausentes. Isso não pode ser corrigido automaticamente depois da importação.",
         "acceptMissing": "Entendo que os documentos listados ficarão ausentes das despesas importadas.",
         "retry": "Tentar recuperar os documentos novamente",
-        "start": "Encontrar e copiar documentos",
-        "confirmSkip": "Sim, continuar sem documentos",
-        "skip": "Continuar sem documentos",
         "continueWithMissing": "Continuar com os documentos faltantes",
         "cloudDescription": "Restaure no seu armazenamento em nuvem os arquivos de documentos originais incluídos neste backup do Spliit Cloud.",
         "cloudStart": "Restaure {count} documento(s) deste backup.",
@@ -521,43 +256,23 @@
         "cloudNoDocumentsAvailable": "Nenhum documento deste backup está disponível para restauração."
       },
       "Cloud": {
-        "importFailed": "Falha na importação Cloud",
         "importFailedDescription": "Tente o backup novamente ou escolha outro arquivo.",
-        "doneTitle": "Grupo restaurado",
         "doneDescription": "O backup do grupo Spliit Cloud foi restaurado como um novo grupo.",
         "importAnother": "Importar outro backup",
         "summary": "Restaure {participants} participantes e {expenses} despesas como um novo grupo.",
         "incompleteTitle": "Este backup está incompleto",
         "incompleteDescription": "A exportação contém {count} avisos. Revise-os antes de continuar.",
-        "restoreArchived": "Restaurar este grupo como arquivado",
         "continueToMapping": "Continuar para o mapeamento de participantes",
         "documentsTitle": "Revisar documentos",
         "documentsSummary": "{included} de {total} documentos estão prontos para restauração. Os arquivos têm limite de {maxSize} MiB.",
-        "documentIssuesTitle": "Alguns documentos não podem ser restaurados",
-        "acknowledgeDocuments": "Entendo que estes documentos serão ignorados",
-        "back": "Voltar",
-        "continueToConfirmation": "Continuar para a confirmação",
         "confirmTitle": "Confirmar restauração do grupo",
-        "confirmExpenses": "{count} despesas serão restauradas",
-        "confirmParticipants": "{count} participantes serão restaurados",
-        "confirmDocuments": "{count} documentos serão restaurados",
         "confirmActiveRecurrence": "{count} programações recorrentes ativas serão retomadas",
-        "confirmArchived": "O grupo será arquivado",
-        "executeImport": "Restaurar grupo",
         "stagingDocuments": "Preparando arquivos para restauração…",
         "friendSourceWarning": "Este backup veio de uma conta entre amigos. Ele será restaurado como uma conta entre amigos com a pessoa associada.",
         "accountTitle": "Importar backup da conta Spliit Cloud",
-        "accountProgress": "Grupo {current} de {total}: {name}",
-        "continueToGroups": "Continuar para as importações de grupos",
         "continueToNextGroup": "Continuar para o próximo grupo",
         "skipGroup": "Pular este grupo"
       }
-    },
-    "Importable": {
-      "title": "Grupo encontrado no spliit.app",
-      "description": "«{name}» está acessível no spliit.app. Gostaria de importá-lo para o Spliit Cloud?",
-      "cta": "Importar este grupo",
-      "backToHome": "Ir para o início"
     },
     "delete": {
       "sectionTitle": "Excluir grupo",
@@ -566,15 +281,10 @@
       "dialog": {
         "title": "Excluir este grupo?",
         "description": "Todas as despesas, recibos, convites e entradas de atividade deste grupo serão excluídos e não poderão ser recuperados.",
-        "warningTitle": "Esta ação é irreversível",
         "warningDescription": "Os seguintes dados serão excluídos imediatamente:",
-        "cancel": "Cancelar",
         "confirm": "Excluir grupo",
         "deleting": "Excluindo…",
         "warningList": {
-          "expenses": "Todas as despesas e saldos",
-          "activity": "O histórico completo de atividade",
-          "invitations": "Convites pendentes",
           "receipts": "Arquivos de recibos enviados"
         }
       },
@@ -586,26 +296,16 @@
       }
     },
     "createGroupCard": {
-      "title": "Criar um grupo",
       "description": "Acompanhe despesas compartilhadas com amigos, família ou colegas de república."
     },
-    "groups": "Grupos",
     "friends": "Registros com um amigo",
-    "createExpense": "Criar uma despesa",
-    "pending": "Pendente",
     "scopePickerGroups": "Escolha um grupo",
     "scopePickerFriends": "Escolha um registro com um amigo",
-    "scopePickerEmpty": "Ainda não há grupos",
-    "scopePickerMembers_one": "{count} membro",
-    "scopePickerMembers_many": "{count} membro(s)",
-    "scopePickerMembers_other": "{count} membro(s)",
     "createFriendLedgerCard": {
       "description": "Acertar contas individualmente com uma pessoa específica.",
       "title": "Registre despesas com um amigo"
     },
-    "importGroup": "Importar grupo",
     "exportDescription": "Baixe as despesas do grupo como relatório PDF, planilha CSV ou backup JSON.",
-    "allExpenses": "Todas as despesas",
     "viewOnlyBannerTitle": "Acesso somente para visualização",
     "viewOnlyBannerDescription": "Você pode explorar este grupo, mas não pode adicionar, editar, excluir ou comentar, acertar saldos nem baixar os dados.",
     "invitationSignInToAccept": "Faça login para aceitar",
@@ -618,34 +318,22 @@
     "viewOnlyBannerSave": "Salvar grupo",
     "viewOnlyBannerSavedAccount": "Salvo. Você o encontrará no início.",
     "viewOnlyBannerSavedDevice": "Salvo. Você o encontrará neste dispositivo.",
-    "viewOnlyBadge": "Somente visualização",
-    "removeSavedView": "Remover",
-    "removeSavedViewAccount": "Removido do início.",
-    "removeSavedViewDevice": "Removido deste dispositivo."
+    "viewOnlyBadge": "Somente visualização"
   },
   "GroupForm": {
-    "title": "Informações do grupo",
     "NameField": {
-      "label": "Nome do grupo",
-      "placeholder": "Férias de verão",
       "description": "Insira um nome para o seu grupo."
     },
     "InformationField": {
-      "label": "Informações do grupo",
       "placeholder": "Quais informações são relevantes para os participantes do grupo?"
     },
     "CurrencyField": {
-      "label": "Símbolo da moeda",
       "placeholder": "$, €, £, R$…",
       "description": "Vamos usá-lo para exibir valores."
     },
     "Participants": {
-      "title": "Participantes",
       "description": "Insira o nome de cada participante.",
       "protectedParticipant": "Este participante faz parte das despesas e não pode ser removido.",
-      "new": "Novo",
-      "add": "Adicionar participante",
-      "John": "João",
       "Jane": "Maria",
       "Jack": "José"
     },
@@ -655,147 +343,78 @@
       "ActiveUserField": {
         "label": "Usuário ativo",
         "placeholder": "Selecione um participante",
-        "none": "Nenhum",
         "description": "Usuário usado como padrão para pagar despesas."
       },
       "save": "Salvar",
       "saving": "Salvando…",
-      "create": "Criar",
       "creating": "Criando…",
-      "cancel": "Cancelar",
       "inviteAfterCreate": "Depois que o grupo for criado, abra a aba Members para convidar pessoas por e-mail ou por um link compartilhável."
     },
     "CurrencyCodeField": {
-      "label": "Moeda principal",
       "createDescription": "Todos os valores e saldos estarão nesta moeda.",
-      "editDescription": "Todos os valores e saldos estarão nesta moeda. A sua alteração NÃO irá converter despesas já registradas, exceto quando a moeda possuir \"unidades menores\" que a atual (ex. Alterar de Dólar Americano para Yen Japonês)",
-      "customOption": "Customizado",
-      "lockedAfterExpenses": "A moeda está bloqueada porque este grupo já tem despesas."
+      "editDescription": "Todos os valores e saldos estarão nesta moeda. A sua alteração NÃO irá converter despesas já registradas, exceto quando a moeda possuir \"unidades menores\" que a atual (ex. Alterar de Dólar Americano para Yen Japonês)"
     },
     "readOnlyNote": "Apenas proprietários e administradores podem alterar as configurações do grupo.",
     "readOnlyTitle": "Configurações do grupo",
-    "readOnlyBack": "Voltar ao grupo",
     "archivedNotice": "Este grupo está arquivado. Suas configurações estão congeladas e não podem mais ser alteradas.",
-    "bulkCategorizeSectionTitle": "Ferramentas de IA em lote",
-    "bulkCategorizeSectionDescription": "Execute o categorizador de IA em várias despesas de uma vez. Útil depois de importar despesas ou quando muitos títulos ainda não estão categorizados.",
-    "bulkCategorizeButton": "Abrir o categorizador em lote"
+    "bulkCategorizeSectionDescription": "Execute o categorizador de IA em várias despesas de uma vez. Útil depois de importar despesas ou quando muitos títulos ainda não estão categorizados."
   },
   "ExpenseForm": {
     "Income": {
-      "create": "Criar receita",
-      "edit": "Editar receita",
       "TitleField": {
-        "label": "Título da receita",
         "placeholder": "Salário ou reembolso"
       },
       "DateField": {
-        "label": "Data da receita",
         "description": "Insira a data em que a receita foi recebida."
       },
       "categoryFieldDescription": "Selecione a categoria da receita.",
       "paidByField": {
-        "label": "Recebido por",
         "description": "Selecione o participante que recebeu a receita."
       },
       "paidFor": {
-        "title": "Recebido para",
         "description": "Selecione para quem a receita foi recebida."
       },
       "splitModeDescription": "Selecione como dividir a receita.",
-      "currencyField": {
-        "label": "Moeda da receita",
-        "description": "A moeda na qual a receita foi recebida."
-      },
       "attachDescription": "Adicione recibos, fotos e documentos de apoio a esta receita.",
       "recurrence": {
         "scheduleHint": "Será criado às {time} ({timeZone}) e poderá disparar uma notificação. Escolha um horário que não atrapalhe o sono. Edite o horário acima para alterá-lo."
       }
     },
     "Expense": {
-      "create": "Criar despesa",
-      "edit": "Editar despesa",
       "TitleField": {
-        "label": "Título da despesa",
         "placeholder": "Restaurante na segunda à noite"
       },
       "DateField": {
-        "label": "Data da despesa",
         "description": "Insira a data em que a despesa foi paga."
       },
       "categoryFieldDescription": "Selecione a categoria da despesa.",
       "paidByField": {
-        "label": "Pago por",
         "placeholder": "Selecione um participante",
         "description": "Selecione quem forneceu o dinheiro e quanto cada pagador contribuiu."
       },
       "paidFor": {
-        "title": "Dividido entre",
         "description": "Selecione para quem a despesa foi paga."
       },
       "splitModeDescription": "Selecione como dividir a despesa.",
       "recurrenceRule": {
         "label": "Recorrência da Despesa",
-        "description": "Selecione a frequência de recorrência da despesa.",
-        "none": "Nenhuma",
-        "daily": "Diariamente",
-        "weekly": "Semanalmente",
-        "monthly": "Mensalmente"
-      },
-      "currencyField": {
-        "label": "Moeda da despesa",
-        "description": "A moeda na qual a despesa foi paga."
+        "description": "Selecione a frequência de recorrência da despesa."
       },
       "attachDescription": "Adicione recibos, fotos e documentos de apoio a esta despesa.",
-      "createCopy": "Criar cópia: {title}",
-      "editTitle": "Editar: {title}",
       "recurrence": {
-        "label": "Recorrência da despesa",
-        "description": "Escolha quando esta despesa deve ser criada novamente.",
-        "checkboxLabel": "Recorrente",
-        "checkboxDescription": "Criar esta despesa de acordo com um calendário",
-        "enable": "Adicionar recorrência",
-        "remove": "Remover recorrência",
-        "repeatEvery": "Repetir a cada",
-        "interval": "Intervalo de repetição",
-        "frequency": "Frequência da recorrência",
-        "frequencyOptions": {
-          "daily": "dia(s)",
-          "weekly": "semana(s)",
-          "monthly": "mês/meses",
-          "yearly": "ano(s)"
-        },
         "ends": {
-          "label": "Termina",
-          "never": "Nunca",
-          "count": "Após um número de ocorrências",
           "date": "Em uma data",
-          "countInput": "Total de ocorrências (incluindo esta despesa)",
           "dateInput": "Data de término"
         },
-        "previewLabel": "Próximas ocorrências",
-        "currentOccurrence": "Atual",
-        "viewAll": "Ver todas",
-        "scheduleTitle": "Calendário de recorrência",
-        "remainingCount": "Restam {count} ocorrências.",
         "unlimitedSchedule": "Esta recorrência não tem data de término.",
         "noFurtherOccurrences": "Não há mais ocorrências com estas configurações.",
         "scheduleCount": "Mostrando {count} ocorrências a partir desta despesa.",
-        "decreaseOccurrences": "Diminuir ocorrências",
-        "increaseOccurrences": "Aumentar ocorrências",
-        "ruleSummary": "A cada {interval} {frequency} · {count} ocorrências",
         "ruleSummaryIndefinite": "A cada {interval} {frequency} · Sem data de término",
-        "scheduleChangeWarningTitle": "O calendário de recorrência vai mudar",
         "scheduleChangeWarning": "Ao salvar, esta e as ocorrências futuras serão reagendadas. As despesas futuras existentes podem mudar para novas datas ou ser removidas, e as datas de vencimento faltantes podem ser criadas automaticamente.",
         "pastDateBackfillNote": "Como esta despesa começa no passado, as ocorrências até hoje serão criadas automaticamente depois de salvar.",
-        "completedOccurrence": "Criada",
-        "upcomingOccurrence": "Próxima",
-        "timeZoneDescription": "As novas despesas recorrentes são executadas às 15:00 em {timeZone}. Os agendamentos existentes mantêm o fuso horário original.",
         "timeZonePending": "Aguardando o fuso horário da sua conta antes de ativar a recorrência.",
         "scheduleHint": "Será criado às {time} ({timeZone}) e poderá disparar uma notificação. Escolha um horário que não atrapalhe o sono. Edite o horário acima para alterá-lo."
       },
-      "recurringEditScopeOccurrence": "Editar apenas esta ocorrência",
-      "recurringEditScopeFuture": "Editar esta ocorrência e as futuras",
-      "conflictTitle": "Despesa alterada",
       "conflictDescription": "Outro membro ou dispositivo alterou esta despesa. Recarregue a versão mais recente ou mantenha seu rascunho.",
       "conflictKeepDraft": "Manter meu rascunho",
       "conflictReload": "Recarregar versão mais recente"
@@ -803,31 +422,11 @@
     "amountField": {
       "label": "Valor",
       "calculator": {
-        "buttonLabel": "Abrir calculadora",
-        "title": "Calculadora",
         "description": "Calcule um valor ou crie itens de despesa.",
-        "clear": "Limpar",
         "backspace": "Backspace",
-        "equals": "Igual",
-        "plus": "Mais",
-        "minus": "Menos",
-        "multiply": "Multiplicar",
-        "divide": "Dividir",
         "openBracket": "Abrir parêntese",
         "closeBracket": "Fechar parêntese",
-        "decimal": "Ponto decimal",
-        "invalid": "Expressão inválida",
-        "replaceItemsTitle": "Substituir os itens de despesa?",
         "replaceItemsDescription": "Isso substituirá seus itens de despesa existentes pelos itens calculados.",
-        "replaceItemsConfirm": "Substituir itens",
-        "splitIntoItems_zero": "Criar {count} itens de despesa",
-        "splitIntoItems_one": "Criar {count} item de despesa",
-        "splitIntoItems_two": "Criar {count} itens de despesa",
-        "splitIntoItems_few": "Criar {count} itens de despesa",
-        "splitIntoItems_many": "Criar {count} itens de despesa",
-        "splitIntoItems_other": "Criar {count} itens de despesa",
-        "replaceItems": "Substituir os itens de despesa",
-        "createItems": "Criar itens de despesa",
         "itemTransferInvalid": "Termine o cálculo",
         "itemTransferUnsupported": "Apenas +, × e parênteses",
         "itemTransferEmpty": "Digite um cálculo",
@@ -835,18 +434,9 @@
         "replaceItemsHint": "Substitua os itens atuais"
       }
     },
-    "categoryField": {
-      "label": "Categoria"
-    },
-    "notesField": {
-      "label": "Notas"
-    },
     "selectNone": "Remover seleção",
     "selectAll": "Selecionar todos(as)",
-    "shares": "parte(s)",
     "SplitModeField": {
-      "label": "Modo de divisão",
-      "evenly": "Igualmente",
       "byShares": "Desigualmente - Por partes",
       "byPercentage": "Desigualmente - Por porcentagem",
       "byAmount": "Desigualmente - Por valor"
@@ -855,131 +445,57 @@
       "label": "Excluir",
       "title": "Excluir esta despesa?",
       "description": "Esta despesa será excluída permanentemente. Esta ação não pode ser desfeita.",
-      "yes": "Sim",
       "deleting": "Excluindo…",
-      "cancel": "Cancelar",
       "delete": "Excluir"
     },
-    "attachDocuments": "Anexos",
-    "create": "Criar",
     "creating": "Criando…",
     "save": "Salvar",
     "saving": "Salvando…",
-    "cancel": "Cancelar",
-    "conversionRateField": {
-      "label": "Taxa de câmbio",
-      "useApi": "Usar taxas do Frankfurter",
-      "useCustom": "Usar taxa personalizada",
-      "futureDateUsesToday": "Esta despesa está no futuro e será usada a taxa de câmbio de hoje."
-    },
     "conversionRateState": {
-      "success": "Taxas obtidas:",
       "error": "Opa, não conseguimos obter as taxas mais recentes.",
-      "refresh": "Atualizar",
       "loading": "Obtendo taxas de câmbio…",
       "staleRate": "Usando taxa:",
       "noRate": "Insira uma taxa personalizada abaixo.",
-      "currencyNotFound": "Ops, o Frankfurter não tem a taxa para esta moeda nesta data.",
       "noDate": "Insira a data da despesa para obter uma taxa de câmbio.",
-      "dateMismatch": "Taxas da data: {date}",
       "customRate": "Usando taxa personalizada",
       "via": "por meio de {currencies}"
     },
     "conversionUnavailable": "Para definir uma moeda diferente por despesa e converter valores, selecione uma moeda não personalizada para o grupo.",
-    "participant": {
-      "pending": "(convidado)"
-    },
     "readOnlyNotice": "Este grupo está arquivado. A despesa é exibida como somente leitura.",
-    "PaidBySplitModeField": {
-      "label": "Modo de divisão do pagador"
-    },
     "ParticipantDistribution": {
-      "missing": "Falta {missing} de {total}",
-      "surplus": "Excedente: {extra} de {total}",
-      "matches": "✓ Corresponde a {total}",
       "evenlySplit": "Dividido igualmente: {amount} × {count}",
-      "sharesTotal": "Peso total: {sum} cotas",
-      "percentageMatches": "✓ Corresponde a 100%",
-      "percentageMissing": "Falta {pct}%",
-      "percentageSurplus": "Excedente: {pct}%"
+      "sharesTotal": "Peso total: {sum} cotas"
     },
-    "splittingOptions": "Opções de divisão",
-    "multiplePayers": "Vários pagadores",
-    "paidByOptionSinglePayer": "Pagador único",
-    "paidByOptionEvenly": "Igualmente",
-    "paidByOptionByShares": "Por partes",
     "paidByOptionByPercentage": "Por porcentagem",
     "paidByOptionByAmount": "Por valor",
-    "paidForOptionEvenly": "Igualmente",
-    "paidForOptionByShares": "Por partes",
     "paidForOptionByPercentage": "Por porcentagem",
     "paidForOptionByAmount": "Por valor",
-    "paidBySectionSingle": "Único",
-    "paidBySectionMultiple": "Vários pagadores",
-    "paidForSection": "Dividir entre participantes",
-    "splitOptionAria": "Divisão: {title}",
     "paidByOptionSinglePayerHelper": "Uma pessoa cobre a despesa inteira",
-    "paidByOptionEvenlyHelper": "Cada um paga uma parte igual",
-    "paidByOptionBySharesHelper": "Cada um paga uma parte ponderada",
     "paidByOptionByPercentageHelper": "Cada um paga uma porcentagem",
     "paidByOptionByAmountHelper": "Cada um paga um valor fixo",
-    "paidForOptionEvenlyHelper": "Dividido igualmente entre todos",
-    "paidForOptionBySharesHelper": "Atribui uma parte a cada pessoa",
     "paidForOptionByPercentageHelper": "Atribui uma porcentagem a cada pessoa",
     "paidForOptionByAmountHelper": "Atribui um valor exato a cada pessoa",
     "convertedAmountField": {
       "label": "Valor convertido"
     },
-    "paidForOptionItemized": "Por itens",
     "paidForOptionItemizedHelper": "Calcule a parte de cada participante a partir dos itens individuais da despesa.",
     "items": {
-      "title": "Itens",
       "description": "Adicione itens para dividir a despesa com precisão ou mantê-los como documentação com qualquer modo de divisão.",
-      "addItem": "Adicionar item",
       "empty": "Ainda não há itens. Selecione «Adicionar item» para começar.",
-      "allMembers": "Todos os participantes",
-      "noMembers": "Nenhum participante",
-      "other": "Outro (não atribuído)",
-      "derivedBadge": "Calculado",
       "errorExceedsAmount": "O total dos itens excede o valor da despesa.",
-      "actionEdit": "Editar",
       "actionDelete": "Excluir",
-      "total": "Total dos itens",
       "requiredForItemized": "Adicione pelo menos um item para usar a divisão por itens.",
-      "participantsSummary_one": "{count} participante",
-      "participantsSummary_many": "{count} participantes",
-      "participantsSummary_other": "{count} participantes",
-      "modalTitle": "Participantes do item",
-      "columnItem": "Item",
-      "columnCost": "Custo",
-      "columnQuantity": "Qtd.",
-      "columnParticipants": "Participantes",
-      "columnTotal": "Total",
       "setExpenseAmount": "Definir valor da despesa",
-      "splitEvenlyLabel": "Dividir igualmente",
       "splitBySharesLabel": "Dividir por cotas",
       "splitByPercentageLabel": "Dividir por porcentagem",
       "splitByAmountLabel": "Dividir por valor",
-      "switchToItemizedTitle": "Mudar para divisão por itens?",
       "switchToItemizedDescription": "Editar os participantes do item muda Pago para para Por itens e substitui a divisão de Pago para que você configurou.",
-      "switchToItemizedConfirm": "Mudar para por itens",
-      "showItems": "Mostrar itens",
-      "hideItems": "Ocultar itens",
-      "participantValueLabel": "Valor dividido para {name}",
       "defaultSplitLabel": "Divisão padrão dos itens",
-      "defaultSplitMixed": "Mista",
       "defaultSplitEdit": "Editar a divisão padrão dos itens",
-      "defaultSplitModalTitle": "Divisão padrão dos itens",
-      "calculationError": "Não foi possível calcular a divisão por itens. Verifique os valores dos itens e as partes dos participantes.",
-      "allItemsSplitLabel": "Divisão de todos os itens",
-      "allItemsSplitMixed": "Os itens usam divisões diferentes",
-      "allItemsSplitEdit": "Editar a divisão de todos os itens",
-      "allItemsSplitModalTitle": "Divisão de todos os itens"
+      "defaultSplitModalTitle": "Divisão padrão dos itens"
     },
     "leaveItemized": {
       "title": "Mudar o modo de divisão?",
-      "description": "Ao mudar para {mode}, os itens serão mantidos apenas como documentação. Todas as atribuições de participantes por item serão removidas.",
-      "cancel": "Cancelar",
       "confirm": "Mudar"
     },
     "paidForItemizedEntryHint": "Para dividir por item, edite os participantes na linha de um item.",
@@ -987,85 +503,48 @@
     "DefaultSplit": {
       "savedAsDefault": "Salvo como padrão",
       "heading": "Divisão padrão",
-      "load": "Carregar",
       "save": "Salvar"
     },
     "scanReceipt": "Escaneie o recibo com IA",
     "participantAmountLabel": "Valor para {name}",
     "participantPercentageLabel": "Porcentagem para {name}",
-    "participantSharesLabel": "Partes de {name}",
-    "decreaseShares": "Diminuir partes de {name}",
-    "increaseShares": "Aumentar partes de {name}",
     "validationSummary": "Corrija os campos destacados antes de salvar.",
     "resetDistribution": "Redefinir",
     "savedButNotNavigated": "A despesa foi salva, mas não conseguimos sair desta página. Você pode fechá-la com segurança.",
-    "tryLeavingAgain": "Tentar sair novamente",
     "dateTimePicker": {
-      "changesDate": "Altera a data",
-      "timezone": "Fuso horário",
-      "dateTab": "Data",
-      "timeTab": "Hora",
-      "back": "Voltar",
-      "chooseTimezone": "Escolher fuso horário",
-      "done": "Concluído",
       "yourTime": "seu horário"
     },
     "settlementTitle": "Pagamento de acerto",
     "settlementHint": "{category}: Não conta como gasto em totais, estatísticas ou orçamentos. Ainda atualiza quem deve a quem.",
     "incomeHint": "{category}: Para dinheiro recebido. Agrupado como receita, não como uma compra.",
     "SplitPreset": {
-      "apply": "Predefinição de divisão",
-      "chooseTitle": "Escolher uma predefinição de divisão",
-      "chooseDescription": "Pesquise e selecione uma predefinição para copiar para esta divisão.",
-      "search": "Pesquisar predefinições ou participantes",
       "emptySearch": "Nenhuma predefinição de divisão corresponde.",
       "save": "Salvar como predefinição",
       "saveTitle": "Salvar predefinição de divisão",
       "saveDescription": "Salve estes valores de divisão como uma nova predefinição.",
-      "namePlaceholder": "Nome da predefinição",
       "saveError": "Não foi possível salvar a predefinição de divisão.",
-      "load": "Carregar divisão",
-      "loaded": "Carregado: {name}",
-      "change": "Alterar",
-      "reload": "Recarregar",
       "saveChanges": "Salvar alterações",
       "saveAsNew": "Salvar como novo",
-      "stopTracking": "Parar de acompanhar",
-      "modified": "Modificado",
       "loading": "Carregando predefinições de divisão…",
       "confirmSharedOverwrite": "Substituir este preset de divisão compartilhado? Os outros membros do grupo verão a alteração.",
-      "loadedLabel": "Predefinição carregada",
-      "actions": "Ações da predefinição",
       "payerDistribution": "Divisão dos pagadores",
       "paidForDistribution": "Divisão dos participantes",
-      "pays": "paga",
-      "owes": "deve",
-      "receives": "recebe",
-      "heading": "Predefinição de divisão",
-      "saveAsPreset": "Salvar como predefinição",
-      "untracked": "Nenhuma predefinição carregada",
-      "loadAnother": "Carregar outra",
-      "receivesShare": "recebe uma parte"
+      "saveAsPreset": "Salvar como predefinição"
     }
   },
   "ExpenseDocumentsInput": {
     "deleteDocument": "Excluir documento",
-    "document": "Documento",
-    "close": "Fechar",
     "TooBigToast": {
       "title": "O arquivo é muito grande",
       "description": "O tamanho máximo de arquivo que você pode enviar é {maxSize}. O seu é {size}."
     },
     "ErrorToast": {
-      "title": "Erro ao enviar documento",
-      "description": "Algo deu errado ao enviar o documento. Por favor, tente novamente mais tarde ou selecione um arquivo diferente.",
-      "retry": "Tentar novamente"
+      "description": "Algo deu errado ao enviar o documento. Por favor, tente novamente mais tarde ou selecione um arquivo diferente."
     },
     "dropTitle": "Solte os arquivos para anexar",
     "dropDescription": "Imagens, PDFs e documentos comuns de recibos de até 2 MB",
     "chooseFiles": "Escolher arquivos",
     "takePhoto": "Tirar foto",
-    "openDocument": "Abrir documento",
     "FileErrorToast": {
       "description": "{fileName}: ocorreu um erro ao fazer upload. Tente novamente mais tarde ou escolha outro arquivo."
     },
@@ -1073,46 +552,31 @@
       "title": "Arquivo incompatível",
       "description": "{fileName} não é um tipo de anexo compatível."
     },
-    "addAttachments": "Adicionar anexos",
     "uploading": "Enviando…",
     "noAttachments": "Ainda não há anexos."
   },
   "CreateFromReceipt": {
     "Dialog": {
       "triggerTitle": "Escaneamento de recibo com IA",
-      "title": "Criar a partir de recibo",
       "description": "Extraia as informações da despesa a partir de uma foto de recibo.",
       "body": "Faça upload da foto de um recibo, e vamos escaneá-la para extrair as informações da despesa, se possível.",
-      "selectImage": "Selecionar imagem…",
-      "titleLabel": "Título:",
-      "categoryLabel": "Categoria:",
       "amountLabel": "Valor:",
-      "dateLabel": "Data:",
       "editNext": "Você poderá editar as informações da despesa a seguir.",
-      "continue": "Continuar",
       "existingDocuments": "Escolha um recibo anexado",
-      "existingDocumentAlt": "Recibo anexado",
       "uploadAndScan": "Faça upload e escaneie o recibo",
       "scannedReceiptAlt": "Recibo escaneado",
-      "fillTitle": "Preencher despesa a partir do recibo",
       "fillNext": "Revise os detalhes sugeridos e aplique-os a esta despesa.",
-      "scanningHint": "A digitalização pode demorar um pouco — aguarde.",
       "fillBody": "Escolha um recibo anexado ou envie um novo — vamos digitalizá-lo para sugerir os detalhes desta despesa.",
-      "translateToLocale": "Traduzir título e itens para {language}",
-      "dropTitle": "Solte uma imagem do recibo",
       "dropDescription": "Solte uma imagem aqui para escanear com IA",
       "takePhoto": "Tirar foto",
       "scanReceipt": "Escanear recibo"
     },
-    "unknown": "Desconhecido",
     "TooBigToast": {
       "title": "O arquivo é muito grande",
       "description": "O tamanho máximo de arquivo que você pode enviar é {maxSize}. O seu é {size}."
     },
     "ErrorToast": {
-      "title": "Erro ao enviar documento",
-      "description": "Algo deu errado ao enviar o documento. Por favor, tente novamente mais tarde ou selecione um arquivo diferente.",
-      "retry": "Tentar novamente"
+      "description": "Algo deu errado ao enviar o documento. Por favor, tente novamente mais tarde ou selecione um arquivo diferente."
     },
     "UnsupportedToast": {
       "title": "Imagem obrigatória",
@@ -1120,14 +584,8 @@
     }
   },
   "Balances": {
-    "title": "Saldos",
     "description": "Veja o saldo líquido de cada participante.",
-    "removedBadge": "Removido",
     "currencyDisplay": {
-      "label": "Moeda",
-      "group": "Moeda do grupo ({currency})",
-      "original": "Original",
-      "title": "Escolha como ver os saldos",
       "groupDescription": "Converta todas as despesas para {currency} para uma visão combinada.",
       "originalDescription": "Mantenha cada despesa na moeda em que foi inserida.",
       "originalNote": "Os pagamentos de acerto geralmente são registrados na moeda do grupo. Esta visualização em moeda original é um razão separado por moeda, então os saldos podem parecer pendentes aqui mesmo quando o plano na moeda do grupo está quitado. Prefira a visualização em moeda do grupo para acertar."
@@ -1138,9 +596,6 @@
       "settledUp": "Quitados",
       "toReceiveDescription": "Cada segmento mostra quem paga para este participante.",
       "toPayDescription": "Cada segmento mostra para quem este participante paga.",
-      "participantReceives": "<strong>{name}</strong> recebe",
-      "participantPays": "<strong>{name}</strong> paga",
-      "fromParticipant": "de <strong>{name}</strong>",
       "toParticipant": "para <strong>{name}</strong>",
       "settle": "Acertar",
       "settlePaymentsBy": "Acertar {count} pagamentos de {name}, {amount}",
@@ -1149,59 +604,35 @@
     "view": {
       "label": "Visualização",
       "title": "Escolha como ver os saldos",
-      "simple": "Simples",
       "simpleDescription": "Veja quem deve a quem e registre pagamentos de acerto.",
-      "visual": "Visual",
       "visualDescription": "Detalhamento dos saldos e gráficos."
     },
     "simple": {
       "title": "Quitar saldos",
       "description": "Veja quem deve o quê e marque os pagamentos como quitados.",
-      "netBalances": "Saldos líquidos",
-      "isOwed": "tem a receber {amount}",
-      "owes": "deve {amount}",
-      "suggestedPayments": "Pagamentos sugeridos",
       "empty": "Todos estão quitados."
     },
     "settlementMode": {
-      "label": "Quitar saldos como",
-      "individual": "Por pessoa",
-      "subgroups": "Subgrupos"
+      "label": "Quitar saldos como"
     },
     "subgroups": {
-      "balanceTitle": "Saldos dos subgrupos",
       "balanceDescription": "Use cada subgrupo como uma unidade de quitação para pessoas que compartilham gastos, como casais ou famílias. As divisões individuais das despesas permanecem inalteradas.",
       "emptyBalances": "Cada subgrupo está quitado com os demais.",
       "internalBalancesNote": "Depois que os pagamentos dos subgrupos forem quitados, os membros ainda podem ter saldos dentro do seu subgrupo.",
-      "viewIndividual": "Ver saldos individuais",
-      "suggestedPayments": "Pagamentos sugeridos",
-      "emptyPayments": "Nada é devido entre subgrupos.",
-      "pays": "paga",
-      "receives": "recebe",
       "to": "para",
-      "from": "de",
-      "personPays": "paga",
       "settle": "Acertar",
       "individualAllHint": "Você está vendo o plano individual padrão para todo o grupo. Ele pode incluir pagamentos entre subgrupos.",
-      "unknownParticipant": "Convite pendente",
       "individualWithinHint": "Você está vendo um plano individual que considera os subgrupos. Os pagamentos sugeridos permanecem dentro de cada subgrupo quando os totais dos subgrupos já estão quitados."
     },
     "Settlements": {
       "title": "Acertos sugeridos",
       "description": "Use estes pagamentos para acertar os saldos com o menor número possível de transferências.",
       "noSettlements": "Todos os saldos do seu grupo estão acertados 😁",
-      "owes": "<strong>{from}</strong> deve <strong>{to}</strong>",
-      "markAsPaid": "Marcar como pago",
-      "markAsPaidAria": "Marcar {amount} de {from} para {to} como pago"
+      "owes": "<strong>{from}</strong> deve <strong>{to}</strong>"
     }
   },
   "Stats": {
-    "title": "Estatísticas",
     "Totals": {
-      "title": "Totais",
-      "description": "Resumo de gastos de todo o grupo.",
-      "groupSpendings": "Total de gastos do grupo",
-      "groupEarnings": "Total de receitas do grupo",
       "yourSpendings": "Seus gastos totais",
       "yourEarnings": "Suas receitas totais",
       "yourShare": "Sua participação total"
@@ -1209,66 +640,28 @@
     "Dashboard": {
       "description": "Um retrato de como este grupo gasta junto.",
       "lifetime": "Gasto total",
-      "selectedPeriod": "Período selecionado",
       "lifetimeDescription": "Em todo o histórico do grupo",
-      "expenseCount_one": "{count} despesa",
-      "expenseCount_many": "{count} despesas",
-      "expenseCount_other": "{count} despesas",
       "spendingOverTime": "Gastos ao longo do tempo",
-      "bucketedBy": "Agrupado por {granularity}",
-      "other": "Outros",
-      "inactiveGap": "Período inativo",
-      "categories": "Categorias",
       "categoriesDescription": "Para onde foi o gasto selecionado",
       "participants": "Participação dos membros",
       "participantsDescription": "Como os gastos foram divididos",
       "emptyTitle": "Ainda não há gastos para mostrar",
       "emptyDescription": "Adicione uma despesa para começar a construir o histórico de gastos deste grupo.",
-      "error": "Não foi possível carregar as estatísticas do grupo.",
-      "granularity": {
-        "DAY": "dia",
-        "WEEK": "semana",
-        "MONTH": "mês"
-      },
-      "title": "Atividade de gastos",
-      "periods": {
-        "LATEST_ACTIVITY": "Atividade mais recente",
-        "WEEK": "1S",
-        "MONTH": "1M",
-        "QUARTER": "3M",
-        "YEAR": "1A",
-        "CUSTOM": "Personalizado"
-      },
-      "retry": "Tentar novamente",
-      "customRange": {
-        "from": "De",
-        "to": "Até"
-      }
+      "title": "Atividade de gastos"
     }
   },
   "Activity": {
-    "title": "Atividade",
-    "description": "Visão geral de toda a atividade neste grupo.",
     "noActivity": "Ainda não há atividades no seu grupo.",
-    "someone": "Alguém",
     "settingsModified": "As configurações do grupo foram modificadas por <strong>{participant}</strong>.",
-    "expenseCreated": "Despesa <em>{expense}</em> criada por <strong>{participant}</strong>.",
-    "expenseUpdated": "Despesa <em>{expense}</em> atualizada por <strong>{participant}</strong>.",
     "expenseDeleted": "Despesa <em>{expense}</em> excluída por <strong>{participant}</strong>.",
     "Groups": {
-      "today": "Hoje",
-      "yesterday": "Ontem",
       "earlierThisWeek": "Anteriormente nesta semana",
-      "lastWeek": "Semana passada",
       "earlierThisMonth": "Anteriormente neste mês",
-      "lastMonth": "Mês passado",
       "earlierThisYear": "Anteriormente neste ano",
-      "lastYear": "Ano passado",
       "older": "Mais antigas"
     }
   },
   "Information": {
-    "title": "Informação",
     "description": "Use este espaço para adicionar qualquer informação que possa ser relevante para os participantes do grupo.",
     "empty": "Nenhuma informação do grupo ainda."
   },
@@ -1278,7 +671,6 @@
   "Share": {
     "title": "Compartilhar",
     "description": "Para que outros participantes vejam o grupo e adicionem despesas, compartilhe o link com eles.",
-    "warning": "Aviso!",
     "warningHelp": "Toda pessoa com o link do grupo poderá ver e editar despesas. Compartilhe com cautela!"
   },
   "SchemaErrors": {
@@ -1286,9 +678,7 @@
     "min2": "Digite pelo menos dois caracteres.",
     "max5": "Digite no máximo cinco caracteres.",
     "max50": "Digite no máximo 50 caracteres.",
-    "duplicateParticipantName": "Outro participante já tem este nome.",
     "titleRequired": "Por favor, insira um título.",
-    "invalidNumber": "Número inválido.",
     "amountRequired": "Você deve inserir um valor.",
     "amountNotZero": "O valor não deve ser zero.",
     "amountTenMillion": "O valor deve ser inferior a 10.000.000.",
@@ -1299,91 +689,33 @@
     "percentageSum": "A soma das porcentagens deve ser igual a 100.",
     "ratePositive": "A taxa deve ser estritamente maior que zero.",
     "paidByMin1": "Você deve selecionar pelo menos um pagador.",
-    "paidByAmountSum": "A soma dos valores dos pagadores deve ser igual ao valor da despesa.",
     "paidByPercentageSum": "A soma das porcentagens dos pagadores deve ser 100.",
-    "duplicateParticipant": "Outro pagador já está selecionado.",
     "sharesInvalid": "As participações devem estar entre 0,01 e 1.000.000 com no máximo duas casas decimais.",
-    "itemTitleRequired": "O nome do item é obrigatório.",
-    "itemQuantityMin1": "A quantidade do item deve ser pelo menos 1.",
     "rowErrorsHeading": "Corrija estas participações:",
     "invalidWallTime": "Este horário não existe na data selecionada neste fuso horário."
   },
   "Categories": {
-    "search": "Pesquisar categoria...",
-    "noCategory": "Nenhuma categoria encontrada.",
-    "Uncategorized": {
-      "heading": "Sem categoria",
-      "General": "Geral",
-      "Payment": "Pagamento"
-    },
     "Entertainment": {
-      "heading": "Entretenimento",
-      "Games": "Jogos",
-      "Movies": "Filmes",
-      "Music": "Música",
       "Sports": "Esportes"
     },
     "Food and Drink": {
-      "heading": "Comida e Bebida",
-      "Dining Out": "Jantar fora",
-      "Groceries": "Mercearia",
-      "Liquor": "Bebidas alcoólicas"
+      "Dining Out": "Jantar fora"
     },
     "Home": {
-      "heading": "Casa",
       "Electronics": "Eletrônicos",
-      "Furniture": "Móveis",
-      "Household Supplies": "Suprimentos domésticos",
-      "Maintenance": "Manutenção",
       "Mortgage": "Financiamento Habitacional",
-      "Pets": "Animais de estimação",
-      "Rent": "Aluguel",
-      "Services": "Serviços",
-      "Gardening": "Jardinagem",
-      "Plants": "Plantas"
-    },
-    "Life": {
-      "heading": "Vida",
-      "Childcare": "Cuidados infantis",
-      "Clothing": "Roupas",
-      "Education": "Educação",
-      "Gifts": "Presentes",
-      "Insurance": "Seguro",
-      "Medical Expenses": "Despesas médicas",
-      "Taxes": "Impostos",
-      "Donation": "Doação"
+      "Rent": "Aluguel"
     },
     "Transportation": {
-      "heading": "Transporte",
-      "Bicycle": "Bicicleta",
       "Bus/Train": "Ônibus/Trem",
-      "Car": "Carro",
-      "Gas/Fuel": "Gasolina/Combustível",
-      "Hotel": "Hotel",
-      "Parking": "Estacionamento",
-      "Plane": "Avião",
-      "Taxi": "Táxi",
       "Tolls": "Pedágios"
     },
     "Utilities": {
       "heading": "Utilitários",
-      "Cleaning": "Limpeza",
-      "Electricity": "Eletricidade",
-      "Heat/Gas": "Calor/Gás",
-      "Trash": "Lixo",
-      "TV/Phone/Internet": "TV/Telefone/Internet",
-      "Water": "Água"
-    },
-    "Social and Activities": {
-      "heading": "Social e atividades",
-      "Events and Activities": "Eventos e atividades"
-    },
-    "Personal Care and Wellness": {
-      "heading": "Cuidados pessoais e bem-estar"
+      "Heat/Gas": "Calor/Gás"
     },
     "Subscriptions and Memberships": {
       "heading": "Assinaturas e associações",
-      "Digital Subscriptions": "Assinaturas digitais",
       "Memberships": "Associações"
     },
     "Income": {
@@ -1394,140 +726,24 @@
     }
   },
   "Currencies": {
-    "search": "Pesquisar moeda...",
-    "noCurrency": "Nenhuma moeda encontrada.",
     "byCode": {
-      "AED": {
-        "name": "Dirham dos Emirados Árabes Unidos"
-      },
-      "ARS": {
-        "name": "Peso argentino"
-      },
-      "AUD": {
-        "name": "Dólar australiano"
-      },
       "BDT": {
         "name": "Taka bengali"
-      },
-      "BGN": {
-        "name": "Lev búlgaro"
-      },
-      "BRL": {
-        "name": "Real brasileiro"
       },
       "CAD": {
         "name": "Dólar canadense"
       },
-      "CHF": {
-        "name": "Franco suíço"
-      },
-      "CLP": {
-        "name": "Peso chileno"
-      },
-      "CNY": {
-        "name": "Yuan chinês"
-      },
-      "COP": {
-        "name": "Peso colombiano"
-      },
       "CZK": {
         "name": "Coroa tcheca"
-      },
-      "DKK": {
-        "name": "Coroa dinamarquesa"
-      },
-      "EGP": {
-        "name": "Libra egípcia"
-      },
-      "EUR": {
-        "name": "Euro"
-      },
-      "GBP": {
-        "name": "Libra esterlina"
-      },
-      "GEL": {
-        "name": "Lari georgiano"
-      },
-      "GHS": {
-        "name": "Cedi ganês"
-      },
-      "HKD": {
-        "name": "Dólar de Hong Kong"
-      },
-      "HNL": {
-        "name": "Lempira hondurenha"
-      },
-      "HRK": {
-        "name": "Kuna croata"
       },
       "HUF": {
         "name": "Florim húngaro"
       },
-      "IDR": {
-        "name": "Rupia indonésia"
-      },
       "ILS": {
         "name": "Novo shekel israelense"
       },
-      "INR": {
-        "name": "Rupia indiana"
-      },
-      "ISK": {
-        "name": "Coroa islandesa"
-      },
-      "JPY": {
-        "name": "Iene japonês"
-      },
-      "KES": {
-        "name": "Xelim queniano"
-      },
-      "KHR": {
-        "name": "Riel cambojano"
-      },
-      "KRW": {
-        "name": "Won sul-coreano"
-      },
-      "KWD": {
-        "name": "Dinar kuwaitiano"
-      },
-      "KZT": {
-        "name": "Tenge cazaque"
-      },
-      "LKR": {
-        "name": "Rupia do Sri Lanka"
-      },
-      "MAD": {
-        "name": "Dirham marroquino"
-      },
-      "MDL": {
-        "name": "Leu moldavo"
-      },
       "MKD": {
         "name": "Denar macedônio"
-      },
-      "MXN": {
-        "name": "Peso mexicano"
-      },
-      "MYR": {
-        "name": "Ringgit malaio"
-      },
-      "NGN": {
-        "name": "Naira nigeriana"
-      },
-      "NOK": {
-        "name": "Coroa norueguesa"
-      },
-      "NZD": {
-        "name": "Dólar neozelandês"
-      },
-      "PEN": {
-        "name": "Sol peruano"
-      },
-      "PHP": {
-        "name": "Peso filipino"
-      },
-      "PKR": {
-        "name": "Rupia paquistanesa"
       },
       "PLN": {
         "name": "Zloty polonês"
@@ -1535,47 +751,11 @@
       "QAR": {
         "name": "Rial catariano"
       },
-      "RON": {
-        "name": "Leu romeno"
-      },
-      "RUB": {
-        "name": "Rublo russo"
-      },
       "SAR": {
         "name": "Riyal saudita"
       },
-      "SEK": {
-        "name": "Coroa sueca"
-      },
       "SGD": {
         "name": "Dólar de Singapura"
-      },
-      "THB": {
-        "name": "Baht tailandês"
-      },
-      "TRY": {
-        "name": "Lira turca"
-      },
-      "TWD": {
-        "name": "Novo dólar taiwanês"
-      },
-      "UAH": {
-        "name": "Hryvnia ucraniana"
-      },
-      "USD": {
-        "name": "Dólar americano"
-      },
-      "UYU": {
-        "name": "Peso uruguaio"
-      },
-      "VND": {
-        "name": "Dong vietnamita"
-      },
-      "ZAR": {
-        "name": "Rand sul-africano"
-      },
-      "NPR": {
-        "name": "Rupia nepalesa"
       },
       "BHD": {
         "name": "Dinar bareinita"
@@ -1583,77 +763,20 @@
       "BND": {
         "name": "Dólar de Brunei"
       },
-      "BOB": {
-        "name": "Boliviano boliviano"
-      },
       "BWP": {
         "name": "Pula de Botsuana"
       },
       "CRC": {
         "name": "Colón costarriquenho"
       },
-      "DOP": {
-        "name": "Peso dominicano"
-      },
-      "ETB": {
-        "name": "Birr etíope"
-      },
-      "GTQ": {
-        "name": "Quetzal guatemalteco"
-      },
-      "IQD": {
-        "name": "Dinar iraquiano"
-      },
-      "IRR": {
-        "name": "Rial iraniano"
-      },
-      "JOD": {
-        "name": "Dinar jordaniano"
-      },
-      "KGS": {
-        "name": "Som quirguiz"
-      },
-      "LAK": {
-        "name": "Kip laosiano"
-      },
-      "LBP": {
-        "name": "Libra libanesa"
-      },
-      "MMK": {
-        "name": "Kyat birmanês"
-      },
-      "MNT": {
-        "name": "Tugrik mongol"
-      },
       "MOP": {
         "name": "Pataca macaense"
-      },
-      "MUR": {
-        "name": "Rupia mauriciana"
       },
       "MWK": {
         "name": "Kwacha malauiano"
       },
-      "MZN": {
-        "name": "Metical moçambicano"
-      },
-      "NAD": {
-        "name": "Dólar namibiano"
-      },
-      "NIO": {
-        "name": "Córdoba nicaraguense"
-      },
-      "OMR": {
-        "name": "Rial omanense"
-      },
       "PAB": {
         "name": "Balboa panamenho"
-      },
-      "PYG": {
-        "name": "Guarani paraguaio"
-      },
-      "RSD": {
-        "name": "Dinar sérvio"
       },
       "TJS": {
         "name": "Somoni tadjique"
@@ -1661,44 +784,8 @@
       "TND": {
         "name": "Dinar tunisiano"
       },
-      "TZS": {
-        "name": "Xelim tanzaniano"
-      },
       "UGX": {
         "name": "Xelim ugandense"
-      },
-      "UZS": {
-        "name": "Som uzbeque"
-      },
-      "XAF": {
-        "name": "Franco CFA da África Central"
-      },
-      "XOF": {
-        "name": "Franco CFA da África Ocidental"
-      },
-      "ZMW": {
-        "name": "Kwacha zambiano"
-      },
-      "BTC": {
-        "name": "Bitcoin"
-      },
-      "DOGE": {
-        "name": "Dogecoin"
-      },
-      "ETH": {
-        "name": "Ethereum"
-      },
-      "LTC": {
-        "name": "Litecoin"
-      },
-      "SAT": {
-        "name": "Sats"
-      },
-      "SOL": {
-        "name": "Solana"
-      },
-      "XRP": {
-        "name": "XRP"
       }
     }
   },
@@ -1711,11 +798,8 @@
     "password": "Senha",
     "signInWithPassword": "Entrar com senha",
     "signUpWithPassword": "Cadastrar com senha",
-    "signInWithGoogle": "Continuar com Google",
     "orContinueWithEmail": "ou continue com e-mail",
-    "magicLinkTab": "Link mágico",
     "passwordTab": "Senha",
-    "sendMagicLink": "Enviar link de acesso",
     "magicLinkEmail": "E-mail",
     "usePasswordInstead": "Usar e-mail e senha",
     "hidePasswordForm": "Ocultar formulário de senha",
@@ -1726,19 +810,11 @@
     "verificationEmailSent": "Verifique sua caixa de entrada para confirmar sua conta.",
     "noAccount": "Ainda não tem uma conta?",
     "haveAccount": "Já tem uma conta?",
-    "createAccount": "Criar uma conta",
     "signIn": "Entrar",
     "signOut": "Sair",
     "confirmPassword": "Confirmar senha",
     "passwordMismatch": "As senhas não coincidem.",
     "passwordTooShort": "A senha deve ter pelo menos 8 caracteres.",
-    "passwordRequirements": {
-      "minLength": "8 caracteres",
-      "uppercase": "Maiúscula",
-      "lowercase": "Minúscula",
-      "number": "Número",
-      "symbol": "Símbolo"
-    },
     "forgotPasswordLink": "Esqueceu a senha?",
     "errors": {
       "invalidCredentials": "E-mail ou senha incorretos.",
@@ -1747,34 +823,27 @@
       "nameRequired": "Insira um nome de exibição.",
       "generic": "Algo deu errado. Por favor, tente novamente.",
       "passwordPolicy": "Use pelo menos 8 caracteres com maiúsculas, minúsculas, um número e um símbolo.",
-      "magicLinkFailed": "Não foi possível enviar o link de acesso.",
       "signupInviteRequired": "Esta instância é apenas por convite. Use um link de convite ou peça a alguém que te convide para um grupo."
     },
     "loading": "Carregando…",
     "signedInAs": "Conectado como {name}",
     "required": "Você precisa entrar para acessar seus grupos.",
-    "back": "Voltar ao início",
-    "signInWithGithub": "Continuar com GitHub",
     "legalNotice": "Ao continuar, você aceita os <terms>Termos de uso</terms> e reconhece o <privacy>aviso de privacidade</privacy>.",
     "inviteOnly": {
       "message": "Esta instância é apenas por convite. Use um link de convite ou peça a alguém que te convide para um grupo.",
       "useInvitedEmail": "Use o endereço de e-mail com o qual você recebeu o convite."
     },
-    "signInWithX": "Continuar com X",
-    "signInWithOidc": "Continuar com {name}",
     "signInAnonymously": "Anônimo"
   },
   "CompleteProfile": {
     "title": "Complete seu perfil",
     "description": "Diga-nos o nome que você gostaria que seus grupos vissem. Você pode alterá-lo depois.",
-    "nameLabel": "Nome de exibição",
     "namePlaceholder": "Seu nome",
     "submit": "Salvar e continuar",
     "saving": "Salvando…",
     "signedInAs": "Conectado como {email}",
     "errors": {
       "nameRequired": "Insira um nome de exibição.",
-      "nameTooShort": "O nome deve ter pelo menos 2 caracteres.",
       "generic": "Algo deu errado. Por favor, tente novamente."
     }
   },
@@ -1784,7 +853,6 @@
     "emailLabel": "E-mail",
     "submit": "Enviar link de redefinição",
     "emailSent": "Se existir uma conta para esse e-mail, você receberá um link de redefinição em breve.",
-    "tryAgain": "Usar um e-mail diferente",
     "backToSignIn": "Voltar ao login",
     "errors": {
       "sendFailed": "Não foi possível enviar o link de redefinição. Tente novamente."
@@ -1803,7 +871,6 @@
     "goToSignIn": "Ir para o login",
     "invalidTokenTitle": "Este link de redefinição não pode ser usado",
     "invalidTokenDescription": "O link pode ter expirado ou já foi usado. Solicite um novo para tentar novamente.",
-    "requestNewLink": "Solicitar um novo link",
     "backToSignIn": "Voltar ao login",
     "errors": {
       "generic": "Algo deu errado. Tente novamente.",
@@ -1813,30 +880,16 @@
     }
   },
   "Members": {
-    "title": "Membros",
     "description": "Pessoas que podem ver e contribuir com este grupo.",
     "empty": "Nenhum membro ativo ainda.",
-    "unknownMember": "Membro desconhecido",
     "youBadge": "Você",
-    "role": {
-      "admin": "Admin",
-      "member": "Membro"
-    },
-    "joinedOn": "Entrou em {date}",
     "noManagePermission": "Apenas proprietários e administradores podem convidar ou remover membros do grupo.",
     "archivedNotice": "Os convites estão desativados enquanto o grupo estiver arquivado. Desarquive o grupo para convidar novos membros.",
     "invite": {
-      "title": "Adicionar pessoas",
       "email": "E-mail",
-      "emailPlaceholder": "amigo@example.com",
-      "role": "Função",
-      "send": "Enviar convite",
       "invalidEmail": "Insira um endereço de e-mail válido.",
       "tab": {
-        "email": "E-mail",
-        "link": "Link de convite",
-        "friends": "Amigos",
-        "unlinked": "Sem conta"
+        "link": "Link de convite"
       },
       "emailDescription": "Envie um convite por e-mail. O convidado entra assim que aceitar a partir de uma conta compatível.",
       "linkDescription": "Gere um link de uso único para que qualquer pessoa possa entrar. O link deixa de funcionar após o primeiro aceite.",
@@ -1845,7 +898,6 @@
         "generating": "Gerando…",
         "singleUse": "Este link de convite só pode ser usado uma vez. Depois que alguém aceitá-lo, o link deixará de funcionar.",
         "copy": "Copiar link de convite",
-        "copied": "Copiado!",
         "expiresOn": "Expira em {date}",
         "created": "Link de convite pronto. Copie e compartilhe antes de sair desta página.",
         "intro": "Aqui está o link de convite de uso único para {groupName}. Envie-o à pessoa que você quer que entre — a primeira a usá-lo vira membro, e depois o link deixa de funcionar.",
@@ -1855,81 +907,48 @@
         "generateNew": "Gerar novo link",
         "copyLink": "Copiar link"
       },
-      "temporaryName": "Nome temporário (opcional)",
-      "temporaryNamePlaceholder": "ex.: colega de quarto do Alex",
       "friendsDescription": "Convide alguém dos grupos que você já compartilhou.",
       "selectFriendPlaceholder": "Selecione um amigo…",
-      "friendAlreadyMember": "Já é membro",
       "noFriends": "Você ainda não tem amigos. Convide pela aba E-mail.",
-      "friendAlreadyInvited": "Já convidado",
       "noAccountDescription": "Adicione alguém às despesas sem convidar essa pessoa para o Spliit. Depois, você pode vincular essa pessoa a uma conta.",
-      "temporaryNameRequired": "Nome temporário",
-      "noAccountNameDescription": "Será exibido nas despesas e nos saldos até que essa pessoa seja vinculada a uma conta.",
-      "addParticipant": "Adicionar participante"
+      "noAccountNameDescription": "Será exibido nas despesas e nos saldos até que essa pessoa seja vinculada a uma conta."
     },
     "invitations": {
-      "title": "Convites pendentes",
       "description": "Convites aguardando aceitação.",
-      "empty": "Nenhum convite pendente.",
-      "sentOn": "Enviado em {date}",
-      "revoke": "Revogar",
-      "revokeButton": "Revogar convite",
-      "revoked": "Convite revogado.",
-      "created": "Convite enviado para {email}.",
       "link": {
         "type": "Link de uso único",
         "fallbackLabel": "Link de convite",
         "anyoneWithLink": "Qualquer pessoa com o link",
-        "expiresOn": "O link expira em {date}",
-        "expired": "Expirado"
+        "expiresOn": "O link expira em {date}"
       },
       "email": {
         "type": "Convite por e-mail"
-      },
-      "updatedOn": "Atualizado em {date}"
+      }
     },
-    "changeRoleAria": "Alterar função",
-    "remove": "Remover",
-    "removed": "Membro removido.",
-    "roleUpdated": "Função atualizada para {role}.",
     "removeDialog": {
-      "title": "Remover membro?",
       "description": "As despesas anteriores permanecerão no livro-razão, mas essa pessoa não aparecerá mais na lista de membros nem em novas despesas.",
-      "cancel": "Cancelar",
-      "confirm": "Remover",
       "unsettled": {
-        "title": "Remover membro com saldo pendente?",
         "toast": "Membro removido, saldos acertados.",
         "description": "Remover {name} deste grupo? Ele tem saldos pendentes — marque a caixa abaixo para acertá-los automaticamente antes de remover.",
         "warning": {
-          "title": "Este membro tem saldos pendentes",
           "description": "Se você remover este membro sem acertar os saldos, eles permanecerão no grupo por tempo indeterminado. Selecione a opção abaixo para criar um pagamento de acerto para cada saldo deste membro ou remova-o e acerte os saldos manualmente."
         },
         "checkbox": "Acertar os saldos deste membro antes de removê-lo",
         "previewWillCreate_one": "Será criado {count} pagamento de acerto",
-        "previewPays": "{name} pagará",
-        "previewReceives": "{name} receberá",
         "previewTo": "para {name}",
-        "previewFrom": "de {name}",
         "previewWillCreate_other": "Serão criados {count} pagamentos de acerto",
         "previewWillCreate_many": "Serão criados {count} pagamentos de acerto"
       }
     },
     "leave": {
-      "button": "Sair do grupo",
-      "title": "Sair do grupo?",
       "description": "Você perderá o acesso às despesas, saldos e atividades deste grupo. Os dados passados são mantidos no livro-razão para que outros membros ainda possam vê-los.",
-      "cancel": "Cancelar",
-      "confirm": "Sair do grupo",
       "descriptionOnlyMember": "Você é o único membro ativo deste grupo, então não é possível sair do grupo desta forma. Para eliminar o grupo por completo, exclua-o na página de configurações.",
       "onlyMemberHint": "Você é o único membro ativo. Use a opção \"Excluir grupo\" em Configurações para remover o grupo.",
       "lastMemberRedirect": "Você não pode sair de um grupo do qual é o único membro ativo. Em vez disso, exclua o grupo na página de configurações.",
       "body": {
         "otherAdmins": "Estes administradores manterão o controle após sua saída: {names}.",
         "lastAdmin": {
-          "title": "Escolha um novo administrador",
-          "description": "Você é o último administrador deste grupo. Escolha um membro ativo para assumir antes de sair, caso contrário ninguém poderá gerenciar o grupo.",
-          "placeholder": "Selecione um membro"
+          "description": "Você é o último administrador deste grupo. Escolha um membro ativo para assumir antes de sair, caso contrário ninguém poderá gerenciar o grupo."
         },
         "unsettled": {
           "title": "Você tem saldos pendentes",
@@ -1941,92 +960,47 @@
         "left": "Você saiu do grupo."
       },
       "error": {
-        "lastAdmin": "Escolha um membro para promover a administrador antes de sair.",
         "unsettled": "Acerte seu saldo ou confirme o acerto forçado para sair."
       }
     },
     "unlinked": {
-      "title": "Participantes sem conta",
       "description": "Esses participantes podem ser incluídos nas despesas, mas não podem acessar o grupo. Um administrador pode vinculá-los a uma conta mais tarde.",
-      "emailPlaceholder": "conta@exemplo.com",
-      "link": "Vincular à conta",
-      "linkSuccess": "Participante vinculado à conta",
-      "idHint": "ID do participante no livro-razão: {id}",
-      "linkButton": "Vincular",
       "linkDialog": {
-        "title": "Vincular participante não vinculado",
-        "description": "Escolha o membro existente ao qual {displayName} deve ser vinculado. O destino não deve estar no lado oposto de uma transação com este participante.",
-        "membersGroup": "Membros",
-        "cancel": "Cancelar",
-        "confirm": "Vincular",
         "noCandidates": "Nenhum membro compatível encontrado. Isso geralmente significa que este participante não vinculado está em ambos os lados de uma transação com todos os outros membros — a importação precisa ser refeita ou as despesas ajustadas primeiro.",
-        "pendingLabel": "pendente",
-        "pendingHint": "Vincular a um convite pendente mescla esta entrada sem conta no convidado. O convidado mantém sua própria linha; as referências mescladas agora são resolvidas através dela quando ele aceitar.",
-        "membersGroupWithPending": "Membros e convites pendentes",
-        "pendingGroup": "Convites pendentes",
-        "pendingSuffix": "(pendente)"
-      },
-      "created": "{name} foi adicionado ao grupo."
-    },
-    "dropdown": {
-      "remove": "Remover",
-      "changeRole": "Alterar função",
-      "revoke": "Revogar convite"
+        "pendingHint": "Vincular a um convite pendente mescla esta entrada sem conta no convidado. O convidado mantém sua própria linha; as referências mescladas agora são resolvidas através dela quando ele aceitar."
+      }
     },
     "subgroups": {
-      "title": "Subgrupos",
       "description": "Agrupe pessoas que gerenciam os gastos da viagem juntas, como casais ou famílias. Em Saldos, cada subgrupo pode ser visto e quitado como uma unidade; as despesas e as divisões continuam individuais.",
-      "enableAria": "Ativar Subgrupos",
-      "emptyTitle": "Ainda não há subgrupos",
       "emptyDescription": "Crie um para um casal, uma casa ou qualquer grupo de pessoas que quite como uma unidade.",
-      "ungroupedTitle": "Sem subgrupo",
       "ungroupedDescription": "Estes membros acertam individualmente até entrarem em um subgrupo.",
-      "create": "Criar subgrupo",
-      "edit": "Editar subgrupo",
       "delete": "Excluir subgrupo",
-      "editAria": "Editar {name}",
       "deleteAria": "Excluir {name}",
-      "disableTitle": "Desativar Subgrupos?",
       "disableDescription": "Desativar Subgrupos excluirá permanentemente todas as configurações de subgrupos deste grupo.",
       "disableImpact": "As despesas e os saldos existentes permanecerão inalterados, mas a opção de quitação por subgrupos não estará mais disponível.",
-      "keep": "Manter Subgrupos",
-      "disable": "Desativar Subgrupos",
       "disabling": "Desativando…",
       "deleteTitle": "Excluir este subgrupo?",
       "deleteDescription": "Excluir «{name}» deste grupo?",
       "deleteImpact": "Isso remove apenas a definição do subgrupo. As despesas e os saldos existentes permanecerão inalterados.",
-      "cancel": "Cancelar",
       "deleting": "Excluindo…",
-      "editorCreateTitle": "Criar subgrupo",
-      "editorEditTitle": "Editar subgrupo",
       "editorDescription": "Dê um nome e escolha as pessoas que acertam juntas.",
-      "namePlaceholder": "Nome do subgrupo",
-      "notInTitle": "Sem subgrupo",
       "inTitle": "Em um subgrupo",
-      "assignedTo": "em {name}",
       "pickedCount": "{count} selecionados · pelo menos 2 necessários",
       "saving": "Salvando…",
       "save": "Salvar subgrupo",
-      "validation": "Adicione um nome e pelo menos dois participantes.",
-      "loadError": "Não foi possível carregar os subgrupos.",
-      "disableAria": "Desativar Subgrupos"
+      "validation": "Adicione um nome e pelo menos dois participantes."
     },
     "manage": {
       "manageButton": "Gerenciar",
       "title": "Gerenciar convite",
       "description": "As alterações afetam o convite pendente e preservam todas as despesas registradas para {name}.",
-      "emailLabel": "Endereço de e-mail",
-      "emailPlaceholder": "account@example.com",
       "emailChangeWarning": "O destinatário atual não poderá mais aceitar este convite.",
       "nameLabel": "Nome de exibição",
       "profileNameNote": "Usa o nome do perfil do Spliit",
       "saveChanges": "Salvar alterações",
-      "updateSend": "Atualizar e enviar",
       "switchToEmailSend": "Alterar e enviar convite",
       "switchToLinkGenerate": "Alterar e gerar link",
       "saved": "Alterações salvas",
-      "cancel": "Cancelar",
-      "done": "Concluído",
       "regenerateWarning": "O link atual deixará de funcionar imediatamente.",
       "regenerateDescription": "Será gerado um novo link válido por 30 dias. O convite e as despesas associadas a ele serão mantidos.",
       "linkReadyTitle": "Novo link pronto",
@@ -2039,31 +1013,16 @@
     "regenerate": {
       "title": "Gerar novo link"
     },
-    "actionsFor": "Ações para {name}",
-    "readOnlyDescription": "Pessoas e participantes incluídos neste grupo. Os endereços de e-mail e os detalhes dos convites estão ocultos.",
     "splitPresets": {
-      "title": "Predefinições de divisão",
-      "create": "Criar predefinição",
       "loading": "Carregando predefinições de divisão…",
       "empty": "Ainda não há predefinições de divisão.",
       "saveError": "Não foi possível salvar a predefinição de divisão.",
       "deleteError": "Não foi possível excluir a predefinição de divisão.",
-      "reorderError": "Não foi possível reordenar as predefinições de divisão.",
-      "moveUp": "Mover predefinição para baixo",
-      "moveDown": "Mover predefinição para cima",
-      "edit": "Editar predefinição",
       "delete": "Excluir predefinição",
-      "editorDescription": "Escolha participantes e pesos para reutilizar ao dividir uma despesa.",
-      "editTitle": "Editar predefinição de divisão",
-      "createTitle": "Criar predefinição de divisão",
       "deleteTitle": "Excluir predefinição de divisão",
       "deleteDescription": "Excluir “{name}”? Não é possível desfazer.",
-      "cancel": "Cancelar",
-      "namePlaceholder": "Nome da predefinição",
-      "valueLabel": "Peso de {name}",
       "modes": {
         "EVENLY": "Igualmente",
-        "BY_SHARES": "Por partes",
         "BY_PERCENTAGE": "Por porcentagem"
       },
       "save": "Salvar predefinição",
@@ -2072,55 +1031,13 @@
       "personal": "Somente eu",
       "defaults": "Padrões",
       "defaultsDescription": "Escolha a divisão compatível usada ao iniciar uma nova despesa.",
-      "paidBy": "Pago por",
-      "paidFor": "Pago para",
-      "groupPaidBy": "Pagador do grupo",
-      "groupPaidFor": "Divisão do grupo",
       "myPaidBy": "Meu pagador",
       "myPaidFor": "Minha divisão",
       "noPreset": "Nenhum padrão",
       "useGroupDefault": "Usar padrão do grupo",
       "noPresetPersonal": "Nenhum padrão",
-      "participants": "Participantes",
-      "duplicate": "Duplicar predefinição",
-      "default": "Predefinição padrão",
-      "target": "Aplica-se a",
-      "visibility": "Visibilidade",
-      "name": "Nome",
-      "actions": "Ações da predefinição",
       "myDefault": "Minha predefinição",
-      "groupDefault": "Predefinição do grupo",
-      "setMyDefault": "Definir como minha predefinição",
-      "setGroupDefault": "Definir como predefinição do grupo",
-      "clearGroupDefault": "Limpar predefinição do grupo",
-      "mine": "Minha",
-      "group": "Grupo",
       "resetDistribution": "Redefinir divisão",
-      "selectNone": "Não selecionar nada",
-      "selectAll": "Selecionar tudo",
-      "selectPayer": "Selecionar quem paga",
-      "preferences": "Preferências de predefinições",
-      "personalFallbacks": "Comportamento alternativo pessoal",
-      "noPresetForPaidBy": "Sem predefinição pessoal para Pago por",
-      "noPresetForPaidFor": "Sem predefinição pessoal para Pago para",
-      "removeMyDefault": "Remover {name} da minha predefinição",
-      "removeGroupDefault": "Remover {name} da predefinição do grupo",
-      "namePlaceholderAuto": "Gerado automaticamente: {name}",
-      "autoName": {
-        "paidBySingle": "{name} paga",
-        "paidByEveryone": "Todos pagam em partes iguais",
-        "paidByEvenly": "{names} pagam em partes iguais",
-        "paidForEveryone": "Todos dividem em partes iguais",
-        "paidForEvenly": "{names} dividem em partes iguais",
-        "paidByItem": "{name} paga {value}",
-        "paidForItem": "{name} deve {value}",
-        "moreParticipants": "e mais {formattedCount}",
-        "share": "partes",
-        "paidByFull": "{name} paga o valor total",
-        "paidForFull": "{name} deve o valor total",
-        "paidByGroup": "{names} pagam {value}",
-        "paidForGroup": "{names} devem {value}"
-      },
       "descriptionVisibility": "Os presets compartilhados com o grupo ficam visíveis para todos; os presets «Só eu» permanecem privados na sua conta.",
       "descriptionDefaults": "Defina separadamente as opções padrão de quem paga e de quem participa da divisão. Os administradores podem escolher as opções padrão do grupo, e suas opções pessoais substituem as do grupo."
     }
@@ -2128,107 +1045,60 @@
   "AccountSettings": {
     "title": "Configurações da conta",
     "profile": {
-      "title": "Perfil",
       "description": "Atualize como você aparece nos seus grupos."
     },
-    "nameLabel": "Nome de exibição",
-    "emailLabel": "E-mail",
     "submit": "Salvar alterações",
     "saving": "Salvando…",
-    "success": "Perfil atualizado.",
     "errors": {
       "nameRequired": "Informe um nome de exibição.",
-      "nameTooShort": "O nome deve ter pelo menos 2 caracteres.",
-      "nameTooLong": "O nome deve ter no máximo 50 caracteres.",
       "generic": "Algo deu errado. Tente novamente.",
       "imageUpload": "Não foi possível atualizar sua foto de perfil. Tente novamente."
     },
     "image": {
-      "label": "Foto de perfil",
       "help": "Escolha uma foto para atualizá-la imediatamente. Sem uma foto, suas iniciais serão exibidas.",
-      "choose": "Escolher foto",
       "uploading": "Enviando…",
-      "updated": "Foto de perfil atualizada.",
       "remove": "Remover foto",
       "removed": "Foto de perfil removida."
     },
     "notifications": {
       "title": "Notificações push",
-      "description": "Escolha onde o Spliit envia as notificações de atividade.",
-      "enable": "Ativar notificações push",
-      "disable": "Desativar notificações push",
-      "enabled": "As notificações push estão ativadas neste dispositivo.",
       "disabled": "As notificações push estão desativadas no momento neste dispositivo.",
       "unsupported": "As notificações push não são compatíveis com este navegador ou contexto.",
       "notConfigured": "As notificações push não estão disponíveis nesta implantação.",
       "permissionDenied": "As notificações estão bloqueadas. Permita-as no navegador ou nas configurações do dispositivo e tente novamente.",
       "iosInstall": "No iPhone ou iPad, adicione o Spliit à tela inicial antes de ativar as notificações push.",
       "error": "Não foi possível atualizar as configurações das notificações push. Tente novamente.",
-      "preferencesTitle": "Preferências de notificação",
       "preferencesDescription": "Estas opções se aplicam às futuras atividades de grupos e despesas.",
       "globalLabel": "Todas as atividades",
       "globalDescription": "A recomendação varia de acordo com a atividade e se adapta quando o push não está disponível: atualizações rápidas usam push, enquanto atividades de maior volume permanecem no e-mail. Escolha E-mail ou Push para usar um único canal global.",
-      "recommended": "Recomendado",
       "recommendedDescription": "Entrega recomendada: {channels}. As notificações push são entregues somente nos dispositivos que você ativar.",
-      "mixedByActivity": "Misto por atividade",
-      "recommendedCategoryDescription": "A entrega recomendada ({channels}) é usada para esta atividade.",
       "useRecommended": "Usar a configuração recomendada",
-      "custom": "Personalizado",
       "useGlobal": "Usar a configuração para todas as atividades",
       "inheritedDescription": "Segue a configuração para todas as atividades. Escolha um canal para personalizar esta categoria.",
-      "customDescription": "Entrega personalizada para esta categoria. Escolha um ou ambos os canais.",
-      "channelsLabel": "Canais de notificação",
-      "email": "E-mail",
       "pushDescription": "Receba um alerta em um dispositivo ativado.",
-      "off": "Desativado",
       "pushSelectionError": "Não foi possível ativar as notificações push neste dispositivo. O e-mail foi mantido ativado para esta categoria.",
       "pushMissingTarget": "As notificações push estão selecionadas, mas não serão entregues até que você ative um dispositivo. Você pode ativar um abaixo ou em Configurações.",
       "rowSaved": "Preferência de notificação salva.",
-      "comingSoon": "Em breve",
-      "inherited": "Herdado",
-      "currently": "Atualmente: {channels}",
-      "expenseActivity": "Atividade de despesas",
-      "groupActivity": "Atividade do grupo",
       "save": "Salvar alterações",
       "saving": "Salvando…",
       "reset": "Redefinir",
       "saved": "Preferências de notificação salvas.",
       "saveError": "Não foi possível salvar as preferências de notificação. Tente novamente.",
       "loading": "Carregando preferências de notificação…",
-      "loadError": "Não foi possível carregar as preferências de notificação.",
-      "emailDescription": "Receba uma mensagem na sua caixa de entrada.",
       "push": {
-        "deviceTitle": "Este dispositivo",
         "deviceDescription": "Ative os alertas push neste dispositivo. Isso não altera seus outros dispositivos.",
         "deviceDisabled": "O push está selecionado, mas não está ativado neste dispositivo.",
         "noDevices": "O push está selecionado, mas nenhum dispositivo está ativado ainda."
       },
-      "retry": "Tentar novamente",
-      "pushChannel": "Push",
       "categories": {
-        "EXPENSE_ADDED": {
-          "title": "Novas despesas",
-          "description": "Quando alguém adiciona uma despesa a um grupo."
-        },
-        "EXPENSE_BULK_ACTIVITY": {
-          "title": "Importações e alterações em massa de despesas",
-          "description": "Quando as despesas são importadas ou atualizadas em massa."
-        },
         "EXPENSE_CHANGES": {
-          "title": "Alterações nas despesas",
           "description": "Quando uma despesa é atualizada ou excluída."
         },
         "GROUP_CHANGES": {
-          "title": "Alterações no grupo",
           "description": "Quando os detalhes do grupo ou o status de arquivamento mudam."
         },
         "GROUP_INVITATIONS": {
-          "title": "Convites",
           "description": "Quando os convites são enviados, aceitos, recusados ou revogados."
-        },
-        "GROUP_MEMBERSHIP": {
-          "title": "Membros",
-          "description": "Quando os membros saem, são removidos ou mudam de função."
         }
       },
       "rows": {
@@ -2237,150 +1107,79 @@
           "description": "Quando alguém cria um registro com você."
         },
         "addedToGroup": {
-          "title": "Adicionado a um grupo",
           "description": "Quando alguém adiciona você a um grupo."
-        },
-        "cloudNews": {
-          "title": "Notícias e atualizações do Spliit Cloud",
-          "description": "Notícias do produto, dicas e atualizações do serviço."
         },
         "expenseChanged": {
           "title": "Despesa editada ou excluída",
           "description": "Quando uma despesa é atualizada ou excluída."
         },
-        "newComment": {
-          "title": "Novo comentário",
-          "description": "Quando alguém comenta uma despesa."
-        },
-        "newExpense": {
-          "title": "Nova despesa",
-          "description": "Quando alguém adiciona uma despesa a um grupo."
-        },
-        "weeklySummary": {
-          "title": "Resumo semanal de atividade",
-          "description": "Um resumo semanal da atividade dos seus grupos."
-        },
         "recurringExpense": {
-          "title": "Despesa recorrente",
           "description": "Quando uma despesa recorrente agendada é criada em um grupo."
         },
         "budgetAlert": {
-          "title": "Alertas de orçamento",
           "description": "Quando um orçamento compartilhado do grupo estiver prestes a ultrapassar o limite ou já o tiver excedido."
         }
       },
-      "sections": {
-        "groups": "Grupos e amigos",
-        "expenses": "Despesas",
-        "summaries": "Resumos"
-      },
-      "masterLabel": "Ativar notificações",
       "masterDescription": "Desative para silenciar todos os e-mails e notificações push. Suas escolhas por categoria são preservadas.",
-      "emailAddToEnable": "Adicione um e-mail verificado para receber notificações na caixa de entrada.",
-      "emailAddLink": "Adicionar e-mail"
+      "emailAddToEnable": "Adicione um e-mail verificado para receber notificações na caixa de entrada."
     },
     "preferences": {
       "title": "Preferências do aplicativo",
       "description": "Use os mesmos padrões e a mesma aparência em todos os dispositivos em que você estiver conectado.",
       "saveError": "Não foi possível salvar as preferências",
       "defaultCurrency": "Moeda padrão",
-      "timeZone": "Fuso horário da conta",
       "timeZoneHelp": "Define o fuso horário padrão para os horários de novas despesas e os agendamentos recorrentes e é usado para exibir registros de data e hora e datas relativas.",
-      "language": "Idioma",
-      "theme": "Tema",
-      "chooseTheme": "Escolher",
       "saving": "Salvando preferências…",
-      "mascot": "Mascote",
-      "mascotHelp": "Escolha um companheiro que oferece atalhos contextuais e reage aos seus fluxos de despesas.",
       "chooseMascot": "Escolha um mascote",
       "mascotOptions": {
-        "off": "Desativado",
-        "bill": "Bill, o recibo"
+        "off": "Desativado"
       }
     },
     "aiPreferences": {
       "title": "Recursos de IA",
       "description": "Configure os recursos de IA e personalize o comportamento deles.",
-      "categoryExtractLabel": "Categorizador de despesas",
       "categoryExtractDescription": "Sugira automaticamente uma categoria quando você preencher o título de uma despesa.",
       "receiptScanLabel": "Escaneamento de recibo",
       "receiptScanDescription": "Extraia os detalhes da despesa a partir de uma foto de recibo.",
-      "voiceExpenseLabel": "Despesa por voz",
       "voiceExpenseDescription": "Crie uma despesa a partir de uma gravação de voz curta.",
-      "comingSoon": "Em breve",
-      "voiceLanguageLabel": "Idioma de voz preferido",
       "voiceLanguageDescription": "Escolha o idioma que a IA de despesas por voz deve ouvir.",
       "receiptPromptsLabel": "Instruções personalizadas para o escaneamento de recibos",
       "receiptPromptsDescription": "Personalize o comportamento da IA ao escanear recibos (indicações de moeda, agrupamento de itens de linha, etc.).",
-      "voicePromptsLabel": "Instruções personalizadas para a despesa por voz",
       "voicePromptsDescription": "Personalize o comportamento da IA ao criar despesas com a sua voz (divisão, pagador padrão, etc.).",
-      "saving": "Salvando preferências…",
-      "masterLabel": "Ativar recursos de IA"
+      "saving": "Salvando preferências…"
     },
     "export": {
-      "groupsTitle": "Grupos e amigos",
-      "selectedCount": "{selected} de {total} contas selecionadas",
       "loadingGroups": "Carregando grupos…",
-      "groupsError": "Não foi possível carregar os grupos.",
-      "retry": "Tentar novamente",
       "emptySection": "Não há grupos nesta seção.",
-      "cancel": "Cancelar",
       "download": "Baixar backup",
-      "badges": {
-        "archived": "Grupo arquivado",
-        "hidden": "Grupo oculto"
-      },
       "sectionTitle": "Backups e exportação",
       "sectionDescription": "Exporte ou restaure um backup portátil dos seus dados do Spliit Cloud.",
       "sectionRowLabel": "Backup da conta",
       "sectionRowDescription": "Baixe os grupos e as preferências selecionados ou restaure um pacote do Spliit Cloud.",
-      "open": "Exportar",
       "title": "Exportar o backup da conta",
       "description": "Escolha o que incluir neste backup do Spliit Cloud. Sua seleção será usada apenas para este download.",
-      "contentTitle": "Incluir",
       "content": {
         "documents": "Arquivos de documentos",
         "documentsDescription": "Copie os arquivos de recibos para o backup.",
-        "accountPreferences": "Preferências da conta",
         "accountPreferencesDescription": "Inclua a aparência, as configurações padrão, as preferências de IA e as notificações.",
-        "groupPreferences": "Preferências dos grupos",
         "groupPreferencesDescription": "Inclua as configurações dos grupos favoritos e ocultos e da divisão padrão."
       },
-      "sectionOverrides": "{count} exceções",
       "sections": {
-        "GROUPS": "Grupos",
-        "FRIENDS": "Registros com um amigo",
-        "STARRED": "Favoritos",
-        "ARCHIVED": "Arquivados",
-        "HIDDEN": "Ocultos"
-      },
-      "import": "Importar"
+        "FRIENDS": "Registros com um amigo"
+      }
     },
     "email": {
-      "empty": "Sem e-mail",
-      "add": "Adicionar e-mail",
-      "change": "Alterar e-mail",
       "addHelp": "Adicione um e-mail verificado para recuperar esta conta e receber notificações.",
       "changeHelp": "Para alterar o e-mail, é necessário um código de confirmação enviado ao novo endereço.",
-      "addTitle": "Adicionar um endereço de e-mail",
       "changeTitle": "Alterar seu e-mail",
       "addDescription": "Enviaremos um código de 6 dígitos para este endereço. O e-mail só é salvo depois que você confirmar.",
       "changeDescription": "Enviaremos um código de 6 dígitos para o novo endereço. Seu e-mail atual permanece até você confirmar.",
-      "newLabel": "Endereço de e-mail",
-      "sendCode": "Enviar código",
       "sending": "Enviando…",
       "codeTitle": "Digite o código de confirmação",
       "codeDescription": "Enviamos um código de 6 dígitos para {email}.",
-      "codeLabel": "Código de confirmação",
-      "verify": "Confirmar e-mail",
       "verifying": "Confirmando…",
-      "resend": "Reenviar código",
-      "cancel": "Cancelar",
-      "added": "E-mail adicionado.",
-      "changed": "E-mail atualizado.",
       "graduationBody": "Links de acesso anônimos são uma forma fraca de segurança: qualquer pessoa com o URL salvo pode usar esta conta. Depois que você adicionar um e-mail verificado, esse link deixa de funcionar e não pode ser restaurado. Você vai entrar com o e-mail.",
       "errors": {
-        "inUse": "Este e-mail já é usado por outra conta.",
         "invalid": "Digite um endereço de e-mail válido.",
         "same": "Esse já é o seu endereço de e-mail.",
         "graduation": "Confirme que adicionar um e-mail substitui seu link de acesso.",
@@ -2391,9 +1190,7 @@
         "sendFailed": "Não foi possível enviar o e-mail de confirmação. Tente novamente."
       },
       "graduationTitle": "Isso substitui seu link de acesso",
-      "useDifferent": "Usar outro e-mail",
-      "resendIn": "Reenviar em {seconds}s",
-      "sent": "Código enviado"
+      "resendIn": "Reenviar em {seconds}s"
     },
     "password": {
       "label": "Senha",
@@ -2415,7 +1212,6 @@
       "currentLabel": "Senha atual",
       "newLabel": "Nova senha",
       "confirmLabel": "Confirmar nova senha",
-      "cancel": "Cancelar",
       "setSubmit": "Definir senha",
       "setting": "Salvando…",
       "changeSubmit": "Alterar senha",
@@ -2423,8 +1219,6 @@
       "mismatch": "As senhas não coincidem.",
       "setSuccess": "Senha definida.",
       "changeSuccess": "Senha alterada.",
-      "empty": "Não definida",
-      "masked": "••••••••",
       "remove": "Remover senha",
       "removing": "Removendo…",
       "removeTitle": "Remover senha?",
@@ -2436,7 +1230,6 @@
       "removeForgotHint": "Esqueceu sua senha? Redefina-a primeiro pelo fluxo de recuperação.",
       "removeForgotLink": "Esqueceu a senha?",
       "removeCurrentRequired": "Digite sua senha atual.",
-      "changeShort": "Alterar",
       "errors": {
         "anonymousRequiresEmail": "Adicione um e-mail verificado antes de definir uma senha.",
         "placeholderEmail": "É necessário um e-mail verificado antes de definir uma senha.",
@@ -2450,122 +1243,54 @@
         "generic": "Não foi possível atualizar a senha. Tente novamente.",
         "noAlternativeSignIn": "Adicione um e-mail verificado ou conecte outro método de login antes de remover sua senha.",
         "notFound": "Nenhuma senha definida para esta conta."
-      },
-      "setShort": "Definir"
+      }
     }
   },
   "Activities": {
     "expense": {
-      "created": "{participant} criou a despesa {title}",
-      "updated": "{participant} atualizou a despesa {title}",
       "deleted": "{participant} excluiu a despesa {title}",
-      "changeEmptyValue": "Não definido",
       "changedFields": {
-        "title": "Título",
-        "amount": "Valor",
-        "date": "Data",
-        "category": "Categoria",
-        "notes": "Notas",
-        "payers": "Pago por",
-        "split": "Divisão",
-        "items": "Itens",
-        "documents": "Documentos",
-        "recurrence": "Recorrência",
         "reimbursement": "Pagamento de acerto",
-        "conversionSource": "Fonte de conversão",
-        "conversionRate": "Taxa de conversão",
         "settlement": "Pagamento de acerto"
       },
-      "recurringCreated": "{participant} criou a despesa recorrente “{title}”",
-      "stopped": "{participant} parou a despesa recorrente {title}",
-      "commented": "{participant} comentou sobre {title}: “{excerpt}”"
+      "recurringCreated": "{participant} criou a despesa recorrente “{title}”"
     },
     "group": {
       "updated": "{participant} atualizou as configurações do grupo",
-      "archived": "{participant} arquivou o grupo",
-      "unarchived": "{participant} desarquivou o grupo",
       "changedFields": {
-        "name": "Nome",
-        "information": "Descrição",
-        "currency": "Moeda",
-        "currencyCode": "Código da moeda",
-        "linkedParticipant": "Participante vinculado",
-        "subgroupsEnabled": "Subgrupos",
         "publicViewLink": "Link público somente para visualização"
       }
     },
-    "member": {
-      "left": "{participant} saiu do grupo",
-      "removed": "{participant} removeu {target} do grupo",
-      "roleChanged": "{participant} mudou o cargo de {target} de {previousRole} para {nextRole}"
-    },
     "invitation": {
-      "created": "{participant} convidou {target}",
-      "revoked": "{participant} revogou o convite a {target}",
-      "accepted": "{target} aceitou o convite",
-      "declined": "{target} recusou o convite",
-      "updated": "{participant} atualizou o convite para {target}",
       "changedFields": {
-        "deliveryType": "Método de envio",
-        "destination": "Destinatário",
-        "displayName": "Nome",
-        "role": "Função",
         "credential": "Link de convite"
       }
     },
-    "fallback": "Uma atividade foi registrada",
-    "unknownActor": "Alguém",
-    "openExpense": "Abrir despesa",
-    "import": {
-      "imported_one": "{participant} importou {count} despesa",
-      "imported_many": "{participant} importou {count} despesas",
-      "imported_other": "{participant} importou {count} despesas"
-    },
-    "participant": {
-      "removed": "{participant} removeu {target} do grupo"
-    }
+    "fallback": "Uma atividade foi registrada"
   },
   "OfflineBanner": {
     "message": "Você está offline. As alterações que fizer agora não serão salvas até que você se reconecte."
   },
   "InstallPromotion": {
-    "title": "Instalar Spliit Cloud",
     "description": "Adicione o Spliit Cloud à sua tela inicial — abre como um app nativo para adicionar despesas mais rapidamente e acessar de forma mais simples.",
-    "install": "Instalar",
-    "remindLater": "Lembrar mais tarde",
-    "dismiss": "Não mostrar novamente",
     "chrome": {
-      "title": "Instalar Spliit Cloud",
       "description": "Adicione o Spliit Cloud à sua tela inicial — abre como um app nativo para adicionar despesas mais rapidamente e acessar de forma mais simples."
     },
     "ios": {
-      "title": "Instalar Spliit Cloud",
       "description": "Adicione o Spliit Cloud à sua tela inicial para acesso com um toque.",
       "step1": "Toque no botão Compartilhar",
-      "step2": "Role para baixo e toque em Adicionar à Tela de Início",
-      "step3": "Toque em Adicionar no canto superior direito"
+      "step2": "Role para baixo e toque em Adicionar à Tela de Início"
     },
     "firefox": {
-      "title": "Instalar Spliit Cloud",
-      "description": "Adicione o Spliit Cloud à sua tela inicial pelo menu do navegador.",
-      "step1": "Toque no botão de menu (⋮) no canto superior direito",
-      "step2": "Toque em Instalar"
+      "description": "Adicione o Spliit Cloud à sua tela inicial pelo menu do navegador."
     }
   },
   "EmptyState": {
     "actions": {
-      "createGroup": "Criar um grupo",
-      "createFriendLedger": "Criar um registro com um amigo",
-      "showHidden": "Mostrar grupos ocultos"
+      "createFriendLedger": "Criar um registro com um amigo"
     },
     "description": {
       "empty": "Crie seu primeiro {itemLabel} para começar."
-    },
-    "labels": {
-      "group": "grupo",
-      "groupPlural": "grupos",
-      "friendLedger": "despesa com um amigo",
-      "friendLedgerPlural": "despesas com amigos"
     },
     "title": {
       "empty": "Você ainda não tem {itemLabelPlural}",
@@ -2574,47 +1299,29 @@
   },
   "Friends": {
     "title": "Criar um registro com um amigo",
-    "peerFriendsTab": "Lista de amigos",
-    "peerEmailTab": "E-mail",
     "peerLinkTab": "Link compartilhável",
-    "friendsSection": "Amigos",
-    "pendingInvitationsSection": "Convites pendentes",
-    "activeFriendExpensesSection": "Despesas ativas com amigos",
-    "alreadyInvited": "Já convidado",
     "alreadyHasLedger": "já tem um registro com um amigo",
     "inviteSent": "Convite enviado. Seu amigo será adicionado quando entrar no Spliit Cloud.",
     "inviteLinkTitle": "Compartilhe este link",
     "inviteLinkDescription": "Compartilhe este link com seu amigo para adicioná-lo ao registro.",
-    "copy": "Copiar",
     "share": "Compartilhar",
     "linkHelp": "Gere um link compartilhável que seu amigo pode usar para entrar neste registro.",
-    "emailLabel": "E-mail do amigo",
     "temporaryNameLabel": "Nome de exibição",
     "temporaryNameHelp": "Insira um nome para a pessoa que você está convidando.",
     "friendsEmpty": "Adicione um amigo informando o e-mail dele ou compartilhe um link para convidá-lo.",
-    "infoLabel": "Informação (opcional)",
     "infoPlaceholder": "Adicione um contexto, por exemplo «Despesas do república»",
-    "createError": "Não foi possível criar as despesas com um amigo",
     "copyInviteLink": "Copiar link de convite",
     "copiedInviteLink": "Link de convite copiado"
   },
   "BulkCategorize": {
-    "title": "Categorização em lote",
     "calibrationTitle": "Etapa 1 — Calibração",
     "calibrationDescription": "Cada exemplo que você confirma se torna a verdade absoluta para a próxima passada da IA. Pode estar pronta após uma rodada, ou pedir mais exemplos.",
     "roundCount": "Rodada {round} de {max}",
-    "confidence": {
-      "high": "Alta",
-      "medium": "Média",
-      "low": "Baixa"
-    },
     "aiWantsMore": "A IA gostaria de mais alguns exemplos. Confirme ou corrija as sugestões abaixo e execute outra rodada.",
     "aiSaidReady": "A IA se sente preparada. Vá para a prévia para aplicar as alterações.",
-    "feedbackTableTitle": "Despesas selecionadas",
     "emptySelection": "Nenhuma despesa precisa de revisão agora. Gere a prévia para aplicar categorias a todos os candidatos.",
     "runCalibration": "Executar rodada de calibração",
     "runAnotherRound": "Executar outra rodada de calibração",
-    "calibrationError": "Não foi possível executar a calibração: {message}",
     "generatePreview": "Gerar prévia",
     "previewTitle": "Etapa 2 — Revisar e salvar",
     "previewDescription": "Edite qualquer linha e depois salve. A confiança indica as linhas das quais o modelo tem menos certeza.",
@@ -2627,22 +1334,14 @@
     "saveAll_many": "Salvar {count} alterações",
     "saveAll_other": "Salvar {count} alterações",
     "saving": "Salvando…",
-    "saved_one": "{count} despesa foi recategorizada.",
-    "saved_many": "{count} despesas foram recategorizadas.",
-    "saved_other": "{count} despesas foram recategorizadas.",
     "applyError": "Não foi possível salvar a atualização de categorias em lote: {message}",
     "noCandidates": "Nenhuma despesa precisa ser categorizada.",
-    "adminsOnly": "Apenas os administradores do grupo podem executar o categorizador em lote.",
     "description": "Use a IA para sugerir categorias para todas as despesas não categorizadas de uma vez.",
     "backToSettings": "Voltar às configurações",
-    "archived": "Este grupo está arquivado. O categorizador em lote não está disponível.",
     "requiresFeatureFlag": "Este recurso requer que PUBLIC_ENABLE_CATEGORY_EXTRACT esteja habilitado.",
     "previewError": "Não foi possível gerar a prévia: {message}",
-    "introTitle": "Como funciona",
     "loadingCandidates": "Verificando despesas não categorizadas…",
     "introDescription_one": "Há {count} despesa não categorizada pronta para revisão.",
-    "introDescription_many": "Existem {count} despesas não categorizadas prontas para revisão.",
-    "introDescription_other": "Existem {count} despesas não categorizadas prontas para revisão.",
     "introStepLook_one": "A IA analisa até {count} despesa para encontrar o exemplo mais útil.",
     "introStepLook_many": "A IA analisa um amplo conjunto de até {count} despesas para encontrar os exemplos mais úteis.",
     "introStepLook_other": "A IA analisa um amplo conjunto de até {count} despesas para encontrar os exemplos mais úteis.",
@@ -2650,67 +1349,37 @@
     "introStepReview_many": "Você revisa e corrige até {count} exemplos selecionados para que a IA aprenda as categorias deste grupo.",
     "introStepReview_other": "Você revisa e corrige até {count} exemplos selecionados para que a IA aprenda as categorias deste grupo.",
     "introStepPreview": "Quando a IA tem sinal suficiente, ela prepara uma revisão completa e deixa as despesas incertas sem categorizar.",
-    "startCalibration": "Iniciar calibração",
     "calibrationStartHint": "A IA está escolhendo exemplos úteis para você revisar.",
-    "calibrationReady": "A IA tem feedback suficiente para preparar a revisão completa.",
     "reviewSample": "Revise estes exemplos",
-    "calibrationNoSample": "A IA não precisou de outra amostra.",
-    "categorizeSample": "Categorizar uma amostra",
     "submitReviewedExamples": "Enviar exemplos revisados",
     "continueToPreview": "Continuar para a prévia",
-    "back": "Voltar",
-    "backToCalibration": "Voltar à calibração",
     "generatingPreview": "Preparando sugestões…",
     "noSuggestions": "A IA deixou todas as despesas sem categorizar. Você pode tentar novamente após mais calibração.",
-    "previewSummary": "A IA sugeriu categorias para {suggested} de {total} despesas.",
     "leftUncategorized_one": "{count} despesa ficou sem categoria porque a IA não teve confiança suficiente.",
     "leftUncategorized_many": "{count} despesas foram deixadas sem categorizar porque a IA não estava confiante o suficiente.",
     "leftUncategorized_other": "{count} despesas foram deixadas sem categorizar porque a IA não estava confiante o suficiente.",
     "retryPreview": "Tentar prévia novamente",
-    "doneTitle": "Categorias salvas",
-    "expenseColumn": "Despesa",
-    "categoryColumn": "Categoria",
-    "confidenceColumn": "Confiança"
+    "doneTitle": "Categorias salvas"
   },
   "ExpensePreview": {
     "title": "Prévia da despesa",
-    "category": "Categoria",
-    "date": "Data",
-    "paidBy": "Pago por",
-    "paidFor": "Dividido entre",
     "yourBalance": "Seu saldo:",
-    "notes": "Notas",
     "attachments_one": "Anexo ({count})",
     "attachments_many": "Anexos ({count})",
     "attachments_other": "Anexos ({count})",
-    "edit": "Editar despesa",
-    "makeCopy": "Fazer uma cópia",
-    "commentsTitle": "Comentários",
     "commentsLoading": "Carregando comentários…",
-    "commentsError": "Não foi possível carregar os comentários.",
-    "commentsRetry": "Tentar novamente",
     "commentsEmpty": "Ainda não há comentários.",
-    "commentInputLabel": "Adicionar um comentário",
     "commentPlaceholder": "Compartilhe uma nota com o grupo…",
     "commentRequired": "Escreva um comentário primeiro.",
     "commentTooLong": "Os comentários devem ter no máximo 500 caracteres.",
     "commentSubmitting": "Publicando…",
-    "commentDelete": "Excluir comentário",
-    "commentSend": "Enviar comentário",
-    "openDocument": "Abrir documento"
-  },
-  "Participants": {
-    "search": "Pesquisar participantes...",
-    "noParticipant": "Nenhum participante encontrado"
+    "commentDelete": "Excluir comentário"
   },
   "Common": {
-    "close": "Fechar",
     "previousSlide": "Slide anterior",
     "nextSlide": "Próximo slide",
     "destructiveConfirmation": {
       "inputLabel": "Digite o nome para confirmar",
-      "copyName": "Copiar nome",
-      "copied": "Copiado",
       "prompt": {
         "deleteGroup": "Para excluir permanentemente o grupo <target>{name}</target>, digite o nome exatamente como mostrado abaixo.",
         "deleteExpense": "Para excluir permanentemente a despesa <target>{name}</target>, digite o título exatamente como mostrado abaixo.",
@@ -2723,58 +1392,30 @@
   },
   "Theme": {
     "toggle": "Mudar tema",
-    "light": "Claro",
-    "dark": "Escuro",
     "system": "Padrão do sistema"
   },
   "PushOnboarding": {
     "title": "Escolha como ficar por dentro",
     "description": "O Spliit pode avisar você sobre a atividade de grupos e despesas conforme elas acontecem.",
-    "pushBenefit": "As notificações push chegam a este dispositivo mesmo quando o Spliit não está aberto.",
     "emailFallback": "O e-mail está disponível para as notificações que você escolher receber; as opções somente push não serão redirecionadas.",
     "settingsHint": "Você pode alterar essas opções a qualquer momento em Configurações. As notificações push são ativadas separadamente para cada dispositivo.",
-    "enable": "Ativar notificações push",
     "enabling": "Ativando…",
-    "useEmail": "Usar e-mail",
-    "deniedTitle": "As notificações push estão bloqueadas",
     "deniedDescription": "Seu navegador bloqueou a permissão para notificações. As notificações configuradas para e-mail continuarão sendo enviadas por e-mail; as opções somente push não serão redirecionadas.",
-    "failedTitle": "Não foi possível ativar as notificações push",
     "failedDescription": "Não foi possível registrar este dispositivo. As notificações configuradas para e-mail continuarão sendo enviadas por e-mail; as opções somente push não serão redirecionadas.",
-    "emailUsage": "Somente as notificações configuradas para e-mail serão recebidas até que você ative um dispositivo. Permita notificações nas configurações do navegador e tente novamente em Configurações.",
-    "done": "Concluído"
+    "emailUsage": "Somente as notificações configuradas para e-mail serão recebidas até que você ative um dispositivo. Permita notificações nas configurações do navegador e tente novamente em Configurações."
   },
   "Unsubscribe": {
-    "title": "Desativar estes e-mails?",
-    "description": "Escolha se deseja continuar recebendo um tipo de notificação por e-mail.",
-    "confirm": "Desativar estes e-mails",
     "submitting": "Cancelando inscrição…",
-    "cancel": "Manter estes e-mails",
     "error": "Não foi possível atualizar suas preferências de e-mail. Tente novamente.",
     "loading": "Verificando o link para cancelar a inscrição…",
-    "backHome": "Voltar ao início",
-    "manageSettings": "Revisar todas as configurações de notificações",
-    "invalid": {
-      "title": "Este link não funciona mais",
-      "description": "Ele pode ter expirado. Entre para revisar as configurações de e-mail e notificações push."
-    },
     "success": {
-      "title": "Estes e-mails estão desativados",
       "description": "Você não receberá e-mails de {category}. Suas outras configurações de notificações não foram alteradas."
     },
     "scope": "Somente esta notificação por e-mail será desativada. Seus outros e-mails e notificações push continuarão iguais."
   },
   "ExpenseSeries": {
-    "badge": "Recorrente",
-    "occurrence": "Ocorrência {sequence}",
-    "previous": "Anterior",
     "next": "Próxima",
-    "viewSeries": "Ver série",
-    "title": "Série de despesas",
-    "empty": "Ainda não há outras ocorrências.",
-    "scopeTitle": "Atualizar despesa recorrente",
     "scopeDescription": "Escolha quais ocorrências serão afetadas.",
-    "occurrenceOnly": "Apenas esta ocorrência",
-    "thisAndFuture": "Esta ocorrência e as futuras",
     "deleteScopeTitle": "Excluir despesa recorrente",
     "deleteScopeDescription": "Escolha se deseja excluir uma ocorrência ou encerrar a série.",
     "deleteOccurrence": "Excluir apenas esta ocorrência",
@@ -2783,26 +1424,13 @@
     "deleteThisAndFutureDescription": "Remova esta e as despesas posteriores; o agendamento permanece ativo.",
     "deleteThisAndFutureStopDescription": "Remova esta e as despesas posteriores e interrompa permanentemente o agendamento.",
     "deleteOccurrenceDescription": "Remova apenas esta despesa. As outras ocorrências agendadas permanecem inalteradas.",
-    "actions": "Ações recorrentes",
-    "actionsTitle": "Ações da despesa recorrente",
     "actionsDescription": "Escolha exatamente qual ocorrência editar ou excluir.",
-    "editActions": "Ações de edição",
     "deleteActions": "Ações de exclusão",
     "confirmDelete": "Excluir",
-    "confirmStop": "Parar recorrência",
     "working": "Processando…",
-    "back": "Voltar",
-    "confirm": "Continuar",
-    "cancel": "Cancelar",
-    "occurrences": "{count} ocorrências nesta série",
     "loading": "Carregando…",
-    "loadMore": "Carregar mais ocorrências",
-    "editOccurrence": "Editar esta ocorrência",
     "editOccurrenceDescription": "Altere apenas esta despesa.",
-    "editThisAndFuture": "Editar esta ocorrência e as futuras",
     "editThisAndFutureDescription": "Altere esta despesa e todas as despesas futuras agendadas.",
-    "stopRecurrence": "Parar recorrência",
-    "stopConfirmTitle": "Parar esta recorrência?",
     "stopConfirmDescription": "As despesas existentes permanecerão. Nenhuma nova ocorrência será criada.",
     "stopConfirmHint": "A interrupção é permanente. Para começar novamente, crie uma nova despesa recorrente.",
     "deleteConfirmTitle": "Confirmar exclusão",
@@ -2811,41 +1439,18 @@
       "THIS_AND_FUTURE": "Esta e as ocorrências futuras serão excluídas. A recorrência continuará com a próxima ocorrência agendada.",
       "THIS_AND_FUTURE_STOP": "Esta e as ocorrências futuras serão excluídas e a recorrência será interrompida."
     },
-    "badgeRunning": "Recorrente · Em andamento",
-    "badgeStopped": "Recorrente · Parada",
-    "badgeCompleted": "Recorrente · Concluída",
-    "timeZone": "É executada às 15:00 em {timeZone}"
+    "badgeRunning": "Recorrente · Em andamento"
   },
   "CurrencyConverter": {
-    "trigger": "Conversão de moeda",
-    "title": "Conversão de moeda",
-    "description": "Converta qualquer valor e crie uma despesa com a moeda original.",
-    "swap": "Trocar moedas",
-    "rateError": "Não foi possível carregar a taxa de câmbio.",
-    "rateInfo": "1 {from} = {rate} {to}",
-    "createIn": "Criar despesa em…",
-    "noGroups": "Nenhum grupo elegível encontrado.",
-    "staleRate": "Taxa de:",
-    "fromLabel": "De",
-    "toLabel": "Para",
     "via": "por meio de {currencies}",
     "offlineDescription": "A conversão de moeda precisa de uma conexão. Reconecte-se para converter valores e criar despesas.",
     "offlineComingSoon": "O suporte completo offline deste recurso está no topo das nossas prioridades e chegará em breve."
   },
   "LanguageSwitcher": {
-    "title": "Escolher idioma",
-    "search": "Pesquisar idiomas...",
-    "noLanguage": "Nenhum idioma encontrado.",
-    "suggested": "Sugeridos",
-    "popular": "Populares",
-    "americas": "Américas",
-    "asiaPacific": "Ásia-Pacífico",
-    "europe": "Europa",
     "middleEastAndNorthAfrica": "Oriente Médio e Norte da África"
   },
   "OAuth": {
     "shell": {
-      "label": "Assistente Spliit",
       "mobileDescription": "Ajuda com IA, confirmada por você",
       "title": "Despesas da conversa, confirmadas por você.",
       "previewBullet": "Revise uma prévia exata e não editável antes da criação",
@@ -2856,7 +1461,6 @@
       "title": "Conectar o Spliit a {client}?",
       "description": "Revise a conta e o acesso abaixo. Você continua no controle de cada criação de despesa.",
       "connectionDetails": "Detalhes da conexão",
-      "spliitAccount": "Conta Spliit",
       "connectingTo": "Conectando a",
       "assistantVia": "via Assistente Spliit",
       "defaultClient": "seu assistente de IA",
@@ -2867,19 +1471,16 @@
       "identityDescription": "Seu nome e e-mail identificam a conta conectada. Sua senha e método de login nunca são compartilhados.",
       "groupsTitle": "Contexto de grupos e gastos",
       "groupsDescription": "Nomes dos grupos, participantes, divisões salvas, saldos e despesas recentes para que o assistente entenda sua solicitação.",
-      "expensesTitle": "Criação de despesa confirmada",
       "expensesDescription": "O assistente só poderá criar a despesa exata mostrada na prévia depois que você pressionar Criar despesa.",
       "privacyTitle": "Uma nota rápida de privacidade",
       "privacyDescription": "Os detalhes financeiros do grupo podem ser sensíveis. Eles ficam disponíveis para {client} enquanto conectado, mas o assistente não pode editar ou excluir despesas nem criar uma sem a confirmação da prévia.",
       "authorityNote": "O Spliit continua sendo a fonte de verdade. A validação, os saldos, o histórico de atividades e as notificações existentes continuam valendo.",
       "allow": "Permitir e conectar",
-      "cancel": "Cancelar",
       "missingRequest": "A solicitação de autorização está ausente. Volte ao seu assistente."
     },
     "login": {
       "missingTitle": "Solicitação de autorização ausente",
       "missingDescription": "Volte ao seu assistente e inicie a conexão novamente.",
-      "missingError": "O Spliit não recebeu os detalhes de autorização OAuth.",
       "connectingTitle": "Conectando sua conta",
       "connectingDescription": "Sua sessão existente do Spliit Cloud foi encontrada. Não é necessário fazer login adicional.",
       "checkingSession": "Verificando sua sessão do Spliit…",
@@ -2888,214 +1489,90 @@
       "signInDescription": "Use seu método habitual de login no Spliit Cloud. Seu assistente nunca fornece a identidade da conta usada nas despesas."
     }
   },
-  "TimeZoneSelector": {
-    "search": "Pesquisar fusos horários ou cidades",
-    "noTimeZone": "Nenhum fuso horário encontrado.",
-    "title": "Escolher fuso horário"
-  },
   "TimeZoneMismatch": {
     "title": "Atualizar seu fuso horário?",
     "description": "Sua conta usa {accountTimeZone}, mas este dispositivo está definido como {browserTimeZone}.",
     "impact": "A atualização altera a exibição de horários e datas relativas e é usada para novas despesas recorrentes. Os agendamentos existentes mantêm o fuso horário original.",
-    "saveError": "Não foi possível atualizar seu fuso horário. Tente novamente.",
-    "keep": "Manter {timeZone}",
-    "update": "Atualizar para {timeZone}"
+    "saveError": "Não foi possível atualizar seu fuso horário. Tente novamente."
   },
   "Budgets": {
-    "title": "Orçamentos",
-    "detailTitle": "Orçamento",
     "description": "Acompanhe os gastos do grupo com limites compartilhados.",
-    "create": "Criar orçamento",
-    "new": "Novo",
-    "edit": "Editar",
-    "archive": "Arquivar",
     "delete": "Excluir",
     "deleting": "Excluindo…",
     "save": "Salvar orçamento",
-    "cancel": "Cancelar",
     "saving": "Salvando…",
-    "created": "Orçamento criado",
-    "updated": "Orçamento atualizado",
-    "archivedSuccess": "Orçamento arquivado",
-    "backToBudgets": "Voltar aos orçamentos",
-    "daysRemaining_one": "Falta {count} dia",
-    "daysRemaining_other": "Faltam {count} dias",
-    "ofLimit": "de {amount}",
-    "overBy": "{amount} acima",
-    "remaining": "{amount} restantes",
     "projected": "Projeção {amount}",
     "progressLabel": "{percentage}% do orçamento usado",
-    "paceTick": "{percent}% esperado até agora",
-    "categoriesScope": "Categorias: {scope}",
-    "all": "Todos",
-    "selected": "Selecionado",
-    "viewDetails": "Ver detalhes",
-    "allCategories": "Todas as categorias",
-    "selectedCategories": "Categorias selecionadas",
-    "allParticipants": "Todos os participantes",
-    "selectedParticipants": "Participantes selecionados",
-    "archived": "Orçamentos arquivados",
-    "matchingExpenses": "Despesas correspondentes",
-    "matchingExpensesDescription": "Despesas que contribuem para este orçamento no período atual.",
-    "noMatchingExpenses": "Não há despesas correspondentes neste período.",
-    "upcoming": "Despesas futuras",
     "upcomingDescription": "Despesas com data futura neste período. O status e a tendência as excluem para que você não receba um falso alerta de tendência de estouro.",
-    "noUpcoming": "Não há despesas futuras neste período.",
-    "upcomingTotal": "Total futuro: {amount}",
-    "committedSubline": "+ {amount} comprometidos",
-    "history": "Histórico de períodos",
     "historyDescription": "Os períodos anteriores são recalculados com o limite e o escopo atuais.",
-    "noHistory": "Ainda não há períodos concluídos.",
     "deleteDescription": "Exclua permanentemente este orçamento e seu histórico de alertas. As despesas do grupo não serão afetadas.",
     "empty": {
-      "title": "Ainda não há orçamentos",
       "description": "Crie um orçamento compartilhado para acompanhar os gastos de todo o grupo ou de participantes selecionados."
     },
-    "validation": "Preencha todos os campos obrigatórios do orçamento.",
     "form": {
-      "description": "Defina o limite, o período, as categorias e os participantes acompanhados por este orçamento.",
       "notAllowed": "Apenas administradores do grupo podem gerenciar orçamentos.",
-      "name": "Nome do orçamento",
       "namePlaceholder": "Por exemplo, compras da casa",
-      "amount": "Valor",
-      "period": "Período",
       "startDate": "Data inicial",
       "endDate": "Data final",
-      "categories": "Categorias",
-      "participants": "Participantes",
-      "chooseCategories": "Escolher categorias",
-      "chooseParticipants": "Escolher participantes",
-      "notifications": "Notificações",
       "notifyTrending": "Tendência de estouro",
       "notifyTrendingDescription": "Alerte os membros selecionados quando os gastos projetados ultrapassarem o limite após 20% do período.",
-      "notifyOver": "Acima do orçamento",
       "notifyOverDescription": "Alerte os membros selecionados quando os gastos reais ultrapassarem o limite pela primeira vez.",
-      "periodHint": "Período atual: {range}",
-      "categoryScopeHint": "Inclui a categoria principal e todas as suas subcategorias.",
-      "participantScopeHint": "Apenas as partes devidas pelos participantes selecionados são contabilizadas.",
       "overlapHint": "Uma despesa pode contar para vários orçamentos quando os escopos se sobrepõem.",
-      "notificationRecipients": "Os alertas vão para membros com conta incluídos no escopo de participantes que ativaram as notificações de orçamento.",
-      "allSubcategories": "todas as subcategorias"
-    },
-    "period": {
-      "weekly": "Semanal",
-      "monthly": "Mensal",
-      "yearly": "Anual",
-      "custom": "Intervalo personalizado"
+      "notificationRecipients": "Os alertas vão para membros com conta incluídos no escopo de participantes que ativaram as notificações de orçamento."
     },
     "status": {
-      "over": "Orçamento excedido",
-      "trending": "Tendência de estouro",
-      "onTrack": "No caminho certo",
-      "archived": "Arquivado",
-      "scheduled": "Agendado",
-      "completed": "Concluído"
+      "trending": "Tendência de estouro"
     },
-    "daysRemaining_zero": "Faltam {count} dias",
-    "daysRemaining_two": "Faltam {count} dias",
-    "daysRemaining_few": "Faltam {count} dias",
-    "daysRemaining_many": "Faltam {count} dias",
-    "unarchivedSuccess": "Orçamento desarquivado",
-    "notificationsOff": "Nenhum alerta ativado",
     "createCard": {
-      "title": "Criar um orçamento",
       "description": "Defina um limite de gastos e receba um aviso antes de estourar o orçamento."
     },
     "chart": {
-      "heading": "Gasto até agora",
-      "sectionLabel": "Gráfico de gasto acumulado",
-      "legendSpent": "Gasto",
-      "legendPace": "No ritmo",
-      "legendCommitted": "Comprometido",
-      "limitLine": "Limite",
-      "srSummary": "Gasto {spent} de {limit}; comprometido {committed}."
+      "legendPace": "No ritmo"
     },
-    "usedTooltip": "Usado {used} de {limit}",
-    "paceTooltip": "Ritmo esperado: dia {elapsed} de {total}",
     "scope": "Escopo",
-    "remove": "Remover",
-    "retry": "Tentar novamente",
-    "completedBudgets": "Orçamentos concluídos",
-    "completed": "Concluído",
-    "validationName": "Adicione um nome ao orçamento.",
-    "validationAmount": "Digite um valor maior que zero.",
-    "validationDates": "Escolha datas de início e fim válidas.",
-    "validationCategories": "Selecione pelo menos uma categoria.",
-    "validationParticipants": "Selecione pelo menos um participante.",
-    "startsIn": "Começa em {count} dias",
-    "startsToday": "Começa hoje",
-    "moreExpenses": "Mais {count} despesas estão incluídas no total.",
-    "moreUpcomingExpenses": "Mais {count} despesas futuras estão incluídas no total comprometido."
+    "validationAmount": "Digite um valor maior que zero."
   },
   "AIExpense": {
     "title": "Revisar despesa com IA",
     "description": "Confira o que o Spliit entendeu antes de adicionar esta despesa.",
-    "created": "Despesa criada.",
-    "createError": "Não foi possível criar a despesa.",
     "missing": "Não detectado",
-    "group": "Grupo",
-    "expenseTitle": "Título",
     "amount": "Valor",
-    "date": "Data da despesa",
-    "category": "Categoria",
-    "split": "Divisão",
     "namedParticipants": "Dividido igualmente entre {count} participantes mencionados",
-    "defaultDate": "Hoje",
-    "defaultCategory": "Geral",
     "defaultSplit": "Dividido igualmente entre os participantes atuais",
-    "items": "Itens",
     "checkDetails": "Confira estes detalhes",
     "edit": "Editar detalhes",
     "completeDetails": "Complete os detalhes",
-    "create": "Criar despesa",
     "creating": "Criando…",
-    "voiceAction": "Despesa por voz",
     "voiceTitle": "Descreva uma despesa",
     "voiceDescription": "Diga a despesa naturalmente. Os detalhes que faltarem podem ser preenchidos no formulário completo.",
     "processingError": "Não foi possível entender essa gravação. Tente novamente.",
-    "audioError": "Não foi possível preparar essa gravação. Tente novamente.",
     "microphoneError": "O acesso ao microfone está indisponível. Verifique a permissão do navegador e tente novamente.",
     "recording": "Ouvindo…",
-    "stop": "Parar",
-    "record": "Gravar",
     "processing": "Processando…",
     "noTranscript": "Nenhuma transcrição retornada",
-    "recordAgain": "Gravar novamente",
     "receiptAction": "Escanear recibo",
     "closeActions": "Fechar ações de despesas",
     "openActions": "Abrir ações de despesas",
     "issues": {
-      "missingTitle": "Adicione um título antes de criar a despesa.",
-      "missingAmount": "Adicione um valor antes de criar a despesa.",
-      "invalidDate": "Escolha uma data válida no formulário completo da despesa.",
       "unsupportedCurrency": "A moeda informada não é compatível; escolha uma no formulário completo da despesa."
-    },
-    "addExpenseAction": "Adicionar despesa"
+    }
   },
   "Feedback": {
-    "navigationLabel": "Comentários",
-    "title": "Ajude a moldar o Spliit Cloud",
     "description": "Relate um problema, sugira uma melhoria ou conte-nos sobre sua experiência. Escolha uma categoria para continuar no GitHub.",
-    "categoriesLabel": "Categorias de comentários",
     "categories": {
       "bug": {
         "title": "Relatar um erro",
-        "description": "Conte-nos sobre um comportamento com falha ou inesperado e inclua etapas claras para reproduzi-lo.",
-        "action": "Abrir relatório de erro"
+        "description": "Conte-nos sobre um comportamento com falha ou inesperado e inclua etapas claras para reproduzi-lo."
       },
       "idea": {
-        "title": "Sugerir uma ideia",
-        "description": "Descreva um problema que vale a pena resolver ou uma melhoria que tornaria o Spliit mais útil.",
-        "action": "Abrir formulário de ideia"
+        "description": "Descreva um problema que vale a pena resolver ou uma melhoria que tornaria o Spliit mais útil."
       },
       "feedback": {
         "title": "Compartilhar comentários",
-        "description": "Conte-nos o que parece útil, difícil, confuso ou especialmente bem projetado.",
-        "action": "Abrir formulário de comentários"
+        "description": "Conte-nos o que parece útil, difícil, confuso ou especialmente bem projetado."
       }
     },
     "githubNotice": {
-      "title": "Os relatórios são públicos no GitHub",
       "description": "Você precisa de uma conta do GitHub para enviar. É possível revisar e editar tudo antes da publicação da issue."
     },
     "privacy": {
@@ -3103,69 +1580,27 @@
       "description": "Remova nomes, endereços de e-mail, valores, recibos, links de grupos, tokens de convite e outros dados privados antes de enviar."
     },
     "diagnostics": {
-      "title": "Diagnósticos seguros",
       "description": "Copie este contexto técnico para um relatório de erro se for relevante. Ele não inclui dados da conta, conteúdo de formulários, identificadores de URL, strings de consulta nem tokens de convite.",
-      "copy": "Copiar diagnósticos",
-      "copied": "Copiado",
       "copyFailed": "Falha ao acessar a área de transferência. Selecione e copie os diagnósticos manualmente."
     }
   },
   "ExpenseReport": {
-    "title": "Relatório de despesas",
-    "generatedOnLabel": "Gerado em",
-    "periodLabel": "Período selecionado",
-    "balanceAsOfLabel": "Saldo em",
-    "totalSpentLabel": "Total gasto",
-    "expensesCountLabel": "Despesas",
-    "participantsCountLabel": "Participantes",
-    "participantsSectionLabel": "Resumo dos participantes",
     "settlementsSectionLabel": "Acertos sugeridos",
-    "expensesSectionLabel": "Detalhes das despesas",
     "amountColumnLabel": "Valor",
-    "participantColumnLabel": "Participante",
-    "paidColumnLabel": "Pago",
     "shareColumnLabel": "Cota",
-    "balanceColumnLabel": "Saldo",
-    "dateColumnLabel": "Data",
-    "fromColumnLabel": "De",
-    "toColumnLabel": "Para",
-    "splitLabel": "Divisão",
     "noExpensesLabel": "Nenhuma despesa no período selecionado.",
     "noParticipantsLabel": "Nenhum participante com atividade no período selecionado.",
     "noSettlementsLabel": "Tudo está quitado na data final.",
     "originalAmountLabel": "Valor original",
-    "expenseColumnLabel": "Despesa",
-    "categoryColumnLabel": "Categoria",
     "recordedSettlementsSectionLabel": "Acertos registrados",
     "noRecordedSettlementsLabel": "Nenhum acerto registrado até a data final."
   },
-  "CurrencyRateProviders": {
-    "frankfurter": "Frankfurter",
-    "coinbase": "Coinbase",
-    "direct": {
-      "frankfurter": "Taxa de câmbio de <provider></provider>",
-      "coinbase": "Taxa de câmbio de <provider></provider>"
-    },
-    "bridged": "através de {currencies} (<providers></providers>)",
-    "fallbackPrefix": "Taxas de câmbio de",
-    "fallbackSeparator": " e "
-  },
-  "DatePicker": {
-    "presets": {
-      "yesterday": "Ontem",
-      "today": "Hoje",
-      "tomorrow": "Amanhã"
-    }
-  },
   "Mascot": {
-    "openActions": "Abrir ações com o Bill",
-    "closeActions": "Fechar as ações do Bill",
     "greetBill": "Dar um oi para o Bill",
     "settingsAction": "Configurações do mascote",
     "noActionMessage": "Por agora não tem nada em que eu possa te ajudar aqui.",
     "noActionSettings": "Configurações do mascote",
     "landingGreeting": "Oi — eu te ajudo a dividir despesas assim que você entrar.",
-    "hintReceiptVoice": "Posso preencher uma despesa a partir de um recibo ou de uma gravação de voz.",
     "hintSettle": "Em Saldos é onde acertamos as contas.",
     "hintSettings": "Você pode me alterar ou me desativar nas configurações do mascote.",
     "resetPosition": "Redefinir posição",
@@ -3174,28 +1609,19 @@
     "landingHintTap": "Toque em mim quando quiser. Eu não mordo — sou um recibo.",
     "hintTapToAddExpense": "Eu sou o {name} — toque em mim para adicionar uma despesa.",
     "hintTapToCreateGroup": "Eu sou o {name} — toque em mim para criar um grupo.",
-    "billName": "Bill",
     "offlineMessage": "Não consigo criar nada enquanto você está offline."
   },
   "CreateSettlement": {
     "description": "Revise o pagamento antes de registrá-lo.",
-    "pays": "{from} paga {to}",
     "amount": "Valor",
-    "date": "Data",
-    "category": "Categoria",
-    "create": "Criar",
-    "edit": "Editar detalhes",
     "creating": "Criando…",
     "successToast": "Pagamento de acerto registrado",
     "successToastMultiple": "Registrados {count} pagamentos de acerto em uma única entrada",
     "paysMany": "{from} paga para {count} pessoas",
-    "receivesMany": "{to} recebe {count} pagamentos",
-    "paymentsToInclude": "Pagamentos a incluir",
     "selectionSummary": "{count} pagamentos selecionados, total: {total}",
     "legToAria": "{from} paga para {to}, {amount}",
     "legFromAria": "{from} paga para {to}, {amount}",
     "toParticipant": "para {name}",
-    "fromParticipant": "de {name}",
     "createSingle": "Registrar pagamento",
     "createMultiple": "Registrar {count} pagamentos"
   },
@@ -3204,7 +1630,6 @@
       "title": "Conta anônima",
       "description": "Crie uma conta anônima sem endereço de e-mail, senha ou login social.",
       "warning": "Seus dados são armazenados no Split Cloud, mas esta conta não possui e-mail ou outro método de recuperação. Você deve salvar o link de login mostrado a seguir.",
-      "cancel": "Cancelar",
       "recoverDescription": "Cole o link de login salvo para retornar a uma conta anônima existente.",
       "recoveryOnlyHelp": "Novas contas anônimas não estão disponíveis aqui. Cole o link de login completo salvo para continuar.",
       "recover": "Recuperar conta anônima",
@@ -3213,7 +1638,6 @@
       "recoverError": "Este link de login é inválido. Verifique o link completo e tente novamente.",
       "recoveryLinkRequiredLabel": "Link de login",
       "createTitle": "Criar uma nova conta",
-      "or": "OU",
       "recoverTitle": "Já tem uma conta anônima?"
     },
     "onboarding": {
@@ -3231,7 +1655,6 @@
       "storedDataNote": "Anônimo significa que a conta não está conectada a uma identidade de login. Os dados da sua conta ainda estão armazenados no Spliit Cloud.",
       "linkLabel": "Link de login",
       "copyLink": "Copiar link",
-      "copied": "Copiado",
       "howItWorks": "Abra o link de login em qualquer navegador para fazer login. No PWA instalado, escolha Anônimo e cole o link de login completo.",
       "confirmation": "Copiei e armazenei com segurança meu link de login.",
       "copyFailed": "Falha ao copiar. Selecione o link de login e copie-o manualmente."
@@ -3243,11 +1666,7 @@
       "recovering": "Recuperando sua conta…",
       "invalid": "Este link de login é inválido. Verifique o link completo e tente novamente.",
       "anonymousAccount": "conta anônima",
-      "switchTitle": "Trocar de conta?",
       "switchDescription": "Você já está conectado. Continue mudando este navegador para {name}.",
-      "switchConfirm": "Trocar e recuperar",
-      "submit": "Recuperar conta",
-      "back": "Voltar para fazer login",
       "linkLabel": "Link de login"
     },
     "settings": {
@@ -3256,12 +1675,10 @@
       "replace": "Substitua o link de login",
       "replaceTitle": "Substituir seu link de login?",
       "replaceDescription": "Gere um link de substituição para revisar e salvar. Seu link de login atual continua funcionando até você ativar a substituição.",
-      "cancel": "Cancelar",
       "replaceConfirm": "Gerar link de substituição",
       "error": "O link de login não pôde ser substituído. Por favor, tente novamente.",
       "activateDescription": "Salve o link de substituição antes de ativá-lo.",
       "stagedDescription": "Seu link de login atual continua funcionando até você ativar esta substituição. Fechar ou atualizar descarta a substituição.",
-      "activateConfirm": "Ativar substituição",
       "replacementActivated": "Seu link de login substituto agora está ativo."
     }
   },
@@ -3273,7 +1690,6 @@
     "copy": "Copiar link público",
     "copied": "Link público copiado",
     "enable": "Ativar link público",
-    "cancel": "Cancelar",
     "enabledStatus": "Qualquer pessoa com este link pode ver o grupo.",
     "replace": "Substituir link",
     "remove": "Remover link público",
@@ -3289,35 +1705,22 @@
   },
   "OfflineEmptyState": {
     "title": "Você está offline",
-    "description": "Esta tela precisa de uma conexão. Reconecte-se para carregar seus grupos e despesas.",
-    "retry": "Tentar novamente"
+    "description": "Esta tela precisa de uma conexão. Reconecte-se para carregar seus grupos e despesas."
   },
   "PwaUpdate": {
-    "title": "Nova versão disponível",
     "description": "Recomenda-se fortemente atualizar, pois esta versão pode não funcionar mais corretamente.",
     "unsavedWarning": "Reiniciar descartará as alterações não salvas nesta janela.",
     "nextLaunchNote": "Se você escolher \"Mais tarde\", a atualização será aplicada automaticamente na próxima vez que abrir o Spliit.",
     "restartFailed": "Não foi possível reiniciar o Spliit. Feche as outras janelas do aplicativo e tente novamente.",
-    "later": "Mais tarde",
-    "restartNow": "Reiniciar agora",
     "restarting": "Reiniciando…",
     "otherClientsCountWarning": "{count} outras abas ou janelas abertas do Spliit foram detectadas. Feche-as para proteger o trabalho não salvo ou reinicie todas mesmo assim.",
     "clientCheckFailed": "Não foi possível verificar se há outras abas ou janelas abertas no Spliit. Tente novamente ou reinicie todas mesmo assim.",
     "checkingOtherClients": "Verificando outras abas…",
-    "restartAllAnyway": "Reiniciar tudo mesmo assim",
-    "forceTitle": "Reiniciar tudo?",
-    "forceDescription": "Todas as abas e janelas abertas do Spliit serão recarregadas. Todas as alterações não salvas nelas serão perdidas.",
-    "cancel": "Cancelar",
-    "restartAll": "Reiniciar tudo"
+    "forceDescription": "Todas as abas e janelas abertas do Spliit serão recarregadas. Todas as alterações não salvas nelas serão perdidas."
   },
   "Tools": {
-    "title": "Ferramentas",
-    "description": "Ações em massa e utilitários para este grupo.",
     "import": {
-      "title": "Importar despesas",
       "description": "Traga várias despesas de uma exportação bancária, de cartão de crédito ou outro CSV/TSV para este grupo. Nada é salvo até você confirmar a importação.",
-      "start": "Iniciar importação",
-      "archivedNotice": "Este grupo está arquivado.",
       "readOnlyNotice": "Só membros ativos do grupo podem importar despesas.",
       "steps": {
         "choose": {
@@ -3339,29 +1742,16 @@
     "apiErrors": {
       "IMPORT_DUPLICATE_CONFLICT": "Algumas linhas selecionadas têm novas correspondências duplicadas ou não aprovadas (linhas {rows}). Revise-as e tente de novo.",
       "IMPORT_FX_RATE_UNAVAILABLE": "Taxa de câmbio indisponível para {base}→{target} em {date} após várias tentativas ({upstream}). Nada foi importado; tente de novo em um minuto.",
-      "IMPORT_GROUP_ARCHIVED": "Este grupo está arquivado",
-      "IMPORT_GROUP_ARCHIVED_CANNOT_ACCEPT": "Este grupo está arquivado e não aceita importações",
       "IMPORT_GROUP_CURRENCY_CHANGED": "A moeda do grupo mudou durante a preparação desta importação. Tente de novo.",
-      "IMPORT_GROUP_NOT_FOUND": "Grupo não encontrado",
-      "IMPORT_INVALID_PARTICIPANT": "ID de participante inválido: {participantId}",
-      "IMPORT_ITEMS_EXCEED_TOTAL": "Linha {rowNumber}: os itens excedem o total da despesa",
       "IMPORT_LEDGER_CURRENCY_REQUIRED": "As importações de arquivos de despesas exigem um código de moeda ISO para o grupo",
-      "IMPORT_NO_ROWS_SELECTED": "Selecione pelo menos uma linha de despesas",
-      "IMPORT_SPLIT_BUDGET_EXCEEDED": "O total de divisões entre linhas excede o limite de 200_000"
+      "IMPORT_NO_ROWS_SELECTED": "Selecione pelo menos uma linha de despesas"
     },
     "defaults": {
-      "distributionPaidBy": "Pago por",
-      "distributionPaidFor": "Pago para",
-      "equalShare": "Parte igual",
       "paidByDescription": "Escolha um pagador ou uma distribuição proporcional para copiar para cada linha.",
       "paidByFootnote": "Moeda do grupo: {currencyCode}. Esses valores proporcionais são reutilizados em cada despesa gerada.",
-      "paidByTitle": "Pago por",
       "paidForDescription": "Escolha os participantes e uma divisão proporcional. Valores fixos e detalhamento por itens estão disponíveis ao editar uma despesa individual.",
-      "paidForTitle": "Pago para",
-      "payerPlaceholder": "Escolher pagador",
       "sectionDescription": "As configurações de pagador e divisão se aplicam a cada linha mapeada. Edite uma despesa individual durante a revisão para uma exceção.",
       "sectionTitle": "Pagador e divisão padrão",
-      "shareInputLabel": "Parte de {distribution} para {name}",
       "sharesNotePaidBy": "Essas partes pagas são reutilizadas em cada valor importado.",
       "sharesNotePaidFor": "Essas partes beneficiárias são reutilizadas em cada valor importado."
     },
@@ -3375,369 +1765,125 @@
       "DETECTION_TIED_COLUMN": "Verifique a coluna {label} detectada; outra coluna é igualmente plausível."
     },
     "issues": {
-      "AMBIGUOUS_DATE": "Esta data pode ser mês/dia ou dia/mês",
       "AMOUNT_SOURCE_UNMAPPED": "Não foi possível determinar o valor a partir do arquivo; escolha uma coluna de origem na etapa de mapeamento",
-      "CATEGORY_FALLBACK": "A categoria “{source}” vai usar Geral",
       "CATEGORY_NO_CONFIDENT_MATCH": "Sem correspondência confiável de categoria{titlePart}; usando {category}.",
       "DATE_SOURCE_UNMAPPED": "Não foi possível determinar a data a partir do arquivo; escolha uma coluna de origem na etapa de mapeamento",
-      "INCONSISTENT_DATE_ORDER": "A ordem das datas entra em conflito com outras linhas ({dmyCount} exemplos dia/mês e {mdyCount} mês/dia){receivedSuffix}",
       "INVALID_AMOUNT": "O valor deve ser um número diferente de zero{receivedSuffix}",
-      "INVALID_DATE": "Não foi possível interpretar a data e a hora{receivedSuffix}",
-      "MAPPING_FAILED": "O mapeamento falhou{detail}",
-      "MISSING_TITLE": "O título precisa de pelo menos dois caracteres{receivedSuffix}",
       "SIGN_COLUMN_IGNORED": "A coluna de sinal “{label}” ({columnKey}, recebido “{received}”) não está incluída, por isso o valor negativo foi tratado como positivo",
-      "TITLE_SOURCE_UNMAPPED": "Não foi possível determinar o título a partir do arquivo; escolha uma coluna de origem na etapa de mapeamento",
-      "UNSUPPORTED_CURRENCY": "A moeda “{currency}” não é suportada{receivedSuffix}"
+      "TITLE_SOURCE_UNMAPPED": "Não foi possível determinar o título a partir do arquivo; escolha uma coluna de origem na etapa de mapeamento"
     },
     "mapping": {
-      "addFallbackColumn": "Adicionar coluna alternativa",
-      "addMappingButton": "Adicionar mapeamento",
-      "addSourceValue": "Adicionar valor de origem",
-      "addTransformationAria": "Adicionar transformação",
-      "addTransformationPlaceholder": "Adicionar transformação",
       "advAmountHint": "Combine valores de origem e aplique transformações em ordem.",
       "advCurrencyHint": "Use uma moeda ou crie um mapeamento de origem completo.",
-      "advCurrencySourceAria": "Origem de moeda avançada",
-      "advCurrencySourceLabel": "Origem de moeda",
       "advMapDesc": "Crie abaixo um fluxo de origem e transformações.",
       "advMapTitle": "Mapear moeda a partir do arquivo",
       "advUseOneDesc": "Aplique uma moeda selecionada a cada linha.",
-      "affectedRows": "Linhas afetadas: {rows}",
       "afterBody": "Primeira origem com configurações essenciais compatíveis",
-      "afterLabel": "Depois",
-      "allRowsMapped": "Todas as linhas são mapeadas para este campo.",
       "ambiguousDateBody": "Datas como 3/2 podem ser mês/dia ou dia/mês. O mapeamento sugerido as interpreta como {order}.",
-      "ambiguousRowExample": "Linha {rowNumber}: {values}",
       "amountColumnLabel": "Coluna de valor",
       "amountHeading": "Valor",
       "amountHint": "Escolha a coluna de valor e como seus números e sinais devem ser lidos.",
-      "andMore": " e mais",
-      "applySignRule": "Aplicar uma regra de sinal de receita/despesa",
-      "automaticOption": "Automático",
       "basicSettings": "Configurações básicas",
       "basicSettingsHint": "Estas são as configurações disponíveis no modo Simples. Abra Avançado para alternativas ou transformações adicionais.",
-      "beforeBody": "Todas as origens, alternativas e transformações configuradas",
-      "beforeLabel": "Antes",
-      "blankValue": "Vazio",
-      "cancelButton": "Cancelar",
-      "cannotCompileYet": "Este mapeamento ainda não pode ser compilado.",
-      "celLabel": "Expressão CEL",
       "codeOneWayBody": "Redefina este mapeamento para voltar ao mapeamento visual deduzido.",
-      "codeOneWayTitle": "O mapeamento por código é unidirecional",
       "codePreviewBody": "Este é o CEL que será executado para cada linha de origem. Ao editá-lo, o mapeamento fica unidirecional até você redefini-lo.",
       "codePreviewTitle": "Prévia do código",
       "codeResetBody": "O código não pode ser convertido com segurança para controles visuais. O mapeamento deduzido para este arquivo vai substituir o código atual.",
-      "columnFallback": "Alternativa",
-      "columnSource": "Origem",
       "combinesBody": "Abra Avançado para editar cada valor ou redefina para manter apenas o primeiro valor de origem.",
-      "combinesTitle": "Este mapeamento combina valores de origem",
-      "commaDecimalExample": "Decimal com vírgula (1.234,56)",
-      "commaDecimalMoney": "Decimal com vírgula · 1.234,56",
       "confirmDateTitle": "Confirme a ordem das datas",
-      "confirmOrder": "Confirmar {order}",
-      "creditColumnLabel": "Coluna de crédito",
-      "currencyColumnLabel": "Coluna de moeda",
-      "currencyHeading": "Moeda",
       "currencyHint": "Use uma moeda para o lote ou leia-a do arquivo.",
-      "currencyLabel": "Moeda",
-      "currencySourceAria": "Origem de moeda",
-      "currentMappingCannotCompile": "O mapeamento atual ainda não pode ser compilado.",
-      "dateFormatDmy": "D/M/AAAA H:mm (dia/mês)",
-      "dateFormatLabel": "Formato de data",
-      "dateFormatMdy": "M/D/AAAA H:mm (mês/dia)",
-      "dateFormatPlaceholder": "M/D/AAAA H:mm",
-      "dayMonth": "dia/mês",
-      "debitColumnLabel": "Coluna de débito",
       "defaultFieldHint": "Este campo vai usar seu valor padrão.",
-      "definedByCode": "Definido por código",
       "detectNumberFormat": "Detectar formato numérico",
-      "dotDecimalExample": "Decimal com ponto (1,234.56)",
-      "dotDecimalMoney": "Decimal com ponto · 1,234.56",
-      "editMappingButton": "Editar mapeamento",
-      "editWithCode": "Editar com código",
-      "editorTitle": "Mapeamento de {title}",
       "evaluatingMapping": "Avaliando este mapeamento…",
-      "explicitFormatHint": "Um formato explícito confirma a ordem das datas.",
       "extractAmountDesc": "Leia um código ou símbolo de moeda de {column}.",
       "extractAmountTitle": "Extrair da coluna de valor",
       "findTextPlaceholder": "Localizar texto",
-      "incomeExpenseColumnLabel": "Coluna de receita/despesa",
       "incomeHint": "Separe os valores com vírgulas. A correspondência não diferencia maiúsculas.",
-      "incomeValuesLabel": "Valores que significam receita",
-      "inspectRows": "Inspecionar linhas",
-      "issuesInField": "{summary} em {title}",
-      "joinSeparatorPlaceholder": "Separador de junção",
-      "keepAdvanced": "Manter Avançado",
-      "keepCode": "Manter Código",
-      "keepSimple": "Manter Simples",
       "liveExamples": "Exemplos ao vivo",
-      "loadMoreExamples": "Carregar mais exemplos",
-      "mappedValueLabel": "Valor mapeado",
-      "mappingInvalid": "Este mapeamento ainda não é válido.",
-      "mappingSectionLabel": "Mapeamento",
       "mixedDateBody": "Algumas linhas parecem dia/mês e outras mês/dia. Escolha um formato de data explícito neste mapeamento antes de continuar.",
       "mixedDateTitle": "Ordem de datas mista detectada",
-      "modeAdvanced": "Mapeamento avançado",
-      "modeCode": "Mapeamento por código",
-      "modeSimple": "Mapeamento simples",
       "moneyAfterBody": "Primeira origem com configurações essenciais compatíveis em cada via",
       "moneyAmountLine": "Valor: {details}",
       "moneyAmountSource": "Origem de valor",
-      "moneyCurrencyLine": "Moeda: {summary}",
-      "moneyCurrencySource": "Origem de moeda",
-      "moneyDebitCredit": "Débito: {debit} / Crédito: {credit}",
       "moneyDescription": "Escolha de onde vêm o valor e a moeda. Podem usar duas colunas ou um valor combinado.",
-      "moneyExtractedFrom": "Extraído de {column}",
-      "moneyInvalid": "Este mapeamento de dinheiro ainda não é válido.",
-      "moneyLaneFallback": "{lane} alternativo",
       "moneyMappingDesc": "Mapeie valor e moeda juntos com os mesmos controles de origem e transformação dos outros campos.",
-      "moneyMappingTitle": "Mapeamento de dinheiro",
-      "moneyNumberFormat": "Formato numérico: {format}",
-      "moneySign": "Sinal: {column}",
-      "moneySignAsWritten": "Sinal: como está",
       "moneySimpleResetBody": "Simples mantém a primeira origem e as configurações essenciais de cada via. Alternativas e transformações personalizadas serão removidas.",
-      "moneyTitle": "Dinheiro",
-      "monthDay": "mês/dia",
-      "moreExamplesHint": "Há mais exemplos disponíveis no cartão de mapeamento.",
-      "moveFallbackDown": "Mover alternativa {index} para baixo em {sourceLabel}",
-      "moveFallbackUp": "Mover alternativa {index} para cima em {sourceLabel}",
-      "moveSourceDown": "Mover {label} para baixo",
-      "moveSourceUp": "Mover {label} para cima",
-      "moveTransformDown": "Mover transformação {index} para baixo",
-      "moveTransformUp": "Mover transformação {index} para cima",
-      "needsAttention": "O mapeamento precisa de atenção",
-      "negativeValuesLabel": "Valores negativos",
-      "negativeValuesPlaceholder": "receita, crédito, depósito",
       "noPreviewRows": "Sem linhas de prévia para mostrar.",
-      "noTransforms": "Ainda sem transformações.",
-      "numberFormatAuto": "Automático",
-      "numberFormatComma": "Decimal com vírgula",
-      "numberFormatDot": "Decimal com ponto",
-      "numberFormatLabel": "Formato numérico",
-      "openAdvanced": "Abrir Avançado",
-      "optionDebitCredit": "Ler colunas Débito/Crédito",
-      "optionExtractCurrency": "Extrair moeda",
-      "optionJoin": "Juntar valores",
-      "optionParseDate": "Interpretar data",
-      "optionParseNumber": "Interpretar número",
-      "optionRegex": "Extrair com regex",
-      "optionReplace": "Substituir texto",
-      "optionSignRule": "Aplicar regra de sinal",
       "previewEvalError": "Não foi possível avaliar a prévia.",
-      "rawValueLabel": "Valor original",
       "readAnotherDesc": "Use uma coluna dedicada de moeda ou CCY.",
-      "readAnotherTitle": "Ler de outra coluna",
-      "regexPlaceholder": "Expressão regular",
-      "removeButton": "Remover",
-      "removeFallback": "Remover alternativa {index} de {sourceLabel}",
-      "removeSource": "Remover {label}",
-      "removeTransform": "Remover transformação {index}",
-      "replaceWithPlaceholder": "Substituir por",
-      "requiredBadge": "Obrigatório",
       "resetOneSource": "Redefinir para um valor de origem",
       "resetToAdvanced": "Redefinir para Avançado",
       "resetToSimple": "Redefinir para Simples",
       "resetToVisual": "Redefinir para o mapeamento visual",
       "resetVisualTitle": "Redefinir o mapeamento visual?",
-      "rowsList": "Linhas {rows}",
       "saveMapping": "Salvar mapeamento",
-      "showAffectedRows": "Mostrar linhas afetadas",
       "signAsWrittenDesc": "Mantenha os valores positivos e negativos exatamente como exportados.",
       "signAsWrittenTitle": "O valor já tem o sinal correto",
-      "signColumnLabel": "Coluna de sinal",
       "signFromColumnDesc": "Use a coluna selecionada para identificar receitas e despesas.",
-      "signFromColumnTitle": "A coluna de receita/despesa determina o sinal",
-      "signHandlingLabel": "Tratamento do sinal",
       "simpleDateHint": "Use um formato explícito para confirmar mês/dia ou dia/mês.",
       "simpleResetBody": "Simples mantém a primeira origem e as configurações essenciais. Alternativas e transformações personalizadas serão removidas.",
-      "simplifyTitle": "Simplificar este mapeamento?",
-      "sourceColumnFallbackAria": "Coluna alternativa {index} de {sourceLabel}",
-      "sourceColumnSourceAria": "Coluna de origem de {sourceLabel}",
       "sourceHintAdvanced": "Os valores são unidos de cima para baixo e depois transformados em ordem.",
       "sourceHintSimple": "Escolha a coluna que contém este valor.",
-      "sourceLabelAdvanced": "Valores de origem",
-      "sourceLabelSimple": "Origem",
-      "sourceRowExpense": "Linha de origem {rowNumber} → Despesa {expenseNumber}",
-      "sourceSingle": "Origem",
-      "sourceValueNumbered": "Valor de origem {index}",
-      "tabAdvanced": "Avançado",
-      "tabCode": "Código",
-      "tabSimple": "Simples",
-      "transformDateFormatAria": "Formato de data da transformação {index}",
-      "transformDebitCredit": "Ler colunas Débito e Crédito",
-      "transformExtractCurrency": "Extrair código de moeda",
-      "transformGroupAria": "Grupo da transformação {index}",
-      "transformJoinSeparatorAria": "Separador de junção da transformação {index}",
-      "transformJoinSpace": "espaço",
-      "transformJoinValues": "Juntar valores ({separator})",
-      "transformLower": "Minúsculas",
-      "transformNegativeValuesAria": "Valores negativos da transformação {index}",
-      "transformNumberFormatAria": "Formato numérico da transformação {index}",
-      "transformParseDate": "Interpretar data ({format})",
-      "transformParseNumber": "Interpretar número ({format})",
-      "transformPatternAria": "Padrão da transformação {index}",
-      "transformRegex": "Extrair com expressão regular",
-      "transformReplace": "Substituir “{search}”",
-      "transformReplacementAria": "Substituição da transformação {index}",
       "transformSearchAria": "Busca da transformação {index}",
-      "transformSignColumnAria": "Coluna de sinal da transformação {index}",
-      "transformSignFromColumn": "Aplicar sinal de outra coluna",
-      "transformTrim": "Normalizar espaços",
-      "transformUpper": "Maiúsculas",
       "transformationsHint": "Aplicadas de cima para baixo. Juntar converte os valores de origem em um único valor.",
-      "transformationsLabel": "Transformações",
       "updatingExamples": "Atualizando exemplos do mapeamento…",
-      "useAdvanced": "Usar Avançado",
       "useCodeBody": "Editar CEL é uma alteração unidirecional. Os controles Simples e Avançado ficarão indisponíveis até você redefinir para o mapeamento visual deduzido.",
-      "useCodeTitle": "Usar um mapeamento por código?",
       "useDetectedColumn": "Usar coluna detectada",
-      "useOneCurrencyDesc": "Aplique uma moeda selecionada a cada despesa importada.",
-      "useOneCurrencyTitle": "Usar uma moeda",
-      "useSimple": "Usar Simples"
+      "useOneCurrencyDesc": "Aplique uma moeda selecionada a cada despesa importada."
     },
     "viewers": {
       "allMappedDescription": "Inspecione cada linha mapeada antes de continuar para a revisão.",
-      "allMappedTableLabel": "Todas as linhas de despesa mapeadas",
-      "allMappedTitle": "Despesas mapeadas",
-      "blank": "Vazio",
-      "clearIssueFilter": "{field} · limpar",
-      "close": "Fechar",
-      "debitCredit": "Débito: {debit} / Crédito: {credit}",
-      "expenseCount_many": "{count} despesas",
-      "expenseCount_one": "{count} despesa",
-      "expenseCount_other": "{count} despesas",
-      "expensesForSource": "Despesas de {sourceName}",
-      "extractCurrency": "Extrair moeda",
-      "fallbackTo": "alternativa para {label}",
-      "filterAllRows": "Todas as linhas ({count})",
-      "filterIssues": "Problemas ({count})",
       "headerAmount": "Valor",
-      "headerCategory": "Categoria",
-      "headerDate": "Data",
-      "headerSelect": "Selecionar e editar linha",
-      "headerSourceRow": "Linha de origem",
       "headerStatus": "Situação",
-      "headerTitle": "Título",
-      "invalidDate": "Data inválida",
-      "issueErrors": "{count} erros",
-      "issueFieldCategory": "Mapeamento de categoria",
-      "issueFieldMoney": "Dinheiro",
-      "issueWarnings": "{count} avisos",
-      "joinWith": "Juntar com “{separator}”",
       "missingTitle": "Título ausente",
-      "moreIssues": " · mais {count}",
       "noExpensesForSource": "Nenhuma despesa corresponde a esta origem na prévia atual.",
-      "noIssueRows": "Nenhuma linha precisa de atenção para este mapeamento.",
-      "noMappedRows": "Ainda sem linhas mapeadas disponíveis.",
-      "noTransformations": "Sem transformações",
-      "normalizeWhitespace": "Normalizar espaços",
-      "notMapped": "Não mapeado",
-      "parseDate": "Interpretar data: {format}",
-      "parseNumber": "Interpretar número: {format}",
-      "parsedSourceRows": "Linhas de origem interpretadas",
       "parsedSourceRowsCaption": "Todas as linhas interpretadas do arquivo de origem selecionado",
-      "previewDescription": "Uma amostra das despesas que este mapeamento vai criar.",
       "previewErrorDescription": "Volte à etapa de arquivo e tente preparar de novo o mapeamento.",
       "previewErrorTitle": "Prévia mapeada indisponível",
       "previewInitializing": "Preparando mapeamentos…",
       "previewTableLabel": "Linhas de prévia de despesas mapeadas",
       "previewTitle": "Prévia de despesas mapeadas",
       "previewUpdating": "Atualizando valores mapeados…",
-      "provenanceDictionary": "Desde palavras-chave do título",
-      "provenanceFallback": "Categoria alternativa",
-      "provenanceHistory": "Desde despesas anteriores",
-      "provenanceImport": "Desde um título importado correspondente",
       "provenanceIncome": "Desde o valor com sinal",
-      "provenanceManual": "Selecionado manualmente",
-      "provenanceSource": "Desde a categoria de origem",
-      "regexExtract": "Extrair com regex",
-      "replaceWith": "Substituir “{search}”",
-      "rowHeader": "Linha",
-      "sectionSourceValues": "Valores de origem",
-      "sectionTransformations": "Transformações",
-      "selectedCategorySuffix": " · Usar categoria selecionada: {categoryName}",
-      "showAll": "Mostrar tudo",
-      "signFromColumn": "Sinal de {label}",
-      "simpleDateFormat": "Formato de data: {format}",
-      "simpleNumberFormat": "Formato numérico: {format}",
-      "simpleSignFrom": "Sinal de: {label}",
-      "simpleSource": "Origem: {label}",
-      "sourceFileDescription": "{rowCount} linhas · {columnCount} colunas. Os valores são mostrados exatamente como interpretados.",
       "sourceFileTitle": "Arquivo de origem",
-      "sourceKindFallback": "Alternativa",
-      "sourceKindIndexed": "Valor de origem {index}",
-      "sourceKindSource": "Origem",
-      "sourceValueIndexed": "Valor de origem {index}: {sources}",
       "statusDuplicate": "Duplicada",
-      "statusError": "Erro",
       "statusReady": "Pronta",
-      "statusWarning": "Aviso",
       "titleModeSuffix": " · Detectar a partir dos títulos (as categorias podem variar por despesa)",
-      "transformLowercase": "Minúsculas",
-      "transformUppercase": "Maiúsculas",
-      "viewAllMapped": "Ver todas as despesas mapeadas ({count})",
       "viewSourceFile": "Ver arquivo de origem",
       "fields": {
         "categorySource": {
-          "description": "Leia a categoria do banco para que cada valor único possa ser mapeado para uma categoria do Spliit.",
-          "title": "Origem de categoria"
+          "description": "Leia a categoria do banco para que cada valor único possa ser mapeado para uma categoria do Spliit."
         },
         "dateTime": {
-          "description": "Escolha o carimbo de data/hora da transação e confirme como as datas ambíguas devem ser lidas.",
-          "title": "Data e hora"
+          "description": "Escolha o carimbo de data/hora da transação e confirme como as datas ambíguas devem ser lidas."
         },
         "externalId": {
-          "description": "Um identificador bancário estável melhora a detecção exata de reimportações.",
-          "title": "ID de transação externa"
+          "description": "Um identificador bancário estável melhora a detecção exata de reimportações."
         },
         "notes": {
-          "description": "Combine colunas de referência, memo e notas nas notas da despesa.",
-          "title": "Notas"
+          "description": "Combine colunas de referência, memo e notas nas notas da despesa."
         },
         "sourceAccount": {
-          "description": "Diferencie os IDs de transação quando uma exportação contiver várias contas.",
-          "title": "Conta de origem"
+          "description": "Diferencie os IDs de transação quando uma exportação contiver várias contas."
         },
         "title": {
-          "description": "A descrição da despesa. Combine colunas de estabelecimento, nota ou memo quando útil.",
-          "title": "Título"
+          "description": "A descrição da despesa. Combine colunas de estabelecimento, nota ou memo quando útil."
         }
       }
     },
     "wizard": {
       "applyCategoryTitle": "Aplicar categoria às despesas correspondentes",
-      "applyToExpenses_many": "Aplicar a {count} despesas",
-      "applyToExpenses_one": "Aplicar a {count} despesa",
-      "applyToExpenses_other": "Aplicar a {count} despesas",
-      "archivedMessage": "Este grupo está arquivado.",
       "backToFile": "Voltar ao arquivo",
-      "backToMapping": "Voltar ao mapeamento",
       "backToTools": "Voltar às Ferramentas",
-      "blockerConfirmations": "as confirmações de campo abertas forem resolvidas",
-      "blockerDateConfirmed": "o formato de data for confirmado",
-      "blockerDefaultsComplete": "os valores de pagador e divisão estiverem completos",
       "blockerDuplicateCheck": "a verificação de duplicadas terminar",
-      "blockerExpenseSelected": "pelo menos uma despesa for selecionada",
       "blockerFileParsed": "um arquivo for interpretado",
       "blockerFileParsing": "o arquivo terminar a interpretação",
-      "blockerMappedUpdating": "os valores mapeados terminarem a atualização",
-      "cancel": "Cancelar",
       "categoryDialogDescription": "Títulos exatos estão selecionados. Revise títulos semelhantes antes de incluí-los.",
       "categoryIssuesDescription": "As despesas sem correspondência confiável usam a categoria alternativa abaixo.",
-      "categoryIssuesTitle": "{summary} no mapeamento de categoria",
-      "categoryRowLabel": "{title} · Linha {rowNumber}",
       "checkingDuplicates": "Verificando histórico de importações e despesas existentes…",
       "chooseAnotherFile": "Escolher outro arquivo",
-      "chooseMatchingExpenses": "Escolher despesas correspondentes",
-      "continueToMapping": "Continuar para o mapeamento",
       "currencyRequiredDescription": "Escolha uma moeda ISO para este grupo antes de importar despesas.",
-      "currencyRequiredTitle": "Moeda necessária",
       "delimiterDetectedAs": "(detectado como {name})",
-      "delimiterLabel": "Delimitador",
-      "delimiterNameComma": "Vírgula",
-      "delimiterNamePipe": "Barra vertical",
-      "delimiterNameSemicolon": "Ponto e vírgula",
-      "delimiterNameTab": "Tabulação",
       "desktopRecommendedDescription": "Mapear um arquivo grande é mais fácil em uma tela ampla. Você pode continuar aqui.",
       "desktopRecommendedTitle": "Tela ampla recomendada",
       "detectedSuffix": " (detectado)",
@@ -3751,89 +1897,45 @@
       "duplicateDialogTitle": "Importar esta possível duplicada?",
       "duplicateUnavailableDescription": "A importação está bloqueada até esta verificação ter êxito. Tente de novo a verificação antes de importar.",
       "duplicateUnavailableTitle": "Verificação de duplicadas indisponível",
-      "editRowHeading": "Editar linha importada {rowNumber}",
       "encodingDetectedAs": "(detectado como {encoding})",
-      "encodingLabel": "Codificação",
-      "errorTitle": "A importação precisa de atenção",
-      "exactTitle": "Título exato",
-      "eyebrow": "Importar despesas",
-      "fileBlockersHint": "Continuar desbloqueia quando {blockers}.",
       "fileInputLabel": "Arquivo de despesas",
       "fileParseFailed": "Não foi possível interpretar o arquivo.",
       "filePreviewDescription": "{fileName} · {count} linhas de dados. Ajuste a análise abaixo se a tabela não parecer correta.",
       "filePreviewTitle": "Prévia do arquivo",
       "fileTooLarge": "O arquivo não pode conter mais de {max} linhas (encontradas {found} linhas).",
       "fileTooLargeBytes": "O arquivo não pode ser maior do que 16 MB.",
-      "filterAll": "Todas ({count})",
       "filterDuplicates": "Duplicadas ({count})",
-      "filterErrors": "Erros ({count})",
-      "filterReady": "Prontas ({count})",
-      "filterWarnings": "Avisos ({count})",
-      "groupUnavailableFallback": "Não foi possível carregar o grupo.",
-      "groupUnavailableTitle": "Grupo indisponível",
-      "headerRowLabel": "Linha de cabeçalho",
       "importAnotherFile": "Importar outro arquivo",
-      "importAnyway": "Importar mesmo assim",
-      "importBlockersHint": "Importar desbloqueia quando {blockers}.",
-      "importExpenses_many": "Importar {count} despesas",
-      "importExpenses_one": "Importar {count} despesa",
-      "importExpenses_other": "Importar {count} despesas",
-      "importFailed": "Não foi possível concluir a importação.",
-      "importUnavailableTitle": "Importação indisponível",
-      "importedCount_many": "{count} despesas importadas",
-      "importedCount_one": "{count} despesa importada",
-      "importedCount_other": "{count} despesas importadas",
-      "inspectRows": "Inspecionar linhas",
       "invalidFileType": "Escolha um arquivo CSV, TSV ou de texto delimitado.",
       "keepUnselected": "Manter desmarcada",
-      "leaveAndDiscard": "Sair e descartar",
       "leaveImportDescription": "O arquivo e todos os rascunhos de despesas mapeadas são mantidos apenas em memória e serão perdidos.",
-      "leaveImportTitle": "Sair desta importação?",
       "loadingGroup": "Carregando grupo…",
-      "mappingFailed": "Não foi possível avaliar o mapeamento.",
       "mappingPreviewFailed": "Não foi possível avaliar a prévia do mapeamento.",
       "mappingPreviewRetryHint": "Volte à etapa de arquivo e tente preparar de novo os mapeamentos.",
-      "matchingExpensesNotice_many": "{count} despesas têm títulos correspondentes ou semelhantes.",
-      "matchingExpensesNotice_one": "{count} despesa tem títulos correspondentes ou semelhantes.",
-      "matchingExpensesNotice_other": "{count} despesas têm títulos correspondentes ou semelhantes.",
       "noValidExpenses": "Nenhuma despesa válida foi produzida. Verifique os mapeamentos de campos.",
       "notMemberMessage": "Só membros ativos do grupo podem importar despesas.",
-      "optionalMappingsDescription": "Origem de categoria, notas, ID de transação e conta",
-      "optionalMappingsTitle": "Mapeamentos de campos opcionais",
       "parsingFile": "Interpretando arquivo…",
       "preparingMappings": "Preparando mapeamentos e sugestões de categoria…",
-      "progressAriaLabel": "Progresso da importação",
       "progressReview": "Revisar",
       "requiredMappingsDescription": "Os mapeamentos são avaliados em cada linha interpretada. Abra um para combinar colunas ou adicionar transformações.",
-      "requiredMappingsTitle": "Mapeamentos de campos obrigatórios",
       "retryDuplicateCheck": "Tentar de novo a verificação de duplicadas",
       "retryPreview": "Tentar de novo a prévia",
       "reviewBlockersHint": "Revisar despesas desbloqueia quando {blockers}.",
       "reviewCardDescription": "As linhas limpas e avisos de categoria estão selecionados. Duplicadas e erros começam desmarcados. As edições ficam só nesta aba.",
       "selectExpense": "Selecione pelo menos uma despesa válida.",
-      "similarTitle": "Título semelhante",
-      "stayHere": "Ficar aqui",
       "stepDoneDescription": "Suas despesas selecionadas foram adicionadas ao grupo.",
-      "stepDoneTitle": "Importação concluída",
       "stepFileDescription": "Selecione uma exportação bancária e confirme que as colunas sejam interpretadas corretamente.",
       "stepFileTitle": "Escolher arquivo",
       "stepMappingDescription": "Escolha como cada coluna de origem se torna parte de uma despesa antes de revisar os resultados.",
-      "stepMappingTitle": "Mapear campos",
       "stepReviewDescription": "Verifique as despesas mapeadas, resolva duplicadas ou erros e importe as linhas selecionadas.",
       "stepReviewTitle": "Revisar despesas",
       "valuesRecomputedDescription": "A moeda ou o fuso horário mudou, por isso valores e datas foram recalculados. Suas seleções e linhas editadas foram mantidas.",
-      "valuesRecomputedTitle": "Valores recalculados",
-      "viewExpenses": "Ver despesas",
-      "waitDuplicate": "Aguarde a verificação de duplicadas terminar antes de importar.",
-      "invalidRowTitle": "Linha de importação inválida"
+      "waitDuplicate": "Aguarde a verificação de duplicadas terminar antes de importar."
     },
     "parseErrors": {
       "CSV_MISSING_PARTICIPANT_COLUMNS": "Faltam colunas de participantes no CSV",
       "CSV_NOT_SPLIIT_EXPORT": "O cabeçalho do CSV não é uma exportação do Spliit",
       "CSV_NOT_SPLITWISE_EXPORT": "O cabeçalho do CSV não é uma exportação do Splitwise",
-      "CSV_NO_DATA_ROWS": "O CSV não tem linhas de dados",
-      "CSV_NO_PARSEABLE_EXPENSES": "O CSV não tinha despesas interpretáveis",
-      "CSV_PARSE_FAILED": "Não foi possível interpretar o CSV: {detail}",
       "DELIMITED_NEEDS_HEADER_AND_ROWS": "O arquivo precisa de um cabeçalho e de pelo menos uma linha",
       "DELIMITED_NEEDS_TWO_COLUMNS": "O cabeçalho precisa de pelo menos duas colunas nomeadas",
       "DELIMITED_NO_DATA_ROWS": "O arquivo não tem linhas de dados",
@@ -3851,34 +1953,11 @@
       "SPLIIT_UNSUPPORTED_SHAPE": "Este arquivo não é uma exportação JSON compatível do spliit.app."
     },
     "reviewList": {
-      "duplicateExact": "Importação anterior exata: {title}",
-      "duplicateExactAmount": "Importação anterior exata: {title} · {amount}",
-      "duplicateExactDate": "Importação anterior exata: {title} em {expenseDate}",
-      "duplicateExactDateAmount": "Importação anterior exata: {title} em {expenseDate} · {amount}",
-      "duplicateExactUntitled": "Importação anterior exata: despesa existente",
-      "duplicateExactUntitledAmount": "Importação anterior exata: despesa existente · {amount}",
-      "duplicateExactUntitledDate": "Importação anterior exata: despesa existente em {expenseDate}",
-      "duplicateExactUntitledDateAmount": "Importação anterior exata: despesa existente em {expenseDate} · {amount}",
-      "duplicateExisting": "Possível despesa existente: {title}",
-      "duplicateExistingAmount": "Possível despesa existente: {title} · {amount}",
-      "duplicateExistingDate": "Possível despesa existente: {title} em {expenseDate}",
-      "duplicateExistingDateAmount": "Possível despesa existente: {title} em {expenseDate} · {amount}",
-      "duplicateExistingUntitled": "Possível despesa existente: título correspondente",
-      "duplicateExistingUntitledAmount": "Possível despesa existente: título correspondente · {amount}",
-      "duplicateExistingUntitledDate": "Possível despesa existente: título correspondente em {expenseDate}",
-      "duplicateExistingUntitledDateAmount": "Possível despesa existente: título correspondente em {expenseDate} · {amount}",
       "duplicateRepeated": "Linha de origem repetida neste arquivo",
       "duplicateRepeatedSource": "Linha de origem repetida neste arquivo (corresponde a {sourceRowId})",
-      "editRowLabel": "Editar linha {rowNumber}",
-      "emptyFilter": "Nenhuma despesa corresponde a este filtro.",
-      "invalidDate": "Data inválida",
       "missingTitle": "Título ausente",
       "mobileAmount": "Valor",
-      "mobileDate": "Data",
-      "mobileSourceRow": "Linha de origem",
       "mobileStatus": "Situação",
-      "mobileTitle": "Título",
-      "selectRowLabel": "Selecionar linha {rowNumber}: {title}, {amount}",
       "tableLabel": "Despesas para revisar"
     }
   }

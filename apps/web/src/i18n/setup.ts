@@ -2,7 +2,12 @@ import i18next from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 import { ACCOUNT_LOCALE_CHANGED_EVENT } from '@/lib/account-preferences'
-import { defaultLocale, locales, type Locale } from '@spliit/domain/i18n'
+import {
+  defaultLocale,
+  fallbackChain,
+  locales,
+  type Locale,
+} from '@spliit/domain/i18n'
 
 const COOKIE_NAME = 'SPLIIT_LOCALE'
 
@@ -40,10 +45,14 @@ const canonicalLocaleMap = new Map(
 )
 
 export async function loadLocale(locale: Locale) {
-  if (loadedLocales.has(locale)) return
-  const messages = await loadLocaleMessages(locale)
-  i18n.addResourceBundle(locale, defaultNS, messages, true, true)
-  loadedLocales.add(locale)
+  // Load the locale plus its fallback chain (e.g. pt-BR → pt → en-US) so
+  // sparse overlay locales resolve inherited keys at runtime.
+  for (const lng of [locale, ...fallbackChain(locale)]) {
+    if (loadedLocales.has(lng)) continue
+    const messages = await loadLocaleMessages(lng)
+    i18n.addResourceBundle(lng, defaultNS, messages, true, true)
+    loadedLocales.add(lng)
+  }
 }
 
 /**
@@ -118,6 +127,26 @@ export function detectLocale(): Locale {
   return detectBrowserLocale() ?? defaultLocale
 }
 
+/**
+ * I18next fallback map derived from the domain fallback chains. Sparse overlay
+ * locales inherit missing keys from their parent bundle(s); every other locale
+ * falls back to the default locale as before.
+ */
+export function buildFallbackLng(): Record<string, string[]> {
+  const fallbackLng: Record<string, string[]> = { default: [defaultLocale] }
+  for (const locale of locales) {
+    if (locale === defaultLocale) continue
+    const chain = fallbackChain(locale)
+    if (
+      chain.length > 0 &&
+      !(chain.length === 1 && chain[0] === defaultLocale)
+    ) {
+      fallbackLng[locale] = chain
+    }
+  }
+  return fallbackLng
+}
+
 export async function initI18n() {
   const locale = detectLocale()
   // Init first so the store API (addResourceBundle, hasResourceBundle, ...)
@@ -125,14 +154,14 @@ export async function initI18n() {
   // store methods onto the i18n object.
   await i18n.use(initReactI18next).init({
     lng: locale,
-    fallbackLng: defaultLocale,
+    fallbackLng: buildFallbackLng(),
     defaultNS,
     interpolation: { escapeValue: false, prefix: '{', suffix: '}' },
     partialBundledLanguages: true,
     resources: {},
   })
-  await loadLocale(defaultLocale)
-  if (locale !== defaultLocale) await loadLocale(locale)
+  // loadLocale also loads the fallback chain (e.g. pt-BR → pt → en-US).
+  await loadLocale(locale)
   return i18n
 }
 

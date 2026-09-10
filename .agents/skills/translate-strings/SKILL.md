@@ -33,6 +33,7 @@ license: MIT
 | Concern            | Where                                 | Updated by             |
 | ------------------ | ------------------------------------- | ---------------------- |
 | id + label         | `packages/domain/src/i18n.ts`         | `init-locale`          |
+| fallback chain     | `localeFallbacks` in same file        | `init-locale --sparse` |
 | messages           | `apps/web/src/messages/<locale>.json` | `init-locale` + `set`  |
 | i18next load       | glob in `setup.ts`                    | automatic              |
 | flag               | `locale-switcher.tsx`                 | `init-locale --flag`   |
@@ -68,6 +69,23 @@ Dispatch a translator with a prompt that says exactly that loop and names the gu
 
 ---
 
+## Sparse overlay locales (`en-GB`, `pt-BR`)
+
+These locales store **only keys that differ from their parent bundle**
+(`en-GB → en-US`, `pt-BR → pt → en-US`); missing keys inherit at runtime.
+
+- `bun i18n next --locale en-GB` reports `done` when everything is covered —
+  there is no exhaustive backfill loop for overlays.
+- For each new `en-US` key, compare against the parent value (`pack` shows it
+  as a ref): if identical, **omit the key** — do not `set` it.
+- `set` rejects values identical to the inherited parent value. It is not
+  bypassable with `--allow-english`; omission is the correct action.
+- `bun i18n prune --locale <l>` lists keys that can be dropped back to
+  inheritance (dry run; `--write` applies).
+- `check --locale <l>` passes when every key is either overridden or inherited.
+
+---
+
 ## Main agent (after editing en-US)
 
 ```bash
@@ -90,8 +108,10 @@ Follow `mode`: `noop` | `oneshot` (you translate) | `single` (one Task) | `paral
 
 ```bash
 bun i18n init-locale <code> --label "…" --flag "…" --family germanic|romance|… --guide path/to/<locale>-guide.md
+bun i18n init-locale en-AU --label "…" --flag "…" --family germanic --guide path/to/guide.md --sparse --fallback en-GB
 bun i18n next --locale L --size 40 --usages --json
 bun i18n set L --stdin
+bun i18n prune --locale L [--against P] [--write]   # sparse overlays only
 bun i18n plan --json
 bun i18n pack --locales a,b --keys k1,k2 --usages --json
 bun i18n usages Some.key --json

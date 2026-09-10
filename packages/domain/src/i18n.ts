@@ -41,6 +41,59 @@ export type Locales = ReadonlyArray<Locale>
 export const defaultLocale: Locale = 'en-US'
 
 /**
+ * Sparse overlay locales and the fallback bundles they inherit from.
+ *
+ * A locale listed here ships only the keys that genuinely differ from its
+ * parent: any missing key resolves through the chain at runtime (i18next
+ * `fallbackLng`) and is treated as covered by the `bun i18n` tooling. Locales
+ * NOT listed here are full bundles that must keep full parity with en-US (with
+ * en-US itself as their only runtime fallback).
+ *
+ * Keep entries minimal — chains resolve transitively, so `'en-AU': ['en-GB']`
+ * already implies `en-AU → en-GB → en-US`.
+ */
+export const localeFallbacks = {
+  'en-GB': ['en-US'],
+  'pt-BR': ['pt', 'en-US'],
+} as const satisfies Partial<Record<Locale, readonly Locale[]>>
+
+/** Sparse overlay locale: ships only overrides, inherits the rest. */
+export function isSparseLocale(locale: string): boolean {
+  return Object.hasOwn(localeFallbacks, locale)
+}
+
+/**
+ * Ordered fallback bundle chain for a locale (transitive, cycle-safe, always
+ * terminating at the default locale — empty for en-US itself).
+ */
+export function fallbackChain(locale: Locale): Locale[] {
+  if (locale === defaultLocale) return []
+  const chain: Locale[] = []
+  const seen = new Set<string>([locale])
+  const queue: Locale[] = [
+    ...((localeFallbacks[locale as keyof typeof localeFallbacks] ?? [
+      defaultLocale,
+    ]) as readonly Locale[]),
+  ]
+  while (queue.length > 0) {
+    const next = queue.shift()!
+    if (seen.has(next)) continue
+    seen.add(next)
+    chain.push(next)
+    const deeper = localeFallbacks[next as keyof typeof localeFallbacks] as
+      | readonly Locale[]
+      | undefined
+    if (deeper) {
+      for (const candidate of deeper) {
+        if (!seen.has(candidate)) queue.push(candidate)
+      }
+    }
+  }
+  if (!seen.has(defaultLocale)) chain.push(defaultLocale)
+  return chain
+}
+
+/**
  * Translation bundle identifiers are not always complete BCP 47 locale tags.
  * Resolve them to the regional locale whose formatting conventions match the
  * flag/region presented in the locale picker before using Intl APIs.

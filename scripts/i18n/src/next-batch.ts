@@ -1,4 +1,10 @@
-import { type Locale } from '../../../packages/domain/src/i18n.ts'
+import { type Locale } from '../../../packages/domain/src/i18n'
+import {
+  coveredKeys,
+  isSparseLocale,
+  parentRefLocales,
+  readChainDatas,
+} from './fallbacks'
 import { familyForLocale } from './families'
 import { readMessagesFile } from './fs-helpers'
 import { getGuidePaths, type GuidePaths } from './guides'
@@ -40,12 +46,16 @@ export type NextBatchOptions = {
 const DEFAULT_SIZE = 40
 
 function defaultRefs(locale: Locale): Locale[] {
+  // Parent bundles first: a sparse overlay is translated against them.
+  const parents = parentRefLocales(locale).filter((r) => r !== locale)
   const family = familyForLocale(locale)
-  if (!family) return []
-  return family.refsHint
-    .split(',')
-    .map((s) => s.trim())
-    .filter((r) => r.length > 0 && r !== locale) as Locale[]
+  const familyRefs = family
+    ? (family.refsHint
+        .split(',')
+        .map((s) => s.trim())
+        .filter((r) => r.length > 0 && r !== locale) as Locale[])
+    : []
+  return [...new Set([...parents, ...familyRefs])]
 }
 
 async function localeProgress(locale: Locale): Promise<{
@@ -58,8 +68,12 @@ async function localeProgress(locale: Locale): Promise<{
     readMessagesFile(locale),
   ])
   const expected = expectedKeysForLocale(flattenKeys(enData), locale)
-  const present = new Set(flattenKeys(localeData))
-  const completedCount = expected.filter((k) => present.has(k)).length
+  // Sparse overlays inherit missing keys — only uncovered keys are work.
+  const done =
+    isSparseLocale(locale) && locale !== 'en-US'
+      ? coveredKeys(await readChainDatas(locale))
+      : new Set(flattenKeys(localeData))
+  const completedCount = expected.filter((k) => done.has(k)).length
   return {
     expectedTotal: expected.length,
     completedCount,

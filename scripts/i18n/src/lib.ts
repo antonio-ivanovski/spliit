@@ -1,6 +1,8 @@
-import { locales, type Locale } from '../../../packages/domain/src/i18n.ts'
+import { locales, type Locale } from '../../../packages/domain/src/i18n'
 
-export { locales, type Locale }
+export { locales }
+export type { Locale }
+export { fallbackChain, isSparseLocale } from './fallbacks'
 
 export type { Path } from './object-path'
 
@@ -11,7 +13,15 @@ export type DiffResult = {
     modified: string[]
     removed: string[]
   }
-  translationWork: Record<string, { missing: string[]; present: string[] }>
+  translationWork: Record<
+    string,
+    {
+      missing: string[]
+      present: string[]
+      /** Changed keys a sparse overlay inherits — no action needed. */
+      covered: string[]
+    }
+  >
   legacyMissing: Record<string, number>
 }
 
@@ -26,6 +36,8 @@ export type LocaleAudit = {
   present: number
   missing: number
   missingKeys: string[]
+  /** Keys stored in the locale file itself (== present for full locales). */
+  overrides: number
   /** Introduced keys whose locale value equals en-US and is not auto-allowed. */
   untranslatedEnglishKeys: string[]
   untranslatedEnglish: number
@@ -86,6 +98,9 @@ export {
   setStrings,
 } from './translate'
 
+export { pruneLocale } from './prune'
+export type { PruneOptions, PruneResult } from './prune'
+
 export { packMessages } from './pack'
 export type {
   LocaleKeyStatus,
@@ -143,6 +158,12 @@ export {
 // ---------------------------------------------------------------------------
 
 import { classifyEnglishIdentity } from './english-identity'
+import {
+  coveredKeys,
+  isSparseLocale,
+  ownKeys,
+  readChainDatas,
+} from './fallbacks'
 import {
   LOCALE_TO_FILE,
   readGitBlob,
@@ -205,15 +226,19 @@ export async function diffMessages(
 
   const translationWork: Record<
     string,
-    { missing: string[]; present: string[] }
+    { missing: string[]; present: string[]; covered: string[] }
   > = {}
   const legacyMissing: Record<string, number> = {}
   const allEnKeys = flattenKeys(enNow)
 
   await Promise.all(
     targetLocales.map(async (locale) => {
-      const data = await readMessagesFile(locale)
-      const presentKeys = new Set(flattenKeys(data))
+      const sparse = isSparseLocale(locale)
+      const chain = sparse ? await readChainDatas(locale) : null
+      const presentKeys = chain
+        ? ownKeys(chain)
+        : new Set(flattenKeys(await readMessagesFile(locale)))
+      const covered = chain ? coveredKeys(chain) : presentKeys
       const expectedKeys = new Set(expectedKeysForLocale(newKeys, locale))
       const relevantChangedKeys = changedKeys.filter((key) =>
         expectedKeys.has(key),
@@ -221,14 +246,16 @@ export async function diffMessages(
 
       const missing: string[] = []
       const present: string[] = []
+      const coveredList: string[] = []
       for (const key of relevantChangedKeys) {
         if (presentKeys.has(key)) present.push(key)
+        else if (sparse && covered.has(key)) coveredList.push(key)
         else missing.push(key)
       }
-      translationWork[locale] = { missing, present }
+      translationWork[locale] = { missing, present, covered: coveredList }
 
       const legacyCount = expectedKeysForLocale(allEnKeys, locale).filter(
-        (k) => !presentKeys.has(k) && !changedKeySet.has(k),
+        (k) => !covered.has(k) && !changedKeySet.has(k),
       ).length
       legacyMissing[locale] = legacyCount
     }),
@@ -268,7 +295,9 @@ export async function validateAllMessages(
       )
       .map(async (locale) => {
         try {
-          const data = await readMessagesFile(locale)
+          const sparse = isSparseLocale(locale)
+          const chain = sparse ? await readChainDatas(locale) : null
+          const data = chain ? chain[0].data : await readMessagesFile(locale)
           const localeKeys = flattenKeys(data)
           for (const key of localeKeys) {
             if (!isAllowedLocaleKey(key, sourceKeys, sourceFamilies)) {
@@ -282,6 +311,7 @@ export async function validateAllMessages(
             data,
             sourceData,
             sourceKeyList,
+            chain ? coveredKeys(chain) : undefined,
           )) {
             errors.push(`${LOCALE_TO_FILE[locale]}: ${error}`)
           }
@@ -336,10 +366,15 @@ export async function auditMessages(
   const localesAudit: Record<string, LocaleAudit> = {}
   await Promise.all(
     targetLocales.map(async (locale) => {
-      const data = await readMessagesFile(locale)
+      const sparse = isSparseLocale(locale)
+      const chain = sparse ? await readChainDatas(locale) : null
+      const data = chain ? chain[0].data : await readMessagesFile(locale)
       const presentSet = new Set(flattenKeys(data))
+      // Sparse overlays inherit missing keys from their parent bundle(s);
+      // only keys covered nowhere count as missing.
+      const covered = chain ? coveredKeys(chain) : presentSet
       const expectedKeys = expectedKeysForLocale(enKeys, locale)
-      let missingKeysList = expectedKeys.filter((k) => !presentSet.has(k))
+      let missingKeysList = expectedKeys.filter((k) => !covered.has(k))
       if (opts.changesOnly) {
         missingKeysList = missingKeysList.filter((k) => introducedSet.has(k))
       }
@@ -361,6 +396,7 @@ export async function auditMessages(
         present: presentCount,
         missing: missingKeysList.length,
         missingKeys: missingKeysList,
+        overrides: presentSet.size,
         untranslatedEnglishKeys: untranslated,
         untranslatedEnglish: untranslated.length,
         coverage: localeTotal === 0 ? 1 : presentCount / localeTotal,
@@ -427,10 +463,13 @@ export async function missingKeysByLocale(): Promise<Record<Locale, string[]>> {
     locales
       .filter((l) => l !== 'en-US')
       .map(async (locale) => {
-        const data = await readMessagesFile(locale)
-        const present = new Set(flattenKeys(data))
+        const sparse = isSparseLocale(locale)
+        const chain = sparse ? await readChainDatas(locale) : null
+        const covered = chain
+          ? coveredKeys(chain)
+          : new Set(flattenKeys(await readMessagesFile(locale)))
         result[locale] = expectedKeysForLocale(enKeys, locale).filter(
-          (k) => !present.has(k),
+          (k) => !covered.has(k),
         )
       }),
   )

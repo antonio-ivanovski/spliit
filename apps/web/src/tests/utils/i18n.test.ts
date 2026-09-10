@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { I18nProvider } from '@/i18n/react'
 import { defaultLocale } from '@/i18n/request'
 import {
+  buildFallbackLng,
   detectBrowserLocale,
   detectLocale,
   i18n,
@@ -168,6 +169,72 @@ describe('setUserLocale', () => {
     await setUserLocale('de-DE')
     expect(i18n.language).toBe('de-DE')
     expect(getCookie(COOKIE_NAME)).toBe('de-DE')
+  })
+})
+
+// ── fallback chains ────────────────────────────────────────────────────
+
+describe('buildFallbackLng', () => {
+  it('maps sparse overlays to their parent bundle(s)', () => {
+    expect(buildFallbackLng()).toEqual({
+      default: ['en-US'],
+      'pt-BR': ['pt', 'en-US'],
+    })
+  })
+})
+
+describe('sparse overlay fallback', () => {
+  // Test-only key outside the typed translation keys.
+  const probeKey = '__fallbackProbe' as unknown as 'Tools.title'
+
+  afterEach(async () => {
+    await resetLocale()
+  })
+
+  it('loads the fallback chain bundles alongside the locale', async () => {
+    await loadLocale('pt-BR')
+
+    expect(i18n.hasResourceBundle('pt-BR', 'translation')).toBe(true)
+    expect(i18n.hasResourceBundle('pt', 'translation')).toBe(true)
+    expect(i18n.hasResourceBundle('en-US', 'translation')).toBe(true)
+  })
+
+  it('resolves missing en-GB keys from en-US', async () => {
+    await loadLocale('en-GB')
+    i18n.addResourceBundle(
+      'en-US',
+      'translation',
+      { __fallbackProbe: 'probe-value' },
+      true,
+      true,
+    )
+    expect(i18n.getResource('en-GB', 'translation', probeKey)).toBe(undefined)
+
+    await i18n.changeLanguage('en-GB')
+
+    expect(i18n.t(probeKey)).toBe('probe-value')
+  })
+
+  it('resolves missing pt-BR keys from pt before en-US', async () => {
+    await loadLocale('pt-BR')
+    i18n.addResourceBundle(
+      'pt',
+      'translation',
+      { __fallbackProbe: 'valor-pt' },
+      true,
+      true,
+    )
+    i18n.addResourceBundle(
+      'en-US',
+      'translation',
+      { __fallbackProbe: 'probe-value' },
+      true,
+      true,
+    )
+
+    await i18n.changeLanguage('pt-BR')
+
+    expect(i18n.t(probeKey)).toBe('valor-pt')
   })
 })
 

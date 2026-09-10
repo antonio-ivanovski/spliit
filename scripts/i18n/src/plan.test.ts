@@ -8,14 +8,14 @@ import {
   LANGUAGE_FAMILIES,
   assertFamiliesCoverAllLocales,
   nonEnLocales,
-} from './families.ts'
+} from './families'
 import {
   LOCALE_TO_FILE,
   packMessages,
   planTranslations,
   selectPlanMode,
   setMessagesDir,
-} from './lib.ts'
+} from './lib'
 
 describe('selectPlanMode', () => {
   it('maps key counts to modes', () => {
@@ -95,7 +95,10 @@ describe('planTranslations', () => {
     expect(plan.batches[0].guidePaths.locales['en-GZ']).toBe(
       'scripts/i18n/guides/en-GZ.md',
     )
-    expect(plan.summary.missingCells).toBe(nonEnLocales().length * 2)
+    expect(plan.summary.missingCells).toBe(
+      // Sparse overlays (en-GB, pt-BR) inherit new keys — no work cells.
+      (nonEnLocales().length - 2) * 2,
+    )
   })
 
   it('uses single mode for 3–8 keys', async () => {

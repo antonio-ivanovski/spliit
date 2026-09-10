@@ -1,7 +1,7 @@
 import { access, copyFile, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
-import { locales, type Locale } from '../../../packages/domain/src/i18n.ts'
+import { locales, type Locale } from '../../../packages/domain/src/i18n'
 import { LANGUAGE_FAMILIES } from './families'
 import { localeFileName } from './fs-helpers'
 import { GUIDES_DIR, assertCompletedGuide, resolveGuideInput } from './guides'
@@ -22,6 +22,13 @@ export type InitLocaleOptions = {
   guide: string
   rtl?: boolean
   from?: Locale
+  /**
+   * Start as a sparse overlay (empty message file, inherits everything).
+   * Requires fallback resolution — defaults to en-US.
+   */
+  sparse?: boolean
+  /** Direct fallback parent for a sparse overlay (e.g. en-GB for en-AU). */
+  fallback?: string
   /** Project root (defaults to cwd). */
   root?: string
 }
@@ -205,6 +212,26 @@ export async function initLocale(
   if (opts.from && !(locales as readonly string[]).includes(opts.from)) {
     throw new Error(`unknown --from locale: ${opts.from}`)
   }
+  const sparse = !!opts.sparse
+  if (opts.fallback && !sparse) {
+    throw new Error('--fallback requires --sparse')
+  }
+  if (opts.from && sparse) {
+    throw new Error('--from and --sparse are mutually exclusive')
+  }
+  if (opts.fallback) {
+    if (!/^[a-z]{2}(-[A-Z]{2})?$/.test(opts.fallback)) {
+      throw new Error(
+        `invalid --fallback locale "${opts.fallback}" — expected like "pt" or "en-GB"`,
+      )
+    }
+    if (!(locales as readonly string[]).includes(opts.fallback)) {
+      throw new Error(`unknown --fallback locale: ${opts.fallback}`)
+    }
+    if (opts.fallback === opts.code) {
+      throw new Error('--fallback must differ from the new locale code')
+    }
+  }
   const familyIds = LANGUAGE_FAMILIES.map((f) => f.id)
   if (!familyIds.includes(opts.family)) {
     throw new Error(
@@ -228,15 +255,23 @@ export async function initLocale(
     throw new Error(`translation guide already exists: ${guideRel}`)
   }
 
-  // 1. domain localeLabels
+  // 1. domain localeLabels (+ localeFallbacks for sparse overlays)
   const domainPath = join(root, DOMAIN_I18N)
   const domainSrc = await readFile(domainPath, 'utf8')
-  const domainNext = insertObjectEntry(
+  let domainNext = insertObjectEntry(
     domainSrc,
     'export const localeLabels',
     opts.code,
     `'${opts.label.replace(/'/g, "\\'")}'`,
   )
+  if (sparse) {
+    domainNext = insertObjectEntry(
+      domainNext,
+      'export const localeFallbacks',
+      opts.code,
+      `['${opts.fallback ?? 'en-US'}']`,
+    )
+  }
   await writeFile(domainPath, domainNext, 'utf8')
   filesTouched.push(DOMAIN_I18N)
 
@@ -287,13 +322,20 @@ export async function initLocale(
     filesTouched.push(I18N_REACT)
   }
 
-  const nextSteps = [
-    `Read ${guideRel} together with ${GUIDES_DIR}/default.md before translating.`,
-    `bun i18n next --locale ${opts.code} --size 40 --usages --json`,
-    `bun i18n set ${opts.code} --stdin   # fill applyTemplate / translate keys`,
-    `# repeat next → set until next.done === true`,
-    `bun i18n check --locale ${opts.code}`,
-  ]
+  const nextSteps = sparse
+    ? [
+        `Sparse overlay inheriting from ${opts.fallback ?? 'en-US'} — only set keys that genuinely differ.`,
+        `bun i18n set ${opts.code} <path> "<value>"   # rejects values identical to the parent`,
+        `bun i18n prune --locale ${opts.code}         # dry run: list inheritable keys`,
+        `bun i18n check --locale ${opts.code}`,
+      ]
+    : [
+        `Read ${guideRel} together with ${GUIDES_DIR}/default.md before translating.`,
+        `bun i18n next --locale ${opts.code} --size 40 --usages --json`,
+        `bun i18n set ${opts.code} --stdin   # fill applyTemplate / translate keys`,
+        `# repeat next → set until next.done === true`,
+        `bun i18n check --locale ${opts.code}`,
+      ]
 
   return {
     code: opts.code,

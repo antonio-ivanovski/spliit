@@ -1,4 +1,5 @@
-import { type Locale } from '../../../packages/domain/src/i18n.ts'
+import { type Locale } from '../../../packages/domain/src/i18n'
+import { coveredKeys, isSparseLocale, readChainDatas } from './fallbacks'
 import {
   LANGUAGE_FAMILIES,
   assertFamiliesCoverAllLocales,
@@ -136,6 +137,7 @@ function buildTranslatorPrompt(opts: {
   const keyLines = opts.keys
     .map((k) => `- ${k.key} (${k.change}): ${JSON.stringify(k.en)}`)
     .join('\n')
+  const sparse = opts.locales.filter((l) => isSparseLocale(l))
   return [
     `You are a Spliit translation subagent for batch "${opts.batchId}".`,
     `Load the skill at .agents/skills/translate-strings/SKILL.md (translator role).`,
@@ -143,6 +145,11 @@ function buildTranslatorPrompt(opts: {
     `Own ONLY these locales (do not edit any other locale or en-US): ${opts.locales.join(', ')}`,
     ...guideLines(opts.guidePaths, opts.locales),
     `Suggested terminology refs within the family: ${opts.refsHint}`,
+    ...(sparse.length > 0
+      ? [
+          `Sparse overlay locale(s): ${sparse.join(', ')} — only set keys that genuinely differ from their parent bundle; omit identical keys to inherit them (\`set\` rejects inherited values).`,
+        ]
+      : []),
     ``,
     `Keys to translate (introduced vs ref):`,
     keyLines,
@@ -231,8 +238,12 @@ export async function planTranslations(
 
   await Promise.all(
     targetLocales.map(async (locale) => {
-      const data = await readMessagesFile(locale)
-      const present = new Set(flattenKeys(data))
+      const sparse = isSparseLocale(locale)
+      const chain = sparse ? await readChainDatas(locale) : null
+      const present = chain
+        ? new Set(flattenKeys(chain[0].data))
+        : new Set(flattenKeys(await readMessagesFile(locale)))
+      const covered = chain ? coveredKeys(chain) : present
       const expected = new Set(
         expectedKeysForLocale(flattenKeys(enData), locale),
       )
@@ -241,6 +252,8 @@ export async function planTranslations(
       for (const key of keyList) {
         if (!expected.has(key)) continue
         if (!present.has(key)) {
+          // Sparse overlays inherit this key — no work in this locale.
+          if (sparse && covered.has(key)) continue
           missing++
           continue
         }
